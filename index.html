@@ -13,30 +13,44 @@
 /* Layout: full-bleed 3D stage with a docked spec sheet on the right; stacks (stage above, sheet below) on phones */
 :root{
   --bg:#130f0c; --panel:#1b1512; --raise:#241b17; --line:#3a2b22;
-  --fg:#f3e8d9; --muted:#b5a28c; --amber:#e9a94b; --ox:#c4573c; --green:#4f9a7c; --warn:#e5c15a;
+  --fg:#f3e8d9; --muted:#b5a28c; --amber:#e9a94b; --ox:#c4573c; --green:#4f9a7c; --steel:#9fb4c2; --warn:#e5c15a;
   --display:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', sans-serif;
   --body:'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
   --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
   color-scheme:dark;
 }
 html,body{height:100%}
+[hidden]{display:none!important}
 body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.55;margin:0}
 .app{display:grid;grid-template-columns:minmax(0,1fr) 400px;height:100%}
 .stage{position:relative;min-width:0;overflow:hidden;background:#100c12}
 .stage canvas{display:block;width:100%;height:100%;touch-action:none}
 .labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
-.lbl{position:absolute;left:0;top:0;white-space:nowrap;font:500 11.5px/1 var(--body);color:var(--fg);background:rgba(19,15,12,.84);
+.lbl{position:absolute;left:0;top:0;white-space:nowrap;font:500 11.5px/1 var(--body);color:var(--fg);background:rgba(19,15,12,.84);will-change:transform;
   border:1px solid rgba(233,169,75,.45);padding:5px 8px 5px 7px;border-radius:999px;display:flex;align-items:center;gap:6px}
 .lbl i{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
-.lbl.u i{background:var(--green)} .lbl.u{border-color:rgba(79,154,124,.55)}
 .lbl.o i{background:var(--ox)} .lbl.o{border-color:rgba(196,87,60,.55)}
-.toolbar{position:absolute;left:16px;right:16px;top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
-.seg{display:flex;flex-wrap:wrap;background:rgba(19,15,12,.86);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px;backdrop-filter:blur(6px)}
+.lbl.k i{background:var(--steel)} .lbl.k{border-color:rgba(159,180,194,.55);font-size:11px}
+.lbl.cta{border-color:var(--amber);background:rgba(60,38,14,.9)}
+.toolbar{position:absolute;left:16px;right:16px;top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;pointer-events:none}
+.seg{pointer-events:auto;display:flex;flex-wrap:wrap;background:rgba(19,15,12,.86);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
 .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 12px/1 var(--body);padding:8px 11px;border-radius:9px;cursor:pointer}
 .seg button:hover{color:var(--fg);background:rgba(255,255,255,.05)}
 .seg button[aria-pressed="true"]{background:var(--amber);color:#1b120a}
-.seg button:focus-visible{outline:2px solid var(--green);outline-offset:1px}
-.hint{position:absolute;left:16px;bottom:14px;font:400 11.5px/1.3 var(--mono);color:var(--muted);background:rgba(19,15,12,.72);padding:6px 9px;border-radius:8px}
+button:focus-visible{outline:2px solid var(--green);outline-offset:1px}
+.hint{position:absolute;left:16px;bottom:14px;font:400 11.5px/1.3 var(--mono);color:var(--muted);background:rgba(19,15,12,.72);padding:6px 9px;border-radius:8px;pointer-events:none}
+.htag{position:absolute;left:0;top:0;pointer-events:none;font:600 12px/1 var(--body);color:#1b120a;background:var(--amber);padding:6px 9px;border-radius:8px;white-space:nowrap}
+.card{position:absolute;right:16px;bottom:16px;width:min(380px,calc(100% - 32px));max-height:calc(100% - 120px);overflow-y:auto;background:rgba(27,21,18,.96);border:1px solid var(--line);border-radius:14px;padding:16px 18px 16px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.card h3{font:700 22px/1.1 var(--display);margin:0 0 6px}
+.card p{color:#e1d3c1;font-size:13px}
+.card ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#d7c8b4}
+.card ul li{padding-left:14px;position:relative}
+.card ul li::before{content:"";position:absolute;left:0;top:.6em;width:6px;height:6px;border-radius:50%;background:var(--amber)}
+.card .btns{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.card .btns button{appearance:none;border:1px solid var(--line);background:var(--raise);color:var(--fg);font:500 12px/1 var(--body);padding:8px 11px;border-radius:9px;cursor:pointer}
+.card .btns button:hover{border-color:var(--amber)}
+.card .x{position:absolute;right:10px;top:10px;appearance:none;border:0;background:transparent;color:var(--muted);font-size:20px;line-height:1;cursor:pointer;padding:4px 8px;border-radius:8px}
+.card .x:hover{color:var(--fg);background:rgba(255,255,255,.06)}
 .err{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
 
 .panel{overflow-y:auto;border-left:1px solid var(--line);background:var(--panel);padding-block:26px 40px;padding-inline:24px;display:flex;flex-direction:column;gap:26px}
@@ -45,26 +59,21 @@ h1{font:700 38px/1.02 var(--display);letter-spacing:-.02em;margin:0 0 10px;text-
 h2{font:600 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 p{margin:0}
 .lede{color:#e5d8c6;max-width:62ch}
-dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
-dt{color:var(--muted)} dd{margin:0;font-variant-numeric:tabular-nums}
 table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
 td{padding:6px 0;border-bottom:1px solid rgba(58,43,34,.6);vertical-align:top}
 td:first-child{font:500 10.5px/1.9 var(--mono);text-transform:uppercase;letter-spacing:.06em;width:62px}
 td.n{text-align:right;font-family:var(--mono);width:36px}
-tr.g td:first-child{color:var(--amber)} tr.u td:first-child{color:var(--green)} tr.o td:first-child{color:var(--ox)}
+tr.g td:first-child{color:var(--amber)} tr.o td:first-child{color:var(--ox)}
 tr.total td{border-bottom:0;font-weight:600;padding-top:9px}
-tr.sub td{color:var(--muted);border-bottom:0;padding-top:2px}
 ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
 ul.zones li{display:grid;grid-template-columns:104px 1fr;gap:10px}
-ul.zones b{font-weight:600}
-ul.zones span{color:#dacbb8}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+ul.zones b{font-weight:600} ul.zones span{color:#dacbb8}
+ol.flow{margin:0 0 12px;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:6px;counter-reset:f}
+ol.flow li{counter-increment:f;font:500 12px/1 var(--body);background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:6px 10px 6px 6px;display:flex;align-items:center;gap:6px}
+ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:var(--steel);color:#14110e}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:flex;align-items:center;gap:7px;font-size:12px;color:#dacbb8;background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:4px 10px 4px 5px}
 .chip i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
-ul.map li{display:grid;grid-template-columns:1fr;gap:1px;padding-left:12px;border-left:2px solid var(--line)}
-ul.map b{font-weight:600} ul.map span{color:#d4c5b1}
-ol.shots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;color:#dacbb8}
-ol.shots b{color:var(--fg);font-weight:600}
 .flags li{background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
 .flags b{display:block;font-weight:600;margin-bottom:2px}
 .flags span{color:#d4c5b1}
@@ -74,10 +83,11 @@ ol.shots b{color:var(--fg);font-weight:600}
 .note{font-size:12.5px;color:var(--muted)}
 @media (max-width:900px){
   html,body{height:auto}
-  .app{grid-template-columns:1fr;grid-template-rows:66vh auto;height:auto}
+  .app{grid-template-columns:1fr;grid-template-rows:68vh auto;height:auto}
   .panel{border-left:0;border-top:1px solid var(--line);overflow:visible;padding-inline:16px}
   .toolbar{left:10px;right:10px;top:10px}
   .seg button{padding:7px 9px;font-size:11.5px}
+  .card{right:10px;left:10px;bottom:10px;width:auto;max-height:46%}
   ul.zones li{grid-template-columns:1fr;gap:2px}
   h1{font-size:32px}
 }
@@ -89,78 +99,78 @@ ol.shots b{color:var(--fg);font-weight:600}
     <div class="toolbar">
       <div class="seg" role="group" aria-label="Camera">
         <button data-view="iso" aria-pressed="true">Overview</button>
+        <button data-view="kitchen" aria-pressed="false">Kitchen</button>
+        <button data-view="bar" aria-pressed="false">The bar</button>
+        <button data-view="booths" aria-pressed="false">Booths</button>
         <button data-view="garden" aria-pressed="false">Beer garden</button>
         <button data-view="street" aria-pressed="false">From the road</button>
-        <button data-view="bar" aria-pressed="false">The bar</button>
-        <button data-view="door" aria-pressed="false">Looking out</button>
-        <button data-view="loft" aria-pressed="false">Loft</button>
         <button data-view="plan" aria-pressed="false">Plan</button>
       </div>
       <div class="seg" role="group" aria-label="Display">
-        <button id="t-loft" aria-pressed="true">Loft</button>
         <button id="t-cut" aria-pressed="true">Cutaway</button>
         <button id="t-lbl" aria-pressed="true">Labels</button>
         <button id="t-night" aria-pressed="true">Evening</button>
       </div>
     </div>
-    <div class="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan</div>
+    <div class="htag" id="htag" hidden></div>
+    <div class="card" id="card" hidden>
+      <button class="x" id="cardX" aria-label="Close">×</button>
+      <p class="eyebrow" id="cardEy"></p>
+      <h3 id="cardT"></h3>
+      <p id="cardB"></p>
+      <ul id="cardL"></ul>
+      <div class="btns" id="cardBtns"></div>
+    </div>
+    <div class="hint">Click a zone to explore it · drag to orbit · scroll to zoom · right-drag to pan</div>
   </div>
 
   <aside class="panel">
     <header>
-      <p class="eyebrow">Concept 02 · 4.5 × 4.5 × 10.5 m shell</p>
+      <p class="eyebrow">Concept 03 · 4.5 × 4.5 × 10.5 m shell · 30 covers</p>
       <h1>Dim sum, draught &amp; records</h1>
-      <p class="lede">A warm, rustic pub serving dim sum, bar bites, craft beer and cocktails. It has exposed brick, dark timber beams, oxblood leather and a black fluted bar under Edison globes, plus a string-lit beer garden out front. Left and right are as you walk in from the road.</p>
+      <p class="lede">A warm, rustic pub for dim sum, bar bites, craft beer and cocktails. The bar is the brightest thing in the room. The kitchen is planned the way a commercial kitchen would be, and you can click into it. Every seat has a back. Left and right are as you walk in from the road.</p>
     </header>
 
     <section>
-      <h2>Shell</h2>
-      <dl>
-        <dt>Inside</dt><dd>4.5 m wide × 10.5 m long × 4.5 m tall</dd>
-        <dt>Floor area</dt><dd>47 m² ground + 15.7 m² loft (optional)</dd>
-        <dt>Front</dt><dd>4.5 m shutter; glazed steel doors behind it</dd>
-        <dt>Forecourt</dt><dd>~7 × 6 m beer garden under a pergola</dd>
-      </dl>
-    </section>
-
-    <section>
-      <h2>Covers</h2>
+      <h2>Covers · 30</h2>
       <table>
-        <tr class="g"><td>Ground</td><td>Chesterfield lounge by the window</td><td class="n">4</td></tr>
-        <tr class="g"><td>Ground</td><td>Bar stools</td><td class="n">7</td></tr>
-        <tr class="g"><td>Ground</td><td>Two leather booths</td><td class="n">8</td></tr>
-        <tr class="u"><td>Loft</td><td>Floor-cushion snug, 3 low tables</td><td class="n">10</td></tr>
-        <tr class="o"><td>Garden</td><td>Two communal tables under the pergola</td><td class="n">12</td></tr>
-        <tr class="total"><td></td><td>Total with loft</td><td class="n">41</td></tr>
-        <tr class="sub"><td></td><td>Without loft (phase 1)</td><td class="n">31</td></tr>
+        <tr class="g"><td>Inside</td><td>Bar stools with padded backrests</td><td class="n">8</td></tr>
+        <tr class="g"><td>Inside</td><td>Two high-back leather booths</td><td class="n">8</td></tr>
+        <tr class="g"><td>Inside</td><td>Chesterfield sofa + two armchairs</td><td class="n">4</td></tr>
+        <tr class="o"><td>Garden</td><td>Communal table, benches with backrests</td><td class="n">6</td></tr>
+        <tr class="o"><td>Garden</td><td>Two tables for two, cane chairs</td><td class="n">4</td></tr>
+        <tr class="total"><td></td><td>Total</td><td class="n">30</td></tr>
       </table>
+      <p class="note" style="margin-top:8px">The loft is gone. Removing it gives the kitchen the full width of the building and avoids the spiral stair and steel deck.</p>
     </section>
 
     <section>
-      <h2>Zones, front to back</h2>
+      <h2>Kitchen · 4.5 × 2.9 m (13 m²)</h2>
+      <ol class="flow">
+        <li>Receive</li><li>Store</li><li>Prep</li><li>Cook</li><li>Pass</li><li>Floor</li>
+      </ol>
       <ul class="zones">
-        <li><b>Beer garden</b><span>A timber pergola with a clear polycarbonate roof, so it works in light rain. Trailing vines and five strands of festoon bulbs hang from it over two long communal tables, with a chalkboard at the gate.</span></li>
-        <li><b>Reception</b><span>On the left as you enter: a cane-fronted host desk with a brass lamp, set against the pop-art dim sum mural. A small bench gives waiting guests somewhere to sit.</span></li>
-        <li><b>Lounge</b><span>On the right by the glass: a chesterfield sofa, two leather armchairs, a jukebox and plaid throws.</span></li>
-        <li><b>Bar</b><span>3.8 m along the right wall. The counter has a black fluted front, a marble top, amber underglow and a brass foot rail. Six craft taps sit on two brass fonts. Behind it, green tile runs to the ceiling, with lit bottle shelves, two TVs, red neon tubes and a "bao, baby?" script neon. Pothos trails from a rail above.</span></li>
-        <li><b>Booths</b><span>Two oxblood leather booths on the left, set against exposed brick and a wall of tin signs, clocks and plates, with Edison sconces.</span></li>
-        <li><b>Kitchen</b><span>2.4 × 3.4 m at the back right. Staff go in from behind the bar, and servers pick up at a pass hatch. It has a wok range, fryer, a dim sum steamer station, an upright fridge, a prep table with a chiller underneath, and a pot-wash sink.</span></li>
-        <li><b>Exhaust</b><span>A hood runs the full length of the cooking line. The duct goes out through the back wall, then up the outside to above the roof, with a cowl.</span></li>
-        <li><b>Washroom</b><span>At the back left, off a short corridor. Green subway tile, a timber vanity, a round brass mirror and a pendant light. A keg and dry store sits next to it.</span></li>
-        <li><b>Loft</b><span>A steel deck at 2.55 m over the kitchen and washroom, reached by a spiral stair. Headroom up there is about 1.95 m, so it's floor-cushion seating only.</span></li>
+        <li><b>Receiving</b><span>A rear service door brings deliveries in and takes waste out, so neither passes through the dining room.</span></li>
+        <li><b>Cold store</b><span>A 2-door reach-in fridge, plus a freezer under the non-veg prep table.</span></li>
+        <li><b>Prep</b><span>Veg and dumpling-folding prep sits on the front wall, and non-veg prep on the right wall, so raw meat never shares a bench with veg.</span></li>
+        <li><b>Hot line</b><span>One 3.4 m baffle-filter hood covers a 2-burner Chinese wok range, a gas dim sum steamer, a twin-basket fryer and a 2-burner range for stock and sauces.</span></li>
+        <li><b>Pass</b><span>A plating station under a heat lamp, with a ticket rail. Servers collect through a hatch in the wall, so they never enter the kitchen.</span></li>
+        <li><b>Dish</b><span>Dirty plates come in by the door and land straight on the dish table: pre-rinse, hood dishwasher, then the 2-bowl pot sink. They never cross the hot line.</span></li>
+        <li><b>Safety</b><span>A hand-wash sink at the door, a wet-chemical fire suppression system over the line, a K-class extinguisher, an insect killer and a floor drain with a grease trap.</span></li>
+        <li><b>Finishes</b><span>304 stainless steel worktops, white tile to 2.1 m, an epoxy floor with coved edges, and a washable ceiling at 2.7 m.</span></li>
+        <li><b>Services</b><span>The LPG cylinders sit outside the back wall in a ventilated cage, with a leak detector and a solenoid shut-off. The exhaust duct runs out the back and up past the roof, with a fresh-air make-up fan.</span></li>
       </ul>
+      <p class="note" style="margin-top:10px">Kitchens usually take 30–40% of a restaurant's floor. This one takes 28%. That works for dim sum, because dumplings are folded ahead and steamed to order.</p>
     </section>
 
     <section>
-      <h2>Where your boards show up</h2>
-      <ul class="map">
-        <li><b>Bierhaus brick and leather</b><span>The brick wall, timber ceiling beams, plaid cushions and tree-stump stools in the loft.</span></li>
-        <li><b>Dark bar with marble and globes</b><span>The fluted black counter, marble top, Edison globe pendants and hanging vines.</span></li>
-        <li><b>Pop-art arch mural</b><span>The dim sum mural behind reception, visible from the road.</span></li>
-        <li><b>Bao shop, green tile and red neon</b><span>The back-bar tile, red neon tubes, script neon and washroom tile.</span></li>
-        <li><b>Tin-sign wall</b><span>The memorabilia wall above the booths.</span></li>
-        <li><b>Sports bar and jukebox</b><span>Two TVs over the back bar, the jukebox in the lounge and the leather armchairs.</span></li>
-        <li><b>String-light garden</b><span>The pergola, vines, festoon bulbs and communal tables.</span></li>
+      <h2>The bar</h2>
+      <ul class="zones">
+        <li><b>Counter</b><span>4.4 m with a curved marble end facing the door. The front is black fluted, with a brass edge, a double amber LED line and a brass foot rail.</span></li>
+        <li><b>Back bar</b><span>Backlit honey-onyx panels behind glass shelves, so the bottles glow. Glass-door beer fridges sit below, green tile runs above, with two TVs, red neon tubes and a "bao, baby?" script neon.</span></li>
+        <li><b>Gantry</b><span>A timber-and-brass rack hung over the counter, holding glasses, trailing pothos and globe pendants.</span></li>
+        <li><b>Working side</b><span>A speed rail, ice well, bar sink and glasswasher behind the counter, with 6 craft taps on two brass fonts.</span></li>
+        <li><b>Seating</b><span>8 red leather stools with padded backrests and foot rings.</span></li>
       </ul>
     </section>
 
@@ -169,39 +179,27 @@ ol.shots b{color:var(--fg);font-weight:600}
       <div class="chips">
         <span class="chip"><i style="background:#8a3f2a"></i>Old brick</span>
         <span class="chip"><i style="background:#2b1c13"></i>Dark timber</span>
-        <span class="chip"><i style="background:#5e1f17"></i>Oxblood leather</span>
+        <span class="chip"><i style="background:#8e1d1d"></i>Red leather</span>
+        <span class="chip"><i style="background:#d99a3c"></i>Honey onyx</span>
         <span class="chip"><i style="background:#1f5246"></i>Bottle-green tile</span>
         <span class="chip"><i style="background:#ece8e1"></i>Marble</span>
         <span class="chip"><i style="background:#b8863b"></i>Brass</span>
         <span class="chip"><i style="background:#ff3d5a"></i>Red neon</span>
-        <span class="chip"><i style="background:#ffb35c"></i>2200–2700K amber</span>
       </div>
-    </section>
-
-    <section>
-      <h2>Photo moments</h2>
-      <ol class="shots">
-        <li><b>The pop-art mural</b> at the door, the first thing people photograph.</li>
-        <li><b>The bar run,</b> shot down its length: marble, globes, vines, green tile.</li>
-        <li><b>The "bao, baby?" neon</b> above a basket of dumplings and a beer.</li>
-        <li><b>The beer garden at dusk</b> under the festoon canopy.</li>
-        <li><b>The tin-sign wall</b> behind a leather booth.</li>
-      </ol>
     </section>
 
     <section>
       <h2>Check before you commit</h2>
       <ul class="flags">
-        <li><span class="tag hi">Licence</span><b>Bar licence and budget</b><span>Beer and cocktails need a Goa excise licence, which your earlier plan avoided because of its cost. Budget for it before you build the bar.</span></li>
-        <li><span class="tag hi">Safety</span><b>Loft, if you build it</b><span>A 1.95 m headroom loft reached by a spiral stair may not pass fire rules for 10 guests. Phase 1 without it still gives you 31 covers and saves the steel work.</span></li>
-        <li><span class="tag md">Licence</span><b>Music in public</b><span>Playing recorded music in a restaurant in India usually needs PPL and IPRS (or Novex) licences. Showing live sports needs a commercial TV subscription.</span></li>
-        <li><span class="tag md">Weather</span><b>Monsoon garden</b><span>The polycarbonate pergola handles drizzle, not sideways June rain. Plan on indoor seating carrying the monsoon months.</span></li>
-        <li><span class="tag md">Check</span><b>Forecourt rights</b><span>Confirm the forecourt is part of your lease and that seating there is allowed.</span></li>
-        <li><span class="tag md">Neighbours</span><b>Exhaust route</b><span>The duct is drawn going out the back wall. Check there's space behind the building for it to rise above the roof.</span></li>
+        <li><span class="tag hi">Licence</span><b>Bar licence</b><span>Beer and cocktails need a Goa excise licence. Price it before you build the bar.</span></li>
+        <li><span class="tag hi">Access</span><b>Rear access</b><span>The plan needs a rear door, space for the LPG cage, and a route for the exhaust duct behind the building. Confirm all three with the landlord.</span></li>
+        <li><span class="tag md">Norms</span><b>One washroom</b><span>One WC is drawn. Check whether the local body asks for separate male and female toilets at 30 covers.</span></li>
+        <li><span class="tag md">Weather</span><b>Monsoon</b><span>10 of the 30 covers are outside. Plan for 20 covers from June to September.</span></li>
+        <li><span class="tag md">Licence</span><b>Music</b><span>Recorded music in public usually needs PPL and IPRS (or Novex) licences.</span></li>
       </ul>
     </section>
 
-    <p class="note">Interior dimensions are from your figures (4.5 × 4.5 × 10.5 m). Furniture sizes are standard but approximate. Use this to brief an architect, not to build from.</p>
+    <p class="note">Interior dimensions are your figures. Equipment sizes are standard commercial footprints. Use this to brief a kitchen consultant and an architect, not to build from.</p>
   </aside>
 </div>
 
@@ -216,258 +214,286 @@ function shade(hex,f){const n=parseInt(hex.slice(1),16);return 'rgb('+[n>>16,n>>
 
 function init(){
 let renderer;
-try{renderer=new THREE.WebGLRenderer({antialias:true});}catch(e){stage.insertAdjacentHTML('beforeend','<div class="err">This device could not start WebGL, so the 3D model cannot show here.</div>');return;}
-renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}catch(e){stage.insertAdjacentHTML('beforeend','<div class="err">This device could not start WebGL, so the 3D model cannot show here.</div>');return;}
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
 renderer.outputEncoding=THREE.sRGBEncoding;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
-renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; renderer.shadowMap.autoUpdate=false;
 stage.prepend(renderer.domElement);
 const scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(50,1,0.05,300);
 const controls=new THREE.OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true; controls.dampingFactor=0.08; controls.minDistance=0.3; controls.maxDistance=50;
+controls.enableDamping=true; controls.dampingFactor=0.09; controls.minDistance=0.3; controls.maxDistance=50;
+let dirty=true,anim=null;
 
 // Walking in from the road (looking +z): RIGHT wall is x = X0, LEFT wall is x = X1.
-const X0=-2.25,X1=2.25,D=10.5,H=4.5,T=0.2,LZ=7.0,DK=2.43,MZ=2.55;
+const X0=-2.25,X1=2.25,D=10.5,H=4.5,T=0.2,KZ=7.5,KC=2.7;
 
 // ---------- textures ----------
-const aniso=renderer.capabilities.getMaxAnisotropy();
+const aniso=Math.min(8,renderer.capabilities.getMaxAnisotropy());
 function tex(w,h,draw,rx,ry){const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');draw(g,w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx||1,ry||1);t.anisotropy=aniso;return t;}
 function woodDraw(base,n){return(g,w,h)=>{const r=rng(7);n=n||8;for(let i=0;i<n;i++){const y=i*h/n;g.fillStyle=shade(base,0.82+r()*0.36);g.fillRect(0,y,w,h/n);g.strokeStyle='rgba(20,10,5,.22)';for(let k=0;k<6;k++){g.beginPath();const yy=y+r()*h/n;g.moveTo(0,yy);g.bezierCurveTo(w*.3,yy+r()*6-3,w*.6,yy+r()*6-3,w,yy);g.stroke();}g.fillStyle='rgba(10,5,2,.55)';g.fillRect(0,y,w,2);}};}
-
 const brickTex=tex(256,256,(g,w)=>{g.fillStyle='#4a3a30';g.fillRect(0,0,w,w);const r=rng(9);const bh=w/8,bw=w/4;
   for(let row=0;row<8;row++){const off=row%2?bw/2:0;for(let c=-1;c<5;c++){const x=c*bw+off;g.fillStyle=shade(['#8a3f2a','#7a3524','#9a4a30','#6e3a2a','#a35a3a'][Math.floor(r()*5)],0.8+r()*0.35);g.fillRect(x+2,row*bh+2,bw-4,bh-4);
   g.fillStyle=`rgba(255,220,180,${r()*0.08})`;g.fillRect(x+2,row*bh+2,bw-4,(bh-4)/2);}}},11,7);
-
 const chevronTex=tex(256,256,(g,w)=>{const r=rng(13);g.fillStyle='#2a170c';g.fillRect(0,0,w,w);
   for(let c=0;c<4;c++){const x0=c*64;for(let y=-64;y<=w+64;y+=16){g.fillStyle=shade('#7a4a2a',0.75+r()*0.45);g.beginPath();
     if(c%2===0){g.moveTo(x0,y);g.lineTo(x0+64,y-32);g.lineTo(x0+64,y-16);g.lineTo(x0,y+16);}else{g.moveTo(x0,y-32);g.lineTo(x0+64,y);g.lineTo(x0+64,y+16);g.lineTo(x0,y-16);}
-    g.closePath();g.fill();g.strokeStyle='rgba(15,8,3,.6)';g.lineWidth=1.5;g.stroke();}}},9,21);
-
+    g.closePath();g.fill();g.strokeStyle='rgba(15,8,3,.6)';g.lineWidth=1.5;g.stroke();}}},9,15);
 const marbleTex=tex(512,256,(g,w,h)=>{g.fillStyle='#ece8e1';g.fillRect(0,0,w,h);const r=rng(17);for(let i=0;i<26;i++){g.strokeStyle=`rgba(120,115,110,${0.15+r()*0.3})`;g.lineWidth=0.5+r()*1.6;g.beginPath();let x=r()*w,y=0;g.moveTo(x,y);for(let k=0;k<6;k++){x+=r()*90-45;y+=h/6;g.lineTo(x,y);}g.stroke();}},6,1);
-const flutedTex=tex(64,16,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#080808');gr.addColorStop(.5,'#3a3a3a');gr.addColorStop(1,'#080808');g.fillStyle=gr;g.fillRect(0,0,w,h);},60,1);
-const subwayTex=tex(128,128,(g,w)=>{g.fillStyle='#cfd8cf';g.fillRect(0,0,w,w);const r=rng(4);const th=16,tw=32;for(let row=0;row<8;row++){const off=row%2?tw/2:0;for(let c=-1;c<5;c++){g.fillStyle=shade('#1f5246',0.8+r()*0.4);g.fillRect(c*tw+off+1,row*th+1,tw-2,th-2);g.fillStyle='rgba(255,255,255,.12)';g.fillRect(c*tw+off+3,row*th+2,tw-8,3);}}},10,10);
-const whiteTileTex=tex(64,64,(g,w)=>{g.fillStyle='#bfbcb6';g.fillRect(0,0,w,w);g.fillStyle='#ece9e3';for(let y=0;y<4;y++)for(let x=0;x<4;x++)g.fillRect(x*16+1,y*16+1,14,14);},12,6);
-const greyFloorTex=tex(64,64,(g,w)=>{g.fillStyle='#3d3c3a';g.fillRect(0,0,w,w);g.fillStyle='#5a5855';for(let y=0;y<2;y++)for(let x=0;x<2;x++)g.fillRect(x*32+1,y*32+1,30,30);},8,12);
+const flutedTex=tex(64,16,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#060606');gr.addColorStop(.5,'#3c3c3c');gr.addColorStop(1,'#060606');g.fillStyle=gr;g.fillRect(0,0,w,h);},70,1);
+const onyxTex=tex(256,512,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,h);gr.addColorStop(0,'#f7c46a');gr.addColorStop(.5,'#e59a3a');gr.addColorStop(1,'#f3b85a');g.fillStyle=gr;g.fillRect(0,0,w,h);const r=rng(61);
+  for(let i=0;i<40;i++){g.strokeStyle=`rgba(${r()<.5?'120,50,10':'255,240,200'},${0.15+r()*0.35})`;g.lineWidth=1+r()*5;g.beginPath();let x=r()*w,y=0;g.moveTo(x,y);while(y<h){x+=r()*40-20;y+=20+r()*30;g.lineTo(x,y);}g.stroke();}},4,1);
+const subwayTex=tex(128,128,(g,w)=>{g.fillStyle='#cfd8cf';g.fillRect(0,0,w,w);const r=rng(4);const th=16,tw=32;for(let row=0;row<8;row++){const off=row%2?tw/2:0;for(let c=-1;c<5;c++){g.fillStyle=shade('#1f5246',0.8+r()*0.4);g.fillRect(c*tw+off+1,row*th+1,tw-2,th-2);g.fillStyle='rgba(255,255,255,.12)';g.fillRect(c*tw+off+3,row*th+2,tw-8,3);}}},10,6);
+const whiteTileTex=tex(64,64,(g,w)=>{g.fillStyle='#b9b6b0';g.fillRect(0,0,w,w);g.fillStyle='#eeebe5';for(let y=0;y<4;y++)for(let x=0;x<4;x++)g.fillRect(x*16+1,y*16+1,14,14);},14,9);
+const epoxyTex=tex(128,128,(g,w)=>{g.fillStyle='#55585a';g.fillRect(0,0,w,w);const r=rng(8);for(let i=0;i<500;i++){g.fillStyle=`rgba(${r()<.5?'255,255,255':'0,0,0'},${r()*0.08})`;g.fillRect(r()*w,r()*w,2,2);}},6,4);
 const plankTex=tex(512,512,woodDraw('#3a2416',10),2,6);
-const deckTex=tex(512,512,woodDraw('#6b4428'),3,4);
 const timberTex=tex(512,512,woodDraw('#5a3820'),1,1);
 const plaidTex=tex(128,128,(g,w)=>{g.fillStyle='#7a1f1a';g.fillRect(0,0,w,w);[['#1f3a2a',0,22],['#1f3a2a',64,22],['#d9b36a',30,4],['#d9b36a',94,4],['#111',48,6],['#111',112,6]].forEach(([c,p,s])=>{g.fillStyle=c;g.globalAlpha=.6;g.fillRect(p,0,s,w);g.fillRect(0,p,w,s);});g.globalAlpha=1;},2,2);
 const gravelTex=tex(256,256,(g,w)=>{g.fillStyle='#8b6b52';g.fillRect(0,0,w,w);const r=rng(23);for(let i=0;i<3000;i++){g.fillStyle=shade(['#a0826a','#6e5240','#c2a68c','#5b4434'][i%4],0.8+r()*0.4);g.beginPath();g.arc(r()*w,r()*w,0.8+r()*2.2,0,7);g.fill();}},10,8);
 const leafTex=tex(256,256,(g,w)=>{g.fillStyle='#1b3a22';g.fillRect(0,0,w,w);const r=rng(21);for(let i=0;i<300;i++){g.save();g.translate(r()*w,r()*w);g.rotate(r()*6.3);g.fillStyle=shade(['#3f7a3a','#2f6a35','#5c9444','#24552d'][i%4],0.8+r()*0.4);g.beginPath();g.ellipse(0,0,6+r()*10,3+r()*4,0,0,Math.PI*2);g.fill();g.restore();}},1,2);
-
 const tinTex=tex(1024,660,(g,w,h)=>{
   for(let x=0;x<w;x+=64){g.fillStyle=shade('#3b2618',0.8+((x*7)%11)/30);g.fillRect(x,0,64,h);g.fillStyle='rgba(0,0,0,.4)';g.fillRect(x,0,2,h);}
   const r=rng(31);
-  const signs=[['COLD BEER','#b22a22','#f3e2c0',40,30,230,120],['DIM SUM DAILY','#e2b23a','#2a1a10',300,24,250,90],['OPEN LATE','#1f4f6e','#f3e2c0',590,40,190,80],
-    ['HOPS & STEAM','#f1e6cf','#8a2a1e',820,30,180,130],['GA-08 · BAO','#f2d24a','#1a1a1a',70,190,190,64],['LIVE MUSIC FRI','#2a5a3a','#f3e2c0',330,160,220,110],
-    ['No. 9 DRAUGHT','#8a2a1e','#f2d24a',600,170,200,100],['STEAMED FRESH','#f1e6cf','#1f4f6e',40,300,200,100],['EST. 2026','#1a1a1a','#e9a94b',840,210,150,150],
-    ['GOA 403','#f1e6cf','#1a1a1a',290,320,170,60],['DUMPLING CO.','#b22a22','#f1e6cf',520,320,260,100],['ICE COLD','#1f4f6e','#f1e6cf',820,410,170,90],
-    ['CRAFT ON TAP','#e2b23a','#8a2a1e',60,440,250,110],['SINCE TODAY','#2a5a3a','#f2d24a',350,440,190,70],['BAR BITES','#f1e6cf','#b22a22',590,470,200,110]];
-  signs.forEach(([t,bg,fg,x,y,sw,sh])=>{g.save();g.translate(x+sw/2,y+sh/2);g.rotate((r()-.5)*0.08);g.fillStyle='rgba(0,0,0,.45)';g.fillRect(-sw/2+5,-sh/2+6,sw,sh);g.fillStyle=bg;g.fillRect(-sw/2,-sh/2,sw,sh);
+  [['COLD BEER','#b22a22','#f3e2c0',40,30,230,120],['DIM SUM DAILY','#e2b23a','#2a1a10',300,24,250,90],['OPEN LATE','#1f4f6e','#f3e2c0',590,40,190,80],
+   ['HOPS & STEAM','#f1e6cf','#8a2a1e',820,30,180,130],['GA-08 · BAO','#f2d24a','#1a1a1a',70,190,190,64],['LIVE MUSIC FRI','#2a5a3a','#f3e2c0',330,160,220,110],
+   ['No. 9 DRAUGHT','#8a2a1e','#f2d24a',600,170,200,100],['STEAMED FRESH','#f1e6cf','#1f4f6e',40,300,200,100],['EST. 2026','#1a1a1a','#e9a94b',840,210,150,150],
+   ['GOA','#f1e6cf','#1a1a1a',290,320,170,60],['DUMPLING CO.','#b22a22','#f1e6cf',520,320,260,100],['ICE COLD','#1f4f6e','#f1e6cf',820,410,170,90],
+   ['CRAFT ON TAP','#e2b23a','#8a2a1e',60,440,250,110],['BAR BITES','#f1e6cf','#b22a22',590,470,200,110]].forEach(([t,bg,fg,x,y,sw,sh])=>{g.save();g.translate(x+sw/2,y+sh/2);g.rotate((r()-.5)*0.08);g.fillStyle='rgba(0,0,0,.45)';g.fillRect(-sw/2+5,-sh/2+6,sw,sh);g.fillStyle=bg;g.fillRect(-sw/2,-sh/2,sw,sh);
     g.strokeStyle=fg;g.lineWidth=4;g.strokeRect(-sw/2+7,-sh/2+7,sw-14,sh-14);g.fillStyle=fg;g.textAlign='center';g.textBaseline='middle';
     g.font=`700 ${Math.min(sh*0.38,sw/(t.length*0.62))}px "Bricolage Grotesque", sans-serif`;g.fillText(t,0,2);
     g.fillStyle=`rgba(90,40,10,${0.15+r()*0.2})`;for(let k=0;k<6;k++){g.beginPath();g.arc((r()-.5)*sw,(r()-.5)*sh,3+r()*9,0,7);g.fill();}g.restore();});
   [[560,110,44],[230,590,40],[930,560,48],[480,600,36]].forEach(([x,y,rad])=>{g.fillStyle='#1a1a1a';g.beginPath();g.arc(x,y,rad+6,0,7);g.fill();g.fillStyle='#f1e6cf';g.beginPath();g.arc(x,y,rad,0,7);g.fill();
-    g.strokeStyle='#1a1a1a';g.lineWidth=2;for(let k=0;k<12;k++){const a=k/12*6.283;g.beginPath();g.moveTo(x+Math.cos(a)*rad*.8,y+Math.sin(a)*rad*.8);g.lineTo(x+Math.cos(a)*rad*.92,y+Math.sin(a)*rad*.92);g.stroke();}
-    g.lineWidth=3;g.beginPath();g.moveTo(x,y);g.lineTo(x+rad*.5,y-rad*.3);g.moveTo(x,y);g.lineTo(x-rad*.1,y-rad*.7);g.stroke();});
+    g.strokeStyle='#1a1a1a';g.lineWidth=3;g.beginPath();g.moveTo(x,y);g.lineTo(x+rad*.5,y-rad*.3);g.moveTo(x,y);g.lineTo(x-rad*.1,y-rad*.7);g.stroke();});
 },1,1);
-
 const popTex=tex(600,1000,(g,w,h)=>{
   g.fillStyle='#231a17';g.fillRect(0,0,w,h);
   g.save();g.beginPath();g.moveTo(40,h-30);g.lineTo(40,300);g.arc(w/2,300,w/2-40,Math.PI,0);g.lineTo(w-40,h-30);g.closePath();g.clip();
-  g.fillStyle='#f5c23a';g.fillRect(0,0,w,h);
   for(let i=0;i<24;i++){g.fillStyle=i%2?'#ef5a3c':'#f5c23a';g.beginPath();g.moveTo(w/2,520);const a=i/24*6.283,b=(i+1)/24*6.283;g.lineTo(w/2+Math.cos(a)*900,520+Math.sin(a)*900);g.lineTo(w/2+Math.cos(b)*900,520+Math.sin(b)*900);g.closePath();g.fill();}
   g.fillStyle='rgba(180,30,40,.35)';for(let y=0;y<h;y+=14)for(let x=(y/14)%2*7;x<w;x+=14){g.beginPath();g.arc(x,y,2.6,0,7);g.fill();}
-  g.fillStyle='#d9a066';g.beginPath();g.ellipse(w/2,700,190,58,0,0,7);g.fill();g.fillStyle='#b9824a';g.fillRect(w/2-190,700,380,70);g.beginPath();g.ellipse(w/2,770,190,50,0,0,7);g.fill();
-  g.strokeStyle='#7a4f28';g.lineWidth=4;for(let k=-170;k<=170;k+=24){g.beginPath();g.moveTo(w/2+k,712);g.lineTo(w/2+k,770);g.stroke();}
+  g.fillStyle='#b9824a';g.fillRect(w/2-190,700,380,70);g.beginPath();g.ellipse(w/2,770,190,50,0,0,7);g.fill();g.fillStyle='#d9a066';g.beginPath();g.ellipse(w/2,700,190,58,0,0,7);g.fill();
   g.fillStyle='#fffaf0';g.strokeStyle='#1a1a1a';g.lineWidth=7;g.beginPath();g.moveTo(w/2-170,700);g.bezierCurveTo(w/2-170,500,w/2+170,500,w/2+170,700);g.closePath();g.fill();g.stroke();
   g.lineWidth=5;for(let k=-3;k<=3;k++){g.beginPath();g.moveTo(w/2+k*14,548);g.quadraticCurveTo(w/2+k*30,575,w/2+k*40,600);g.stroke();}
   g.fillStyle='#1a1a1a';g.beginPath();g.arc(w/2-55,640,13,0,7);g.arc(w/2+55,640,13,0,7);g.fill();
-  g.fillStyle='#fff';g.beginPath();g.arc(w/2-50,635,4,0,7);g.arc(w/2+60,635,4,0,7);g.fill();
   g.fillStyle='#ff7a8a';g.beginPath();g.ellipse(w/2-95,668,22,12,0,0,7);g.ellipse(w/2+95,668,22,12,0,0,7);g.fill();
   g.strokeStyle='#1a1a1a';g.lineWidth=6;g.beginPath();g.arc(w/2,655,24,0.2,Math.PI-0.2);g.stroke();
-  g.fillStyle='#fff';g.strokeStyle='#1a1a1a';g.lineWidth=6;g.beginPath();g.ellipse(w/2+40,260,190,95,-0.08,0,7);g.fill();g.stroke();g.beginPath();g.moveTo(w/2-20,340);g.lineTo(w/2-70,420);g.lineTo(w/2+30,345);g.fill();
+  g.fillStyle='#fff';g.beginPath();g.ellipse(w/2+40,260,190,95,-0.08,0,7);g.fill();g.stroke();
   g.fillStyle='#d8233a';g.font='700 92px "Bricolage Grotesque", sans-serif';g.textAlign='center';g.fillText('BAO!',w/2+40,292);
   g.fillStyle='#1a1a1a';g.font='700 46px "Bricolage Grotesque", sans-serif';g.fillText('DIM SUM',w/2,880);g.fillText('& DRAUGHT',w/2,930);
-  g.restore();
-  g.strokeStyle='#1d4a40';g.lineWidth=26;g.beginPath();g.moveTo(40,h-30);g.lineTo(40,300);g.arc(w/2,300,w/2-40,Math.PI,0);g.lineTo(w-40,h-30);g.stroke();
+  g.restore();g.strokeStyle='#1d4a40';g.lineWidth=26;g.beginPath();g.moveTo(40,h-30);g.lineTo(40,300);g.arc(w/2,300,w/2-40,Math.PI,0);g.lineTo(w-40,h-30);g.stroke();
 });
-
+const menuTex=tex(1024,400,(g,w,h)=>{g.fillStyle='#1b1f1d';g.fillRect(0,0,w,h);g.strokeStyle='#6b4428';g.lineWidth=22;g.strokeRect(0,0,w,h);g.fillStyle='#efe9dc';g.textAlign='left';
+  g.font='64px Yellowtail, cursive';g.fillText('Dim sum',50,90);g.fillText('Bar bites',540,90);g.font='500 26px "IBM Plex Mono", monospace';
+  ['har gow','chicken siu mai','veg crystal dumplings','xiao long bao','chilli pork bao','pan-fried potstickers'].forEach((t,i)=>g.fillText(t,56,150+i*40));
+  ['korean fried wings','salt & pepper squid','chilli paneer bites','kimchi fries','6 craft taps','house cocktails'].forEach((t,i)=>g.fillText(t,546,150+i*40));});
 function neonTexture(text,font,glow,core,w,h){return tex(w,h,(g)=>{g.clearRect(0,0,w,h);g.font=font;g.textAlign='center';g.textBaseline='middle';g.shadowColor=glow;g.shadowBlur=26;g.fillStyle=core;g.fillText(text,w/2,h/2);g.shadowBlur=10;g.fillText(text,w/2,h/2);g.shadowBlur=0;g.fillStyle='#fff';g.globalAlpha=.5;g.fillText(text,w/2,h/2);});}
 const neonBao=neonTexture('bao, baby?','140px Yellowtail, cursive','#ff2d55','#ff6f86',800,220);
 const neonSign=neonTexture('dumplings & draught','110px Yellowtail, cursive','#ffb04a','#ffd59a',1200,200);
 const tvTex=tex(256,144,(g,w,h)=>{g.fillStyle='#1d6b34';g.fillRect(0,0,w,h);for(let x=0;x<w;x+=32){g.fillStyle='rgba(255,255,255,.06)';g.fillRect(x,0,16,h);}g.strokeStyle='rgba(255,255,255,.8)';g.lineWidth=2;g.strokeRect(14,14,w-28,h-28);g.beginPath();g.moveTo(w/2,14);g.lineTo(w/2,h-14);g.stroke();g.beginPath();g.arc(w/2,h/2,22,0,7);g.stroke();g.fillStyle='rgba(10,10,20,.85)';g.fillRect(10,8,96,16);g.fillStyle='#fff';g.font='600 11px sans-serif';g.fillText('GOA 2 – 1 BLR',16,20);});
 const chalkTex=tex(256,320,(g,w,h)=>{g.fillStyle='#1d211f';g.fillRect(0,0,w,h);g.strokeStyle='#8a5a34';g.lineWidth=14;g.strokeRect(0,0,w,h);g.fillStyle='#efe9dc';g.textAlign='center';g.font='36px Yellowtail, cursive';g.fillText('Tonight',w/2,62);g.font='500 17px "IBM Plex Mono", monospace';['har gow','xiao long bao','chilli pork bao','KFC wings','6 craft taps','vinyl from 8pm'].forEach((t,i)=>g.fillText(t,w/2,110+i*32));});
-const vinylTex=tex(256,128,(g,w,h)=>{const r=rng(5);let x=0;while(x<w){const s=3+r()*5;g.fillStyle=['#c8423a','#e3b33a','#2f5fa8','#1a1a1a','#f1ece0','#3f8a4a','#7a3e8e'][Math.floor(r()*7)];g.fillRect(x,6,s,h-12);x+=s+0.6;}});
 
 // ---------- materials ----------
 const S=(o)=>new THREE.MeshStandardMaterial(o);
 const M={
-  brick:S({map:brickTex,roughness:0.95}), plaster:S({color:'#3a2a22',roughness:0.95}), partition:S({color:'#3d2c22',roughness:0.9}),
-  floor:S({map:chevronTex,roughness:0.55}), kfloor:S({map:greyFloorTex,roughness:0.8}), planks:S({map:plankTex,roughness:0.85}),
-  timber:S({map:timberTex,roughness:0.7}), timberDark:S({color:'#2b1c13',roughness:0.75}), deck:S({map:deckTex,roughness:0.65}),
-  steel:S({color:'#18181a',roughness:0.45,metalness:0.6}), brass:S({color:'#b8863b',roughness:0.3,metalness:0.85}), ss:S({color:'#b6bbbf',roughness:0.3,metalness:0.8}),
-  marble:S({map:marbleTex,roughness:0.2}), fluted:S({map:flutedTex,roughness:0.5,metalness:0.2}), subway:S({map:subwayTex,roughness:0.2,metalness:0.05}),
-  whiteTile:S({map:whiteTileTex,roughness:0.3}), leather:S({color:'#5e1f17',roughness:0.45}), leatherTan:S({color:'#7a3a1e',roughness:0.5}), plaid:S({map:plaidTex,roughness:0.95}),
+  brick:S({map:brickTex,roughness:0.95}), plaster:S({color:'#3a2a22',roughness:0.95}), partition:S({color:'#33251d',roughness:0.9}),
+  floor:S({map:chevronTex,roughness:0.55}), epoxy:S({map:epoxyTex,roughness:0.35}), planks:S({map:plankTex,roughness:0.85}), pvc:S({color:'#e9e7e2',roughness:0.6}),
+  timber:S({map:timberTex,roughness:0.7}), timberDark:S({color:'#2b1c13',roughness:0.75}),
+  steel:S({color:'#18181a',roughness:0.45,metalness:0.6}), brass:S({color:'#c0903f',roughness:0.28,metalness:0.9}), ss:S({color:'#c3c8cc',roughness:0.32,metalness:0.75}), ssDark:S({color:'#5d6266',roughness:0.4,metalness:0.7}),
+  marble:S({map:marbleTex,roughness:0.18}), fluted:S({map:flutedTex,roughness:0.45,metalness:0.25}), subway:S({map:subwayTex,roughness:0.2}),
+  whiteTile:S({map:whiteTileTex,roughness:0.3}), leather:S({color:'#5e1f17',roughness:0.45}), leatherRed:S({color:'#8e1d1d',roughness:0.4}), leatherTan:S({color:'#7a3a1e',roughness:0.5}), plaid:S({map:plaidTex,roughness:0.95}),
   cane:S({color:'#b58a52',roughness:0.85}), concrete:S({color:'#6b625a',roughness:0.95}),
   glass:S({color:'#a9cbd0',transparent:true,opacity:0.13,roughness:0.05,metalness:0.2,depthWrite:false}),
+  shelfGlass:S({color:'#d8eef0',transparent:true,opacity:0.35,roughness:0.05,depthWrite:false}),
   poly:S({color:'#e8f0f2',transparent:true,opacity:0.18,roughness:0.2,depthWrite:false,side:THREE.DoubleSide}),
-  porcelain:S({color:'#efebe5',roughness:0.25}), black:S({color:'#111',roughness:0.6}),
+  porcelain:S({color:'#efebe5',roughness:0.25}), black:S({color:'#111',roughness:0.6}), red:S({color:'#b0221c',roughness:0.5}), board:S({color:'#2f7a4a',roughness:0.7}), boardRed:S({color:'#a8302a',roughness:0.7}), oil:S({color:'#a8721c',roughness:0.15}),
   leaf:S({map:leafTex,roughness:0.85}), leafSolid:S({color:'#2f6a35',roughness:0.8,side:THREE.DoubleSide}), trunk:S({color:'#6e5a45',roughness:0.95}),
-  laterite:S({color:'#7d4430',roughness:1}), gravel:S({map:gravelTex,roughness:1}), road:S({color:'#36332f',roughness:1}), terracotta:S({color:'#a8553c',roughness:0.9}), stump:S({color:'#8a6a48',roughness:0.95}),
+  laterite:S({color:'#7d4430',roughness:1}), gravel:S({map:gravelTex,roughness:1}), road:S({color:'#36332f',roughness:1}), terracotta:S({color:'#a8553c',roughness:0.9}), dough:S({color:'#f4eee2',roughness:0.8}),
   glow:S({color:'#ffcf8a',emissive:'#ff9030',emissiveIntensity:1.2}), globe:S({color:'#ffcf8a',emissive:'#ff8a28',emissiveIntensity:1.3,roughness:0.1}),
-  red:S({color:'#ff4d6a',emissive:'#ff1f45',emissiveIntensity:2.2}), teal:S({color:'#6ff0e0',emissive:'#20d8c0',emissiveIntensity:1.4}),
-  cool:S({color:'#dff3ff',emissive:'#bfe6ff',emissiveIntensity:0.9}),
+  led:S({color:'#ffd08a',emissive:'#ffa040',emissiveIntensity:2.6}),
+  onyx:S({map:onyxTex,emissive:'#ffffff',emissiveMap:onyxTex,emissiveIntensity:1.0,roughness:0.3}),
+  neonRed:S({color:'#ff4d6a',emissive:'#ff1f45',emissiveIntensity:2.4}), teal:S({color:'#6ff0e0',emissive:'#20d8c0',emissiveIntensity:1.4}),
+  cool:S({color:'#dff3ff',emissive:'#bfe6ff',emissiveIntensity:0.9}), panelLight:S({color:'#ffffff',emissive:'#eef6ff',emissiveIntensity:1.1}),
+  heat:S({color:'#ff7a3a',emissive:'#ff4a1a',emissiveIntensity:1.6}), uv:S({color:'#8fb0ff',emissive:'#5a6cff',emissiveIntensity:1.5}),
   tin:S({map:tinTex,roughness:0.8}), pop:S({map:popTex,roughness:0.85}), tv:S({map:tvTex,emissive:'#ffffff',emissiveMap:tvTex,emissiveIntensity:0.9}),
-  chalk:S({map:chalkTex,roughness:0.9}), vinyl:S({map:vinylTex,roughness:0.8}),
+  chalk:S({map:chalkTex,roughness:0.9}), menu:S({map:menuTex,roughness:0.9,emissive:'#ffffff',emissiveMap:menuTex,emissiveIntensity:0.12}),
+  mirror:S({color:'#cfd6d6',roughness:0.05,metalness:0.9}),
   neonBao:new THREE.MeshBasicMaterial({map:neonBao,transparent:true,toneMapped:false,depthWrite:false}),
   neonSign:new THREE.MeshBasicMaterial({map:neonSign,transparent:true,toneMapped:false,depthWrite:false}),
 };
 const cush=['#c8902e','#7a1f1a','#1f5246','#2e3d6b','#8e3b4f'].map(c=>S({color:c,roughness:0.95}));
-const bottleMats=['#8a5a1c','#3e6b2e','#c9d4cf','#6b2a1c','#b98a3a'].map(c=>S({color:c,roughness:0.15,emissive:c,emissiveIntensity:0.3}));
+const bottleMats=['#5a3410','#2a4a1e','#9fb3ad','#4a160e','#7a5418'].map(c=>S({color:c,roughness:0.12,metalness:0.1}));
 
 // ---------- groups ----------
-const G={};['shell','ceil','wallR','wallL','wallB','front','ground','loft','outside','ext','pergTop'].forEach(k=>{G[k]=new THREE.Group();scene.add(G[k]);});
+const G={};['shell','ceil','partUp','kceil','wallR','wallL','wallB','front','ground','kitchen','outside','pergTop','ext'].forEach(k=>{G[k]=new THREE.Group();scene.add(G[k]);});
 
 // ---------- helpers ----------
 function bx(x0,x1,y0,y1,z0,z1,mat,parent,cast){const m=new THREE.Mesh(new THREE.BoxGeometry(Math.abs(x1-x0),Math.abs(y1-y0),Math.abs(z1-z0)),mat);m.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);m.castShadow=cast!==false;m.receiveShadow=true;parent.add(m);return m;}
-function cyl(rt,rb,h,x,y0,z,mat,parent,seg){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||20),mat);m.position.set(x,y0+h/2,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
-function sph(r,x,y,z,mat,parent){const m=new THREE.Mesh(new THREE.SphereGeometry(r,20,14),mat);m.position.set(x,y,z);parent.add(m);return m;}
-function rod(a,b,r,mat,parent){const d=new THREE.Vector3().subVectors(b,a);const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,d.length(),8),mat);m.position.copy(a).add(b).multiplyScalar(0.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());parent.add(m);return m;}
+function cyl(rt,rb,h,x,y0,z,mat,parent,seg){const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||16),mat);m.position.set(x,y0+h/2,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
+function sph(r,x,y,z,mat,parent){const m=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),mat);m.position.set(x,y,z);m.castShadow=false;parent.add(m);return m;}
+function rod(a,b,r,mat,parent){const d=new THREE.Vector3().subVectors(b,a);const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,d.length(),8),mat);m.position.copy(a).add(b).multiplyScalar(0.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),d.normalize());m.castShadow=false;parent.add(m);return m;}
 function V(x,y,z){return new THREE.Vector3(x,y,z);}
 function plane(w,h,mat,x,y,z,ry,parent){const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),mat);m.position.set(x,y,z);m.rotation.y=ry;m.receiveShadow=true;parent.add(m);return m;}
-function stool(x,z,y0,parent,seatMat){cyl(0.17,0.17,0.07,x,y0+0.72,z,seatMat||M.leather,parent);cyl(0.02,0.02,0.72,x,y0,z,M.steel,parent,8);cyl(0.17,0.19,0.02,x,y0,z,M.steel,parent);
-  const ring=new THREE.Mesh(new THREE.TorusGeometry(0.13,0.012,6,24),M.brass);ring.rotation.x=Math.PI/2;ring.position.set(x,y0+0.28,z);parent.add(ring);}
+// bar stool with a padded backrest; it faces -x (towards the bar), so the back sits on the +x side
+function stool(x,z,parent){cyl(0.19,0.18,0.08,x,0.72,z,M.leatherRed,parent);cyl(0.022,0.022,0.72,x,0,z,M.steel,parent,8);cyl(0.18,0.2,0.02,x,0,z,M.steel,parent);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(0.14,0.012,6,20),M.brass);ring.rotation.x=Math.PI/2;ring.position.set(x,0.3,z);parent.add(ring);
+  [-0.12,0.12].forEach(o=>rod(V(x+0.13,0.78,z+o),V(x+0.18,1.12,z+o),0.012,M.steel,parent));
+  const back=bx(x+0.15,x+0.21,0.92,1.16,z-0.17,z+0.17,M.leatherRed,parent); back.rotation.z=-0.12;}
+function chair(x,z,parent,rot){const g=new THREE.Group();bx(-0.22,0.22,0.43,0.49,-0.22,0.22,M.cane,g);bx(-0.22,0.22,0.49,0.92,0.18,0.23,M.cane,g);bx(-0.2,0.2,0.49,0.55,-0.2,0.18,cush[0],g);
+  [[-.2,-.2],[.2,-.2],[-.2,.2],[.2,.2]].forEach(([a,b])=>cyl(0.015,0.015,0.43,a,0,b,M.steel,g,6));g.position.set(x,0,z);g.rotation.y=rot||0;parent.add(g);}
 function plant(x,y0,z,s,parent){cyl(0.2*s,0.15*s,0.4*s,x,y0,z,M.terracotta,parent);const r=rng(Math.round(x*100+z*10+500));
-  for(let i=0;i<9;i++){const l=new THREE.Mesh(new THREE.SphereGeometry(0.22*s,10,8),M.leaf);l.scale.set(1,0.55,1.6);l.position.set(x+(r()-.5)*0.35*s,y0+0.5*s+r()*0.6*s,z+(r()-.5)*0.35*s);l.rotation.set(r()*1.2,r()*6,r()*1.2);l.castShadow=true;parent.add(l);}}
+  for(let i=0;i<9;i++){const l=new THREE.Mesh(new THREE.SphereGeometry(0.22*s,8,6),M.leaf);l.scale.set(1,0.55,1.6);l.position.set(x+(r()-.5)*0.35*s,y0+0.5*s+r()*0.6*s,z+(r()-.5)*0.35*s);l.rotation.set(r()*1.2,r()*6,r()*1.2);l.castShadow=true;parent.add(l);}}
 function trail(x,yTop,z,len,parent){const m=new THREE.Mesh(new THREE.BoxGeometry(0.07,len,0.07),M.leaf);m.position.set(x,yTop-len/2,z);parent.add(m);return m;}
-function armchair(x,z,rot,parent){const g=new THREE.Group();bx(-0.42,0.42,0.1,0.45,-0.4,0.4,M.leatherTan,g);bx(-0.42,0.42,0.45,0.95,0.28,0.42,M.leatherTan,g);bx(-0.42,-0.3,0.45,0.7,-0.4,0.4,M.leatherTan,g);bx(0.3,0.42,0.45,0.7,-0.4,0.4,M.leatherTan,g);
-  bx(-0.4,0.4,0,0.1,-0.38,0.38,M.timberDark,g);g.position.set(x,0,z);g.rotation.y=rot;parent.add(g);}
+function armchair(x,z,rot,parent){const g=new THREE.Group();bx(-0.42,0.42,0.1,0.45,-0.4,0.4,M.leatherTan,g);bx(-0.42,0.42,0.45,1.0,0.26,0.42,M.leatherTan,g);bx(-0.42,-0.3,0.45,0.72,-0.4,0.4,M.leatherTan,g);bx(0.3,0.42,0.45,0.72,-0.4,0.4,M.leatherTan,g);
+  bx(-0.3,0.3,0.45,0.75,0.16,0.26,M.plaid,g);bx(-0.4,0.4,0,0.1,-0.38,0.38,M.timberDark,g);g.position.set(x,0,z);g.rotation.y=rot;parent.add(g);}
+function door(hx,hz,w,rot,mat,parent){const g=new THREE.Group();bx(0,w,0,2.05,-0.02,0.02,mat,g);g.position.set(hx,0,hz);g.rotation.y=rot;parent.add(g);}
 
 // ---------- shell ----------
-bx(X0,X1,-0.04,0,0,LZ,M.floor,G.shell,false);
-bx(X0,X1,-0.04,0,LZ,D,M.kfloor,G.shell,false);
-bx(X0-T,X0,0,H,0,D+T,M.plaster,G.wallR);      // right wall (bar side), tiled inside where the bar is
-bx(X1,X1+T,0,H,0,D+T,M.brick,G.wallL);        // left wall, exposed brick
-bx(X0-T,X1+T,0,H,D,D+T,M.plaster,G.wallB);
-// ceiling: dark planks + beams (beams stop where the loft starts)
+bx(X0,X1,-0.04,0,0,KZ,M.floor,G.shell,false);
+bx(X0,X1,-0.04,0,KZ,D,M.epoxy,G.shell,false);
+bx(X0-T,X0,0,H,0,D+T,M.plaster,G.wallR);
+bx(X1,X1+T,0,H,0,D+T,M.brick,G.wallL);
+bx(X0-T,1.15,0,H,D,D+T,M.plaster,G.wallB); bx(1.95,X1+T,0,H,D,D+T,M.plaster,G.wallB); bx(1.15,1.95,2.1,H,D,D+T,M.plaster,G.wallB);
+door(1.95,D+T,0.8,Math.PI-1.1,M.ssDark,G.wallB);
 bx(X0-T,X1+T,H,H+0.06,-0.4,D+T,M.planks,G.ceil);
 bx(X0-T,X1+T,H+0.06,H+0.22,-0.4,D+T,M.concrete,G.ceil);
-for(let z=0.35;z<LZ;z+=0.9) bx(X0,X1,H-0.22,H,z,z+0.14,M.timberDark,G.ceil);
+for(let z=0.35;z<KZ;z+=0.9) bx(X0,X1,H-0.22,H,z,z+0.14,M.timberDark,G.ceil);
 bx(-1.85,1.85,H+0.25,H+0.75,-0.32,-0.24,M.timberDark,G.ceil);
 plane(3.5,0.58,M.neonSign,0,H+0.5,-0.33,Math.PI,G.ceil);
-
-// front glazing + shutter housing
 const fz0=-0.06,fz1=0;
 [X0,-1.25,-0.56,0.5,1.19,X1-0.06].forEach(x=>bx(x,x+0.06,0,4.3,fz0,fz1,M.steel,G.front));
 bx(X0,X1,4.25,4.31,fz0,fz1,M.steel,G.front); bx(X0,X1,2.45,2.51,fz0,fz1,M.steel,G.front);
 bx(X0,-0.5,0,0.06,fz0,fz1,M.steel,G.front); bx(0.5,X1,0,0.06,fz0,fz1,M.steel,G.front);
 bx(X0,-0.5,0.06,2.45,-0.04,-0.02,M.glass,G.front,false); bx(0.5,X1,0.06,2.45,-0.04,-0.02,M.glass,G.front,false); bx(X0,X1,2.51,4.25,-0.04,-0.02,M.glass,G.front,false);
 bx(X0-T,X1+T,4.3,H,-0.4,0,M.steel,G.front);
-rod(V(-0.12,0.9,-0.08),V(-0.12,1.5,-0.08),0.015,M.brass,G.front); rod(V(0.12,0.9,-0.08),V(0.12,1.5,-0.08),0.015,M.brass,G.front);
 
-// ---------- ground floor ----------
+// ---------- dining ----------
 const gr=G.ground;
-// RECEPTION (left, front) + pop-art mural
-plane(2.2,3.66,M.pop,X1-0.01,1.95,1.3,-Math.PI/2,G.wallL);
+// RECEPTION (left, front) + pop-art mural + jukebox
+plane(2.2,3.66,M.pop,X1-0.01,1.95,1.25,-Math.PI/2,G.wallL);
 bx(1.15,1.95,0,1.02,0.75,1.55,M.cane,gr); bx(1.1,2.0,1.02,1.07,0.7,1.6,M.timber,gr);
 cyl(0.07,0.09,0.02,1.75,1.07,0.95,M.brass,gr); rod(V(1.75,1.08,0.95),V(1.75,1.38,0.95),0.008,M.brass,gr); sph(0.06,1.75,1.42,0.95,M.globe,gr);
-bx(1.8,X1,0,0.45,1.85,2.45,M.leather,gr); bx(1.8,X1,0.45,0.48,1.85,2.45,M.plaid,gr);
-// LOUNGE (right, front) + jukebox
-bx(X0,-1.4,0.1,0.45,0.55,2.05,M.leather,gr); bx(X0,X0+0.25,0.45,0.95,0.55,2.05,M.leather,gr); bx(X0,-1.4,0.45,0.72,0.45,0.6,M.leather,gr); bx(X0,-1.4,0.45,0.72,2.0,2.15,M.leather,gr);
-bx(X0+0.3,X0+0.5,0.45,0.75,0.75,1.1,M.plaid,gr);
-bx(-1.2,-0.7,0,0.42,1.0,1.6,M.timberDark,gr); bx(-1.25,-0.65,0.42,0.46,0.95,1.65,M.timber,gr);
+bx(1.7,X1,0,1.2,1.95,2.35,M.timberDark,gr); {const j=new THREE.Mesh(new THREE.CylinderGeometry(0.2,0.2,0.55,20,1,false,0,Math.PI),M.teal);j.rotation.z=Math.PI/2;j.rotation.y=Math.PI/2;j.position.set(1.975,1.2,2.15);gr.add(j);}
+bx(1.68,1.71,0.3,1.1,2.0,2.3,M.neonRed,gr,false);
+// LOUNGE (right, front): deep chesterfield with a tall padded back, two high-back armchairs
+bx(X0,-1.4,0.1,0.46,0.55,2.05,M.leather,gr); bx(X0,X0+0.28,0.46,1.05,0.55,2.05,M.leather,gr); bx(X0+0.28,X0+0.42,0.46,0.85,0.6,2.0,M.plaid,gr);
+bx(X0,-1.4,0.46,0.75,0.42,0.57,M.leather,gr); bx(X0,-1.4,0.46,0.75,2.03,2.18,M.leather,gr);
+bx(-1.2,-0.7,0,0.42,1.0,1.6,M.timberDark,gr); bx(-1.25,-0.65,0.42,0.46,0.95,1.65,M.timber,gr); cyl(0.05,0.05,0.12,-0.95,0.46,1.3,M.glow,gr,12);
 armchair(-0.15,0.95,-Math.PI/2+0.25,gr); armchair(-0.15,1.75,-Math.PI/2-0.25,gr);
-cyl(0.05,0.05,0.12,-0.95,0.46,1.3,M.glow,gr,12);
-bx(X0,X0+0.6,0,1.2,2.12,2.52,M.timberDark,gr); const jt=cyl(0.3,0.3,0.4,X0+0.3,1.0,2.32,M.teal,gr,24); jt.rotation.x=Math.PI/2; jt.position.y=1.2; jt.scale.set(1,1,1);
-bx(X0+0.58,X0+0.61,0.3,1.1,2.17,2.47,M.red,gr,false);
-// BAR (right wall)
-const b0=2.6,b1=6.4;
-bx(X0,X0+0.03,0.9,H-0.05,b0,b1,M.subway,gr,false);
-bx(X0,-1.8,0,0.9,b0,b1,M.timberDark,gr); bx(X0,-1.78,0.9,0.94,b0,b1,M.marble,gr);
-for(let z=b0+0.15;z<b1-0.6;z+=0.75) bx(-1.81,-1.79,0.12,0.78,z,z+0.6,M.cool,gr,false);
+plant(-0.2,0,0.25,0.9,gr);
+
+// BAR — the hero (right wall). Back bar z 2.3–7.5, counter z 2.6–7.0 with a curved end facing the door.
+const bb0=2.3,bb1=KZ,c0=2.6,c1=7.0;
+bx(X0,-1.85,0,0.92,bb0,bb1,M.timberDark,gr); bx(X0,-1.83,0.92,0.96,bb0,bb1,M.marble,gr);
+for(let z=bb0+0.12;z<bb1-0.55;z+=0.72) bx(-1.86,-1.84,0.12,0.8,z,z+0.62,M.cool,gr,false);
+bx(X0,X0+0.03,0.96,2.65,bb0,bb1,M.onyx,gr,false);
+bx(X0,X0+0.03,2.65,H,bb0,bb1,M.subway,gr,false);
 const bR=rng(42);
-[1.3,1.65,2.0,2.35].forEach(y=>{bx(X0,X0+0.26,y,y+0.03,b0,b1,M.timber,gr);bx(X0+0.2,X0+0.24,y-0.015,y,b0+0.02,b1-0.02,M.glow,gr,false);
-  for(let z=b0+0.1;z<b1-0.05;z+=0.1){const h=0.2+bR()*0.1;const b=cyl(0.032,0.034,h,X0+0.1+bR()*0.06,y+0.03,z,bottleMats[Math.floor(bR()*5)],gr,10);b.castShadow=false;}});
-[3.4,5.6].forEach(z=>{bx(X0+0.03,X0+0.09,2.66,3.34,z-0.62,z+0.62,M.black,gr);plane(1.18,0.64,M.tv,X0+0.095,3.0,z,Math.PI/2,gr);});
-plane(1.2,0.33,M.neonBao,X0+0.06,3.1,4.5,Math.PI/2,gr);
-[b0+0.05,b1-0.05].forEach(z=>cyl(0.02,0.02,3.2,X0+0.07,1.0,z,M.red,gr,10));
-// counter
-bx(-1.05,-0.55,0,1.0,b0,b1,M.fluted,gr); bx(-1.12,-0.4,1.0,1.06,b0-0.05,b1,M.marble,gr); bx(-0.44,-0.42,0.94,0.99,b0,b1,M.glow,gr,false);
-bx(-0.56,-0.53,0.02,0.06,b0,b1,M.glow,gr,false);
-rod(V(-0.38,0.22,b0),V(-0.38,0.22,b1),0.022,M.brass,gr);
-[3.6,5.0].forEach((z,k)=>{cyl(0.04,0.045,0.42,-0.8,1.06,z,M.brass,gr);rod(V(-0.8,1.48,z-0.27),V(-0.8,1.48,z+0.27),0.032,M.brass,gr);
-  [-0.22,0,0.22].forEach((o,i)=>{cyl(0.012,0.012,0.08,-0.8,1.4,z+o,M.brass,gr,8);cyl(0.02,0.014,0.15,-0.8,1.5,z+o,cush[(i+k*2)%5],gr,8);});});
-for(let i=0;i<7;i++) stool(-0.18,2.9+i*0.5,0,gr);
-// globe pendants + vine rail above the bar
-[3.0,3.9,4.8,5.7].forEach(z=>{rod(V(-0.75,H-0.22,z),V(-0.75,2.42,z),0.005,M.black,gr);sph(0.12,-0.75,2.3,z,M.globe,gr);});
-bx(-1.15,-0.95,3.95,4.0,2.8,6.2,M.timber,gr);[2.9,6.1].forEach(z=>rod(V(-1.05,4.0,z),V(-1.05,H-0.22,z),0.006,M.black,gr));
-{const r=rng(77);for(let i=0;i<34;i++) trail(-1.05+(r()-.5)*0.25,3.98,2.85+r()*3.3,0.3+r()*1.0,gr);}
-// BOOTHS (left wall) + tin-sign wall + sconces
+[1.28,1.7,2.12].forEach(y=>{bx(X0+0.03,X0+0.32,y,y+0.02,bb0+0.05,bb1-0.05,M.shelfGlass,gr,false);bx(X0+0.31,X0+0.33,y-0.01,y+0.025,bb0+0.05,bb1-0.05,M.brass,gr,false);
+  for(let z=bb0+0.12;z<bb1-0.1;z+=0.095){const h=0.2+bR()*0.1,x=X0+0.1+bR()*0.12,m=bottleMats[Math.floor(bR()*5)];const b=cyl(0.032,0.034,h,x,y+0.02,z,m,gr,8);b.castShadow=false;const n=cyl(0.012,0.016,0.07,x,y+0.02+h,z,m,gr,6);n.castShadow=false;}});
+[3.4,6.4].forEach(z=>{bx(X0+0.03,X0+0.09,2.78,3.46,z-0.62,z+0.62,M.black,gr);plane(1.18,0.64,M.tv,X0+0.095,3.12,z,Math.PI/2,gr);});
+plane(1.3,0.36,M.neonBao,X0+0.06,3.2,4.9,Math.PI/2,gr);
+[bb0+0.05,bb1-0.05].forEach(z=>cyl(0.022,0.022,3.3,X0+0.07,0.96,z,M.neonRed,gr,8));
+bx(-0.95,-0.45,0,0.98,c0,c1,M.fluted,gr); bx(-1.05,-0.3,0.98,1.04,c0,c1,M.marble,gr);
+{const e=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.25,0.98,24,1,false,Math.PI/2,Math.PI),M.fluted);e.position.set(-0.7,0.49,c0);gr.add(e);
+ const t=new THREE.Mesh(new THREE.CylinderGeometry(0.375,0.375,0.06,24,1,false,Math.PI/2,Math.PI),M.marble);t.position.set(-0.675,1.01,c0);gr.add(t);
+ const l=new THREE.Mesh(new THREE.CylinderGeometry(0.31,0.31,0.025,24,1,false,Math.PI/2,Math.PI),M.led);l.position.set(-0.69,0.955,c0);gr.add(l);}
+bx(-0.32,-0.29,0.97,1.045,c0,c1,M.brass,gr,false);
+bx(-0.36,-0.33,0.94,0.965,c0,c1,M.led,gr,false);
+bx(-0.46,-0.44,0.03,0.07,c0,c1,M.led,gr,false);
+rod(V(-0.27,0.22,c0),V(-0.27,0.22,c1),0.024,M.brass,gr);
+bx(-1.15,-0.95,0,0.85,c0,c1,M.ss,gr); bx(-1.13,-0.97,0.75,0.86,3.2,3.9,M.porcelain,gr); bx(-1.13,-0.97,0.7,0.86,5.2,5.6,M.ssDark,gr);
+[3.8,5.6].forEach((z,k)=>{cyl(0.045,0.05,0.42,-0.85,1.04,z,M.brass,gr);rod(V(-0.85,1.46,z-0.27),V(-0.85,1.46,z+0.27),0.034,M.brass,gr);
+  [-0.22,0,0.22].forEach((o,i)=>{cyl(0.012,0.012,0.08,-0.85,1.38,z+o,M.brass,gr,8);cyl(0.02,0.014,0.15,-0.85,1.48,z+o,cush[(i+k*2)%5],gr,8);});});
+for(let i=0;i<8;i++) stool(-0.08,2.95+i*0.5,gr);
+bx(-1.15,-0.35,2.62,2.67,c0+0.1,c1-0.1,M.timber,gr); [-1.15,-0.35].forEach(x=>{rod(V(x,2.6,c0+0.1),V(x,2.6,c1-0.1),0.015,M.brass,gr);bx(x-0.012,x+0.012,2.585,2.6,c0+0.1,c1-0.1,M.led,gr,false);});
+[[-1.1,c0+0.2],[-1.1,c1-0.2],[-0.4,c0+0.2],[-0.4,c1-0.2]].forEach(([x,z])=>rod(V(x,2.67,z),V(x,H-0.22,z),0.008,M.black,gr));
+[[3.25,4.15],[4.75,5.65]].forEach(([za,zb])=>{for(let x=-1.0;x<=-0.5;x+=0.16)for(let z=za;z<=zb;z+=0.13){const g=cyl(0.038,0.01,0.1,x,2.5,z,M.shelfGlass,gr,8);g.castShadow=false;}});
+[2.95,4.45,5.95,6.7].forEach(z=>{rod(V(-0.75,2.62,z),V(-0.75,2.26,z),0.005,M.black,gr);sph(0.11,-0.75,2.18,z,M.globe,gr);});
+{const r=rng(77);for(let i=0;i<40;i++){const side=r()<.5?-1.17:-0.33;trail(side+(r()-.5)*0.05,2.72,c0+0.2+r()*4.0,0.25+r()*0.45,gr);}for(let z=c0+0.3;z<c1-0.2;z+=0.55){const p=new THREE.Mesh(new THREE.SphereGeometry(0.16,8,6),M.leaf);p.scale.set(1.4,0.5,1);p.position.set(-0.75,2.75,z);gr.add(p);}}
+
+// BOOTHS (left wall): high padded backs with a lumbar roll, tin-sign wall, sconces
 plane(3.5,2.25,M.tin,X1-0.012,2.55,4.1,-Math.PI/2,G.wallL);
-[[2.4,4.1],[4.1,5.8]].forEach(([z0,z1],k)=>{
-  bx(0.95,X1,0,0.45,z0,z0+0.5,M.leather,gr); bx(0.95,X1,0.45,1.25,z0,z0+0.12,M.leather,gr);
-  bx(0.95,X1,0,0.45,z1-0.5,z1,M.leather,gr); bx(0.95,X1,0.45,1.25,z1-0.12,z1,M.leather,gr);
-  bx(1.0,2.2,0.72,0.77,z0+0.56,z1-0.56,M.timber,gr); cyl(0.05,0.05,0.72,1.6,0,(z0+z1)/2,M.steel,gr,10); bx(1.35,1.85,0,0.03,(z0+z1)/2-0.25,(z0+z1)/2+0.25,M.steel,gr);
-  bx(1.6,2.0,0.45,0.75,z0+0.12,z0+0.24,M.plaid,gr); bx(1.1,1.5,0.45,0.75,z1-0.24,z1-0.12,M.plaid,gr);
+[[2.4,4.1],[4.1,5.8]].forEach(([z0,z1])=>{
+  bx(0.95,X1,0,0.46,z0,z0+0.52,M.leather,gr); bx(0.95,X1,0.46,1.3,z0,z0+0.14,M.leather,gr); bx(0.97,X1-0.02,0.5,0.7,z0+0.14,z0+0.22,M.leather,gr);
+  bx(0.95,X1,0,0.46,z1-0.52,z1,M.leather,gr); bx(0.95,X1,0.46,1.3,z1-0.14,z1,M.leather,gr); bx(0.97,X1-0.02,0.5,0.7,z1-0.22,z1-0.14,M.leather,gr);
+  bx(1.0,2.2,0.72,0.77,z0+0.58,z1-0.58,M.timber,gr); cyl(0.05,0.05,0.72,1.6,0,(z0+z1)/2,M.steel,gr,10);
+  bx(1.6,2.0,0.5,0.85,z0+0.22,z0+0.32,M.plaid,gr); bx(1.1,1.5,0.5,0.85,z1-0.32,z1-0.22,M.plaid,gr);
   cyl(0.06,0.08,0.22,1.9,0.77,(z0+z1)/2,M.brass,gr); sph(0.07,1.9,1.05,(z0+z1)/2,M.globe,gr);
   bx(1.0,1.6,0.77,0.85,(z0+z1)/2-0.12,(z0+z1)/2+0.12,M.cane,gr);
 });
 [2.6,4.1,5.6].forEach(z=>{bx(X1-0.08,X1,1.55,1.62,z-0.03,z+0.03,M.brass,gr);sph(0.06,X1-0.14,1.68,z,M.globe,gr);});
-// SPIRAL STAIR to the loft
-const sc={x:1.5,z:6.45},NS=14,srh=MZ/NS;
-cyl(0.05,0.05,MZ+1.0,sc.x,0,sc.z,M.steel,gr,12);
-const helix=[];
-for(let i=0;i<NS-1;i++){const a=Math.PI/2-(NS-2-i)*0.45;const tr=new THREE.Mesh(new THREE.BoxGeometry(0.62,0.045,0.26),M.timber);tr.position.set(sc.x+Math.cos(a)*0.34,(i+1)*srh,sc.z+Math.sin(a)*0.34);tr.rotation.y=-a;tr.castShadow=true;gr.add(tr);helix.push(V(sc.x+Math.cos(a)*0.64,(i+1)*srh+0.9,sc.z+Math.sin(a)*0.64));}
-gr.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(helix),80,0.02,6,false),M.brass));
-helix.forEach((p,i)=>{if(i%2===0)rod(V(p.x,p.y-0.9,p.z),p,0.01,M.steel,gr);});
-// KITCHEN (back right)
-const kx1=0.15;
-bx(X0,-1.8,0,DK,LZ,LZ+0.1,M.partition,gr); bx(-1.8,-1.05,2.1,DK,LZ,LZ+0.1,M.partition,gr); bx(-1.05,-0.95,0,DK,LZ,LZ+0.1,M.partition,gr);
-bx(-0.95,kx1,0,1.0,LZ,LZ+0.1,M.partition,gr); bx(-0.95,kx1,1.6,DK,LZ,LZ+0.1,M.partition,gr); bx(-1.0,kx1+0.05,1.0,1.04,LZ-0.25,LZ+0.3,M.ss,gr);
-bx(kx1,kx1+0.1,0,DK,LZ,D,M.partition,gr);
-bx(X0,kx1,0.88,1.85,D-0.02,D,M.whiteTile,gr,false); bx(X0,X0+0.02,0.88,1.85,LZ+0.1,D,M.whiteTile,gr,false);
-bx(X0,X0+0.7,0,2.0,7.2,8.3,M.ss,gr); bx(X0+0.69,X0+0.71,0.2,1.9,7.25,7.74,M.black,gr); bx(X0+0.69,X0+0.71,0.2,1.9,7.76,8.25,M.black,gr);
-bx(X0,X0+0.7,0,0.9,8.4,9.75,M.ss,gr); bx(X0+0.69,X0+0.71,0.1,0.7,8.45,9.7,M.black,gr);
-bx(X0,-0.2,0,0.88,9.85,D,M.ss,gr);
-[-1.95,-1.45].forEach(x=>{cyl(0.17,0.17,0.03,x,0.88,10.18,M.black,gr);cyl(0.2,0.14,0.1,x,0.91,10.18,M.steel,gr);});
-bx(-1.15,-0.75,0.88,0.92,9.95,10.4,M.black,gr);
-[-0.55,-0.32].forEach((x,j)=>{for(let i=0;i<3-j;i++) cyl(0.12,0.12,0.09,x,0.9+i*0.095,10.1+j*0.18,M.cane,gr);});
-bx(-0.45,kx1,0,0.9,8.2,9.6,M.ss,gr); bx(-0.38,0.08,0.78,0.91,8.35,8.9,M.black,gr); bx(-0.38,0.08,0.78,0.91,9.0,9.5,M.black,gr);
-bx(X0,0.1,1.85,2.28,9.65,D,M.ss,gr);
-// WASHROOM + store (back left), corridor x 0.25–1.05
-bx(1.05,1.15,0,DK,LZ,7.3,M.partition,gr); bx(1.05,1.15,2.1,DK,7.3,8.0,M.partition,gr); bx(1.05,1.15,0,DK,8.0,8.9,M.partition,gr);
-bx(1.05,1.15,2.1,DK,8.9,9.6,M.partition,gr); bx(1.05,1.15,0,DK,9.6,D,M.partition,gr); bx(1.15,X1,0,DK,8.4,8.5,M.partition,gr);
-bx(1.15,X1,0,DK,LZ,LZ+0.1,M.partition,gr);
-bx(X1-0.02,X1,0,2.2,8.5,D,M.subway,gr,false); bx(1.15,X1,0,2.2,D-0.02,D,M.subway,gr,false); bx(1.15,1.17,0,2.2,8.5,D,M.subway,gr,false);
-bx(1.75,X1,0.55,0.85,8.7,9.45,M.timber,gr); cyl(0.18,0.13,0.12,2.0,0.85,9.07,M.porcelain,gr,24);
-const mir=cyl(0.28,0.28,0.02,X1-0.03,1.45,9.07,M.brass,gr,32); mir.rotation.z=Math.PI/2; mir.position.set(X1-0.04,1.45,9.07);
-const mg=cyl(0.25,0.25,0.012,X1-0.05,1.45,9.07,M.cool,gr,32); mg.rotation.z=Math.PI/2; mg.position.set(X1-0.055,1.45,9.07); mg.material=S({color:'#cfd6d6',roughness:0.05,metalness:0.9});
-bx(1.45,1.85,0,0.42,9.95,10.45,M.porcelain,gr); bx(1.48,1.82,0.42,0.8,10.3,10.48,M.porcelain,gr);
-rod(V(1.6,DK,9.3),V(1.6,2.05,9.3),0.005,M.black,gr); sph(0.07,1.6,2.0,9.3,M.globe,gr);
-[[1.35,7.3],[1.75,7.3],[2.1,7.3],[1.35,7.75],[1.75,7.75]].forEach(([x,z])=>{cyl(0.2,0.2,0.6,x,0,z+0.4,M.ss,gr);});
-bx(1.15,X1,1.2,1.24,7.15,8.35,M.timber,gr); bx(1.15,X1,1.7,1.74,7.15,8.35,M.timber,gr);
-// corridor art + lamp
-sph(0.06,0.6,2.2,9.5,M.globe,gr);
 
-// ---------- loft ----------
-const lf=G.loft;
-bx(X0,X1,DK,MZ,LZ,D,M.deck,lf);
-bx(X0,X1,2.2,DK,LZ,LZ+0.12,M.steel,lf); [8.6,10.0].forEach(z=>bx(X0,X1,2.25,DK,z,z+0.1,M.steel,lf));
-bx(X0,0.85,MZ,3.55,LZ+0.02,LZ+0.04,M.glass,lf,false); bx(X0,0.85,3.55,3.61,LZ-0.02,LZ+0.1,M.timber,lf);
-bx(X0,0.85,MZ,MZ+0.05,LZ,LZ+0.06,M.steel,lf);
-bx(X0+0.1,0.75,3.0,3.05,LZ+0.01,LZ+0.03,M.glow,lf,false);
-bx(-2.0,2.0,MZ,MZ+0.012,7.6,10.3,M.plaid,lf,false);
-[[-1.25,8.15,4],[-1.25,9.65,4],[1.15,9.65,2]].forEach(([x,z,n],k)=>{
-  bx(x-0.4,x+0.4,MZ,MZ+0.33,z-0.3,z+0.3,M.timberDark,lf); bx(x-0.45,x+0.45,MZ+0.33,MZ+0.37,z-0.35,z+0.35,M.timber,lf);
-  cyl(0.05,0.06,0.1,x,MZ+0.37,z,M.glow,lf,12);
-  const seats=n===4?[[x-0.75,z],[x+0.75,z],[x,z-0.65],[x,z+0.65]]:[[x-0.75,z],[x+0.75,z]];
-  seats.forEach(([sx,sz],i)=>{ if(i%2) cyl(0.2,0.2,0.38,sx,MZ,sz,M.stump,lf,14); else bx(sx-0.22,sx+0.22,MZ,MZ+0.16,sz-0.22,sz+0.22,cush[(i+k)%5],lf); });
-});
-bx(X0,X0+0.18,MZ,MZ+0.5,7.6,10.3,M.leather,lf);
-for(let z=7.3;z<D;z+=0.35) sph(0.03,0,H-0.06,z,M.glow,lf);
-plant(1.9,MZ,7.5,0.8,lf);
+// WASHROOM pod (left, x 1.05–2.25, z 6.0–7.5)
+bx(1.05,1.15,0,KC,6.0,6.45,M.partition,gr); bx(1.05,1.15,0,KC,7.15,KZ,M.partition,gr); bx(1.05,1.15,2.1,KC,6.45,7.15,M.partition,gr);
+bx(1.15,X1,0,KC,6.0,6.1,M.partition,gr);
+bx(1.15,X1,0,0.005,6.1,KZ,M.epoxy,gr,false);
+bx(X1-0.02,X1,0,2.2,6.1,KZ,M.subway,gr,false); bx(1.15,X1,0,2.2,6.1,6.12,M.subway,gr,false); bx(1.15,X1,0,2.2,KZ-0.02,KZ,M.subway,gr,false); bx(1.15,1.17,0,2.2,6.1,KZ,M.subway,gr,false);
+bx(1.8,2.2,0,0.42,6.9,7.4,M.porcelain,gr); bx(1.82,2.18,0.42,0.8,7.32,7.48,M.porcelain,gr);
+bx(1.45,2.15,0.72,0.84,6.12,6.45,M.timber,gr); cyl(0.15,0.11,0.1,1.8,0.84,6.28,M.porcelain,gr,20);
+{const m1=cyl(0.27,0.27,0.015,1.8,0,6.13,M.brass,gr,32);m1.rotation.x=Math.PI/2;m1.position.set(1.8,1.45,6.125);const m2=cyl(0.24,0.24,0.012,1.8,0,6.14,M.mirror,gr,32);m2.rotation.x=Math.PI/2;m2.position.set(1.8,1.45,6.135);}
+rod(V(1.55,KC,6.75),V(1.55,2.15,6.75),0.005,M.black,gr); sph(0.07,1.55,2.1,6.75,M.globe,gr);
+door(1.1,7.15,0.7,Math.PI/2+0.9,M.timber,gr);
+bx(1.15,X1,KC,KC+0.04,6.0,KZ,M.pvc,G.kceil,false);
+
+// ---------- KITCHEN (full width, z 7.5–10.5) ----------
+const kt=G.kitchen;
+function part(x0,x1,y0,y1){bx(x0,x1,y0,y1,KZ,KZ+0.1,M.partition,kt);if(y0<2.1)bx(x0,x1,y0,Math.min(y1,2.1),KZ+0.1,KZ+0.115,M.whiteTile,kt,false);}
+part(X0,-0.8,0,KC); part(-0.8,0.15,0,1.0); part(-0.8,0.15,1.6,KC); part(0.15,0.25,0,KC); part(0.25,1.0,2.1,KC); part(1.0,X1,0,KC);
+bx(X0,X1,KC,H,KZ,KZ+0.1,M.partition,G.partUp);
+plane(3.2,1.25,M.menu,-0.55,3.5,KZ-0.01,Math.PI,G.partUp);
+bx(-0.82,0.17,0.98,1.03,KZ-0.25,KZ+0.75,M.ss,kt);
+bx(X0,X1,KC,KC+0.04,KZ,D,M.pvc,G.kceil,false);
+[[-1.3,8.6],[0.4,8.6],[-1.3,9.6],[0.4,9.6]].forEach(([x,z])=>bx(x-0.3,x+0.3,KC-0.02,KC,z-0.3,z+0.3,M.panelLight,G.kceil,false));
+bx(X0,X0+0.02,0.85,2.1,KZ+0.1,D,M.whiteTile,kt,false); bx(X1-0.02,X1,0,2.1,KZ+0.1,D,M.whiteTile,kt,false); bx(X0,X1,0.85,2.1,D-0.02,D,M.whiteTile,kt,false);
+bx(-2.2,1.05,0.001,0.008,9.55,9.65,M.ssDark,kt,false);
+// hot line (back wall)
+bx(X0,-1.05,0,0.8,9.85,D,M.ss,kt);
+[-1.9,-1.4].forEach(x=>{cyl(0.2,0.2,0.03,x,0.8,10.15,M.black,kt);cyl(0.24,0.1,0.12,x,0.83,10.15,M.steel,kt,20);});
+rod(V(-1.65,0.8,10.45),V(-1.65,1.15,10.45),0.012,M.ss,kt); rod(V(-1.65,1.15,10.45),V(-1.65,1.15,10.25),0.012,M.ss,kt);
+bx(-2.2,-1.1,0.78,0.82,9.86,9.92,M.ssDark,kt,false);
+bx(-1.0,-0.2,0,0.8,9.85,D,M.ss,kt);
+[-0.8,-0.4].forEach(x=>{for(let i=0;i<3;i++)cyl(0.16,0.16,0.085,x,0.8+i*0.088,10.15,M.cane,kt,18);cyl(0.17,0.02,0.08,x,1.064,10.15,M.cane,kt,18);});
+bx(-0.15,0.45,0,0.9,9.85,D,M.ss,kt); bx(-0.11,0.13,0.86,0.905,9.95,10.35,M.oil,kt,false); bx(0.17,0.41,0.86,0.905,9.95,10.35,M.oil,kt,false);
+[0.01,0.29].forEach(x=>{bx(x-0.09,x+0.09,0.92,1.04,10.05,10.3,M.ssDark,kt);rod(V(x,1.0,10.05),V(x,1.1,9.85),0.008,M.black,kt);});
+bx(0.5,1.05,0,0.85,9.85,D,M.ss,kt); [0.65,0.9].forEach(x=>cyl(0.11,0.11,0.02,x,0.85,10.15,M.black,kt)); cyl(0.15,0.15,0.3,0.9,0.87,10.15,M.ss,kt,20);
+// hood: baffle filters + wet-chemical suppression; duct up and out the back
+bx(-2.3,1.1,1.95,2.45,9.55,D,M.ss,kt); bx(-2.25,1.05,1.94,1.96,9.62,10.45,M.ssDark,kt,false);
+rod(V(-2.2,1.9,9.62),V(1.0,1.9,9.62),0.014,M.red,kt); [-1.65,-0.6,0.15,0.78].forEach(x=>rod(V(x,1.9,9.62),V(x,1.82,9.75),0.01,M.red,kt));
+[-1.3,0.3].forEach(x=>bx(x-0.15,x+0.15,1.935,1.945,9.7,9.9,M.panelLight,kt,false));
+bx(-0.9,-0.4,2.45,3.35,10.0,10.45,M.ss,G.ext); bx(-0.9,-0.4,3.0,3.35,10.0,D+0.7,M.ss,G.ext);
+bx(-0.9,-0.4,3.0,H+1.3,D+0.3,D+0.7,M.ss,G.ext); cyl(0.36,0.02,0.28,-0.65,H+1.32,D+0.5,M.ss,G.ext); cyl(0.22,0.22,0.35,-0.65,3.6,D+0.5,M.steel,G.ext);
+bx(0.2,0.6,3.2,3.6,D,D+0.25,M.ssDark,G.ext);
+// cold store + non-veg prep (right wall)
+bx(X0,X0+0.75,0,2.0,7.65,8.85,M.ss,kt); bx(X0+0.75,X0+0.76,0.15,1.95,8.24,8.26,M.black,kt,false); [7.75,8.75].forEach(z=>rod(V(X0+0.8,0.9,z),V(X0+0.8,1.4,z),0.012,M.ss,kt));
+bx(X0,X0+0.7,0,0.9,8.95,9.75,M.ss,kt); bx(X0+0.7,X0+0.71,0.1,0.7,9.0,9.7,M.ssDark,kt,false);
+bx(X0+0.15,X0+0.55,0.9,0.92,9.1,9.55,M.boardRed,kt); bx(X0,X0+0.35,1.45,1.48,8.95,9.75,M.ss,kt);
+[9.1,9.3,9.5].forEach(z=>cyl(0.07,0.07,0.16,X0+0.18,1.48,z,M.porcelain,kt,10));
+// front wall inside: dumpling/veg prep, plating + pass, hand-wash, door
+bx(-1.5,-0.8,0,0.9,KZ+0.115,8.3,M.ss,kt); bx(-1.42,-0.88,0.9,0.92,7.75,8.2,M.board,kt);
+for(let x=-1.38;x<=-0.92;x+=0.07)for(let z=7.8;z<=8.15;z+=0.07){const d=sph(0.022,x,0.935,z,M.dough,kt);d.scale.y=0.7;}
+cyl(0.14,0.14,0.4,-1.15,0,8.0,M.porcelain,kt,14);
+bx(-1.5,-0.85,1.5,1.53,KZ+0.115,7.95,M.ss,kt); bx(-1.5,-0.85,1.85,1.88,KZ+0.115,7.95,M.ss,kt);
+[-1.4,-1.2,-1.0].forEach(x=>{cyl(0.07,0.07,0.2,x,1.53,7.78,M.porcelain,kt,10);cyl(0.07,0.07,0.18,x,1.88,7.78,M.ssDark,kt,10);});
+bx(-0.8,0.15,0,0.9,KZ+0.115,8.25,M.ss,kt);
+[-0.55,-0.1].forEach(x=>{bx(x-0.14,x+0.14,1.68,1.74,KZ+0.12,7.9,M.ssDark,kt);bx(x-0.11,x+0.11,1.66,1.68,7.65,7.85,M.heat,kt,false);});
+rod(V(-0.8,1.62,KZ+0.13),V(0.15,1.62,KZ+0.13),0.01,M.brass,kt);
+[-0.6,-0.3,0.0].forEach(x=>cyl(0.12,0.1,0.03,x,0.9,7.95,M.porcelain,kt,16));
+door(1.0,KZ+0.12,0.75,Math.PI+0.75,M.ss,kt);
+bx(1.1,1.5,0.75,0.9,KZ+0.115,7.95,M.ss,kt); rod(V(1.3,0.9,7.65),V(1.3,1.1,7.65),0.01,M.ss,kt); bx(1.2,1.4,1.25,1.5,KZ+0.115,7.68,M.porcelain,kt);
+bx(0.42,0.82,2.25,2.42,KZ+0.115,7.68,M.uv,kt,false);
+cyl(0.07,0.07,0.5,0.2,0.3,7.72,M.red,kt,12);
+// dish zone (left wall): landing + pre-rinse → hood dishwasher → 2-bowl pot sink; plate racks above
+bx(1.6,X1,0,0.9,7.75,8.45,M.ss,kt); bx(1.75,2.15,0.75,0.91,7.85,8.3,M.ssDark,kt);
+rod(V(2.1,0.9,8.1),V(2.1,1.65,8.1),0.015,M.ss,kt); rod(V(2.1,1.65,8.1),V(1.95,1.5,8.1),0.012,M.ss,kt);
+bx(1.6,X1,0,0.9,8.45,9.1,M.ss,kt); bx(1.62,X1,0.9,1.75,8.48,9.07,M.ss,kt); bx(1.6,1.62,0.95,1.45,8.55,9.0,M.ssDark,kt,false);
+bx(1.6,X1,0,0.9,9.1,9.9,M.ss,kt); bx(1.7,2.15,0.65,0.91,9.17,9.47,M.ssDark,kt); bx(1.7,2.15,0.65,0.91,9.53,9.83,M.ssDark,kt);
+[1.4,1.8].forEach(y=>bx(1.9,X1,y,y+0.03,8.45,9.9,M.ss,kt));
+for(let z=8.6;z<9.8;z+=0.22) cyl(0.11,0.11,0.12,2.05,1.43,z,M.porcelain,kt,14);
+// LPG bank outside the back wall
+[[-2.15,D+0.35],[-1.25,D+0.35],[-2.15,D+1.05],[-1.25,D+1.05]].forEach(([x,z])=>rod(V(x,0,z),V(x,1.6,z),0.02,M.steel,G.ext));
+bx(-2.15,-1.25,1.6,1.62,D+0.35,D+1.05,M.steel,G.ext);
+[[-1.95,D+0.55],[-1.45,D+0.55],[-1.95,D+0.85],[-1.45,D+0.85]].forEach(([x,z])=>{cyl(0.15,0.15,1.1,x,0,z,M.red,G.ext,14);cyl(0.04,0.04,0.1,x,1.1,z,M.steel,G.ext,8);});
+rod(V(-1.7,1.3,D+0.35),V(-1.7,1.3,D),0.015,M.brass,G.ext);
 
 // ---------- outside: beer garden ----------
 const out=G.outside;
@@ -480,100 +506,175 @@ PX.forEach(x=>PZ.forEach(z=>bx(x-0.08,x+0.08,0,2.95,z-0.08,z+0.08,M.timber,out))
 PX.forEach(x=>bx(x-0.1,x+0.1,2.75,2.97,-6.15,-0.25,M.timberDark,out));
 for(let z=-6.05;z<=-0.3;z+=0.45) bx(-3.6,3.6,2.97,3.05,z-0.04,z+0.04,M.timber,G.pergTop);
 bx(-3.6,3.6,3.06,3.07,-6.15,-0.25,M.poly,G.pergTop,false);
-{const r=rng(99);for(let i=0;i<90;i++){const edge=r();let x,z;if(edge<0.4){x=(r()<.5?-1:1)*(3.0+r()*0.5);z=-6.0+r()*5.6;}else if(edge<0.6){x=-3.5+r()*7;z=-6.0+r()*0.3;}else{x=-3.4+r()*6.8;z=-6+r()*5.6;}trail(x,2.97,z,0.2+r()*(edge<0.6?1.2:0.5),out);}}
-const bulbs=[];
+{const r=rng(99);for(let i=0;i<80;i++){const e=r();let x,z;if(e<0.45){x=(r()<.5?-1:1)*(3.0+r()*0.5);z=-6.0+r()*5.6;}else if(e<0.65){x=-3.5+r()*7;z=-6.0+r()*0.3;}else{x=-3.4+r()*6.8;z=-6+r()*5.6;}trail(x,2.97,z,0.2+r()*(e<0.65?1.2:0.45),out);}}
 [-0.9,-2.0,-3.1,-4.2,-5.3].forEach(z=>{const pts=[];for(let i=0;i<=20;i++){const x=-3.4+i*6.8/20;const t=x/3.4;pts.push(V(x,2.92-0.38*(1-t*t),z));}
   out.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:'#2a2a2a'})));
-  pts.forEach((p,i)=>{if(i>0&&i<20)bulbs.push(sph(0.04,p.x,p.y-0.06,p.z,M.globe,out));});});
-[-1.85,1.85].forEach(x=>{bx(x-0.42,x+0.42,0.72,0.78,-4.7,-1.7,M.timber,out);[[-0.32,-4.55],[0.32,-4.55],[-0.32,-1.85],[0.32,-1.85]].forEach(([a,b])=>bx(x+a-0.04,x+a+0.04,0,0.72,b-0.04,b+0.04,M.timberDark,out));
-  [-1,1].forEach(s=>{bx(x+s*0.62-0.16,x+s*0.62+0.16,0.42,0.47,-4.7,-1.7,M.timber,out);[-4.55,-1.85].forEach(b=>bx(x+s*0.62-0.12,x+s*0.62+0.12,0,0.42,b-0.04,b+0.04,M.timberDark,out));});
-  [-4.0,-3.2,-2.4].forEach(z=>{cyl(0.04,0.04,0.09,x,0.78,z,M.glow,out,10);});});
+  pts.forEach((p,i)=>{if(i>0&&i<20)sph(0.04,p.x,p.y-0.06,p.z,M.globe,out);});});
+// communal table: benches with slatted backrests + seat pads
+{const x=-1.85;bx(x-0.42,x+0.42,0.72,0.78,-4.6,-1.8,M.timber,out);[[-0.32,-4.45],[0.32,-4.45],[-0.32,-1.95],[0.32,-1.95]].forEach(([a,b])=>bx(x+a-0.04,x+a+0.04,0,0.72,b-0.04,b+0.04,M.timberDark,out));
+  [-1,1].forEach(s=>{const bxs=x+s*0.64;bx(bxs-0.18,bxs+0.18,0.42,0.47,-4.6,-1.8,M.timber,out);bx(bxs-0.16,bxs+0.16,0.47,0.52,-4.55,-1.85,cush[2],out);
+    [-4.45,-3.2,-1.95].forEach(b=>{bx(bxs-0.12,bxs+0.12,0,0.42,b-0.04,b+0.04,M.timberDark,out);bx(bxs+s*0.15,bxs+s*0.19,0.42,0.95,b-0.04,b+0.04,M.timberDark,out);});
+    [0.62,0.8].forEach(y=>bx(bxs+s*0.16,bxs+s*0.2,y,y+0.12,-4.6,-1.8,M.timber,out));});
+  [-3.9,-3.2,-2.5].forEach(z=>cyl(0.04,0.04,0.09,x,0.78,z,M.glow,out,10));}
+[-2.0,-4.3].forEach(z=>{cyl(0.36,0.36,0.03,1.85,0.74,z,M.timber,out,20);cyl(0.025,0.025,0.74,1.85,0,z,M.steel,out,8);cyl(0.04,0.04,0.09,1.85,0.77,z,M.glow,out,10);chair(1.25,z,out,Math.PI/2);chair(2.45,z,out,-Math.PI/2);});
 [-3.3,3.3].forEach(x=>{for(let z=-5.7;z<-0.6;z+=1.35) plant(x,0,z,0.9,out);});
-const chalk=new THREE.Group();bx(-0.32,0.32,0.05,1.05,-0.02,0.02,M.chalk,chalk);chalk.position.set(1.05,0,-6.6);chalk.rotation.x=0.12;chalk.rotation.y=Math.PI;out.add(chalk);
+{const ch=new THREE.Group();bx(-0.32,0.32,0.05,1.05,-0.02,0.02,M.chalk,ch);ch.position.set(1.05,0,-6.6);ch.rotation.x=0.12;ch.rotation.y=Math.PI;out.add(ch);}
 bx(-3.7,-0.6,0,0.5,-6.45,-6.3,M.brick,out); bx(0.6,3.7,0,0.5,-6.45,-6.3,M.brick,out);
 function palm(x,z,h,lean){const g=new THREE.Group();const pts=[];for(let i=0;i<=8;i++){const t=i/8;pts.push(V(lean*t*t,h*t,0));}
-  const tube=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),16,0.13,8,false),M.trunk);tube.castShadow=true;g.add(tube);
+  const tube=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),12,0.13,7,false),M.trunk);tube.castShadow=true;g.add(tube);
   for(let i=0;i<9;i++){const leaf=new THREE.Mesh(new THREE.PlaneGeometry(0.5,2.6),M.leafSolid);leaf.position.copy(pts[8]);leaf.rotation.set(0,i/9*Math.PI*2,0);leaf.rotateX(-1.05);leaf.translateY(1.2);leaf.castShadow=true;g.add(leaf);}
   g.position.set(x,0,z);out.add(g);}
 palm(-6.0,-1.0,8,0.7); palm(-8.5,-9.5,8.5,0.9); palm(-7.0,6.0,8,0.6); palm(7.5,12.5,7.4,-0.5); palm(-4.5,14.5,9,0.6);
-// exhaust duct out the back wall and up past the roof
-bx(-1.45,-0.95,2.0,2.3,D-0.02,D+0.75,M.ss,G.ext); bx(-1.45,-0.95,2.0,H+1.2,D+0.45,D+0.75,M.ss,G.ext);
-cyl(0.36,0.02,0.28,-1.2,H+1.22,D+0.6,M.ss,G.ext); cyl(0.2,0.2,0.32,-1.2,3.2,D+0.6,M.steel,G.ext);
 
-// ---------- lights ----------
+// ---------- merge static meshes per group + material (cuts draw calls from ~2,000 to ~150) ----------
+function mergeGroup(group){
+  scene.updateMatrixWorld(true);
+  const inv=new THREE.Matrix4().copy(group.matrixWorld).invert();
+  const buckets=new Map(),kill=[];
+  group.traverse(o=>{if(!o.isMesh||Array.isArray(o.material))return;
+    const g=o.geometry.index?o.geometry.toNonIndexed():o.geometry.clone();
+    g.applyMatrix4(new THREE.Matrix4().multiplyMatrices(inv,o.matrixWorld));
+    if(!g.attributes.uv)g.setAttribute('uv',new THREE.BufferAttribute(new Float32Array(g.attributes.position.count*2),2));
+    const key=o.material.uuid+(o.castShadow?'s':'n');
+    if(!buckets.has(key))buckets.set(key,{mat:o.material,cast:o.castShadow,geos:[]});
+    buckets.get(key).geos.push(g);kill.push(o);});
+  kill.forEach(o=>{o.parent.remove(o);o.geometry.dispose();});
+  buckets.forEach(b=>{let n=0;b.geos.forEach(g=>n+=g.attributes.position.count);
+    const pos=new Float32Array(n*3),nor=new Float32Array(n*3),uv=new Float32Array(n*2);let o3=0,o2=0;
+    b.geos.forEach(g=>{const c=g.attributes.position.count;pos.set(g.attributes.position.array,o3);nor.set(g.attributes.normal.array,o3);uv.set(g.attributes.uv.array,o2);o3+=c*3;o2+=c*2;g.dispose();});
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3));geo.setAttribute('normal',new THREE.BufferAttribute(nor,3));geo.setAttribute('uv',new THREE.BufferAttribute(uv,2));geo.computeBoundingSphere();
+    const m=new THREE.Mesh(geo,b.mat);m.castShadow=b.cast;m.receiveShadow=true;group.add(m);});
+}
+Object.values(G).forEach(mergeGroup);
+
+// ---------- lights (few on purpose) ----------
 const hemi=new THREE.HemisphereLight('#ffe9cf','#3a2a20',0.3);scene.add(hemi);
 const sun=new THREE.DirectionalLight('#fff1dc',1.0);sun.position.set(8,14,-10);sun.target.position.set(0,0,2);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
 Object.assign(sun.shadow.camera,{left:-13,right:13,top:13,bottom:-13,near:1,far:45});sun.shadow.bias=-0.0006;scene.add(sun);scene.add(sun.target);
-const warm=[];function pl(x,y,z,c,i,d,grp){const l=new THREE.PointLight(c,i,d,2);l.position.set(x,y,z);(grp||scene).add(l);warm.push([l,i]);return l;}
-pl(-0.75,2.1,3.5,'#ffa850',1.6,5); pl(-0.75,2.1,5.3,'#ffa850',1.6,5); pl(-1.9,1.9,4.5,'#ffb35c',1.0,4);
-pl(1.7,1.4,3.25,'#ffa850',0.9,3.5); pl(1.7,1.4,4.95,'#ffa850',0.9,3.5); pl(-1.0,2.2,1.3,'#ffb060',1.1,5); pl(1.6,1.8,1.1,'#ffb060',0.8,4);
-pl(0.2,4.1,3.0,'#ffad5a',0.6,8); pl(-2.0,3.0,4.5,'#ff2d55',0.5,3);
-pl(-1.0,2.2,8.7,'#fff3e0',1.0,5); pl(1.7,2.0,9.4,'#ffd9a8',0.6,3);
-pl(-0.6,3.9,8.6,'#ffad5a',0.9,5,G.loft); pl(1.0,3.9,9.7,'#ffad5a',0.7,4,G.loft);
-pl(-1.8,2.5,-3.1,'#ffb060',1.2,7); pl(1.8,2.5,-3.1,'#ffb060',1.2,7); pl(0,2.6,-5.3,'#ffb060',0.6,5);
+const warm=[];function pl(x,y,z,c,i,d){const l=new THREE.PointLight(c,i,d,2);l.position.set(x,y,z);scene.add(l);warm.push([l,i]);return l;}
+pl(-0.75,2.0,3.7,'#ffa850',2.2,5.5); pl(-0.75,2.0,5.9,'#ffa850',2.2,5.5); pl(-1.6,1.8,4.9,'#ffb35c',1.3,3.5);
+pl(1.7,1.5,4.1,'#ffa850',0.9,4.5); pl(-0.9,2.0,1.2,'#ffb060',0.8,4.5); pl(1.5,2.0,1.0,'#ffb060',0.6,4);
+pl(-0.2,2.4,9.0,'#f4f8ff',1.4,5.5);
+pl(-1.8,2.5,-3.1,'#ffb060',1.2,7); pl(1.8,2.5,-3.1,'#ffb060',1.0,7);
 function setNight(on){
   if(on){scene.background=new THREE.Color('#15111c');scene.fog=new THREE.Fog('#15111c',26,70);hemi.intensity=0.2;hemi.color.set('#9fb0d8');hemi.groundColor.set('#2a1d18');sun.intensity=0.16;sun.color.set('#8796c8');
-    warm.forEach(([l,i])=>l.intensity=i);M.glow.emissiveIntensity=1.25;M.globe.emissiveIntensity=1.4;M.red.emissiveIntensity=2.2;M.neonBao.opacity=1;M.neonSign.opacity=1;renderer.toneMappingExposure=1.2;}
+    warm.forEach(([l,i])=>l.intensity=i);M.glow.emissiveIntensity=1.25;M.globe.emissiveIntensity=1.4;M.led.emissiveIntensity=2.6;M.onyx.emissiveIntensity=1.0;M.neonRed.emissiveIntensity=2.4;M.neonBao.opacity=1;M.neonSign.opacity=1;renderer.toneMappingExposure=1.2;}
   else{scene.background=new THREE.Color('#cfe2e6');scene.fog=new THREE.Fog('#cfe2e6',35,90);hemi.intensity=0.9;hemi.color.set('#fff3e2');hemi.groundColor.set('#6b4a36');sun.intensity=1.8;sun.color.set('#fff1dc');
-    warm.forEach(([l,i])=>l.intensity=i*0.35);M.glow.emissiveIntensity=0.5;M.globe.emissiveIntensity=0.5;M.red.emissiveIntensity=1.0;M.neonBao.opacity=0.6;M.neonSign.opacity=0.5;renderer.toneMappingExposure=1.0;}
+    warm.forEach(([l,i])=>l.intensity=i*0.35);M.glow.emissiveIntensity=0.5;M.globe.emissiveIntensity=0.5;M.led.emissiveIntensity=1.2;M.onyx.emissiveIntensity=0.55;M.neonRed.emissiveIntensity=1.0;M.neonBao.opacity=0.6;M.neonSign.opacity=0.5;renderer.toneMappingExposure=1.0;}
+  renderer.shadowMap.needsUpdate=true; dirty=true;
 }
 
 // ---------- labels ----------
 const LBL=[
- ['Beer garden · 12 under pergola',0,3.3,-3.2,'o'],['Chalkboard',1.05,1.3,-6.6,'o'],
- ['Reception',1.55,1.3,1.15,'g'],['Pop-art mural',X1-0.05,3.95,1.3,'g','L'],['Chesterfield lounge · 4',-1.25,1.1,1.3,'g'],['Jukebox',X0+0.3,1.65,2.3,'g'],
- ['Bar · 6 taps · 7 stools',-0.75,1.75,4.3,'g'],['"bao, baby?" neon + TVs',X0+0.1,3.6,4.5,'g'],['Leather booths · 8',1.6,1.45,4.1,'g'],['Tin-sign wall',X1-0.05,3.75,4.6,'g','L'],
- ['Spiral stair',1.5,3.6,6.45,'u'],['Kitchen 2.4 × 3.4 m',-1.0,1.4,8.6,'g'],['Steamers + wok line',-1.0,1.05,10.1,'g'],['Hood → duct out back → above roof',-1.2,H+1.5,D+0.6,'g'],
- ['Washroom',1.7,1.35,9.6,'g'],['Keg + dry store',1.7,1.2,7.7,'g'],['Loft snug · 10 (headroom ~1.95 m)',-0.2,3.35,9.0,'u']
+ ['Beer garden · 10',0,3.3,-3.2,'o'],['Chalkboard',1.05,1.3,-6.6,'o'],
+ ['Reception',1.55,1.3,1.15,'g'],['Pop-art mural',X1-0.05,3.95,1.25,'g','L'],['Lounge · 4',-1.25,1.15,1.3,'g'],['Jukebox',1.95,1.65,2.15,'g'],
+ ['Bar · 8 stools · 6 taps',-0.1,1.45,4.7,'g'],['Backlit onyx back bar',X0+0.1,2.5,3.0,'g'],['Glass gantry + pothos',-0.75,2.95,4.45,'g'],['"bao, baby?" + TVs',X0+0.1,3.7,4.9,'g'],
+ ['Booths · 8',1.6,1.5,4.1,'g'],['Tin-sign wall',X1-0.05,3.75,4.6,'g','L'],['Washroom',1.7,2.9,6.75,'g'],['Menu board',-0.55,4.25,KZ-0.02,'g'],
+ ['Kitchen · click to explore',-0.6,3.0,9.0,'g cta'],
+ ['Wok range · 2 burners',-1.65,1.25,10.15,'k'],['Dim sum steamer',-0.6,1.35,10.15,'k'],['Twin fryer',0.15,1.2,10.15,'k'],['2-burner range',0.78,1.3,10.15,'k'],
+ ['Hood · baffles · fire suppression',-0.6,2.6,9.8,'k'],['Pass + heat lamp',-0.33,1.95,7.8,'k'],['Dumpling / veg prep',-1.15,1.05,8.0,'k'],
+ ['Non-veg prep · u/c freezer',X0+0.35,1.7,9.35,'k'],['2-door reach-in',X0+0.38,2.15,8.25,'k'],['Hand-wash sink',1.3,1.6,7.8,'k'],
+ ['Pre-rinse',1.9,1.8,8.1,'k'],['Hood dishwasher',1.9,1.95,8.78,'k'],['Pot-wash sink',1.9,1.15,9.5,'k'],['Floor drain + grease trap',-0.6,0.25,9.6,'k'],
+ ['Rear door · deliveries + waste',1.55,2.3,D,'k'],['LPG bank (outside)',-1.7,1.85,D+0.7,'k'],['Exhaust out the back',-0.65,3.7,D+0.5,'k']
 ];
 const labelsEl=document.getElementById('labels');
-const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f,w};});
+const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;d.hidden=true;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f:f.split(' ')[0],w,shown:false};});
+
+// ---------- zones (click to explore) ----------
+const ZONES={
+  kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13 m²',t:'Commercial kitchen',
+    b:'The kitchen is laid out so food moves one way: delivered, stored, prepped, cooked, plated and handed out. Dirty plates come back on their own route.',
+    l:['A rear door handles deliveries and waste, so neither crosses the dining room','Veg and dumpling prep on the front wall, non-veg prep on the right wall','One 3.4 m baffle hood covers the wok range, steamer, fryer and range, with wet-chemical fire suppression','Plating sits under the heat lamp, and servers collect through the hatch','Dirty plates come in by the door and land straight on the dish table: pre-rinse, dishwasher, pot sink','Hand-wash sink at the door, epoxy floor with a drain and grease trap, LPG cylinders outside'],
+    views:[['Top view','kitchen'],['Walk in','kwalk'],['Dish side','kdish']]},
+  bar:{box:[X0,-0.25,0,2.8,2.25,KZ],ey:'Bar · 4.4 m',t:'The bar',b:'The brightest thing in the room: a curved marble end, a black fluted front with a double LED line, a backlit onyx back bar and a glass gantry overhead.',
+    l:['6 craft taps on two brass fonts','Speed rail, ice well, bar sink and glasswasher behind the counter','8 red leather stools with padded backrests, plus a brass foot rail','Green tile above, with TVs, red neon and the "bao, baby?" sign'],views:[['Down the bar','bar'],['Bartender side','barback']]},
+  booths:{box:[0.9,X1,0,1.4,2.4,5.8],ey:'Booths · 8 covers',t:'Leather booths',b:'Two high-back oxblood booths with a lumbar roll, against exposed brick and a tin-sign and clock wall.',l:['Plaid cushions and brass table lamps','Each booth seats 4'],views:[['View','booths']]},
+  lounge:{box:[X0,0.3,0,1.2,0.3,2.3],ey:'Lounge · 4 covers',t:'Chesterfield lounge',b:'A deep chesterfield sofa with a tall padded back and two high-back leather armchairs by the front glass.',l:['The first seats people see from the road'],views:[['View','lounge']]},
+  reception:{box:[1.0,X1,0,2.0,0.4,2.4],ey:'Reception',t:'Host desk + mural',b:'A cane-fronted host desk with a brass lamp, set against the pop-art dim sum mural, with the jukebox beside it.',l:['The mural is the first photo spot'],views:[['View','reception']]},
+  washroom:{box:[1.05,X1,0,KC,6.0,KZ],ey:'Washroom',t:'Washroom',b:'Bottle-green subway tile, a timber vanity, a round brass mirror and a pendant light.',l:['It opens onto the dining room, never into the kitchen','Check whether separate male and female WCs are required'],views:[['Top view','wash']]},
+  garden:{box:[-3.6,3.6,0,3.0,-6.3,-0.1],ey:'Beer garden · 10 covers',t:'Beer garden',b:'A timber pergola with a clear polycarbonate roof, trailing vines and festoon bulbs.',l:['A communal table for 6 on benches with backrests and seat pads','Two tables for two with cushioned cane chairs','Monsoon: plan for this space to be closed June to September'],views:[['View','garden']]}
+};
+const hitMat=new THREE.MeshBasicMaterial();const hits=[];
+Object.entries(ZONES).forEach(([k,z])=>{const [x0,x1,y0,y1,z0,z1]=z.box;const m=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,y1-y0,z1-z0),hitMat);m.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);m.updateMatrixWorld();m.userData.zone=k;hits.push(m);});
 
 // ---------- views + UI ----------
-const state={cut:true,labels:true,night:true,loft:true};
 const VIEWS={
-  iso:{p:[9.5,9.5,-8.5],t:[0,1.4,3.2]},
+  iso:{p:[9.5,9.5,-8.5],t:[0,1.4,3.6]},
+  kitchen:{p:[0.6,6.4,6.6],t:[-0.15,0.5,9.1]},
+  kwalk:{p:[1.25,1.62,7.95],t:[-1.3,1.05,10.3]},
+  kdish:{p:[-1.3,1.65,8.2],t:[2.2,1.0,9.0]},
+  bar:{p:[1.0,1.75,0.7],t:[-1.3,1.45,5.4]},
+  barback:{p:[-1.55,1.7,7.2],t:[-0.5,1.2,2.4]},
+  booths:{p:[-0.1,1.7,1.9],t:[2.2,1.1,4.7]},
+  lounge:{p:[0.9,1.6,3.2],t:[-1.6,0.7,1.0]},
+  reception:{p:[-0.6,1.6,3.0],t:[2.2,1.5,1.0]},
+  wash:{p:[0.5,4.3,5.3],t:[1.7,0.6,6.8]},
   garden:{p:[2.9,1.65,-7.6],t:[-0.6,1.3,-1.6]},
   street:{p:[0.4,1.7,-10.5],t:[0,2.0,2.0]},
-  bar:{p:[1.55,1.55,6.6],t:[-1.0,1.5,2.6]},
-  door:{p:[0.3,1.6,6.6],t:[0,1.5,-3]},
-  loft:{p:[1.0,3.9,10.1],t:[-0.8,2.4,6.0]},
-  plan:{p:[0,24,2.21],t:[0,0,2.2]}
+  plan:{p:[0,27,2.11],t:[0,0,2.1]}
 };
-let anim=null;
+const state={cut:true,labels:true,night:true,focus:null};
 function goView(k,instant){const v=VIEWS[k];const to={p:V(...v.p),t:V(...v.t)};
-  if(instant||window.matchMedia('(prefers-reduced-motion: reduce)').matches){camera.position.copy(to.p);controls.target.copy(to.t);controls.update();return;}
-  anim={fp:camera.position.clone(),ft:controls.target.clone(),to,t0:performance.now(),dur:1100};}
-function press(group,btn){group.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-pressed',b===btn?'true':'false'));}
-document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{press(b.parentElement,b);goView(b.dataset.view);}));
-function toggle(id,key,fn){const b=document.getElementById(id);b.addEventListener('click',()=>{state[key]=!state[key];b.setAttribute('aria-pressed',String(state[key]));fn&&fn();});}
-toggle('t-cut','cut');toggle('t-lbl','labels');toggle('t-night','night',()=>setNight(state.night));toggle('t-loft','loft');
+  if(instant||window.matchMedia('(prefers-reduced-motion: reduce)').matches){camera.position.copy(to.p);controls.target.copy(to.t);controls.update();dirty=true;return;}
+  anim={fp:camera.position.clone(),ft:controls.target.clone(),to,t0:performance.now(),dur:1000};}
+const viewBtns=[...document.querySelectorAll('[data-view]')];
+function pressView(k){viewBtns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===k?'true':'false'));}
+const card=document.getElementById('card'),cardBtns=document.getElementById('cardBtns');
+function openZone(k){const z=ZONES[k];state.focus=k;
+  document.getElementById('cardEy').textContent=z.ey;document.getElementById('cardT').textContent=z.t;document.getElementById('cardB').textContent=z.b;
+  document.getElementById('cardL').replaceChildren(...z.l.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
+  cardBtns.replaceChildren(...z.views.map(([lab,v])=>{const b=document.createElement('button');b.textContent=lab;b.addEventListener('click',()=>goView(v));return b;}));
+  card.hidden=false;goView(z.views[0][1]);pressView(['kitchen','bar','booths','garden'].includes(k)?k:'');dirty=true;}
+function closeZone(){state.focus=null;card.hidden=true;dirty=true;}
+document.getElementById('cardX').addEventListener('click',()=>{closeZone();pressView('iso');goView('iso');});
+viewBtns.forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.view;if(ZONES[k]){openZone(k);return;}closeZone();pressView(k);goView(k);}));
+function toggle(id,key,fn){const b=document.getElementById(id);b.addEventListener('click',()=>{state[key]=!state[key];b.setAttribute('aria-pressed',String(state[key]));fn&&fn();dirty=true;});}
+toggle('t-cut','cut');toggle('t-lbl','labels');toggle('t-night','night',()=>setNight(state.night));
 controls.addEventListener('start',()=>{anim=null;});
-setNight(true); goView('iso',true);
-function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
-new ResizeObserver(resize).observe(stage); resize();
+controls.addEventListener('change',()=>{dirty=true;});
 
+// picking + hover
+const ray=new THREE.Raycaster(),ndc=new THREE.Vector2(),htag=document.getElementById('htag');
+function pick(ev){const r=renderer.domElement.getBoundingClientRect();ndc.set(((ev.clientX-r.left)/r.width)*2-1,-((ev.clientY-r.top)/r.height)*2+1);ray.setFromCamera(ndc,camera);
+  const hs=ray.intersectObjects(hits,false);return hs.length?hs[0].object.userData.zone:null;}
+let down=null,hoverQueued=false,lastMove=null;
+renderer.domElement.addEventListener('pointerdown',e=>{down={x:e.clientX,y:e.clientY};});
+renderer.domElement.addEventListener('pointerup',e=>{if(!down)return;const moved=Math.hypot(e.clientX-down.x,e.clientY-down.y);down=null;if(moved>5)return;const z=pick(e);if(z)openZone(z);});
+renderer.domElement.addEventListener('pointermove',e=>{if(e.pointerType!=='mouse')return;lastMove=e;if(hoverQueued)return;hoverQueued=true;requestAnimationFrame(()=>{hoverQueued=false;if(lastMove.buttons){htag.hidden=true;return;}
+  const z=pick(lastMove);const r=renderer.domElement.getBoundingClientRect();
+  if(z&&z!==state.focus){htag.textContent=ZONES[z].t+' · click to explore';htag.hidden=false;htag.style.transform=`translate(${lastMove.clientX-r.left+14}px,${lastMove.clientY-r.top+14}px)`;renderer.domElement.style.cursor='pointer';}
+  else{htag.hidden=true;renderer.domElement.style.cursor='';}});});
+renderer.domElement.addEventListener('pointerleave',()=>{htag.hidden=true;});
+
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();dirty=true;}
+new ResizeObserver(resize).observe(stage); resize();
+setNight(true); goView('iso',true);
+
+// render only when something changed (camera, toggles, resize) — idle frames cost nothing
 const tmp=V(0,0,0);const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 function frame(now){
-  if(anim){const k=Math.min(1,(now-anim.t0)/anim.dur);const e=ease(k);camera.position.lerpVectors(anim.fp,anim.to.p,e);controls.target.lerpVectors(anim.ft,anim.to.t,e);if(k>=1)anim=null;}
-  controls.update();
-  const c=camera.position;const inside=c.x>X0&&c.x<X1&&c.z>0&&c.z<D&&c.y<H;
-  G.loft.visible=state.loft;
-  G.ceil.visible=!(state.cut&&!inside&&c.y>H);
+  requestAnimationFrame(frame);
+  if(anim){const k=Math.min(1,(now-anim.t0)/anim.dur);const e=ease(k);camera.position.lerpVectors(anim.fp,anim.to.p,e);controls.target.lerpVectors(anim.ft,anim.to.t,e);if(k>=1)anim=null;dirty=true;}
+  if(controls.update())dirty=true;
+  if(!dirty)return; dirty=false;
+  const c=camera.position;
+  G.ceil.visible=!(state.cut&&c.y>H);
+  G.partUp.visible=!(state.cut&&c.y>H);
+  G.kceil.visible=!(state.cut&&c.y>KC+0.05);
   G.wallR.visible=!(state.cut&&c.x<X0);
   G.wallL.visible=!(state.cut&&c.x>X1);
   G.wallB.visible=!(state.cut&&c.z>D);
   G.pergTop.visible=!(state.cut&&c.y>3.2);
   renderer.render(scene,camera);
-  const w=stage.clientWidth,h=stage.clientHeight;
-  labels.forEach(L=>{if(!state.labels||(!state.loft&&L.f==='u')||(L.w==='L'&&!G.wallL.visible)){L.el.hidden=true;return;}
-    tmp.copy(L.p).project(camera);if(tmp.z>1||tmp.z<-1||Math.abs(tmp.x)>1.05||Math.abs(tmp.y)>1.05){L.el.hidden=true;return;}
-    L.el.hidden=false;L.el.style.transform=`translate(${(tmp.x*.5+.5)*w}px,${(-tmp.y*.5+.5)*h}px) translate(-50%,-100%)`;});
-  requestAnimationFrame(frame);
+  const w=stage.clientWidth,h=stage.clientHeight,kf=state.focus==='kitchen';
+  for(const L of labels){let show=state.labels&&(kf?L.f==='k':L.f!=='k')&&!(L.w==='L'&&!G.wallL.visible);
+    if(show){tmp.copy(L.p).project(camera);show=tmp.z<1&&tmp.z>-1&&Math.abs(tmp.x)<1.05&&Math.abs(tmp.y)<1.05;}
+    if(show!==L.shown){L.el.hidden=!show;L.shown=show;}
+    if(show)L.el.style.transform=`translate3d(${((tmp.x*.5+.5)*w).toFixed(1)}px,${((-tmp.y*.5+.5)*h).toFixed(1)}px,0) translate(-50%,-100%)`;}
 }
 requestAnimationFrame(frame);
 }
-const fl=document.fonts&&document.fonts.load?Promise.race([Promise.all(['700 46px "Bricolage Grotesque"','500 17px "IBM Plex Mono"','110px Yellowtail'].map(f=>document.fonts.load(f))),new Promise(r=>setTimeout(r,1800))]):Promise.resolve();
+const fl=document.fonts&&document.fonts.load?Promise.race([Promise.all(['700 46px "Bricolage Grotesque"','500 26px "IBM Plex Mono"','110px Yellowtail'].map(f=>document.fonts.load(f))),new Promise(r=>setTimeout(r,1800))]):Promise.resolve();
 fl.catch(()=>{}).then(init);
 })();
 </script>

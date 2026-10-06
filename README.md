@@ -6,8 +6,8 @@ Planning workspace for a small dim sum and craft-beer pub in Betalbatim, South G
 
 Open either HTML file in a browser to orbit around the model.
 
-- `index.html`: the v2 model as a standalone page, used for GitHub Pages
-- `betalbatim-pub-3d.html`: current concept (v2). A 4.5 × 4.5 × 10.5 m shell laid out as a warm, rustic pub with a bar, booths, reception, kitchen, washroom, an optional loft and a beer garden under a pergola. Up to 41 covers with the loft, 31 without.
+- `index.html`: the current model as a standalone page, used for GitHub Pages
+- `betalbatim-pub-3d.html`: current concept (v3). A 30-cover rustic dim sum and craft-beer pub in a 4.5 × 4.5 × 10.5 m shell. Click the kitchen to explore its commercial layout; the bar is the centrepiece, and the beer garden sits under a pergola.
 - `lantern-loft-3d.html`: first concept (v1), based on the earlier 6.5 m depth estimate.
 
 ## Other files
