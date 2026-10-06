@@ -10,6 +10,12 @@ Open either HTML file in a browser to orbit around the model.
 - `betalbatim-pub-3d.html`: current concept (v16). A warm loft-style 34-cover dim sum and craft-beer pub in a 4.5 × 4.5 × 10.5 m shell: 12 on the ground floor (bar, lounge, booth under the stair), 16 in the loft, 6 in a misted beer garden, plus a standing photo booth and one unisex washroom. Click any zone to explore it.
 - `lantern-loft-3d.html`: first concept (v1), based on the earlier 6.5 m depth estimate.
 
+## Menu
+
+- `menu/index.html`: the draft menu as a standalone page, live at https://singhgenics.github.io/dream/menu/
+- `menu.html`: the same menu (source used for the Claude artifact)
+- `menu.pdf`: print version, 3 balanced A3 pages
+
 ## Other files
 
 - `Design ideas/`: interior inspiration images used for v2
