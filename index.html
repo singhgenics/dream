@@ -104,6 +104,9 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
         <button data-view="kitchen" aria-pressed="false">Kitchen</button>
         <button data-view="bar" aria-pressed="false">The bar</button>
         <button data-view="billing" aria-pressed="false">Billing</button>
+        <button data-view="lounge" aria-pressed="false">Lounge</button>
+        <button data-view="washroom" aria-pressed="false">Washrooms</button>
+        <button data-view="nook" aria-pressed="false">Photo booth</button>
         <button data-view="garden" aria-pressed="false">Beer garden</button>
         <button data-view="street" aria-pressed="false">From the road</button>
         <button data-view="plan" aria-pressed="false">Plan</button>
@@ -129,7 +132,7 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
 
   <aside class="panel">
     <header>
-      <p class="eyebrow">Concept 11 · 4.5 × 4.5 × 10.5 m shell · 30 covers</p>
+      <p class="eyebrow">Concept 12 · 4.5 × 4.5 × 10.5 m shell · 30 covers</p>
       <h1>Dim sum, draught &amp; records</h1>
       <p class="lede">A bright, warm loft-style pub for dim sum, bar bites, craft beer and cocktails. Warm sand limewash walls and red brick, hung with gallery frames, sit under a raw concrete ceiling with a silver spiral duct. Black steel railings frame the loft, and the colours are olive, burnt orange and blush, with warm globe light. Most of the seats are upstairs in a 16-cover loft. A nook that hangs out over the bar is set up as the photo spot. Click the loft or the kitchen to explore them. Left and right are as you walk in from the road.</p>
     </header>
@@ -530,7 +533,7 @@ bx(X1-0.02,X1,0,2.2,4.95,6.0,M.sage,gr,false); bx(1.15,X1,0,2.2,4.95,4.97,M.sage
 bx(X1-0.24,X1-0.02,0.42,0.48,5.3,5.6,M.porcelain,gr); rod(V(X1-0.05,1.09,5.45),V(X1-0.05,1.4,5.45),0.015,M.brass,gr); cyl(0.035,0.035,0.08,X1-0.08,1.38,5.45,M.brass,gr,10);
 bx(X1-0.04,X1-0.02,1.15,1.5,5.15,5.75,M.black,gr);
 rod(V(1.65,KC,5.45),V(1.65,2.15,5.45),0.005,M.black,gr); sph(0.06,1.65,2.1,5.45,M.globe,gr);
-door(1.1,5.1,0.68,-Math.PI/2+0.9,M.timber,gr);
+door(1.1,5.1,0.68,-Math.PI/2-0.9,M.timber,gr);
 bx(1.15,X1,KC-0.04,KC,4.85,6.0,M.pvc,G.kceil,false);
 // SHARED WASH BASIN right outside both cubicles: fluted oak cabinet, travertine top, vessel basin, halo-lit round mirror, sconces
 bx(0.62,1.05,0,0.82,5.88,6.64,M.fluted,gr); bx(0.58,1.05,0.82,0.86,5.84,6.68,M.travertine,gr);
@@ -548,9 +551,10 @@ bx(1.05,1.15,0,KC,6.0,6.75,M.partition,gr); bx(1.05,1.15,0,KC,7.4,KZ,M.partition
 bx(1.15,X1,0,KC,6.0,6.1,M.partition,gr);
 bx(1.15,X1,0,0.005,6.1,KZ,M.epoxy,gr,false);
 bx(X1-0.02,X1,0,2.2,6.1,KZ,M.sage,gr,false); bx(1.15,X1,0,2.2,6.1,6.12,M.sage,gr,false); bx(1.15,X1,0,2.2,KZ-0.02,KZ,M.sage,gr,false); bx(1.15,1.17,0,2.2,6.1,KZ,M.sage,gr,false);
-bx(1.8,2.2,0,0.42,6.9,7.4,M.porcelain,gr); bx(1.82,2.18,0.42,0.8,7.32,7.48,M.porcelain,gr);
+{const b=cyl(0.19,0.15,0.4,2.0,0,7.08,M.porcelain,gr,24);b.scale.z=1.35;const sl=cyl(0.2,0.2,0.035,2.0,0.4,7.08,M.porcelain,gr,24);sl.scale.z=1.35;}
+bx(1.84,2.16,0.4,0.78,7.3,7.47,M.porcelain,gr); cyl(0.025,0.025,0.012,2.0,0.78,7.38,M.brass,gr,12); {const tp=new THREE.Mesh(new THREE.TorusGeometry(0.06,0.008,6,16),M.brass);tp.rotation.y=Math.PI/2;tp.position.set(X1-0.04,0.7,6.75);gr.add(tp);cyl(0.055,0.055,0.1,X1-0.08,0.65,6.75,M.porcelain,gr,12).rotation.z=Math.PI/2;}
 rod(V(1.55,KC,6.75),V(1.55,2.15,6.75),0.005,M.black,gr); sph(0.07,1.55,2.1,6.75,M.globe,gr);
-door(1.1,6.75,0.64,-Math.PI/2+0.9,M.timber,gr); bx(1.4,1.48,0.6,1.3,6.12,6.2,M.ss,gr);
+door(1.1,6.75,0.64,-Math.PI/2-0.9,M.timber,gr); bx(1.4,1.48,0.6,1.3,6.12,6.2,M.ss,gr);
 bx(1.15,X1,KC-0.04,KC,6.0,KZ,M.pvc,G.kceil,false);
 bx(X0,X1,KC-0.03,KC,LZ,6.0,M.planks,G.kceil,false);
 
@@ -800,7 +804,7 @@ const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.c
 // ---------- zones (click to explore) ----------
 const ZONES={
   loft:{box:[X0,X1,DK,H,LZ,D],ey:'Loft · 16 covers',t:'The loft',b:'Most of the seating, up a straight oak stair: four low tables with cushioned banquettes and floor chairs that have backrests, plus a vinyl and DJ desk on the back wall.',
-    l:['Cream bouclé banquettes along both walls with back cushions','Plus a photo-spot nook that juts out over the bar','Four tables of 4, with a 1.1 m aisle down the middle','Headroom is about 1.95 m, so all the seating is low','Black steel rod railing lined with trailing plants, pink neon on the back wall'],views:[['Inside the loft','loftv'],['From above','loftTop'],['From the bar','loftUp']]},
+    l:['Cream bouclé banquettes along both walls with back cushions','Plus a photo-spot nook that juts out over the bar','Four tables of 4, with a 1.1 m aisle down the middle','Headroom is about 1.95 m, so all the seating is low','Black steel rod railing lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['From the bar','loftUp']]},
   nook:{box:[X0,BX,DK,H,BZ,LZ],ey:'Photo spot',t:'Standing photo booth',b:'On the nook\'s right-hand wall, facing across the room: a blush limewash wall with a painted terracotta arch, a warm-white "say bao" neon, a pill mirror and a dried-flower garland. Guests stand inside the arch on a jute rug.',
     l:['The photographer stands at the nook\'s open side, about 2 m from the backdrop','Headroom is ~1.95 m, enough to stand, with nothing hanging overhead','A travertine plinth with a bamboo steamer and dried branches','About 2 × 1.25 m, railed in black steel with trailing plants','The front is an open rail carrying the "bao, baby?" neon, so the booth is visible from the door','Downlights in its underside light the back half of the bar','Reached through the loft, which is reached by the stair'],views:[['Photographer\'s view','nookIn'],['From below','nookUp']]},
   kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13 m²',t:'Commercial kitchen',
@@ -812,7 +816,7 @@ const ZONES={
   billing:{box:[0.9,X1,0,1.6,0.3,1.45],ey:'Billing desk',t:'Billing / cashier desk',b:'Replaces the reception desk. It sits just inside the door on the left, so guests settle up on the way out.',
     l:['Oak top and cane front, with a POS tablet, card machine and receipt printer','A pendant lamp, plus a "settle up here" neon on the wall behind','The cashier stands behind it, with a clear view of the door, the bar and the stair'],views:[['View','billing']]},
   lounge:{box:[X0,0.3,0,1.2,0.3,2.3],ey:'Lounge · 4 covers',t:'Window lounge',b:'An olive bouclé modular sofa and a burnt-orange curvy chair around a smoked-glass table on a wavy-line rug, under a pleated paper lantern and a framed cutout print.',l:['The first seats people see from the road'],views:[['View','lounge']]},
-  washroom:{box:[0.55,X1,0,KC,4.85,KZ],ey:'Washrooms · unisex',t:'WC, urinal + shared basin',b:'Two unisex cubicles side by side, one with a urinal and one with a WC, both in olive tile. They open onto a shared wash basin just outside, with a halo-lit round mirror.',l:['Basin: fluted oak cabinet, travertine top, white vessel basin, brass tap','Mirror: round brass frame with a warm LED halo, plus two paper sconces','The cubicles open onto the dining room, never into the kitchen','Check that unisex facilities are accepted locally'],views:[['Basin','washOut'],['Top view','wash']]},
+  washroom:{box:[0.55,X1,0,KC,4.85,KZ],ey:'Washrooms · unisex',t:'Washrooms: urinal, WC + basin',b:'Two unisex cubicles side by side, one with a urinal and one with a WC, both in olive tile. They open onto a shared wash basin just outside, with a halo-lit round mirror.',l:['Basin: fluted oak cabinet, travertine top, white vessel basin, brass tap','Mirror: round brass frame with a warm LED halo, plus two paper sconces','The cubicles open onto the dining room, never into the kitchen','Check that unisex facilities are accepted locally'],views:[['All three from above','wash'],['Urinal','washU'],['WC','washWC'],['Basin','washOut']]},
   garden:{box:[-3.6,3.6,0,3.0,-3.4,-0.1],ey:'Beer garden · 6 covers',t:'Beer garden',b:'About 7 × 3 m under a timber pergola with a clear polycarbonate roof, trailing vines and festoon bulbs.',l:['A table for 4 on benches with backrests and seat pads','A table for 2 with cushioned cane chairs','Two pedestal mist fans and a misting line along both pergola beams keep it cool','Monsoon: plan for this space to be closed June to September'],views:[['View','garden']]}
 };
 const hitMat=new THREE.MeshBasicMaterial();const hits=[];
@@ -827,13 +831,15 @@ const VIEWS={
   bar:{p:[1.0,1.75,0.4],t:[-1.3,1.45,4.4]},
   barback:{p:[-1.55,1.7,5.05],t:[-0.5,1.2,2.0]},
   billing:{p:[-0.7,1.6,2.5],t:[1.9,1.1,0.7]},
-  lounge:{p:[0.9,1.6,3.2],t:[-1.6,0.7,1.0]},
-  wash:{p:[0.2,4.4,4.6],t:[1.6,0.6,6.3]},
+  lounge:{p:[0.7,2.3,3.4],t:[-1.4,0.55,1.1]},
+  wash:{p:[-0.35,4.4,6.2],t:[1.45,0.25,6.2]},
+  washU:{p:[1.25,1.62,5.45],t:[2.25,0.95,5.45]},
+  washWC:{p:[1.25,1.62,6.2],t:[2.1,0.55,7.2]},
   washOut:{p:[-0.9,1.7,6.0],t:[1.1,1.35,6.25]},
   loftv:{p:[0.9,3.95,9.6],t:[-0.7,2.75,5.2]},
-  nookIn:{p:[-0.25,3.58,4.05],t:[-2.25,3.45,4.2]},
+  nookIn:{p:[-0.1,3.62,5.55],t:[-2.2,3.3,4.15]},
   nookUp:{p:[1.0,1.55,1.0],t:[-1.2,3.0,4.0]},
-  loftTop:{p:[0.3,7.6,2.6],t:[0,2.6,7.4]},
+  loftTop:{p:[0.6,7.4,3.0],t:[-0.2,2.6,7.3]},
   loftUp:{p:[0.2,1.6,0.8],t:[0,3.3,5.2]},
   garden:{p:[3.0,1.7,-5.0],t:[-0.6,1.1,-1.3]},
   street:{p:[0.4,1.7,-8.8],t:[0,2.0,2.0]},
@@ -893,8 +899,9 @@ function frame(now){
   G.wallB.visible=!(state.cut&&c.z>D);
   G.pergTop.visible=!(state.cut&&c.y>3.2);
   renderer.render(scene,camera);
-  const w=stage.clientWidth,h=stage.clientHeight,kf=state.focus==='kitchen';
+  const w=stage.clientWidth,h=stage.clientHeight,kf=state.focus==='kitchen',zb=state.focus&&!kf?ZONES[state.focus].box:null;
   for(const L of labels){let show=state.labels&&(kf?L.f==='k':L.f!=='k')&&!(L.w==='L'&&!G.wallL.visible)&&!(L.w==='R'&&!G.wallR.visible)&&!(L.f==='u'&&!loftOn);
+    if(show&&zb){const m=0.8,my=0.3;show=L.p.x>zb[0]-m&&L.p.x<zb[1]+m&&L.p.y>zb[2]-my&&L.p.y<zb[3]+my&&L.p.z>zb[4]-m&&L.p.z<zb[5]+m;}
     if(show){tmp.copy(L.p).project(camera);show=tmp.z<1&&tmp.z>-1&&Math.abs(tmp.x)<1.05&&Math.abs(tmp.y)<1.05;}
     if(show!==L.shown){L.el.hidden=!show;L.shown=show;}
     if(show)L.el.style.transform=`translate3d(${((tmp.x*.5+.5)*w).toFixed(1)}px,${((-tmp.y*.5+.5)*h).toFixed(1)}px,0) translate(-50%,-100%)`;}
