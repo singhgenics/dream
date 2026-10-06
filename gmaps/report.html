@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Betalbatim Competitor Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf6ee; --surface:#fffdf8; --ink:#241a14; --muted:#6f6258; --line:#e8dccb;
+  --red:#c8341f; --gold:#c98a1b; --jade:#2f7a63; --plum:#6b4a8a; --night:#17100c;
+  --chinese:#c8341f; --momo:#c98a1b; --tibetan:#6b4a8a; --korean:#2f7a63; --pan:#1f6f9a; --anchor:#8a7d72;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#140e0b;--surface:#1d1511;--ink:#f3e9dc;--muted:#a99a8b;--line:#33261d;--night:#0c0806}
+}
+:root[data-theme="dark"]{--bg:#140e0b;--surface:#1d1511;--ink:#f3e9dc;--muted:#a99a8b;--line:#33261d;--night:#0c0806}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0}
+a{color:var(--red)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+section{padding:64px 0}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+h2{font-size:clamp(28px,4vw,40px);margin-bottom:12px}
+.lede{color:var(--muted);max-width:680px;margin:0 0 32px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 0%,#4a1d12 0%,#1d0f0a 55%,#0c0806 100%);color:#f7ead9;padding:0}
+.hero .wrap{position:relative;z-index:2;padding-top:110px;padding-bottom:96px}
+.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;z-index:0}
+.hero h1{font-size:clamp(40px,7vw,76px);font-weight:700;letter-spacing:-.02em;max-width:820px}
+.hero h1 em{font-style:normal;color:#ff7a5c}
+.hero p{font-size:19px;max-width:620px;color:#e5d2bc;margin:20px 0 28px}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chip{border:1px solid rgba(255,230,200,.3);padding:6px 14px;border-radius:99px;font-size:13px;background:rgba(255,230,200,.06);backdrop-filter:blur(4px)}
+.lanterns{position:absolute;inset:0;z-index:1;pointer-events:none}
+.lantern{position:absolute;top:-10px;transform-origin:50% 0;animation:sway 6s ease-in-out infinite}
+.lantern .string{width:2px;background:#6b3b24;margin:0 auto}
+.lantern .body{width:46px;height:58px;border-radius:50% / 40%;margin:0 auto;background:radial-gradient(circle at 50% 40%,#ffb15a,#e0452a 70%,#8c1e10);box-shadow:0 0 50px 14px rgba(255,120,60,.45)}
+.lantern .tassel{width:2px;height:22px;background:#d9a441;margin:0 auto}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@media (prefers-reduced-motion:reduce){.lantern{animation:none}}
+.steam{position:absolute;bottom:0;left:0;right:0;height:120px;z-index:1;background:linear-gradient(to top,var(--bg),transparent)}
+
+/* CARDS */
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+.g2{grid-template-columns:repeat(auto-fit,minmax(340px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:24px;position:relative;overflow:hidden}
+.card .num{font-family:Fraunces,serif;font-size:44px;color:var(--red);line-height:1;margin-bottom:8px}
+.card h3{font-size:20px;margin-bottom:8px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;color:#fff}
+
+/* CHART */
+.chartbox{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px}
+svg text{font-family:Inter,sans-serif}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin:0 0 14px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+
+/* TABLES */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+td.wrap-ok{white-space:normal;min-width:220px}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);background:rgba(201,138,27,.07)}
+tr:last-child td{border-bottom:0}
+.yes{color:var(--jade);font-weight:600}.no{color:var(--red);font-weight:600}.mid{color:var(--gold);font-weight:600}
+
+/* PRICE BARS */
+.bars{display:grid;gap:26px}
+.bargroup h3{font-size:19px;margin-bottom:10px}
+.barrow{display:grid;grid-template-columns:150px 1fr 70px;gap:12px;align-items:center;margin:7px 0;font-size:14px}
+.track{height:14px;background:var(--line);border-radius:99px;overflow:hidden;position:relative}
+.fill{height:100%;border-radius:99px}
+.fill.you{background:repeating-linear-gradient(45deg,var(--gold),var(--gold) 6px,#e3a93d 6px,#e3a93d 12px)}
+.fill.them{background:var(--red)}
+.fill.low{background:var(--anchor)}
+.barrow b{text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:560px){.barrow{grid-template-columns:100px 1fr 56px;font-size:13px}}
+
+/* MENU */
+.menuwrap{background:var(--night);color:#f3e9dc;border-radius:22px;padding:30px;position:relative;overflow:hidden}
+.menuwrap::before{content:"";position:absolute;right:-90px;top:-90px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(200,52,31,.45),transparent 65%)}
+.menutabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;position:relative}
+.menutabs button{font:inherit;font-size:13px;color:#f3e9dc;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);padding:7px 14px;border-radius:99px;cursor:pointer}
+.menutabs button[aria-pressed="true"]{background:var(--red);border-color:var(--red)}
+.menutabs button:focus-visible{outline:2px solid #ff9d85;outline-offset:2px}
+.mi{display:grid;grid-template-columns:1fr auto;gap:2px 20px;padding:13px 0;border-bottom:1px dashed rgba(255,255,255,.14);position:relative}
+.mi:last-child{border-bottom:0}
+.mi .n{font-weight:600;letter-spacing:.01em;font-size:15px}
+.mi .d{grid-column:1;color:#bfae9c;font-size:13.5px}
+.mi .p{grid-row:1;grid-column:2;font-variant-numeric:tabular-nums;color:#ffb27e;font-weight:600;text-align:right}
+.menunote{color:#bfae9c;font-size:13px;margin-top:18px;position:relative}
+.cols{columns:2 340px;column-gap:44px}
+.cols .mi{break-inside:avoid}
+
+/* RECOMMEND */
+.rec td:nth-child(3){color:var(--jade);font-weight:600}
+.callout{border-left:4px solid var(--gold);background:rgba(201,138,27,.09);padding:16px 20px;border-radius:0 14px 14px 0;margin:24px 0;color:var(--ink)}
+.gallery{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:26px}
+.ph{aspect-ratio:16/9;border-radius:16px;overflow:hidden;position:relative;background:linear-gradient(135deg,#3a1a10,#8c2c18 55%,#c98a1b);display:flex;align-items:flex-end;color:#fff3e4}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ph span{position:relative;padding:14px;font-size:13px;background:linear-gradient(to top,rgba(0,0,0,.65),transparent);width:100%}
+footer{padding:40px 0 70px;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+footer a{color:var(--muted)}
+.themebtn{position:fixed;right:16px;bottom:16px;z-index:10;font:inherit;font-size:13px;padding:8px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <img class="bg" src="img/hero.jpg" alt="" onerror="this.remove()">
+  <div class="lanterns" aria-hidden="true">
+    <div class="lantern" style="left:8%;animation-delay:-1s"><div class="string" style="height:60px"></div><div class="body"></div><div class="tassel"></div></div>
+    <div class="lantern" style="left:22%;animation-delay:-3s"><div class="string" style="height:110px"></div><div class="body" style="transform:scale(.8)"></div><div class="tassel"></div></div>
+    <div class="lantern" style="left:78%;animation-delay:-2s"><div class="string" style="height:80px"></div><div class="body" style="transform:scale(.9)"></div><div class="tassel"></div></div>
+    <div class="lantern" style="left:91%;animation-delay:-4s"><div class="string" style="height:130px"></div><div class="body" style="transform:scale(.75)"></div><div class="tassel"></div></div>
+  </div>
+  <div class="wrap">
+    <div class="eyebrow" style="color:#ffb27e">Competitor analysis &middot; South Goa &middot; Oct 2026</div>
+    <h1>Momos, wok &amp; <em>kimchi</em> on the Betalbatim&ndash;Majorda belt</h1>
+    <p>Who you'd be up against within 6&nbsp;km of the pin, what they charge, and where a Chinese&ndash;Tibetan&ndash;Korean kitchen can win.</p>
+    <div class="chips">
+      <span class="chip">Pin 15.2915 N, 73.9209 E</span>
+      <span class="chip">65 venues scanned within 6&nbsp;km</span>
+      <span class="chip">No alcohol licence</span>
+      <span class="chip">24 seats &middot; ASP ₹550</span>
+    </div>
+  </div>
+  <div class="steam"></div>
+</header>
+
+<main>
+<section>
+<div class="wrap">
+  <div class="eyebrow">The short version</div>
+  <h2>A real gap, a crowded floor, one strong rival</h2>
+  <p class="lede">Nobody near the pin combines Chinese, Tibetan and Korean. The cheap end is full of momo stalls, and one pan-Asian restaurant owns the premium end.</p>
+  <div class="grid g3">
+    <div class="card"><div class="num">0</div><h3>Korean places within 6&nbsp;km</h3><p>The nearest dedicated Korean spot, Korea Goa in Verna, holds a 4.7 rating over 1,979 reviews. The demand is proven and you'd be the only option on this belt.</p></div>
+    <div class="card"><div class="num">10</div><h3>Momo venues, mostly weak</h3><p>Ratings run from 2.6 to 4.8, and most have under 200 reviews. Wow! Momo (4.0) is the chain to beat. A 4.5+ momo place would stand out.</p></div>
+    <div class="card"><div class="num">4.6</div><h3>The Red Ginger is your benchmark</h3><p>4,047 reviews and the closest menu to yours, but it is a bar-and-sushi pan-Asian at ₹290&ndash;490 a dish with no Tibetan or Korean food.</p></div>
+    <div class="card"><div class="num">₹100</div><h3>7 momos, at the floor</h3><p>Momo Mia Cafe sells 7 veg momos for ₹100. Momos can't carry your margin, so make them the quality hook.</p></div>
+    <div class="card"><div class="num">25k</div><h3>Martin's Corner reviews</h3><p>Plus Pentagon (6.6k) and Praia Da Colva (6.1k) within 3&nbsp;km. The belt draws heavy tourist dining footfall.</p></div>
+    <div class="card"><div class="num">₹800&ndash;1,400</div><h3>Your price gap</h3><p>Between ₹400-for-two momo stalls and ₹1,200&ndash;2,100 pan-Asian rooms with bars, there's an open middle for two.</p></div>
+  </div>
+</div>
+</section>
+
+<section style="background:rgba(201,138,27,.06)">
+<div class="wrap">
+  <div class="eyebrow">Competitive landscape</div>
+  <h2>Distance, rating and review volume</h2>
+  <p class="lede">Each bubble is a venue; size is review count (log scale). Hover for details. Venues with 5 or fewer reviews are drawn as small dots.</p>
+  <div class="chartbox">
+    <div class="legend" id="legend"></div>
+    <svg id="chart" viewBox="0 0 980 440" width="100%" role="img" aria-label="Bubble chart of competitors by distance and rating"></svg>
+  </div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <div class="eyebrow">Who offers what</div>
+  <h2>Cuisine coverage within 6&nbsp;km</h2>
+  <p class="lede">Google Maps categories plus menu checks. Tibchi's (Benaulim) and Korea Goa (Verna) fall just outside the 6&nbsp;km ring.</p>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Cuisine</th><th>Nearby</th><th>Best rated</th><th>Gap for you?</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag" style="background:var(--korean)">Korean</span></td><td>0 within 6&nbsp;km</td><td>Korea Goa, Verna: 4.7 (1,979)</td><td class="yes">Wide open</td></tr>
+      <tr><td><span class="tag" style="background:var(--tibetan)">Tibetan</span></td><td>1 placeholder listing</td><td>Tibchi's, Benaulim: 3.9 (449)</td><td class="yes">Largely open</td></tr>
+      <tr><td><span class="tag" style="background:var(--momo)">Momos</span></td><td>10 venues</td><td>Pagoda 4.8 (26), Momo Man 4.4 (139)</td><td class="mid">Crowded, low quality bar</td></tr>
+      <tr><td><span class="tag" style="background:var(--chinese)">Chinese</span></td><td>9 venues</td><td>Red Dragon 4.7 (50), Hot Wok 4.7 (252)</td><td class="mid">Served, rarely excellent</td></tr>
+      <tr><td><span class="tag" style="background:var(--pan)">Pan-Asian</span></td><td>3 venues</td><td>Mama Miso 4.8 (4,236), Red Ginger 4.6 (4,047)</td><td class="no">Strong incumbents, higher price</td></tr>
+    </tbody></table></div>
+
+  <h3 style="margin:42px 0 14px;font-size:24px">Closest direct competitors</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Venue</th><th>Area</th><th>Distance</th><th>Rating</th><th>Reviews</th><th>Cost for two</th><th>Threat</th></tr></thead>
+    <tbody>
+      <tr><td>The Red Ginger</td><td>Colva</td><td>1.7 km</td><td>4.6</td><td>4,047</td><td>₹1,200&ndash;1,600</td><td class="mid">Medium&ndash;high</td></tr>
+      <tr><td>Wow! Momo</td><td>Colva</td><td>1.5 km</td><td>4.0</td><td>266</td><td>₹400</td><td class="mid">Medium (price floor)</td></tr>
+      <tr><td>Momo Man</td><td>Colva</td><td>1.9 km</td><td>4.4</td><td>139</td><td>n/a</td><td class="mid">Low&ndash;medium</td></tr>
+      <tr><td>Rice Bowl</td><td>Seraulim</td><td>2.3 km</td><td>4.3</td><td>1,384</td><td>₹850</td><td class="mid">Medium (volume)</td></tr>
+      <tr><td>Red Lantern</td><td>Colva</td><td>2.7 km</td><td>4.2</td><td>457</td><td>n/a</td><td class="yes">Low</td></tr>
+      <tr><td>Amigueiro</td><td>Betalbatim</td><td>1.1 km</td><td>4.1</td><td>125</td><td>n/a</td><td class="yes">Low (resort restaurant)</td></tr>
+      <tr><td>Mama Miso</td><td>Arossim</td><td>5.6 km</td><td>4.8</td><td>4,236</td><td>₹1,000&ndash;2,000</td><td class="yes">Low (resort crowd)</td></tr>
+      <tr><td>Korea Goa</td><td>Verna</td><td>6+ km</td><td>4.7</td><td>1,979</td><td>₹800</td><td class="yes">Low now, watch if it expands</td></tr>
+    </tbody></table></div>
+</div>
+</section>
+
+<section style="background:rgba(201,138,27,.06)">
+<div class="wrap">
+  <div class="eyebrow">Price benchmarks</div>
+  <h2>What the same dish costs around you</h2>
+  <p class="lede">Gold striped bars are my suggested price bands for you, drawn at the top of the band. Red bars are competitor prices; Red Ginger's exclude tax. Delivery-app prices for the momo chains are heavily discounted, so treat them as a floor.</p>
+  <div class="bars" id="bars"></div>
+  <div class="callout"><b>Takeaway.</b> My earlier momo price (₹220&ndash;280 for 6) was about double what the local market pays. At ₹140&ndash;180 you stay competitive with a better product. Wok dishes at ₹200&ndash;290 sit between Rice Bowl (₹170) and Red Ginger (₹290&ndash;320).</div>
+</div>
+</section>
+
+<section>
+<div class="wrap">
+  <div class="eyebrow">Full competitor menu</div>
+  <h2>The Red Ginger, in full</h2>
+  <p class="lede">Extracted from the restaurant's own 2024 PDF menu (10 pages). Prices in ₹, taxes extra. The PDF has no drinks or bar menu.</p>
+  <div class="menuwrap">
+    <div class="menutabs" id="tabs" role="group" aria-label="Menu sections"></div>
+    <div id="menu" aria-live="polite"></div>
+    <div class="menunote">No Tibetan or Korean dishes, no momos (it sells dim sum at 4 pc for ₹330&ndash;410, roughly ₹82&ndash;102 a piece). The menu shows 70+ items, so it competes on breadth where you'd compete on focus.</div>
+  </div>
+
+  <div class="gallery" aria-label="Mood">
+    <div class="ph"><img src="img/momos.jpg" alt="Steaming momos in a bamboo basket" onerror="this.remove()"><span>Mood: steam, bamboo, chilli oil</span></div>
+    <div class="ph" style="background:linear-gradient(135deg,#1c2a24,#2f7a63 60%,#c8341f)"><img src="img/kimchi.jpg" alt="Kimchi fried rice and Korean fried chicken" onerror="this.remove()"><span>Mood: Korean fried chicken, kimchi rice</span></div>
+    <div class="ph" style="background:linear-gradient(135deg,#25173a,#6b4a8a 60%,#c98a1b);align-items:center;justify-content:center;text-align:center"><img src="img/thukpa.jpg" alt="Thukpa bowl with prayer flags" onerror="this.remove()"><span style="background:none;font-family:Fraunces,serif;font-size:22px;line-height:1.3">Thukpa &amp; Himalayan comfort<br><small style="font-family:Inter,sans-serif;font-size:13px;opacity:.85">the one cuisine nobody nearby owns</small></span></div>
+  </div>
+</div>
+</section>
+
+<section style="background:rgba(201,138,27,.06)">
+<div class="wrap">
+  <div class="eyebrow">What to do with this</div>
+  <h2>Suggested price bands</h2>
+  <p class="lede">My estimates from the benchmarks above, aimed at a ₹550 average spend and a 28&ndash;31% blended food cost. They are not market data.</p>
+  <div class="tablewrap"><table class="rec">
+    <thead><tr><th>Item</th><th>Nearest comparison</th><th>Suggested price</th></tr></thead>
+    <tbody>
+      <tr><td>Steamed momos (6 pc)</td><td>Momo Mia ₹100 / 7 pc</td><td>₹140&ndash;180</td></tr>
+      <tr><td>Pan-fried / Korean-style momos</td><td>Wow! Momo pan-fried range</td><td>₹180&ndash;240</td></tr>
+      <tr><td>Thukpa</td><td>No local price found</td><td>₹220&ndash;280</td></tr>
+      <tr><td>Veg fried rice / noodles</td><td>Rice Bowl ₹170, Red Ginger ₹290</td><td>₹200&ndash;260</td></tr>
+      <tr><td>Chicken fried rice / noodles</td><td>Red Ginger ₹320</td><td>₹240&ndash;290</td></tr>
+      <tr><td>Chilli chicken / paneer</td><td>Red Ginger honey chilli ₹370</td><td>₹300&ndash;360</td></tr>
+      <tr><td>Kimchi fried rice</td><td>None nearby</td><td>₹300&ndash;340</td></tr>
+      <tr><td>Korean fried chicken wings</td><td>Red Ginger ₹350, Mama Miso ₹395</td><td>₹350&ndash;390</td></tr>
+    </tbody></table></div>
+  <div class="grid g2" style="margin-top:26px">
+    <div class="card"><h3>Lead with what only you sell</h3><p>Korean items and a proper thukpa are the hooks nobody nearby offers. Momos get people in; the wok and Korean dishes carry the margin.</p></div>
+    <div class="card"><h3>Before you sign</h3><p>Eat at Red Ginger and Wow! Momo, photograph menus at Red Lantern and Tibchi's, and check the lane's evening footfall and rent against ₹65,000/month.</p></div>
+  </div>
+</div>
+</section>
+</main>
+
+<footer>
+<div class="wrap">
+  <b>How this was built.</b> Venue data was scraped from Google Maps with the open-source <a href="https://github.com/gosom/google-maps-scraper">gosom/google-maps-scraper</a> (87 unique places, 9 queries, depth 1). Prices come from The Red Ginger's own PDF menu, magicpin and EazyDiner listings. Listings can be dated or discounted, and Google Maps returned no price tier for any restaurant. Several competitors' menus had no prices to extract. Scraping Google Maps is against Google's terms; the official Places API is the compliant route.
+  <br><br>Data files: <code>competitors_within_6km.csv</code>, <code>price_benchmarks.csv</code> in the same folder.
+</div>
+</footer>
+
+<button class="themebtn" id="themebtn" type="button">Toggle theme</button>
+
+<script>
+const COLORS={Chinese:'#c8341f',Momo:'#c98a1b','Tibetan':'#6b4a8a','Pan-Asian':'#1f6f9a','Tourist anchor':'#8a7d72'};
+// [name, km, rating, reviews, group]
+const V=[
+["Amigueiro",1.1,4.1,125,"Chinese"],["Red Dragon",1.7,4.7,50,"Chinese"],["Rice Bowl Seraulim",2.3,4.3,1384,"Chinese"],
+["Red Lantern",2.7,4.2,457,"Chinese"],["Salam Chinese Nook",4.2,4.1,302,"Chinese"],["Rice Bowl Margao",4.3,4.2,539,"Chinese"],
+["Dragon Spice",4.5,4.1,39,"Chinese"],["Gaylin",4.5,3.9,107,"Chinese"],["Hot Wok",5.0,4.7,252,"Chinese"],
+["Momoman Colva",1.5,3.4,8,"Momo"],["Wow! Momo Colva",1.5,4.0,266,"Momo"],["Momo Man",1.9,4.4,139,"Momo"],["Pagoda momo's",2.0,4.8,26,"Momo"],
+["Yum Yum Momo Murda",2.3,2.6,13,"Momo"],["Yum Yum Momos",3.8,4.0,1,"Momo"],["Momo Mia Cafe",4.0,4.4,188,"Momo"],["Momo_cafe",4.1,3.5,26,"Momo"],
+["Mocha hi mocha",4.3,4.7,64,"Momo"],["Wow! Momo Margao",4.4,4.2,1202,"Momo"],
+["Momo point",1.7,5.0,1,"Tibetan"],
+["The Red Ginger",1.7,4.6,4047,"Pan-Asian"],["Tanuki",4.5,4.3,699,"Pan-Asian"],["Mama Miso",5.6,4.8,4236,"Pan-Asian"],
+["Martin's Corner",1.5,4.4,25025,"Tourist anchor"],["Pentagon",2.8,4.3,6623,"Tourist anchor"],["Praia Da Colva",1.7,4.5,6058,"Tourist anchor"]
+];
+(function chart(){
+  const svg=document.getElementById('chart'),W=980,H=440,m={l:56,r:20,t:14,b:46};
+  const x=k=>m.l+(k/6)*(W-m.l-m.r), y=r=>H-m.b-((r-2.4)/(5.1-2.4))*(H-m.t-m.b);
+  const rad=n=>n<=5?3.5:Math.max(5,Math.min(30,Math.log10(n)*7.2));
+  let s='';
+  for(let k=0;k<=6;k++){s+=`<line x1="${x(k)}" x2="${x(k)}" y1="${m.t}" y2="${H-m.b}" stroke="var(--line)"/><text x="${x(k)}" y="${H-m.b+20}" text-anchor="middle" font-size="12" fill="var(--muted)">${k} km</text>`}
+  for(let r=2.5;r<=5;r+=.5){s+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(r)}" y2="${y(r)}" stroke="var(--line)"/><text x="${m.l-10}" y="${y(r)+4}" text-anchor="end" font-size="12" fill="var(--muted)">${r.toFixed(1)}</text>`}
+  s+=`<text x="${W/2}" y="${H-6}" text-anchor="middle" font-size="12" fill="var(--muted)">Distance from your pin</text>`;
+  s+=`<text transform="translate(14 ${H/2}) rotate(-90)" text-anchor="middle" font-size="12" fill="var(--muted)">Google rating</text>`;
+  s+=`<circle cx="${x(0)}" cy="${y(5.05)}" r="0"/>`;
+  s+=`<g><path d="M${x(0)} ${H-m.b} v-${H-m.b-m.t}" stroke="var(--red)" stroke-width="2" stroke-dasharray="4 4"/><text x="${x(0)+8}" y="${m.t+14}" font-size="12" font-weight="600" fill="var(--red)">Your pin</text></g>`;
+  [...V].sort((a,b)=>b[3]-a[3]).forEach(v=>{
+    const c=COLORS[v[4]],cx=x(v[1]),cy=y(Math.min(5,Math.max(2.5,v[2])));
+    s+=`<circle cx="${cx}" cy="${cy}" r="${rad(v[3])}" fill="${c}" fill-opacity=".55" stroke="${c}" stroke-width="1.5"><title>${v[0]}: ${v[1]} km, rating ${v[2]}, ${v[3].toLocaleString()} reviews</title></circle>`;
+    const lab={"The Red Ginger":[-6,34],"Martin's Corner":[-30,-4],"Mama Miso":[0,-4],"Pentagon":[18,-2],"Rice Bowl Seraulim":[8,6]}[v[0]];
+    if(lab) s+=`<text x="${cx+lab[0]}" y="${cy+(lab[1]<0?-rad(v[3])+lab[1]:rad(v[3])+lab[1]-14)}" text-anchor="middle" font-size="11.5" font-weight="600" fill="var(--ink)">${v[0]}</text>`;
+  });
+  svg.innerHTML=s;
+  document.getElementById('legend').innerHTML=Object.entries(COLORS).map(([k,c])=>`<span><i style="background:${c}"></i>${k}</span>`).join('');
+})();
+
+(function bars(){
+  const G=[
+   ["Steamed momos, one portion",["Momo Mia (7 pc)",100,'them'],["Wow! Momo (delivery floor)",99,'them'],["You (6 pc)",180,'you'],["Red Ginger dim sum (4 pc)",360,'them']],
+   ["Fried rice, vegetable",["Rice Bowl",170,'them'],["You",260,'you'],["The Red Ginger",290,'them']],
+   ["Fried rice or noodles, chicken",["You",290,'you'],["The Red Ginger",320,'them']],
+   ["Fried chicken wings",["You (KFC wings)",390,'you'],["The Red Ginger",350,'them'],["Mama Miso",395,'them']],
+   ["Chicken in sauce",["You (chilli chicken)",360,'you'],["Red Ginger honey chilli",370,'them'],["Red Ginger Kung Pao",425,'them']]
+  ];
+  document.getElementById('bars').innerHTML=G.map(g=>{
+    const max=Math.max(...g.slice(1).map(r=>r[1]));
+    return `<div class="bargroup"><h3>${g[0]}</h3>`+g.slice(1).map(r=>`<div class="barrow"><span>${r[0]}</span><div class="track"><div class="fill ${r[2]}" style="width:${r[1]/max*100}%"></div></div><b>₹${r[1]}</b></div>`).join('')+`</div>`;
+  }).join('');
+})();
+
+const MENU={
+"Sushi & Maki":[["Futomakiage",350,"Crumb fried roll with seasonal grilled vegetables"],["Satsumaimo Tempura",350,"Tempura fried sweet potato rolled with spicy mayo"],["Avocado & Asparagus Tempura",375,"Tempura asparagus, spicy mayo, topped with avocado"],["Scallion Tempura",350,"Spring onion tempura rolled with spicy mayo"],["Spicy Tuna",475,"Tuna, spicy mayo, crunchy cucumber, tempura crunch"],["Dragon Roll",475,"Crumb fried prawns, avocado, spicy mayo"],["Baked Californian Roll",475,"Crab stick, cucumber, avocado, Japanese mayo, baked prawns"],["Salmon & Cucumber Maki",475,"Salmon, spicy mayo, crunchy cucumber"],["Dynamite Maki",475,"Tuna, salmon, spicy mayo, topped with salmon tuna tartare"],["Philadelphia Roll",475,"Salmon with caper cream cheese, topped with smoked salmon"],["Chilli Crab Roll",475,"Spicy crab, topped with smoked salmon"],["Nigiri Platter",600,"2 pc each of prawns, tuna and salmon"]],
+"Dim Sum & Bao":[["Shrimp & Spinach dim sum (4 pc)",410,""],["Chicken dim sum (4 pc)",360,""],["Prawn Shumai (4 pc)",410,""],["Tofu & Mushroom dim sum (4 pc)",330,""],["Broccoli & Almonds dim sum (4 pc)",360,""],["Pulled Pork Bao",400,"Pickled cucumber and spring onion"],["Duck & Shiitake Bao",400,""],["Teriyaki Chicken Bao",375,""]],
+"Starters":[["Vegetable Fried Wonton",320,"Vegetable minced in wonton sheet"],["Crispy Corn & Salt Pepper",320,"Golden fried corn, cracked black pepper"],["Shanghai Spinach Spring Roll",320,"Stuffed with spinach, soya sauce"],["Som Tam",300,"Green papaya salad: sour, chilli, sweet, salty"],["Stir-fry Lotus Root",360,"Seasonal greens and water chestnut"],["Aubergine, Okra & French Beans",320,"Wok tossed, black pepper sauce"],["Edamame Beans with Shell",320,"Salted or chilli garlic"],["Red Ginger Sesame Prawns",450,"Deep fried, spicy red ginger sauce, sesame"],["Prawns Tempura",450,"Wasabi mayo or hot garlic sauce"],["Chef Special Oriental Prawns",450,"Creamy butternut squash sauce"],["Crispy Calamari with Wasabi Mayo",380,""],["Chicken Fried Wonton",340,"Minced chicken in wonton, deep fried"],["Shanghai Chicken Spring Roll",340,"Shredded chicken and vegetables"],["Honey Chilli Chicken",370,"Onion, peppers, finished with honey"],["Drums of Heaven",350,"Batter fried wings with hot garlic sauce"],["Thai Basil Chicken Wings",350,"Fried wings tossed with chilli basil"],["Thai Basil Chicken",350,"Stir fried with basil, peppers, Thai chilli sauce"],["Crunchy Pork",390,"Crispy preparation of pork"]],
+"Soups":[["Sweet Corn Soup, veg / chicken","220 / 250",""],["Hot & Sour Soup, veg / chicken","220 / 250",""],["Tom Yum, chicken / prawn","290 / 320",""]],
+"Curries & Vegetables":[["Red Thai, Green Thai or Spicy Burmese Curry (water chestnut)","380 / 425 / 475 / 490","Exotic veg / chicken / duck / prawns"],["Braised Broccoli & Tofu in Smoked Chilli Sauce",390,"With silken tofu, dry red chilli, sambal oelek"],["Mockmeat in Chilli Soya",390,""],["Chinese Greens",390,"Oyster sauce, garlic or plain"],["Szechuan Tofu",450,""]],
+"Poultry, Meat & Seafood":[["Chicken in Black Pepper Sauce",425,"Deep fried, rice wine flavour"],["Chicken in Sichuan Sauce",425,""],["Hongkong Chicken",425,"Red chilli, spicy powder, soya"],["Kung Pao Chicken",425,"Bell pepper, cashew, hoisin"],["Hometown Chicken in Chilli Sauce",425,""],["Thai Chilly Lamb with Kaffir Lime",475,""],["Roast Pork, Spicy Red Ginger Sauce",475,""],["Shandong Style Stir Fried Lamb",475,""],["Sliced Pork in Hunan Style Sauce",475,""],["Pork Spare Ribs with Plum Sauce",475,""],["Stir Fried Beef with Garden Greens",475,""],["Stir-fry Tenderloin in Black Pepper Sauce",475,""],["Prawns in Roast Chilli Sauce",490,""],["Hot Basil Prawns",490,""]],
+"Rice & Noodles":[["Fried Rice (basmati), veg / chicken / prawn","290 / 320 / 380",""],["Wok Tossed Noodles, veg / chicken / prawn","290 / 320 / 380",""],["Phad Thai Rice Noodles, veg / chicken / prawn","290 / 320 / 380",""],["Udon Noodles, veg / chicken / prawn / roast duck","400 / 420 / 450 / 475",""],["Wok Tossed Spicy Jasmine Rice, edamame / egg & beans / prawn","400 / 420 / 450",""],["Red Ginger Bowls (jasmine rice), Bangkok chicken / tenderloin","425 / 450",""],["Steamed Jasmine Rice",260,""],["Steamed Basmati Rice",220,""]],
+"Desserts":[["Almond & Date Dumpling with Honey",260,"Steamed, honey butter emulsion"],["Date Sesame Balls with Ice Cream",280,"Deep fried, grated coconut, vanilla ice cream"],["Cream Choco Gelato",250,"Seasonal flavours"],["Great Wall of Chocolate",250,"Five layer chocolate cake with curls"]]
+};
+(function menu(){
+  const tabs=document.getElementById('tabs'),out=document.getElementById('menu');
+  const names=Object.keys(MENU);
+  function show(n){
+    tabs.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.n===n));
+    out.innerHTML='<div class="cols">'+MENU[n].map(i=>`<div class="mi"><div class="n">${i[0]}</div><div class="p">₹${i[1]}</div>${i[2]?`<div class="d">${i[2]}</div>`:''}</div>`).join('')+'</div>';
+  }
+  names.forEach(n=>{const b=document.createElement('button');b.type='button';b.dataset.n=n;b.textContent=n+' ('+MENU[n].length+')';b.onclick=()=>show(n);tabs.appendChild(b)});
+  show(names[0]);
+})();
+
+(function theme(){
+  const b=document.getElementById('themebtn'),r=document.documentElement;
+  b.onclick=()=>{
+    const cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    r.dataset.theme=cur==='dark'?'light':'dark';
+  };
+})();
+</script>
+</body>
+</html>

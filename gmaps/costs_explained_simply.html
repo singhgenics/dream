@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Restaurant Costs Explained Simply</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@400;500;700&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f0e4; --ink:#241d17; --muted:#665848; --rule:#d9cdb9;
+  --accent:#b8401b; --on-accent:#ffffff;
+  --serif:"Young Serif",Georgia,serif; --sans:"Atkinson Hyperlegible Next","Atkinson Hyperlegible",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--paper:#17120e;--ink:#f1e7d8;--muted:#b5a692;--rule:#3a3027;--accent:#e0693f;--on-accent:#1b1410}
+}
+:root[data-theme="dark"]{--paper:#17120e;--ink:#f1e7d8;--muted:#b5a692;--rule:#3a3027;--accent:#e0693f;--on-accent:#1b1410}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:18px/1.6 var(--sans);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+::selection{background:var(--accent);color:var(--on-accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+a{color:inherit;text-underline-offset:.2em}
+.page{max-width:1080px;margin:0 auto;padding:0 24px}
+h1,h2{font-family:var(--serif);font-weight:400;margin:0;text-wrap:balance;letter-spacing:-.015em}
+p{margin:0 0 1em;max-width:62ch}
+.muted{color:var(--muted)}
+
+/* top bar */
+.bar{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-size:15px;color:var(--muted)}
+.bar button{font:inherit;color:inherit;background:none;border:1px solid var(--rule);border-radius:6px;padding:5px 12px;cursor:pointer}
+.bar button:hover{color:var(--ink);border-color:var(--ink)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:end;padding:36px 0 72px}
+.hero h1{font-size:clamp(38px,5.4vw,66px);line-height:1.04}
+.hero .sub{font-size:21px;margin:22px 0 18px;color:var(--ink)}
+.hero .meta{font-size:15px;color:var(--muted);margin:0}
+.hero figure{margin:0}
+.hero img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:10px}
+.hero figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* sections: sticky title left, content right */
+.sec{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,8fr);gap:56px;padding:72px 0;border-top:1px solid var(--rule)}
+.sec>header{position:sticky;top:28px;align-self:start}
+.sec h2{font-size:clamp(26px,3.2vw,38px);line-height:1.1}
+.sec header p{margin:14px 0 0;color:var(--muted);font-size:17px}
+.sec>div>*:last-child{margin-bottom:0}
+
+/* equation */
+.eq{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px 20px;margin:0 0 28px}
+.eq div{max-width:11em}
+.eq b{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(34px,5vw,52px);line-height:1}
+.eq span{display:block;font-size:15px;color:var(--muted);margin-top:6px}
+.eq i{font-style:normal;font-family:var(--serif);font-size:clamp(30px,4vw,44px);color:var(--muted);line-height:1;padding-top:4px}
+.eq .keep b{color:var(--accent)}
+
+/* two kinds */
+.kinds{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.kinds>div{padding-right:28px}
+.kinds>div+div{padding:0 0 0 28px;border-left:1px solid var(--rule)}
+.kinds h3{font-family:var(--serif);font-size:24px;font-weight:400;margin:0 0 8px}
+.kinds ul{margin:12px 0 0;padding-left:1.1em}
+.kinds li{margin:2px 0}
+
+/* ledger */
+.ledger{width:100%;border-collapse:collapse}
+.ledger th,.ledger td{padding:16px 0;border-bottom:1px solid var(--rule);vertical-align:top;text-align:left}
+.ledger th{font-weight:700;padding-right:16px;width:100%}
+.ledger th small{display:block;font-weight:400;font-size:16px;color:var(--muted);margin-top:3px;max-width:44ch}
+.ledger td{text-align:right;white-space:nowrap;padding-left:12px;font-weight:700;font-size:20px}
+.ledger td small{display:block;font-weight:400;font-size:14px;color:var(--muted)}
+.ledger tfoot th,.ledger tfoot td{border-bottom:0;border-top:2px solid var(--ink);font-size:20px;padding-top:18px}
+.note{font-size:16px;color:var(--muted);margin-top:18px}
+
+/* split bars */
+.split{display:flex;height:56px;border-radius:6px;overflow:hidden;margin:6px 0 22px}
+.split.mini{height:40px}
+.split div{display:flex;align-items:center;padding-left:12px;font-weight:700;font-size:15px;color:var(--paper);min-width:0;white-space:nowrap;overflow:hidden}
+.c1{background:color-mix(in srgb,var(--ink) 92%,var(--paper))}
+.c2{background:color-mix(in srgb,var(--ink) 74%,var(--paper))}
+.c3{background:color-mix(in srgb,var(--ink) 58%,var(--paper))}
+.c4{background:color-mix(in srgb,var(--ink) 42%,var(--paper))}
+.c5{background:color-mix(in srgb,var(--ink) 30%,var(--paper))}
+.c6{background:color-mix(in srgb,var(--ink) 20%,var(--paper))}
+.cp{background:var(--accent);color:var(--on-accent)}
+.js .split.reveal{clip-path:inset(0 100% 0 0 round 6px)}
+.js .split.reveal.in{clip-path:inset(0 0 0 0 round 6px);transition:clip-path 1100ms cubic-bezier(.16,1,.3,1)}
+@media (prefers-reduced-motion:reduce),print{.js .split.reveal,.js .split.reveal.in{clip-path:none;transition:none}}
+.key{list-style:none;margin:0;padding:0}
+.key li{display:grid;grid-template-columns:14px 1fr auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid var(--rule);font-size:17px}
+.key li:last-child{border-bottom:0}
+.key i{width:14px;height:14px;border-radius:3px;display:block}
+.key b{font-weight:700}
+
+/* break-even dots */
+.dots{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 20px}
+.dot{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink)}
+.dot.win{background:var(--accent);border-color:var(--accent)}
+
+/* season chart */
+.chart{margin:4px 0 20px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{font-family:var(--sans);fill:var(--muted);font-size:17px}
+.chart .v{fill:var(--ink);font-weight:700;font-size:15px}
+
+/* calculator */
+.calc .row{margin:0 0 22px}
+.calc label{display:flex;justify-content:space-between;font-weight:700;margin-bottom:8px}
+.calc output{font-family:var(--serif);font-size:22px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:28px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--rule);border-radius:2px}
+input[type=range]::-moz-range-track{height:4px;background:var(--rule);border-radius:2px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--paper);box-shadow:0 0 0 1px var(--accent);margin-top:-9px}
+input[type=range]::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--accent);border:3px solid var(--paper);box-shadow:0 0 0 1px var(--accent)}
+.figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:8px;border-top:1px solid var(--rule)}
+.figs div{padding:16px 16px 0 0}
+.figs div+div{padding-left:16px;border-left:1px solid var(--rule)}
+.figs span{display:block;font-size:14px;color:var(--muted)}
+.figs b{font-family:var(--serif);font-weight:400;font-size:clamp(22px,3vw,30px)}
+.figs .keep b{color:var(--accent)}
+.verdict{margin:20px 0 0;font-size:19px;font-weight:500;max-width:52ch}
+
+/* definition lists */
+.defs{margin:0}
+.defs div{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr);gap:20px;padding:16px 0;border-bottom:1px solid var(--rule)}
+.defs div:first-child{padding-top:0}
+.defs div:last-child{border-bottom:0}
+.defs dt{font-weight:700}
+.defs dd{margin:0;color:var(--muted)}
+ol.rules{margin:0;padding:0;list-style:none;counter-reset:r}
+ol.rules li{counter-increment:r;display:grid;grid-template-columns:2.4rem 1fr;padding:14px 0;border-bottom:1px solid var(--rule)}
+ol.rules li:last-child{border-bottom:0}
+ol.rules li::before{content:counter(r);font-family:var(--serif);font-size:26px;line-height:1.1;color:var(--accent)}
+
+footer{border-top:1px solid var(--rule);padding:32px 0 64px;font-size:15px;color:var(--muted)}
+footer p{max-width:70ch}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:32px}
+  .hero img{aspect-ratio:16/10}
+  .sec{grid-template-columns:minmax(0,1fr);gap:26px;padding:52px 0}
+  .sec>header{position:static}
+  .kinds{grid-template-columns:minmax(0,1fr)}
+  .kinds>div{padding:0 0 22px}
+  .kinds>div+div{padding:22px 0 0;border-left:0;border-top:1px solid var(--rule)}
+  .defs div{grid-template-columns:minmax(0,1fr);gap:4px}
+  .figs{grid-template-columns:minmax(0,1fr)}
+  .figs div,.figs div+div{padding:14px 0;border-left:0;border-bottom:1px solid var(--rule)}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="bar"><span>Betalbatim restaurant plan</span><button id="themebtn" type="button">Switch theme</button></div>
+
+<header class="hero">
+  <div>
+    <h1>Where does a restaurant's money go?</h1>
+    <p class="sub">Every cost in your restaurant, explained as if you ran a small momo stall.</p>
+    <p class="meta">Figures from Restaurant_Calculator.xlsx: 24 seats, ₹550 spent per guest, 30 days open a month.</p>
+  </div>
+  <figure>
+    <img src="img/momos.jpg" alt="Steamed momos in a bamboo basket beside a bowl of chilli oil" onerror="this.closest('figure').remove()">
+    <figcaption>AI-generated image, for mood only.</figcaption>
+  </figure>
+</header>
+
+<section class="sec">
+  <header><h2>Money in, money out, money left</h2></header>
+  <div>
+    <div class="eq" aria-label="Sales minus costs equals profit">
+      <div><b>Sales</b><span>money guests give you</span></div><i>&minus;</i>
+      <div><b>Costs</b><span>money you must spend</span></div><i>=</i>
+      <div class="keep"><b>Profit</b><span>money you keep</span></div>
+    </div>
+    <p>Imagine you sell plates of momos. Guests hand you money. You spend some of it to keep the stall running. What is left over is yours.</p>
+    <p>If costs are bigger than sales, you lose money. If sales are bigger, you win. Everything below is about the costs.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>Costs that stay, costs that move</h2><p>Some costs never change. Others change with every guest.</p></header>
+  <div class="kinds">
+    <div>
+      <h3>Fixed costs</h3>
+      <p>You pay these even if nobody comes. Think of school fees: due every month, even in the holidays.</p>
+      <ul><li>Rent</li><li>Staff pay</li><li>Electricity, gas, water</li><li>Repairs, licences, software</li></ul>
+    </div>
+    <div>
+      <h3>Variable costs</h3>
+      <p>These grow with every plate you sell. Think of pocket money: you only spend it when you go out.</p>
+      <ul><li>Ingredients: flour, chicken, veg</li><li>Card and UPI fees</li><li>Takeaway boxes</li></ul>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>What you pay every month</h2><p>These are the numbers for your plan. They are estimates, so replace them with real quotes.</p></header>
+  <div>
+    <table class="ledger">
+      <tbody>
+        <tr><th scope="row">Rent<small>The price for using the room to cook and seat guests. The owner gets paid whether you sell 5 plates or 500. They also ask for a deposit, usually 3 months of rent, before you start.</small></th><td>₹40,000</td></tr>
+        <tr><th scope="row">Your team<small>The chef cooks (₹25,000), the helper chops and cleans (₹13,000), the server brings plates and takes payment (₹12,000). If you work there yourself, your time is a cost too.</small></th><td>₹50,000</td></tr>
+        <tr><th scope="row">Gas, electricity, water, internet<small>The stove, fridge, lights and Wi-Fi all need energy, and wok cooking burns a lot of gas. This is a guess, so check your real bills in month one.</small></th><td>₹13,000</td></tr>
+        <tr><th scope="row">Repairs, paperwork, marketing<small>Fixing a tap, paying for permits, the billing app, and telling people you exist. Keep it small at first, but never zero.</small></th><td>₹8,000</td></tr>
+      </tbody>
+      <tfoot><tr><th scope="row">All fixed costs</th><td>₹1,11,000</td></tr></tfoot>
+    </table>
+    <p class="note">That is about ₹3,700 every day, before you sell a single plate.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>What each plate costs you</h2><p>Out of every ₹100 a guest pays, here is where the first part goes.</p></header>
+  <div>
+    <div class="split mini reveal" role="img" aria-label="Of every 100 rupees: 30 ingredients, 2 fees and boxes, 68 left over">
+      <div class="c1" style="width:30%">₹30</div><div class="c6" style="width:2%"></div><div class="cp" style="width:68%">₹68 left</div>
+    </div>
+    <p><b>₹30 goes on ingredients.</b> Flour, chicken, vegetables, sauces, oil. Spilled sauce, dropped momos and staff meals add a little more, which is why we plan for about 30 and not 25.</p>
+    <p><b>₹2 goes on payment fees and boxes.</b> When a guest pays by card or UPI, the bank takes a tiny slice.</p>
+    <p><b>₹68 is left.</b> It is called the contribution margin. Every sale puts ₹68 toward rent, the team and, in the end, your profit.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>Where does ₹100 go?</h2><p>Serve 20 guests a day at ₹550 each and you take in about ₹3.3 lakh a month. Here is how each ₹100 of that is split.</p></header>
+  <div>
+    <div class="split reveal" role="img" aria-label="Split of 100 rupees: ingredients 30, team 15, rent 12, gas and power 4, repairs and marketing 2, card fees 2, profit 34">
+      <div class="c1" style="width:30%">30</div><div class="c2" style="width:15.2%">15</div><div class="c3" style="width:12.1%">12</div>
+      <div class="c4" style="width:3.9%"></div><div class="c5" style="width:2.4%"></div><div class="c6" style="width:2%"></div><div class="cp" style="width:34.4%">34</div>
+    </div>
+    <ul class="key">
+      <li><i class="c1"></i><span>Ingredients</span><b>₹30</b></li>
+      <li><i class="c2"></i><span>Team</span><b>₹15</b></li>
+      <li><i class="c3"></i><span>Rent</span><b>₹12</b></li>
+      <li><i class="c4"></i><span>Gas, electricity, water</span><b>₹4</b></li>
+      <li><i class="c5"></i><span>Repairs, marketing</span><b>₹2</b></li>
+      <li><i class="c6"></i><span>Card fees, boxes</span><b>₹2</b></li>
+      <li><i class="cp"></i><span><b>Profit</b></span><b>about ₹34</b></li>
+    </ul>
+    <p class="note">The ₹34 is before your own salary, income tax, and replacing things that wear out. It also only happens in good months, as the seasons below show.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>How many guests until you stop losing?</h2><p>This point is called break-even: sales exactly pay all your costs, so you neither win nor lose.</p></header>
+  <div>
+    <p>Fixed costs are ₹1,11,000 a month, and each ₹100 sale puts ₹68 toward them. You need about <b>₹1.63 lakh</b> of sales a month, which is about <b>10 guests a day</b>.</p>
+    <div class="dots" id="dots" role="img" aria-label="25 guests. The first 10 pay the bills. Guests 11 to 25 are profit."></div>
+    <p>The 10 hollow circles pay for the room, the team and the gas. The 15 filled ones are profit. After break-even, each extra guest puts about ₹375 in your pocket.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>What you pay once, before opening</h2><p>Before the first plate you have to buy everything, like moving into a new house and buying every spoon and bed.</p></header>
+  <div>
+    <table class="ledger">
+      <tbody>
+        <tr><th scope="row">Rent deposit<small>Three months of rent, paid up front. It is a promise to the owner, and usually comes back when you leave if nothing is broken.</small></th><td>₹1,20,000</td></tr>
+        <tr><th scope="row">Interiors<small>Tables, chairs, lights, paint and decoration for 24 seats.</small></th><td>₹3,00,000</td></tr>
+        <tr><th scope="row">Kitchen equipment<small>Wok burner, steamers, fryer, fridge, counters. Second-hand can save a lot.</small></th><td>₹2,20,000</td></tr>
+        <tr><th scope="row">Licences and signboard<small>Government permission to sell food, and the sign outside.</small></th><td>₹40,000</td></tr>
+        <tr><th scope="row">Billing app, menus, launch<small>The billing machine, printed menus, the first posts and tastings.</small></th><td>₹60,000</td></tr>
+        <tr><th scope="row">Plates and first stock<small>Plates, bowls, chopsticks, glasses, and the first big ingredient shop.</small></th><td>₹80,000</td></tr>
+      </tbody>
+      <tfoot><tr><th scope="row">Set-up total</th><td>₹8,20,000</td></tr></tfoot>
+    </table>
+    <p style="margin-top:24px"><b>The piggy bank: ₹3,33,000.</b> This is three months of fixed costs, saved for slow days. When it rains in Goa fewer tourists come, but the rent does not shrink. With it, the total is about <b>₹11.5 lakh</b>.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>Why Goa has three kinds of months</h2><p>Your costs stay the same but your guests do not, so one month's profit cannot be multiplied by 12.</p></header>
+  <div>
+    <figure class="chart" style="margin:0 0 20px">
+      <svg id="season" viewBox="0 0 640 260" role="img" aria-label="Monthly profit from April to March: about 57 thousand in April and May, a loss of 21 thousand in June to August, 57 thousand in September and October, and 1.7 lakh from November to March"></svg>
+    </figure>
+    <dl class="defs">
+      <div><dt>Peak</dt><dd>November to March, about 25 guests a day. About <b style="color:var(--ink)">₹1.7 lakh</b> profit a month.</dd></div>
+      <div><dt>In-between</dt><dd>April, May, September, October, about 15 guests a day. About <b style="color:var(--ink)">₹57,000</b> profit a month.</dd></div>
+      <div><dt>Monsoon</dt><dd>June to August, about 8 guests a day. A loss of about <b style="color:var(--ink)">₹21,000</b> a month, paid from the piggy bank.</dd></div>
+    </dl>
+    <p class="note" style="margin-top:20px">Add all twelve months and the best case is about ₹10 lakh a year. Plan on about two-thirds of that, since new restaurants nearly always start slower than hoped.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>Try it with your own numbers</h2><p>Move the sliders to see how a month changes.</p></header>
+  <div class="calc">
+    <div class="row"><label for="covers"><span>Guests per day</span><output id="cv" for="covers">20</output></label>
+      <input id="covers" type="range" min="1" max="40" value="20"></div>
+    <div class="row"><label for="asp"><span>Each guest spends</span><output id="av" for="asp">₹550</output></label>
+      <input id="asp" type="range" min="300" max="800" step="10" value="550"></div>
+    <div class="figs" aria-live="polite">
+      <div><span>Money in this month</span><b id="oSales">-</b></div>
+      <div><span>Costs this month</span><b id="oCost">-</b></div>
+      <div class="keep"><span>Left over</span><b id="oProfit">-</b></div>
+    </div>
+    <p class="verdict" id="verdict"></p>
+  </div>
+</section>
+
+<section class="sec">
+  <header><h2>Costs people forget</h2></header>
+  <dl class="defs">
+    <div><dt>GST</dt><dd>Guests pay 5% extra on the bill. That money belongs to the government, so it is not part of your sales. Decide early whether your menu prices already include it.</dd></div>
+    <div><dt>Your own pay</dt><dd>The numbers above do not pay you a salary. If you work there every day, set a number aside, or your profit is really just your wages.</dd></div>
+    <div><dt>Delivery apps</dt><dd>Zomato and Swiggy keep about ₹20 to ₹25 of every ₹100. You only keep ₹68 of each sale to begin with, so that slice is huge.</dd></div>
+    <div><dt>Wear and tear</dt><dd>Fridges break, woks crack, plates chip. Put money aside slowly to replace them.</dd></div>
+    <div><dt>Waste</dt><dd>Food that spoils or gets over-portioned is money in the bin. Count your stock every week.</dd></div>
+  </dl>
+</section>
+
+<section class="sec">
+  <header><h2>Five things to remember</h2></header>
+  <ol class="rules">
+    <li><span><b>Sales minus costs is profit.</b> If it is negative, you are losing money.</span></li>
+    <li><span><b>Fixed costs come first.</b> You owe ₹1,11,000 a month before the first guest walks in.</span></li>
+    <li><span><b>Know your break-even.</b> About 10 guests a day covers every cost. Everything after that is profit.</span></li>
+    <li><span><b>Keep ingredients near 30% of sales.</b> Weigh portions and track waste, or the number creeps up.</span></li>
+    <li><span><b>Save a piggy bank.</b> The slow months will come, and the rent will not wait.</span></li>
+  </ol>
+</section>
+
+<footer>
+  <p>Wages, deposit, interiors, equipment and utilities are estimates, not quotes. Profit shown is before the owner's pay, income tax and equipment replacement.</p>
+</footer>
+</div>
+
+<script>
+document.documentElement.classList.add('js');
+(function(){
+  /* theme */
+  var r=document.documentElement;
+  document.getElementById('themebtn').onclick=function(){
+    var cur=r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+    r.dataset.theme=cur==='dark'?'light':'dark';
+    drawSeason();
+  };
+
+  /* dots */
+  var d=document.getElementById('dots'),h='';
+  for(var i=1;i<=25;i++)h+='<span class="dot'+(i>10?' win':'')+'"></span>';
+  d.innerHTML=h;
+
+  /* one authored moment: the bars draw in once as they scroll into view */
+  var bars=document.querySelectorAll('.split.reveal');
+  function show(b){requestAnimationFrame(function(){requestAnimationFrame(function(){b.classList.add('in')})})}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){show(e.target);io.unobserve(e.target)}})},{threshold:.4});
+    bars.forEach(function(b){var t=b.getBoundingClientRect();if(t.top<innerHeight&&t.bottom>0){show(b)}else{io.observe(b)}});
+  }else{bars.forEach(function(b){b.classList.add('in')})}
+
+  /* season chart */
+  var months=[['Apr',57.3],['May',57.3],['Jun',-21.2],['Jul',-21.2],['Aug',-21.2],['Sep',57.3],['Oct',57.3],['Nov',169.5],['Dec',169.5],['Jan',169.5],['Feb',169.5],['Mar',169.5]];
+  function lab(v){var a=Math.abs(v);return (v<0?'−':'')+'₹'+(a>=100?(a/100).toFixed(1)+'L':Math.round(a)+'k')}
+  function drawSeason(){
+    var s=document.getElementById('season'),W=640,zero=186,k=0.82,bw=34,gap=(W-12*bw)/11,out='';
+    var cs=getComputedStyle(document.documentElement),ink=cs.getPropertyValue('--ink').trim(),acc=cs.getPropertyValue('--accent').trim();
+    out+='<line x1="0" x2="'+W+'" y1="'+zero+'" y2="'+zero+'" stroke="'+ink+'" stroke-opacity=".35"/>';
+    months.forEach(function(m,i){
+      var x=i*(bw+gap),v=m[1],h=Math.abs(v)*k;
+      if(v>=0){
+        out+='<rect x="'+x+'" y="'+(zero-h)+'" width="'+bw+'" height="'+h+'" rx="3" fill="'+acc+'"/>';
+        out+='<text class="v" x="'+(x+bw/2)+'" y="'+(zero-h-7)+'" text-anchor="middle">'+lab(v)+'</text>';
+      }else{
+        out+='<rect x="'+(x+1)+'" y="'+(zero+1)+'" width="'+(bw-2)+'" height="'+h+'" rx="3" fill="none" stroke="'+ink+'" stroke-width="1.5" stroke-dasharray="4 3"/>';
+        out+='<text class="v" x="'+(x+bw/2)+'" y="'+(zero+h+18)+'" text-anchor="middle">'+lab(v)+'</text>';
+      }
+      out+='<text x="'+(x+bw/2)+'" y="250" text-anchor="middle">'+m[0]+'</text>';
+    });
+    s.innerHTML=out;
+  }
+  drawSeason();
+
+  /* calculator */
+  var FIXED=111000,VAR=0.32,DAYS=30;
+  function f(n){return (n<0?'−':'')+'₹'+Math.abs(Math.round(n)).toLocaleString('en-IN')}
+  var c=document.getElementById('covers'),a=document.getElementById('asp');
+  function run(){
+    var cv=+c.value,asp=+a.value;
+    document.getElementById('cv').textContent=cv;
+    document.getElementById('av').textContent='₹'+asp;
+    var sales=cv*DAYS*asp,cost=FIXED+sales*VAR,profit=sales-cost;
+    document.getElementById('oSales').textContent=f(sales);
+    document.getElementById('oCost').textContent=f(cost);
+    document.getElementById('oProfit').textContent=f(profit);
+    var be=FIXED/((1-VAR)*DAYS*asp),v=document.getElementById('verdict');
+    v.textContent=profit>=0
+      ?'You keep '+f(profit)+' this month. You only needed about '+be.toFixed(1)+' guests a day to break even.'
+      :'You lose '+f(-profit)+' this month. You need about '+Math.ceil(be)+' guests a day to break even.';
+  }
+  c.addEventListener('input',run);a.addEventListener('input',run);run();
+})();
+</script>
+</body>
+</html>

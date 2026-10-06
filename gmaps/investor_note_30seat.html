@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=830">
+<title>Restaurant plan, one page (30 seats)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+@page{size:A4;margin:0}
+:root{--paper:#fbf8f1;--ink:#223a7a;--pen:#b3261e;--soft:#5d6b94}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#cfc9bd;font-family:Kalam,"Segoe Print","Bradley Hand",cursive;color:var(--ink);-webkit-font-smoothing:antialiased}
+.desk{padding:28px 0}
+.sheet{width:210mm;height:297mm;margin:0 auto;background:var(--paper);padding:13mm 15mm 11mm 19mm;position:relative;overflow:hidden;box-shadow:0 10px 30px rgba(40,30,10,.25)}
+.sheet::before{content:"";position:absolute;left:12.5mm;top:0;bottom:0;width:1px;background:rgba(179,38,30,.28)}
+@media print{
+  body{background:none}
+  .desk{padding:0}
+  .sheet{box-shadow:none;margin:0}
+}
+
+p{margin:0}
+.top{display:flex;justify-content:space-between;align-items:baseline;font-size:16px}
+.date{font-size:14px;color:var(--soft)}
+.intro{font-size:15.5px;line-height:1.45;margin:5px 0 0}
+h2{margin:0;font-size:19px;font-weight:700;line-height:1.15;display:inline-block}
+.ul{display:block;height:8px;margin:0 0 3px}
+.ul path{fill:none;stroke:var(--pen);stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 11mm;margin-top:10px}
+.block{margin-bottom:9px}
+.rows{list-style:none;margin:0;padding:0}
+.rows li{display:flex;align-items:baseline;gap:6px;font-size:15px;line-height:1.5}
+.rows li span:first-child{flex:none}
+.rows li i{flex:1;border-bottom:1.5px dotted rgba(34,58,122,.4);transform:translateY(-4px)}
+.rows li b{flex:none;font-weight:700}
+.rows li:nth-child(odd){transform:rotate(-.25deg)}
+.rows li:nth-child(even){transform:rotate(.2deg)}
+.sumline{margin-top:3px;font-size:16px}
+.red{color:var(--pen);font-weight:700}
+.ring{position:relative;display:inline-block;padding:0 9px}
+.ring svg{position:absolute;left:-3px;top:-2px;width:calc(100% + 6px);height:calc(100% + 4px);overflow:visible;pointer-events:none}
+.ring path{fill:none;stroke:var(--pen);stroke-width:1.6;stroke-linecap:round;vector-effect:non-scaling-stroke}
+.text{font-size:15px;line-height:1.42}
+.text+.text{margin-top:5px}
+.aside{font-size:14px;color:var(--soft);line-height:1.35}
+table{width:100%;border-collapse:collapse;font-size:15px;margin-top:4px}
+th{font-weight:400;font-size:13.5px;color:var(--soft);text-align:left;padding:0 0 2px}
+td{padding:2px 0;border-bottom:1.5px dotted rgba(34,58,122,.4)}
+td:nth-child(2),th:nth-child(2){text-align:center}
+td:last-child,th:last-child{text-align:right}
+td:last-child{font-weight:700}
+.neg{color:var(--pen)}
+.sign{display:flex;justify-content:flex-end;font-size:20px;margin-top:8px;padding-right:6mm}
+.foot{font-size:13px;color:var(--soft);line-height:1.35;margin-top:7px}
+</style>
+</head>
+<body>
+<div class="desk">
+<div class="sheet">
+
+  <div class="top"><span>Hi,</span><span class="date">6 October 2026</span></div>
+  <p class="intro">Here is my restaurant plan on one page: what I need, what it costs, and how many guests I need to break even. All figures are my own estimates, in rupees.</p>
+
+  <div class="cols" style="margin-top:9px">
+    <div style="grid-column:1/-1" class="block">
+      <h2>The idea</h2>
+      <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:70px" aria-hidden="true"><path d="M1 5 C 18 1, 30 7, 48 4 S 80 3, 99 5"/></svg>
+      <p class="text">A small 30-seat kitchen in Betalbatim, South Goa: momos, thukpa, wok dishes and a few Korean dishes. Food only, no bar. I found no other Korean place within 6 km of the spot, and the momo stalls nearby sell 7 pieces for about ₹100, so I will compete on quality, not on price.</p>
+    </div>
+
+    <div>
+      <div class="block">
+        <h2>What I need (one time, ₹ lakh)</h2>
+        <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:215px" aria-hidden="true"><path d="M1 4 C 20 7, 38 1, 60 5 S 88 4, 99 3"/></svg>
+        <ul class="rows">
+          <li><span>Rent deposit (3 months)</span><i></i><b>1.20</b></li>
+          <li><span>Interiors and furniture</span><i></i><b>3.75</b></li>
+          <li><span>Kitchen equipment</span><i></i><b>2.20</b></li>
+          <li><span>Licences and signboard</span><i></i><b>0.40</b></li>
+          <li><span>Billing app, menus, launch</span><i></i><b>0.60</b></li>
+          <li><span>Plates, cutlery, first stock</span><i></i><b>1.00</b></li>
+          <li class="sumline"><span>Set-up total</span><i></i><b>9.15 lakh</b></li>
+          <li><span>My backup cash (see below)</span><i></i><b>3.35 lakh</b></li>
+        </ul>
+        <p class="sumline" style="margin-top:6px">Total I need: <span class="ring red">₹12.5 lakh<svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path d="M8 6 C 30 -1, 78 0, 95 9 C 104 17, 80 28, 50 28 C 20 29, -2 22, 4 12 C 8 6, 24 3, 40 2"/></svg></span></p>
+        <p class="aside" style="margin-top:5px">A 30-seat room costs more to fit out than a 24-seat one: more furniture and plates.</p>
+      </div>
+
+      <div class="block">
+        <h2>My backup</h2>
+        <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:80px" aria-hidden="true"><path d="M1 5 C 25 2, 40 7, 62 4 S 88 5, 99 3"/></svg>
+        <p class="text">₹3.35 lakh kept aside, about 3 months of fixed costs. June to August is slow in Goa, and I expect only a small loss then, about ₹7,000 a month. If only half the guests I plan for turn up, I would still end the year slightly ahead (about ₹0.7 lakh), though my worst months would lose around ₹59,000 each. The backup can cover that.</p>
+      </div>
+    </div>
+
+    <div>
+      <div class="block">
+        <h2>What it costs every month</h2>
+        <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:170px" aria-hidden="true"><path d="M1 4 C 22 1, 40 7, 64 4 S 90 3, 99 5"/></svg>
+        <ul class="rows">
+          <li><span>Rent</span><i></i><b>40,000</b></li>
+          <li><span>3 staff: chef, helper, server</span><i></i><b>50,000</b></li>
+          <li><span>Gas, power, water, internet</span><i></i><b>13,000</b></li>
+          <li><span>Repairs, licences, marketing</span><i></i><b>8,000</b></li>
+          <li class="sumline"><span>Fixed total</span><i></i><b>1,11,000</b></li>
+        </ul>
+        <p class="text" style="margin-top:6px">On top of that, ingredients are about 30% of each sale (35% in the rainy months) and card fees about 2%. So out of every ₹100 sold, about ₹68 is left to pay the monthly costs.</p>
+      </div>
+
+      <div class="block">
+        <h2>Break-even</h2>
+        <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:90px" aria-hidden="true"><path d="M1 4 C 20 7, 42 2, 60 5 S 86 3, 99 4"/></svg>
+        <p class="text">I need about <span class="ring red">₹1.63 lakh<svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path d="M8 6 C 30 -1, 78 0, 95 9 C 104 17, 80 28, 50 28 C 20 29, -2 22, 4 12 C 8 6, 24 3, 40 2"/></svg></span> of sales a month, which is about <span class="red">10 guests a day</span> at ₹550 each, only a third of the 30 seats. In the rainy months it is about 11 guests (₹1.76 lakh). Below that I lose money, above it I earn.</p>
+      </div>
+
+      <div class="block">
+        <h2>Payback</h2>
+        <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:80px" aria-hidden="true"><path d="M1 4 C 22 7, 44 1, 66 5 S 90 3, 99 4"/></svg>
+        <ul class="rows">
+          <li><span>If all goes to plan</span><i></i><b>about 10 months</b></li>
+          <li><span>My planning case</span><i></i><b class="ring red">about 15 months<svg viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true"><path d="M8 6 C 30 -1, 78 0, 95 9 C 104 17, 80 28, 50 28 C 20 29, -2 22, 4 12 C 8 6, 24 3, 40 2"/></svg></b></li>
+        </ul>
+        <p class="aside" style="margin-top:4px">Time until the whole ₹12.5 lakh comes back as profit: ₹14.7 lakh a year if all goes to plan, ₹9.85 lakh a year in my planning case. Average months, before my own pay and tax; the real date depends on the season I open in.</p>
+      </div>
+    </div>
+
+    <div style="grid-column:1/-1" class="block">
+      <h2>What I expect (my best guess)</h2>
+      <svg class="ul" viewBox="0 0 100 8" preserveAspectRatio="none" style="width:190px" aria-hidden="true"><path d="M1 5 C 24 2, 44 7, 66 4 S 90 5, 99 3"/></svg>
+      <table>
+        <thead><tr><th>Season</th><th>Guests a day</th><th>Profit a month</th></tr></thead>
+        <tbody>
+          <tr><td>Busy: November to March</td><td>30</td><td>+ ₹2.26 lakh</td></tr>
+          <tr><td>In between: April, May, September, October</td><td>18</td><td>+ ₹91,000</td></tr>
+          <tr><td>Rainy: June to August</td><td>10</td><td class="neg">− ₹7,000</td></tr>
+        </tbody>
+      </table>
+      <p class="text" style="margin-top:7px">Over a year that is about ₹14.7 lakh if everything goes to plan. I am planning on about <b>₹9.85 lakh</b>, after cutting a third for a slow start.</p>
+    </div>
+  </div>
+
+  <p class="foot">Guests a day assume the 30-seat room fills at the same rate I expected for 24 seats. Not counted: my own pay, income tax, and replacing equipment later. Wages, interiors and utilities are estimates until I have real quotes.</p>
+
+</div>
+</div>
+</body>
+</html>

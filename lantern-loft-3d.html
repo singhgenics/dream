@@ -1,0 +1,552 @@
+<title>Lantern Loft Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: full-bleed 3D stage with a docked spec sheet on the right; stacks (stage above, sheet below) on phones */
+:root{
+  --bg:#14100d; --panel:#1c1613; --raise:#251d18; --line:#3a2d24;
+  --fg:#f2e7d8; --muted:#b4a28d; --amber:#e9a94b; --teal:#63aba2; --rust:#d06a45; --warn:#e5c15a;
+  --display:'Bricolage Grotesque', 'Avenir Next', 'Segoe UI', sans-serif;
+  --body:'IBM Plex Sans', 'Helvetica Neue', Arial, sans-serif;
+  --mono:'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  color-scheme:dark;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px;line-height:1.55;margin:0}
+.app{display:grid;grid-template-columns:minmax(0,1fr) 392px;height:100%}
+.stage{position:relative;min-width:0;overflow:hidden;background:#120e14}
+.stage canvas{display:block;width:100%;height:100%;touch-action:none}
+.labels{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.lbl{position:absolute;left:0;top:0;transform:translate(-50%,-100%);white-space:nowrap;font:500 11.5px/1 var(--body);letter-spacing:.01em;
+  color:var(--fg);background:rgba(20,15,12,.82);border:1px solid rgba(233,169,75,.45);padding:5px 8px 5px 7px;border-radius:999px;display:flex;align-items:center;gap:6px}
+.lbl i{width:7px;height:7px;border-radius:50%;background:var(--amber);flex:none}
+.lbl.u i{background:var(--teal)} .lbl.u{border-color:rgba(99,171,162,.5)}
+.lbl.o i{background:var(--muted)} .lbl.o{border-color:rgba(180,162,141,.45)}
+.toolbar{position:absolute;left:16px;right:16px;top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.seg{display:flex;flex-wrap:wrap;background:rgba(20,15,12,.84);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px;backdrop-filter:blur(6px)}
+.seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 12px/1 var(--body);padding:8px 11px;border-radius:9px;cursor:pointer}
+.seg button:hover{color:var(--fg);background:rgba(255,255,255,.05)}
+.seg button[aria-pressed="true"]{background:var(--amber);color:#1b120a}
+.seg button:focus-visible{outline:2px solid var(--teal);outline-offset:1px}
+.hint{position:absolute;left:16px;bottom:14px;font:400 11.5px/1.3 var(--mono);color:var(--muted);background:rgba(20,15,12,.7);padding:6px 9px;border-radius:8px}
+.err{position:absolute;inset:0;display:grid;place-items:center;padding:24px;text-align:center;color:var(--muted)}
+
+.panel{overflow-y:auto;border-left:1px solid var(--line);background:var(--panel);padding-block:26px 40px;padding-inline:24px;display:flex;flex-direction:column;gap:26px}
+.eyebrow{font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--amber);margin:0 0 6px}
+h1{font:700 40px/1 var(--display);letter-spacing:-.02em;margin:0 0 10px;text-wrap:balance}
+h2{font:600 11px/1.3 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+p{margin:0}
+.lede{color:#e3d6c4;max-width:62ch}
+dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0}
+dt{color:var(--muted)} dd{margin:0;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+td{padding:6px 0;border-bottom:1px solid rgba(58,45,36,.6);vertical-align:top}
+td:first-child{font:500 10.5px/1.9 var(--mono);text-transform:uppercase;letter-spacing:.06em;width:56px}
+td.n{text-align:right;font-family:var(--mono);width:36px}
+tr.g td:first-child{color:var(--amber)} tr.u td:first-child{color:var(--teal)} tr.o td{color:var(--muted)}
+tr.total td{border-bottom:0;font-weight:600;padding-top:9px}
+ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px}
+ul.zones li{display:grid;grid-template-columns:112px 1fr;gap:10px}
+ul.zones b{font-weight:600;color:var(--fg)}
+ul.zones span{color:#d9cbb8}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.chip{display:flex;align-items:center;gap:7px;font-size:12px;color:#d9cbb8;background:var(--raise);border:1px solid var(--line);border-radius:999px;padding:4px 10px 4px 5px}
+.chip i{width:16px;height:16px;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
+ol.shots{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:7px;color:#d9cbb8}
+ol.shots b{color:var(--fg);font-weight:600}
+.flags li{background:var(--raise);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.flags b{display:block;font-weight:600;margin-bottom:2px}
+.flags span{color:#d4c5b1}
+.tag{display:inline-block;font:500 10px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 6px;border-radius:5px;margin-bottom:6px}
+.tag.hi{background:rgba(208,106,69,.18);color:#f08c66}
+.tag.md{background:rgba(229,193,90,.15);color:var(--warn)}
+.note{font-size:12.5px;color:var(--muted)}
+@media (max-width:880px){
+  html,body{height:auto}
+  .app{grid-template-columns:1fr;grid-template-rows:64vh auto;height:auto}
+  .panel{border-left:0;border-top:1px solid var(--line);overflow:visible;padding-inline:16px}
+  .toolbar{left:10px;right:10px;top:10px}
+  .seg button{padding:7px 9px;font-size:11.5px}
+  ul.zones li{grid-template-columns:1fr;gap:2px}
+  h1{font-size:34px}
+}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+
+<div class="app">
+  <div class="stage" id="stage">
+    <div class="labels" id="labels"></div>
+    <div class="toolbar">
+      <div class="seg" role="group" aria-label="Camera">
+        <button id="v-iso" data-view="iso" aria-pressed="true">Overview</button>
+        <button id="v-street" data-view="street" aria-pressed="false">From the road</button>
+        <button id="v-plan" data-view="plan" aria-pressed="false">Plan</button>
+        <button id="v-bar" data-view="bar" aria-pressed="false">From the bar</button>
+        <button id="v-balc" data-view="balc" aria-pressed="false">Balcony</button>
+      </div>
+      <div class="seg" role="group" aria-label="Floors">
+        <button id="f-both" data-floor="both" aria-pressed="true">Both floors</button>
+        <button id="f-ground" data-floor="ground" aria-pressed="false">Ground only</button>
+      </div>
+      <div class="seg" role="group" aria-label="Display">
+        <button id="t-cut" aria-pressed="true">Cutaway</button>
+        <button id="t-lbl" aria-pressed="true">Labels</button>
+        <button id="t-night" aria-pressed="true">Evening</button>
+      </div>
+    </div>
+    <div class="hint">Drag to orbit · scroll or pinch to zoom · right-drag to pan</div>
+  </div>
+
+  <aside class="panel">
+    <header>
+      <p class="eyebrow">Concept 01 · Betalbatim shell</p>
+      <h1>Lantern Loft</h1>
+      <p class="lede">A warm, double-height pub for momos, craft beer and records. The front 2&nbsp;m stays open to the roof as a lantern-lit void you can see from the road. A steel mezzanine covers the back 4.5&nbsp;m and carries a floor-cushion lounge.</p>
+    </header>
+
+    <section>
+      <h2>The shell, from your video</h2>
+      <dl>
+        <dt>Clear width</dt><dd>4.5 m</dd>
+        <dt>Depth</dt><dd>~6.5 m (you said 6–7; modelled at 6.5)</dd>
+        <dt>Shutter</dt><dd>4.5 m high, full width, faces the road</dd>
+        <dt>Roof</dt><dd>Pitched, exposed beams; ridge ~5.1 m (estimated)</dd>
+        <dt>Ring beam</dt><dd>~2.5 m, the mezzanine sits on it</dd>
+        <dt>Floor area</dt><dd>29 m² ground + ~18 m² mezzanine = ~47 m²</dd>
+      </dl>
+    </section>
+
+    <section>
+      <h2>Seat plan · 30 covers</h2>
+      <table>
+        <tr class="g"><td>Ground</td><td>Street-view ledge facing the road</td><td class="n">3</td></tr>
+        <tr class="g"><td>Ground</td><td>High-top for two</td><td class="n">2</td></tr>
+        <tr class="g"><td>Ground</td><td>Bar stools</td><td class="n">5</td></tr>
+        <tr class="u"><td>Upper</td><td>Balcony rail over the lantern void</td><td class="n">4</td></tr>
+        <tr class="u"><td>Upper</td><td>Floor-cushion lounge, 3 low tables</td><td class="n">12</td></tr>
+        <tr class="u"><td>Upper</td><td>Back nook</td><td class="n">4</td></tr>
+        <tr class="total"><td></td><td>Inside total</td><td class="n">30</td></tr>
+        <tr class="o"><td>Peak</td><td>Forecourt bistro tables, Nov–Feb</td><td class="n">+6</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Zones</h2>
+      <ul class="zones">
+        <li><b>Entrance</b><span>Glazed steel doors sit behind the shutter. The host stand is just inside on the left, where whoever runs the floor can see the door, the bar and the stair.</span></li>
+        <li><b>Bar</b><span>2.6 m along the right-hand wall (as you walk in) with 4 craft taps on two brass towers. The back bar has amber-lit bottle shelves on green tile, and the end of the bar doubles as the till.</span></li>
+        <li><b>Kitchen</b><span>3.3 × 1.9 m: wok range, fryer, momo steamer, reach-in fridge and sink. Prep sits under a pass hatch that opens to the aisle.</span></li>
+        <li><b>Exhaust</b><span>The hood over the wok line feeds a boxed shaft in the back-right corner, which runs up to a roof stack with an inline fan.</span></li>
+        <li><b>Washroom</b><span>1.2 × 1.5 m in the back-left corner.</span></li>
+        <li><b>Stair</b><span>Open-riser timber on a steel stringer along the left-hand wall, climbing past the mural. A vinyl corner fits under its high end.</span></li>
+        <li><b>Upstairs</b><span>Low seating on purpose: headroom is ~2.0 m at the walls, so guests sit at floor level and the centre stays clear for walking.</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Look &amp; feel</h2>
+      <div class="chips">
+        <span class="chip"><i style="background:#c38a63"></i>Lime plaster</span>
+        <span class="chip"><i style="background:#2c3a3a"></i>Smoked teal ceiling</span>
+        <span class="chip"><i style="background:#6b4428"></i>Timber rafters</span>
+        <span class="chip"><i style="background:#c9a46a"></i>Cane</span>
+        <span class="chip"><i style="background:#b8863b"></i>Brass</span>
+        <span class="chip"><i style="background:#1f4a44"></i>Green tile</span>
+        <span class="chip"><i style="background:#ffb35c"></i>2700K amber light</span>
+      </div>
+      <p class="note">This is a cozy Himalayan pub on a Goan street. Keep the beams and paint the ceiling dark, so the lanterns and prayer flags glow against it. Patterned cement tiles go downstairs and warm timber upstairs. For music, play records from the vinyl corner through two speakers on the walls, and keep it at conversation volume.</p>
+    </section>
+
+    <section>
+      <h2>Photo moments</h2>
+      <ol class="shots">
+        <li><b>The lantern void:</b> shot from the balcony rail, looking down through lanterns and prayer flags.</li>
+        <li><b>The 4.3 m mural:</b> Himalayan peaks at dusk, visible from the road through the glass.</li>
+        <li><b>The back bar:</b> amber shelves, green tile, brass taps.</li>
+        <li><b>The neon line</b> on the balcony edge: "come for the momos · stay for the hops" (placeholder text).</li>
+        <li><b>The floor lounge:</b> low tables, bolsters, momo steamers shot from above.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Check before you commit</h2>
+      <ul class="flags">
+        <li><span class="tag hi">Changes the plan</span><b>Liquor licence</b><span>Your earlier plan skipped alcohol because a Goa bar licence would take most of the ₹10–10.5L budget. Craft beer and cocktails reverse that decision. The bar is drawn so it can open as a kombucha, mocktail and cold-brew bar, then switch to taps once you're licensed.</span></li>
+        <li><span class="tag hi">Safety</span><b>Mezzanine structure and fire exit</b><span>A steel deck holding 20 people needs a structural engineer's sign-off and probably landlord and panchayat approval. Ask whether one stair is enough for 20 seats upstairs, or whether the fire NOC needs a second way out.</span></li>
+        <li><span class="tag md">Measure</span><b>Headroom</b><span>A deck at 2.5 m leaves ~2.35 m clear below and ~2.0 m upstairs at the walls. Measure the eaves and ridge on site. If the ridge is lower than ~5 m, shrink the mezzanine or drop the upstairs seats.</span></li>
+        <li><span class="tag md">Tight</span><b>Kitchen is ~6 m²</b><span>That's enough for a ~20-dish menu with prep done off-peak. If the building has a shared toilet outside, move the washroom out and give that space to the kitchen.</span></li>
+        <li><span class="tag md">Staffing</span><b>Two floors, one host</b><span>Your 24-seat plan had you running the floor alone. 30 seats over two levels needs a server, which fits your newer 3-staff scenario.</span></li>
+        <li><span class="tag md">Neighbours</span><b>Exhaust</b><span>Run the stack above the ridge and add a grease filter. Wok smoke is the most common complaint about small restaurants.</span></li>
+      </ul>
+    </section>
+
+    <p class="note">All dimensions are approximate and read from a 12-second video. Confirm them with a tape and an architect before you price the build.</p>
+  </aside>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function(){
+const stage = document.getElementById('stage');
+if (!window.THREE || !THREE.OrbitControls) { stage.insertAdjacentHTML('beforeend','<div class="err">The 3D viewer could not load. Reload the page to try again.</div>'); return; }
+
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+
+function init(){
+let renderer;
+try { renderer = new THREE.WebGLRenderer({antialias:true}); }
+catch(e){ stage.insertAdjacentHTML('beforeend','<div class="err">This device could not start WebGL, so the 3D model cannot show here.</div>'); return; }
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
+renderer.outputEncoding = THREE.sRGBEncoding;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.05;
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+stage.prepend(renderer.domElement);
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(48,1,0.05,250);
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true; controls.dampingFactor = 0.08;
+controls.minDistance = 0.3; controls.maxDistance = 40;
+
+// ---------- dimensions (metres) ----------
+const X0=-2.25, X1=2.25, D=6.5, H=4.5, RID=5.1, T=0.2, MZ=2.5, MZE=2.0, DECK0=2.38;
+const roofY = x => H + (RID-H)*(1-Math.abs(x)/X1);
+
+// ---------- textures ----------
+function tex(w,h,draw,rx,ry){const c=document.createElement('canvas');c.width=w;c.height=h;const g=c.getContext('2d');draw(g,w,h);const t=new THREE.CanvasTexture(c);t.encoding=THREE.sRGBEncoding;t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(rx||1,ry||1);t.anisotropy=renderer.capabilities.getMaxAnisotropy();return t;}
+
+const tileTex = tex(256,256,(g,w)=>{
+  g.fillStyle='#d8c4a2';g.fillRect(0,0,w,w);
+  g.fillStyle='#b5583a';
+  [[0,0],[w,0],[0,w],[w,w]].forEach(([x,y])=>{g.beginPath();g.arc(x,y,w*0.34,0,Math.PI*2);g.fill();});
+  g.fillStyle='#d8c4a2';[[0,0],[w,0],[0,w],[w,w]].forEach(([x,y])=>{g.beginPath();g.arc(x,y,w*0.2,0,Math.PI*2);g.fill();});
+  g.fillStyle='#2f5f5a';g.beginPath();g.moveTo(w/2,w*0.22);g.lineTo(w*0.78,w/2);g.lineTo(w/2,w*0.78);g.lineTo(w*0.22,w/2);g.closePath();g.fill();
+  g.fillStyle='#e7a24a';g.beginPath();g.arc(w/2,w/2,w*0.08,0,Math.PI*2);g.fill();
+  g.strokeStyle='rgba(60,40,30,.35)';g.lineWidth=2;g.strokeRect(1,1,w-2,w-2);
+}, 15, 21.7);
+
+function woodDraw(base){return (g,w,h)=>{const r=rng(7);const n=8;for(let i=0;i<n;i++){const y=i*h/n;const v=0.85+r()*0.3;g.fillStyle=shade(base,v);g.fillRect(0,y,w,h/n);g.strokeStyle='rgba(30,15,5,.25)';g.lineWidth=1;for(let k=0;k<6;k++){g.beginPath();const yy=y+r()*h/n;g.moveTo(0,yy);g.bezierCurveTo(w*.3,yy+r()*6-3,w*.6,yy+r()*6-3,w,yy+r()*4-2);g.stroke();}g.fillStyle='rgba(20,10,5,.55)';g.fillRect(0,y,w,2);g.fillRect(r()*w,y,2,h/n);}};}
+function shade(hex,f){const n=parseInt(hex.slice(1),16);const c=[n>>16,n>>8&255,n&255].map(v=>Math.max(0,Math.min(255,Math.round(v*f))));return 'rgb('+c.join(',')+')';}
+const deckTex = tex(512,512,woodDraw('#8a5a34'),3,4);
+const timberTex = tex(512,512,woodDraw('#6b4428'),1,1);
+
+const plasterTex = tex(256,256,(g,w)=>{g.fillStyle='#c38a63';g.fillRect(0,0,w,w);const r=rng(3);for(let i=0;i<2200;i++){g.fillStyle=`rgba(${r()<.5?'255,235,210':'90,45,25'},${r()*0.06})`;const s=4+r()*18;g.beginPath();g.arc(r()*w,r()*w,s,0,Math.PI*2);g.fill();}},2,2);
+
+const caneTex = tex(128,128,(g,w)=>{g.fillStyle='#2a1a10';g.fillRect(0,0,w,w);g.strokeStyle='#c9a46a';g.lineWidth=5;const s=32;for(let i=-w;i<=w*2;i+=s){g.beginPath();g.moveTo(i,0);g.lineTo(i,w);g.stroke();g.beginPath();g.moveTo(0,i);g.lineTo(w,i);g.stroke();g.beginPath();g.moveTo(i,0);g.lineTo(i+w,w);g.stroke();g.beginPath();g.moveTo(i,0);g.lineTo(i-w,w);g.stroke();}},10,4);
+
+const zelligeTex = tex(128,128,(g,w)=>{const r=rng(11);const s=32;for(let y=0;y<w;y+=s)for(let x=0;x<w;x+=s){g.fillStyle=shade('#1f4a44',0.8+r()*0.45);g.fillRect(x,y,s,s);g.strokeStyle='rgba(220,210,190,.35)';g.strokeRect(x+.5,y+.5,s-1,s-1);}},8,4);
+
+const muralTex = tex(512,1130,(g,w,h)=>{
+  const sky=g.createLinearGradient(0,0,0,h*0.7);sky.addColorStop(0,'#183540');sky.addColorStop(0.45,'#a8553c');sky.addColorStop(0.8,'#eaa94c');
+  g.fillStyle=sky;g.fillRect(0,0,w,h);
+  g.fillStyle='#f6cf7a';g.beginPath();g.arc(310,560,105,0,Math.PI*2);g.fill();
+  const layers=[[600,150,'#86412d',5],[700,120,'#5a2d2a',9],[820,110,'#2f3550',13],[960,70,'#1b2232',17]];
+  layers.forEach(([by,amp,col,sd])=>{const r=rng(sd);g.fillStyle=col;g.beginPath();g.moveTo(0,h);let x=0;g.lineTo(0,by);while(x<w){const nx=x+40+r()*70;g.lineTo((x+nx)/2,by-amp*(0.35+r()*0.65));g.lineTo(nx,by-r()*20);x=nx;}g.lineTo(w,h);g.closePath();g.fill();});
+  // snow caps
+  g.fillStyle='rgba(255,240,225,.75)';[[150,460],[390,470]].forEach(([x,y])=>{g.beginPath();g.moveTo(x,y);g.lineTo(x+26,y+34);g.lineTo(x-26,y+34);g.closePath();g.fill();});
+  // prayer flags
+  const cols=['#2f5fa8','#f1ece0','#c8423a','#3f8a4a','#e3b33a'];
+  g.strokeStyle='rgba(255,240,220,.6)';g.lineWidth=2;g.beginPath();g.moveTo(0,230);g.quadraticCurveTo(w/2,330,w,250);g.stroke();
+  for(let i=0;i<14;i++){const t=(i+0.5)/14;const x=t*w;const y=(1-t)*(1-t)*230+2*(1-t)*t*330+t*t*250;g.fillStyle=cols[i%5];g.fillRect(x-12,y,24,30);}
+  g.fillStyle='#f2e7d8';g.font='700 46px "Bricolage Grotesque", sans-serif';g.textAlign='center';g.fillText('momos · hops',w/2,1050);
+  g.font='500 22px "IBM Plex Mono", monospace';g.fillStyle='rgba(242,231,216,.8)';g.fillText('BETALBATIM · GOA',w/2,1090);
+});
+
+const neonTex = tex(1024,96,(g,w,h)=>{g.clearRect(0,0,w,h);g.font='600 50px "Bricolage Grotesque", sans-serif';g.textAlign='center';g.textBaseline='middle';g.shadowColor='#ff6a8a';g.shadowBlur=22;g.fillStyle='#ffd0dc';g.fillText('come for the momos · stay for the hops',w/2,h/2);g.shadowBlur=8;g.fillText('come for the momos · stay for the hops',w/2,h/2);});
+
+const leafTex = tex(256,256,(g,w)=>{g.fillStyle='#1d3a24';g.fillRect(0,0,w,w);const r=rng(21);for(let i=0;i<260;i++){g.save();g.translate(r()*w,r()*w);g.rotate(r()*6.3);g.fillStyle=shade(['#3f7a3a','#2f6a35','#5c9444','#24552d'][i%4],0.8+r()*0.4);g.beginPath();g.ellipse(0,0,6+r()*10,3+r()*4,0,0,Math.PI*2);g.fill();g.restore();}},2,2);
+
+const vinylTex = tex(256,128,(g,w,h)=>{const r=rng(5);let x=0;while(x<w){const s=3+r()*5;g.fillStyle=['#c8423a','#e3b33a','#2f5fa8','#1a1a1a','#f1ece0','#3f8a4a','#7a3e8e'][Math.floor(r()*7)];g.fillRect(x,8,s,h/2-12);g.fillRect(x,h/2+4,s,h/2-12);x+=s+0.6;}g.fillStyle='#3a2416';g.fillRect(0,h/2-4,w,8);},1,1);
+
+// ---------- materials ----------
+const M = {
+  plaster:new THREE.MeshStandardMaterial({map:plasterTex,roughness:0.95}),
+  plasterPlain:new THREE.MeshStandardMaterial({color:'#c38a63',roughness:0.95}),
+  partition:new THREE.MeshStandardMaterial({color:'#d9b48f',roughness:0.9}),
+  ceiling:new THREE.MeshStandardMaterial({color:'#2c3a3a',roughness:0.9}),
+  roofTop:new THREE.MeshStandardMaterial({color:'#8f4529',roughness:0.85}),
+  timber:new THREE.MeshStandardMaterial({map:timberTex,roughness:0.7}),
+  timberDark:new THREE.MeshStandardMaterial({color:'#3d2617',roughness:0.75}),
+  deck:new THREE.MeshStandardMaterial({map:deckTex,roughness:0.65}),
+  floor:new THREE.MeshStandardMaterial({map:tileTex,roughness:0.5}),
+  steel:new THREE.MeshStandardMaterial({color:'#1c1c1e',roughness:0.45,metalness:0.6}),
+  brass:new THREE.MeshStandardMaterial({color:'#b8863b',roughness:0.3,metalness:0.85}),
+  ss:new THREE.MeshStandardMaterial({color:'#b9bec2',roughness:0.3,metalness:0.8}),
+  cane:new THREE.MeshStandardMaterial({map:caneTex,roughness:0.8}),
+  zellige:new THREE.MeshStandardMaterial({map:zelligeTex,roughness:0.25,metalness:0.1}),
+  glass:new THREE.MeshStandardMaterial({color:'#a9cbd0',transparent:true,opacity:0.14,roughness:0.05,metalness:0.2,depthWrite:false}),
+  porcelain:new THREE.MeshStandardMaterial({color:'#eeeae4',roughness:0.25}),
+  whiteTile:new THREE.MeshStandardMaterial({color:'#e8e3da',roughness:0.35}),
+  black:new THREE.MeshStandardMaterial({color:'#121212',roughness:0.6}),
+  leaf:new THREE.MeshStandardMaterial({map:leafTex,roughness:0.85}),
+  leafSolid:new THREE.MeshStandardMaterial({color:'#2f6a35',roughness:0.8,side:THREE.DoubleSide}),
+  trunk:new THREE.MeshStandardMaterial({color:'#6e5a45',roughness:0.95}),
+  laterite:new THREE.MeshStandardMaterial({color:'#7d4430',roughness:1}),
+  paving:new THREE.MeshStandardMaterial({color:'#a77a5c',roughness:0.95}),
+  road:new THREE.MeshStandardMaterial({color:'#3a3734',roughness:1}),
+  terracotta:new THREE.MeshStandardMaterial({color:'#a8553c',roughness:0.9}),
+  glow:new THREE.MeshStandardMaterial({color:'#ffcf8a',emissive:'#ff9030',emissiveIntensity:1.2}),
+  lantern:new THREE.MeshStandardMaterial({color:'#f2b866',emissive:'#ff9038',emissiveIntensity:1.8,roughness:0.9}),
+  mural:new THREE.MeshStandardMaterial({map:muralTex,roughness:0.9}),
+  neon:new THREE.MeshBasicMaterial({map:neonTex,transparent:true,toneMapped:false}),
+  vinyl:new THREE.MeshStandardMaterial({map:vinylTex,roughness:0.8}),
+  winGlass:new THREE.MeshStandardMaterial({color:'#9cc3cc',emissive:'#2a4a5a',emissiveIntensity:0.4,roughness:0.1}),
+};
+const cushion = ['#c8902e','#a5482a','#2f6f6a','#2e3d6b','#8e3b4f'].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:0.95}));
+const bottleMats = ['#8a5a1c','#3e6b2e','#c9d4cf','#6b2a1c','#b98a3a'].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:0.15,metalness:0.1,emissive:c,emissiveIntensity:0.25}));
+
+// ---------- groups ----------
+const G = {};
+['shell','roof','wallL','wallR','wallB','front','frontGable','ground','upper','outside'].forEach(k=>{G[k]=new THREE.Group();scene.add(G[k]);});
+
+// ---------- helpers ----------
+function bx(x0,x1,y0,y1,z0,z1,mat,parent,cast){
+  const m=new THREE.Mesh(new THREE.BoxGeometry(Math.abs(x1-x0),Math.abs(y1-y0),Math.abs(z1-z0)),mat);
+  m.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2); m.castShadow=cast!==false; m.receiveShadow=true; parent.add(m); return m;}
+function cyl(rt,rb,h,x,y0,z,mat,parent,seg){
+  const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,seg||20),mat);
+  m.position.set(x,y0+h/2,z); m.castShadow=true; m.receiveShadow=true; parent.add(m); return m;}
+function sph(r,x,y,z,mat,parent){const m=new THREE.Mesh(new THREE.SphereGeometry(r,20,14),mat);m.position.set(x,y,z);parent.add(m);return m;}
+function stool(x,z,y0,parent){cyl(0.17,0.17,0.06,x,y0+0.72,z,M.timber,parent);cyl(0.02,0.02,0.72,x,y0,z,M.brass,parent,8);cyl(0.17,0.19,0.02,x,y0,z,M.brass,parent);
+  const ring=new THREE.Mesh(new THREE.TorusGeometry(0.13,0.012,6,24),M.brass);ring.rotation.x=Math.PI/2;ring.position.set(x,y0+0.28,z);parent.add(ring);}
+function chair(x,z,parent,rot){const g=new THREE.Group();bx(-0.2,0.2,0.43,0.47,-0.2,0.2,M.cane,g);bx(-0.2,0.2,0.47,0.85,0.17,0.21,M.cane,g);
+  [[-.18,-.18],[.18,-.18],[-.18,.18],[.18,.18]].forEach(([a,b])=>cyl(0.015,0.015,0.43,a,0,b,M.steel,g,6));g.position.set(x,0,z);g.rotation.y=rot||0;parent.add(g);}
+function plant(x,y0,z,s,parent){cyl(0.2*s,0.15*s,0.4*s,x,y0,z,M.terracotta,parent);const r=rng(Math.round(x*100+z*10));
+  for(let i=0;i<9;i++){const l=new THREE.Mesh(new THREE.SphereGeometry(0.22*s,10,8),M.leaf);l.scale.set(1,0.55,1.6);l.position.set(x+(r()-.5)*0.35*s,y0+0.5*s+r()*0.6*s,z+(r()-.5)*0.35*s);l.rotation.set(r()*1.2,r()*6,r()*1.2);l.castShadow=true;parent.add(l);}}
+function rod(a,b,r,mat,parent){const dir=new THREE.Vector3().subVectors(b,a);const len=dir.length();const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,len,8),mat);m.position.copy(a).add(b).multiplyScalar(0.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),dir.normalize());parent.add(m);return m;}
+
+// ---------- shell ----------
+bx(X0,X1,-0.04,0,0,D,M.floor,G.shell,false);
+bx(X0-T,X0,0,H,0,D+T,M.plaster,G.wallL);
+bx(X1,X1+T,0,H,0,D+T,M.plaster,G.wallR);
+bx(X0-T,X1+T,0,H,D,D+T,M.plaster,G.wallB);
+bx(-1.6,-0.8,3.3,3.9,D-0.02,D,M.winGlass,G.wallB); // existing high window
+function gable(z0,parent){const s=new THREE.Shape();s.moveTo(X0-T,H);s.lineTo(X1+T,H);s.lineTo(0,RID+0.1);s.closePath();const m=new THREE.Mesh(new THREE.ExtrudeGeometry(s,{depth:T,bevelEnabled:false}),M.plasterPlain);m.position.z=z0;m.castShadow=true;m.receiveShadow=true;parent.add(m);}
+gable(D,G.wallB); gable(-T,G.frontGable);
+// ring beam (existing) visible in the void
+bx(X0,X0+0.1,2.25,2.5,0,D,M.plasterPlain,G.wallL); bx(X1-0.1,X1,2.25,2.5,0,D,M.plasterPlain,G.wallR);
+
+// roof
+const ang=Math.atan2(RID-H,X1), L=Math.hypot(X1,RID-H);
+[-1,1].forEach(s=>{
+  const geo=new THREE.BoxGeometry(L+0.4,0.12,D+T+0.6);
+  const m=new THREE.Mesh(geo,[M.timberDark,M.timberDark,M.roofTop,M.ceiling,M.timberDark,M.timberDark]);
+  m.position.set(s*X1/2,(H+RID)/2+0.09,D/2);m.rotation.z=-s*ang;m.castShadow=true;m.receiveShadow=true;G.roof.add(m);
+  [0.05,1.35,2.65,3.95,5.25,6.45].forEach(z=>{const r=new THREE.Mesh(new THREE.BoxGeometry(L,0.22,0.12),M.timber);r.position.set(s*X1/2,(H+RID)/2-0.1,z);r.rotation.z=-s*ang;r.castShadow=true;G.roof.add(r);});
+});
+bx(-0.08,0.08,RID-0.3,RID-0.02,0,D,M.timber,G.roof);
+
+// front: glazing + shutter housing
+const fz0=-0.06, fz1=0;
+[X0,-1.15,-0.05,0.3,1.3,X1-0.06].forEach(x=>bx(x,x+0.06,0,4.3,fz0,fz1,M.steel,G.front));
+bx(X0,X1,4.25,4.31,fz0,fz1,M.steel,G.front); bx(X0,0.3,2.4,2.46,fz0,fz1,M.steel,G.front); bx(1.3,X1,2.4,2.46,fz0,fz1,M.steel,G.front); bx(0.3,1.3,2.4,2.46,fz0,fz1,M.steel,G.front);
+bx(X0,0.3,0,0.05,fz0,fz1,M.steel,G.front); bx(1.3,X1,0,0.05,fz0,fz1,M.steel,G.front);
+bx(X0,0.3,0.05,2.4,-0.04,-0.02,M.glass,G.front,false); bx(1.3,X1,0.05,2.4,-0.04,-0.02,M.glass,G.front,false); bx(X0,X1,2.46,4.25,-0.04,-0.02,M.glass,G.front,false);
+bx(X0-T,X1+T,4.3,H,-0.4,0,M.steel,G.front);
+
+// ---------- ground floor ----------
+const gr=G.ground;
+// street ledge + stools
+bx(-2.2,0.25,1.0,1.05,0.05,0.42,M.timber,gr); bx(-2.2,0.25,0.9,1.0,0.05,0.1,M.steel,gr);
+[-1.75,-0.95,-0.15].forEach(x=>stool(x,0.75,0,gr));
+// high-top for two
+cyl(0.34,0.34,0.04,-1.35,1.02,1.42,M.timber,gr,28); cyl(0.03,0.03,1.02,-1.35,0,1.42,M.steel,gr,8); cyl(0.22,0.22,0.03,-1.35,0,1.42,M.steel,gr);
+stool(-1.95,1.42,0,gr); stool(-0.75,1.42,0,gr);
+// host stand
+bx(1.5,1.98,0,1.08,0.22,0.6,M.cane,gr); bx(1.45,2.03,1.08,1.12,0.18,0.64,M.timber,gr); sph(0.07,1.85,1.2,0.4,M.glow,gr);
+// bar: back bar
+bx(X0,-1.8,0,0.9,1.95,4.5,M.timberDark,gr); bx(X0,-1.78,0.9,0.94,1.95,4.5,M.timber,gr);
+bx(X0,X0+0.03,0.94,2.3,1.95,4.5,M.zellige,gr,false);
+const bR=rng(42);
+[1.35,1.72,2.08].forEach(y=>{bx(X0,X0+0.26,y,y+0.03,1.95,4.5,M.timber,gr);bx(X0+0.2,X0+0.24,y-0.015,y,1.97,4.48,M.glow,gr,false);
+  for(let z=2.05;z<4.42;z+=0.1){const h=0.2+bR()*0.1;const b=cyl(0.032,0.034,h,X0+0.1+bR()*0.06,y+0.03,z,bottleMats[Math.floor(bR()*5)],gr,10);b.castShadow=false;}});
+// bar counter
+bx(-1.05,-0.55,0,1.0,1.95,4.5,M.cane,gr); bx(-1.1,-0.45,1.0,1.06,1.9,4.55,M.timber,gr); bx(-0.5,-0.46,0.94,0.98,1.95,4.5,M.glow,gr,false);
+rod(new THREE.Vector3(-0.4,0.22,1.95),new THREE.Vector3(-0.4,0.22,4.5),0.022,M.brass,gr);
+// taps
+[2.85,3.55].forEach(z=>{cyl(0.035,0.04,0.38,-0.8,1.06,z,M.brass,gr);rod(new THREE.Vector3(-0.8,1.44,z-0.2),new THREE.Vector3(-0.8,1.44,z+0.2),0.03,M.brass,gr);
+  [z-0.15,z+0.15].forEach((tz,i)=>{cyl(0.012,0.012,0.08,-0.8,1.36,tz,M.brass,gr,8);cyl(0.018,0.014,0.13,-0.8,1.47,tz,cushion[(i+(z>3?2:0))%5],gr,8);});});
+[2.25,2.75,3.25,3.75,4.25].forEach(z=>stool(-0.2,z,0,gr));
+// pendants over bar
+[2.4,3.2,4.0].forEach(z=>{rod(new THREE.Vector3(-0.8,DECK0,z),new THREE.Vector3(-0.8,1.92,z),0.005,M.black,gr);sph(0.08,-0.8,1.85,z,M.glow,gr);});
+// kitchen partition (z 4.55-4.65) with pass hatch + door
+const kz0=4.55,kz1=4.65,KH=DECK0;
+bx(X0,-1.0,0,KH,kz0,kz1,M.partition,gr); bx(-1.0,0.0,0,1.0,kz0,kz1,M.partition,gr); bx(-1.0,0.0,1.7,KH,kz0,kz1,M.partition,gr);
+bx(-1.05,0.05,1.0,1.04,4.4,kz1,M.ss,gr); // pass shelf
+bx(0.0,0.15,0,KH,kz0,kz1,M.partition,gr); bx(0.15,0.95,2.1,KH,kz0,kz1,M.partition,gr); bx(0.95,1.1,0,KH,kz0,kz1,M.partition,gr);
+// kitchen kit
+bx(X0,X0+0.65,0,2.0,4.7,5.4,M.ss,gr);
+bx(X0,-0.1,0,0.86,5.85,D,M.ss,gr); [-1.9,-1.35].forEach(x=>cyl(0.17,0.17,0.03,x,0.86,6.18,M.black,gr));
+bx(-1.05,-0.6,0.86,0.9,5.95,6.4,M.black,gr); // fryer
+for(let i=0;i<3;i++) cyl(0.19,0.19,0.11,-0.35,0.86+i*0.115,6.18,M.cane,gr);
+bx(0.0,1.0,0,0.88,5.85,D,M.ss,gr); bx(0.15,0.65,0.8,0.89,5.95,6.35,M.black,gr);
+bx(-1.0,0.0,0,0.9,4.66,5.2,M.ss,gr);
+bx(X0,1.0,0.88,1.85,D-0.02,D,M.whiteTile,gr,false);
+// hood + duct
+bx(X0,0.05,1.85,2.25,5.75,D,M.ss,gr); bx(-2.2,-1.8,2.25,DECK0,6.05,6.45,M.ss,gr);
+// washroom
+bx(1.0,1.1,0,KH,5.0,D,M.partition,gr); bx(1.1,1.25,0,KH,4.95,5.05,M.partition,gr); bx(1.95,X1,0,KH,4.95,5.05,M.partition,gr); bx(1.25,1.95,2.1,KH,4.95,5.05,M.partition,gr);
+bx(1.6,1.98,0,0.42,6.0,6.48,M.porcelain,gr); bx(1.65,1.95,0.42,0.75,6.35,6.48,M.porcelain,gr); bx(1.12,1.42,0.78,0.88,5.55,5.95,M.porcelain,gr);
+// stair (open riser) along right wall
+const NR=14, rh=MZ/NR, run=0.25, sz0=1.0;
+for(let i=0;i<NR-1;i++){bx(1.38,2.22,(i+1)*rh-0.05,(i+1)*rh,sz0+i*run,sz0+i*run+0.28,M.timber,gr);}
+const sa=Math.atan2(MZ,(NR-1)*run), sl=Math.hypot(MZ,(NR-1)*run);
+const str=new THREE.Mesh(new THREE.BoxGeometry(0.03,0.26,sl),M.steel);str.position.set(1.36,MZ/2-0.05,sz0+(NR-1)*run/2);str.rotation.x=-sa;gr.add(str);
+rod(new THREE.Vector3(1.36,0.95,sz0),new THREE.Vector3(1.36,MZ+0.95,sz0+(NR-1)*run),0.022,M.brass,gr);
+[0,4,8,12].forEach(i=>rod(new THREE.Vector3(1.36,(i+1)*rh,sz0+i*run+0.14),new THREE.Vector3(1.36,(i+1)*rh+0.92,sz0+i*run+0.14),0.012,M.steel,gr));
+// vinyl corner under the stair
+const vinylBox=new THREE.Mesh(new THREE.BoxGeometry(0.75,0.95,1.1),[M.timberDark,M.vinyl,M.timber,M.timberDark,M.timberDark,M.timberDark]);
+vinylBox.position.set(1.825,0.475,3.65);vinylBox.castShadow=true;vinylBox.receiveShadow=true;gr.add(vinylBox);
+[3.35,3.95].forEach(z=>{bx(1.6,2.05,0.95,1.0,z-0.22,z+0.22,M.black,gr);cyl(0.15,0.15,0.012,1.82,1.0,z,M.steel,gr,24);});
+// mural on right wall, lantern void
+const mural=new THREE.Mesh(new THREE.PlaneGeometry(1.92,4.25),M.mural);mural.rotation.y=-Math.PI/2;mural.position.set(X1-0.005,2.2,1.0);mural.receiveShadow=true;G.wallR.add(mural);
+// plant wall on left wall, high in the void
+bx(X0,X0+0.08,2.6,4.3,0.15,1.85,M.leaf,G.wallL);
+// speakers
+[0.35,1.6].forEach(z=>bx(X0,X0+0.24,1.85,2.25,z-0.12,z+0.12,M.black,gr));
+// lanterns in the void
+const lanternMeshes=[];
+const LP=[[-1.5,3.55,0.5,0.2],[-0.8,3.05,1.1,0.16],[-0.2,3.75,0.6,0.22],[0.4,3.25,1.5,0.17],[0.95,3.65,0.75,0.19],[-1.2,3.9,1.65,0.15],[0.1,2.95,0.35,0.14],[-0.45,3.4,1.75,0.15],[0.75,2.9,0.3,0.13]];
+LP.forEach(([x,y,z,r])=>{rod(new THREE.Vector3(x,y+r,z),new THREE.Vector3(x,roofY(x)-0.05,z),0.004,M.black,gr);const l=sph(r,x,y,z,M.lantern,gr);l.scale.y=1.15;lanternMeshes.push(l);});
+// prayer flags
+const flagCols=['#2f5fa8','#f1ece0','#c8423a','#3f8a4a','#e3b33a'].map(c=>new THREE.MeshStandardMaterial({color:c,roughness:0.9,side:THREE.DoubleSide,emissive:c,emissiveIntensity:0.15}));
+[0.45,1.05,1.65].forEach((z,k)=>{const pts=[];for(let i=0;i<=24;i++){const x=X0+i*(X1-X0)/24;pts.push(new THREE.Vector3(x,4.3-k*0.12-0.35*(1-(x/X1)**2),z));}
+  gr.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:'#d8c9b0'})));
+  for(let i=1;i<24;i++){const p=pts[i];const f=new THREE.Mesh(new THREE.PlaneGeometry(0.15,0.19),flagCols[(i+k)%5]);f.position.set(p.x,p.y-0.1,z);gr.add(f);}});
+// string lights along the ridge
+for(let z=0.2;z<D;z+=0.32) sph(0.03,0,RID-0.36,z,M.glow,G.roof);
+
+// ---------- mezzanine + upper floor ----------
+const up=G.upper;
+bx(X0,1.35,DECK0,MZ,MZE,D,M.deck,up); bx(1.35,X1,DECK0,MZ,4.25,D,M.deck,up);
+bx(X0,1.35,2.12,MZ,1.95,2.03,M.timberDark,up); // fascia
+bx(1.31,1.37,2.2,MZ,2.0,4.25,M.steel,up); // trimmer at stair hole
+[3.5,5.0].forEach(z=>bx(X0,z<4.25?1.31:X1,2.2,DECK0,z,z+0.12,M.steel,up));
+cyl(0.06,0.06,2.12,1.31,0,2.04,M.steel,up,12);
+const neon=new THREE.Mesh(new THREE.PlaneGeometry(3.0,0.28),M.neon);neon.rotation.y=Math.PI;neon.position.set(-0.45,2.31,1.94);up.add(neon);
+// balustrades
+bx(X0,X1,MZ,3.5,2.0,2.02,M.glass,up,false); bx(X0,X1,3.5,3.56,1.97,2.08,M.timber,up);
+bx(1.34,1.36,MZ,3.5,2.0,4.25,M.glass,up,false); bx(1.32,1.38,3.5,3.56,2.0,4.25,M.timber,up);
+bx(X0+0.02,1.3,3.48,3.52,2.08,2.36,M.timber,up); // rail counter
+[-1.85,-1.05,-0.25,0.55].forEach(x=>stool(x,2.68,MZ,up));
+// floor-cushion lounge on the left
+bx(X0,-1.6,MZ,2.8,2.9,5.95,M.timberDark,up); bx(X0+0.02,-1.62,2.8,2.88,2.95,5.9,cushion[1],up);
+[3.4,4.45,5.5].forEach((z,i)=>{
+  bx(X0,X0+0.16,2.88,3.28,z-0.45,z+0.45,cushion[(i+2)%5],up);
+  bx(-1.42,-0.98,MZ,2.84,z-0.24,z+0.24,M.timberDark,up); bx(-1.5,-0.9,2.84,2.88,z-0.36,z+0.36,M.timber,up);
+  [z-0.2,z+0.2].forEach((cz,j)=>bx(-0.78,-0.42,MZ,2.62,cz-0.17,cz+0.17,cushion[(i+j+3)%5],up));
+  sph(0.1,X0+0.08,3.75,z,M.glow,up);
+  cyl(0.05,0.06,0.12,-1.2,2.88,z,M.cane,up,14);
+});
+// back nook
+bx(-0.3,X1,MZ,2.8,6.0,D,M.timberDark,up); bx(-0.28,X1-0.02,2.8,2.88,6.02,6.48,cushion[2],up); bx(-0.28,X1,2.88,3.25,6.34,D,cushion[0],up);
+bx(0.7,1.3,MZ,2.84,5.25,5.7,M.timberDark,up); bx(0.6,1.4,2.84,2.88,5.18,5.78,M.timber,up);
+[0.75,1.25].forEach((x,j)=>bx(x-0.17,x+0.17,MZ,2.62,4.78,5.1,cushion[(j+3)%5],up));
+cyl(0.05,0.06,0.12,1.0,2.88,5.48,M.cane,up,14);
+plant(-0.75,MZ,6.2,0.9,up);
+// exhaust shaft (boxed) through mezzanine to roof, stack above
+bx(X0,-1.75,MZ,roofY(-1.75)-0.02,6.0,D,M.plasterPlain,up);
+cyl(0.16,0.16,1.4,-2.0,roofY(-2.0),6.25,M.ss,G.shell);
+cyl(0.02,0.32,0.22,-2.0,roofY(-2.0)+1.45,6.25,M.ss,G.shell);
+cyl(0.22,0.22,0.3,-2.0,roofY(-2.0)+0.35,6.25,M.steel,G.shell);
+
+// ---------- outside ----------
+const out=G.outside;
+bx(-14,14,-0.08,-0.04,-14,16,M.laterite,out,false);
+bx(-4,4,-0.04,-0.01,-4.5,0,M.paving,out,false);
+bx(-14,14,-0.04,-0.02,-10,-6.5,M.road,out,false);
+[[-1.3,-2.2],[1.4,-2.4]].forEach(([x,z])=>{cyl(0.35,0.35,0.03,x,0.74,z,M.timber,out,24);cyl(0.025,0.025,0.74,x,0,z,M.steel,out,8);
+  [0,2.1,4.2].forEach(a=>chair(x+Math.sin(a)*0.6,z+Math.cos(a)*0.6,out,a+Math.PI));});
+plant(-0.25,0,-0.45,1.1,out); plant(1.6,0,-0.45,1.1,out);
+function palm(x,z,h,lean){const g=new THREE.Group();const pts=[];for(let i=0;i<=8;i++){const t=i/8;pts.push(new THREE.Vector3(lean*t*t,h*t,0));}
+  const tube=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),16,0.13,8,false),M.trunk);tube.castShadow=true;g.add(tube);
+  const top=pts[8];for(let i=0;i<9;i++){const a=i/9*Math.PI*2;const leaf=new THREE.Mesh(new THREE.PlaneGeometry(0.5,2.6),M.leafSolid);leaf.position.copy(top);leaf.rotation.set(0,a,0);leaf.rotateX(-1.05);leaf.translateY(1.2);leaf.castShadow=true;g.add(leaf);}
+  g.position.set(x,0,z);out.add(g);}
+palm(3.9,-3.4,7.5,-0.8); palm(5.2,-5.0,8.5,-1.0); palm(-6.5,3.5,8,0.6); palm(6.8,2.0,7.2,-0.5); palm(-9,-8.5,9,0.9);
+
+// ---------- lights ----------
+const hemi=new THREE.HemisphereLight('#ffe9cf','#3a2a20',0.3); scene.add(hemi);
+const sun=new THREE.DirectionalLight('#fff1dc',1.0); sun.position.set(-7,12,-9); sun.target.position.set(0,0,3);
+sun.castShadow=true; sun.shadow.mapSize.set(2048,2048); Object.assign(sun.shadow.camera,{left:-11,right:11,top:11,bottom:-11,near:1,far:40}); sun.shadow.bias=-0.0006;
+scene.add(sun); scene.add(sun.target);
+const warm=[];function pl(x,y,z,c,i,d){const l=new THREE.PointLight(c,i,d,2);l.position.set(x,y,z);scene.add(l);warm.push([l,i]);return l;}
+pl(-0.4,3.3,0.9,'#ffa250',2.2,8); pl(0.6,3.0,1.5,'#ffa250',1.4,6);
+pl(-1.3,1.9,3.2,'#ffb35c',1.6,5); pl(-0.8,1.6,2.4,'#ffb35c',0.6,3);
+pl(-1.0,3.9,4.4,'#ffad5a',1.4,5); pl(1.0,3.8,5.5,'#ffad5a',1.0,4.5);
+pl(-0.6,2.1,5.3,'#fff2df',0.9,4); pl(1.6,2.1,5.8,'#fff2df',0.5,3);
+pl(0.8,4.0,-1.4,'#ffb060',0.9,7);
+
+const glowMats=[M.glow,M.lantern];
+function setNight(on){
+  if(on){scene.background=new THREE.Color('#171220');scene.fog=new THREE.Fog('#171220',22,60);hemi.intensity=0.22;hemi.color.set('#9fb0d8');hemi.groundColor.set('#2a1d18');sun.intensity=0.18;sun.color.set('#8796c8');
+    warm.forEach(([l,i])=>l.intensity=i);M.glow.emissiveIntensity=1.25;M.lantern.emissiveIntensity=1.1;M.neon.opacity=1;M.winGlass.emissiveIntensity=0.05;renderer.toneMappingExposure=1.15;}
+  else{scene.background=new THREE.Color('#cfe2e6');scene.fog=new THREE.Fog('#cfe2e6',30,80);hemi.intensity=0.85;hemi.color.set('#fff3e2');hemi.groundColor.set('#6b4a36');sun.intensity=1.7;sun.color.set('#fff1dc');
+    warm.forEach(([l,i])=>l.intensity=i*0.25);M.glow.emissiveIntensity=0.6;M.lantern.emissiveIntensity=0.35;M.neon.opacity=0.55;M.winGlass.emissiveIntensity=0.6;renderer.toneMappingExposure=1.0;}
+}
+
+// ---------- labels ----------
+const LBL=[
+ ['Entrance + host stand',1.75,1.45,0.4,'g'],['Street-view ledge · 3',-1.0,1.25,0.25,'g'],['High-top · 2',-1.35,1.35,1.42,'g'],
+ ['Bar + 4 craft taps · 5 stools',-0.8,1.65,3.2,'g'],['Kitchen 3.3 × 1.9 m',-1.0,1.25,5.4,'g'],['Exhaust hood',-1.1,2.05,6.2,'g'],
+ ['Washroom',1.6,1.3,5.7,'g'],['Open stair',1.8,1.1,2.0,'g'],['Vinyl corner',1.8,1.25,3.65,'g'],
+ ['Lantern void · 4.5 m high',-0.3,4.15,1.0,'g'],['Mural wall',2.15,3.0,1.0,'g'],
+ ['Balcony rail · 4',-0.4,3.75,2.5,'u'],['Floor lounge · 12',-1.45,3.35,4.45,'u'],['Back nook · 4',1.0,3.15,5.45,'u'],
+ ['Exhaust shaft → roof stack',-2.0,roofY(-2)+1.8,6.25,'u'],['Forecourt +6 (peak)',0.05,1.1,-2.3,'o']
+];
+const labelsEl=document.getElementById('labels');
+const labels=LBL.map(([t,x,y,z,f])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;labelsEl.appendChild(d);return {el:d,p:new THREE.Vector3(x,y,z),f};});
+
+// ---------- state + UI ----------
+const state={cut:true,labels:true,night:true,floor:'both'};
+const VIEWS={
+  iso:{p:[-7.2,7.4,-5.2],t:[0,1.7,3.1]},
+  street:{p:[0.7,1.6,-7.5],t:[0,2.2,2.5]},
+  plan:{p:[0,15,3.26],t:[0,0,3.25]},
+  bar:{p:[-0.25,1.55,4.35],t:[0.6,2.1,0.2]},
+  balc:{p:[0.9,3.95,4.9],t:[-0.6,2.0,0.6]}
+};
+let anim=null;
+function goView(k,instant){const v=VIEWS[k];const to={p:new THREE.Vector3(...v.p),t:new THREE.Vector3(...v.t)};
+  if(instant||window.matchMedia('(prefers-reduced-motion: reduce)').matches){camera.position.copy(to.p);controls.target.copy(to.t);controls.update();return;}
+  anim={fp:camera.position.clone(),ft:controls.target.clone(),to,t0:performance.now(),dur:1100};}
+function press(group,btn){group.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b===btn?'true':'false'));}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{press(b.parentElement,b);goView(b.dataset.view);}));
+document.querySelectorAll('[data-floor]').forEach(b=>b.addEventListener('click',()=>{press(b.parentElement,b);state.floor=b.dataset.floor;}));
+function toggle(id,key,fn){const b=document.getElementById(id);b.addEventListener('click',()=>{state[key]=!state[key];b.setAttribute('aria-pressed',String(state[key]));fn&&fn();});}
+toggle('t-cut','cut'); toggle('t-lbl','labels'); toggle('t-night','night',()=>setNight(state.night));
+controls.addEventListener('start',()=>{anim=null;});
+
+setNight(true); goView('iso',true);
+
+function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();}
+new ResizeObserver(resize).observe(stage); resize();
+
+const tmp=new THREE.Vector3(); const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function frame(now){
+  if(anim){const k=Math.min(1,(now-anim.t0)/anim.dur);const e=ease(k);camera.position.lerpVectors(anim.fp,anim.to.p,e);controls.target.lerpVectors(anim.ft,anim.to.t,e);if(k>=1)anim=null;}
+  controls.update();
+  const c=camera.position, groundOnly=state.floor==='ground';
+  G.upper.visible=!groundOnly;
+  G.roof.visible=!(state.cut||groundOnly);
+  G.wallL.visible=!(state.cut&&c.x<X0);
+  G.wallR.visible=!(state.cut&&c.x>X1);
+  G.wallB.visible=!(state.cut&&c.z>D);
+  G.frontGable.visible=!(state.cut&&c.z<0);
+  renderer.render(scene,camera);
+  const w=stage.clientWidth,h=stage.clientHeight;
+  labels.forEach(L=>{const show=state.labels&&!(groundOnly&&L.f==='u');if(!show){L.el.hidden=true;return;}
+    tmp.copy(L.p).project(camera);if(tmp.z>1||tmp.z<-1||Math.abs(tmp.x)>1.05||Math.abs(tmp.y)>1.05){L.el.hidden=true;return;}
+    L.el.hidden=false;L.el.style.transform=`translate(${(tmp.x*.5+.5)*w}px,${(-tmp.y*.5+.5)*h}px) translate(-50%,-100%)`;});
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+}
+
+const ready = document.fonts && document.fonts.load ? Promise.race([Promise.all([document.fonts.load('700 46px "Bricolage Grotesque"'),document.fonts.load('500 22px "IBM Plex Mono"')]),new Promise(r=>setTimeout(r,1500))]) : Promise.resolve();
+ready.catch(()=>{}).then(init);
+})();
+</script>
