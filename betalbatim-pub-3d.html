@@ -126,6 +126,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <button id="t-loft" aria-pressed="true">Show loft</button>
         <button id="t-cut" aria-pressed="true">Cutaway</button>
         <button id="t-lbl" aria-pressed="true">Labels</button>
+        <button id="t-dims" aria-pressed="false">Sizes</button>
         <button id="t-secA" aria-pressed="false">Section A–A</button>
         <button id="t-secB" aria-pressed="false">Section B–B</button>
         <button id="t-secC" aria-pressed="false">Look up at beams</button>
@@ -1491,6 +1492,49 @@ function vdim(k,x,z,y0,y1,txt,lx,lz){dimLine(k,V(x,y0,z),V(x,y1,z),txt,lx,(y0+y1
  // a faint outline of the loft deck edge, so you can see where the loft sits under the beams
  const e=new THREE.Line(new THREE.BufferGeometry().setFromPoints([V(X0,2.46,5.4),V(SX0,2.46,5.4),V(SX0,2.46,STOP),V(X1,2.46,STOP)]),dimM);e.renderOrder=999;secG.c.add(e);}
 LBL.push(['Front bay · 2 high tables for 2 · 2.12 m clear',-0.45,MZ+1.45,5.98,'u'],['Planter under beam T2 (1.72 m): no walking here',-1.0,MZ+0.75,6.8,'u'],['Passage from the landing to the aisle · 0.8 m',1.2,MZ+0.4,7.4,'u']);
+
+// ---------- SIZE TAGS: dimensions printed flat on the surfaces themselves (table tops, counters, floors, beam and pillar faces). Toggle: "Sizes" ----------
+const dimsG=new THREE.Group();dimsG.visible=false;scene.add(dimsG);const upTags=[];
+function tagTex(t){const c=document.createElement('canvas'),g=c.getContext('2d'),fs=44;g.font='600 '+fs+'px "IBM Plex Mono", monospace';const w=Math.ceil(g.measureText(t).width)+36,h=fs+26;c.width=w;c.height=h;
+  g.fillStyle='rgba(255,248,236,0.94)';g.fillRect(0,0,w,h);g.strokeStyle='#d2492a';g.lineWidth=5;g.strokeRect(2.5,2.5,w-5,h-5);
+  g.font='600 '+fs+'px "IBM Plex Mono", monospace';g.fillStyle='#8f2a12';g.textBaseline='middle';g.fillText(t,18,h/2+2);
+  const tx=new THREE.CanvasTexture(c);tx.encoding=THREE.sRGBEncoding;tx.anisotropy=4;return [tx,w/h];}
+// face: 'up' (lying on a top), 'down' (under a beam), '+x','-x','+z','-z' (on a vertical face, facing that way). w = width in metres
+function tag(t,w,x,y,z,face,along){const [tx,ar]=tagTex(t);const m=new THREE.Mesh(new THREE.PlaneGeometry(w,w/ar),new THREE.MeshBasicMaterial({map:tx,transparent:true,toneMapped:false,side:THREE.DoubleSide,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-4}));
+  const R={up:[-Math.PI/2,0,along==='z'?-Math.PI/2:Math.PI],down:[Math.PI/2,0,0],'+x':[0,Math.PI/2,0],'-x':[0,-Math.PI/2,0],'+z':[0,0,0],'-z':[0,Math.PI,0]}[face];
+  m.rotation.set(R[0],R[1],R[2]);m.position.set(x,y,z);m.renderOrder=5;dimsG.add(m);if(face==='up')upTags.push(m);}
+const U=0.006;
+// ground floor
+tag('GROUND FLOOR 4.5 × 10.5 m · 47.3 m²',1.6,0.25,U+0.002,1.95,'up');
+tag('table 1.1 × 0.6 · h 0.47',0.55,-1.15,0.47+U,1.3,'up');
+tag('sofa 1.8 × 0.63 · seat 0.52',0.58,-1.95,0.52+U,1.25,'up','z');
+tag('bar counter 2.2 × 0.75 · top 1.04',0.68,-0.67,1.04+U,3.75,'up','z');
+tag('back bar 3.0 × 0.4 · h 0.96',0.8,-1.84,0.5,3.2,'+x');
+tag('keg cooler 1.2 × 0.9 · h 0.9',0.8,-1.33,0.55,5.95,'+x');
+tag('stair 1.2 wide · 16 × 149 mm / 300 mm',1.05,1.65,8*SRH+U,3.0,'up');
+tag('washroom 1.1 × 1.75 · ceiling 2.2',0.95,1.72,U,6.75,'up','z');
+tag('KITCHEN 4.5 × 2.9 m · ceiling 2.2 (2.65 over hood)',1.9,-0.35,U+0.002,8.85,'up');
+tag('ledge 2.45–2.65 · 0.23 deep',0.9,X0+PD+0.004,2.55,1.55,'+x');
+tag('P1 0.30 × 0.23',0.28,X0+PD+0.004,3.3,4.8,'+x'); tag('P2 0.30 × 0.23',0.28,X0+PD+0.004,3.3,6.8,'+x');
+tag('beam T1 0.25 × 0.45 · underside 4.05',1.3,-0.7,H-0.225,4.672,'-z');
+tag('beam T2 0.25 × 0.40 · underside 4.10',1.3,-1.0,H-0.2,6.672,'-z');
+tag('beam A 0.23 × 0.38 · underside 4.12',1.3,BMA-0.117,H-0.19,3.0,'-x');
+tag('beam B 0.15 × 0.25 · u/s 4.25',0.9,0.123,H-0.125,5.8,'-x');
+tag('slab soffit 4.50 m',0.7,0.6,H-0.012,2.3,'down');
+// loft
+tag('front bay 3.3 × 1.3 · 2.12 clear',1.1,-0.45,MZ+U,6.5,'up');
+tag('Ø 0.6 · h 1.05',0.42,-1.25,MZ+1.05+U,5.98,'up'); tag('Ø 0.6 · h 1.05',0.42,0.35,MZ+1.05+U,5.98,'up');
+tag('planter 3.2 × 0.22 · h 0.45',0.8,-0.6,MZ+0.47+U,6.8,'up');
+tag('landing bridge 1.2 × 1.25',1.0,1.65,MZ+U,6.3,'up');
+tag('passage 0.8 m',0.55,0.75,MZ+U,7.35,'up');
+tag('aisle 1.0 m',0.5,0,MZ+0.008+U,8.3,'up','z');
+[[-1.37,7.65,'1.1 × 0.7'],[-1.37,8.95,'1.1 × 0.7'],[1.37,8.4,'1.0 × 0.7'],[1.37,9.2,'0.7 × 0.7']].forEach(([x,z,t])=>tag(t+' · h 0.75',0.6,x,MZ+0.75+U,z+(t[0]==='0'?0.22:0.33),'up'));
+tag('bench 0.5 deep · seat 0.47',0.85,X0+0.3,MZ+0.47+U,8.3,'up','z'); tag('bench 0.5 deep · seat 0.47',0.85,X1-0.3,MZ+0.47+U,8.9,'up','z');
+tag('service station 3.4 × 0.95 · top 0.94',1.2,-0.6,MZ+0.94+U,9.72,'up');
+tag('LOFT 22.6 m² · floor +2.38 · headroom 2.12',1.6,X1-0.012,3.05,7.35,'-x');
+// garden
+tag('GARDEN 7.2 × 3.3 m · 23.8 m²',1.5,0,0.002,-0.55,'up');
+tag('1.3 × 0.76 · h 0.78',0.55,-1.9,0.78+U,-1.7,'up','z'); tag('Ø 0.72 · h 0.77',0.5,1.9,0.77+U,-1.7,'up');
 const labelsEl=document.getElementById('labels');
 const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;d.hidden=true;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f:f.split(' ')[0],w,shown:false};});
 
@@ -1570,6 +1614,7 @@ document.getElementById('cardX').addEventListener('click',()=>{closeZone();press
 function setSection(k){state.sec=k||null;renderer.clippingPlanes=k?[SEC[k].plane]:[];Object.entries(secG).forEach(([n,g])=>g.visible=n===k);
   ['a','b','c'].forEach(n=>document.getElementById('t-sec'+n.toUpperCase()).setAttribute('aria-pressed',String(n===k)));
   if(k){closeZone();pressView('');goView(SEC[k].view);} renderer.shadowMap.needsUpdate=true;dirty=true;}
+document.getElementById('t-dims').addEventListener('click',e=>{dimsG.visible=!dimsG.visible;e.currentTarget.setAttribute('aria-pressed',String(dimsG.visible));dirty=true;});
 ['a','b','c'].forEach(n=>document.getElementById('t-sec'+n.toUpperCase()).addEventListener('click',()=>setSection(state.sec===n?null:n)));
 viewBtns.forEach(b=>b.addEventListener('click',()=>{if(state.sec)setSection(null);const k=b.dataset.view;if(ZONES[k]){openZone(k);return;}closeZone();pressView(k);goView(k);}));
 function toggle(id,key,fn){const b=document.getElementById(id);b.addEventListener('click',()=>{state[key]=!state[key];b.setAttribute('aria-pressed',String(state[key]));fn&&fn();dirty=true;});}
@@ -1639,6 +1684,7 @@ function frame(now){
   G.wallL.visible=!(state.cut&&c.x>X1);
   G.wallB.visible=!(state.cut&&c.z>D);
   G.pergTop.visible=!(state.cut&&c.y>3.2);
+  if(dimsG.visible)for(const m of upTags){const dx=m.position.x-c.x,dz=m.position.z-c.z;m.rotation.z=Math.atan2(-dx,-dz);} // flat tags turn to read upright from where you stand
   renderer.render(scene,camera);
   const w=stage.clientWidth,h=stage.clientHeight,kf=state.focus==='kitchen',zb=state.focus&&!kf&&state.focus!=='safety'?ZONES[state.focus].box:null;
   const sf=state.focus==='safety';
