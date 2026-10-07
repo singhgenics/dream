@@ -102,7 +102,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <footer class="mf">
       <span>Prices in ₹, taxes extra. Dim sum come 4 to a basket, bao 2 to a plate. Spirits are poured in 30 ml / 60 ml.</span>
       <span>Tell us about allergies: shellfish, pork, peanuts, gluten, egg, soy, sesame.</span>
-      <span>Taps rotate weekly.</span>
+      <span>The guest tap changes weekly.</span>
     </footer>
   </main>
 
@@ -181,6 +181,11 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
           <h3>Licences</h3>
           <p>The taps and cocktails need the Goa excise licence. If it isn't through on opening day, the zero-proof list covers the bar. Recorded music needs PPL and IPRS (or Novex) licences.</p>
         </div>
+        <div class="box">
+          <h3>Tap suppliers</h3>
+          <p>Two main suppliers keep ordering simple. Susegado (Calangute) pours the wit, kokum gose and vanilla porter. Goa Brewing Co. (Sangolda) pours People's Lager and Eight Finger Eddie. The guest tap rotates Maka Di (Dicholi), with Great State Aleworks as an option. The guest menu names the Sangolda beers without the brewery, to keep the word "Goa" off it.</p>
+          <p class="small">Before signing, ask each brewer: will they deliver to Betalbatim, what is the minimum order, keg size and price, which coupler type they use, whether they'll lend a kegerator or tower, and how long the unfiltered beer lasts. Each brewer's range is from public listings, so confirm what's currently in production.</p>
+        </div>
       </div>
     </div>
   </main>
@@ -219,12 +224,13 @@ const MENU=[
   ['Veg Manchurian, gravy','Cabbage, carrot, beans and spring onion dumplings in a dark ginger-garlic-soy gravy','Veg balls fried crisp, then simmered briefly in Manchurian sauce. Made for fried rice.',260,V,'',1,null]]},
  {id:'sweet',t:'Sweet',k:'To finish',items:[
   ['Darsaan with ice cream','Flat noodles, honey, sesame, vanilla ice cream','The old cabins\u2019 favourite dessert: noodles fried crisp, then tossed in hot honey.',220,V,'kol',0,null]]},
- {id:'tap',t:'On tap',k:'Six rotating craft taps · 330 ml / 500 ml',drink:true,items:[
-  ['Session lager','Pilsner malt, noble hops','Cold-fermented and crisp: the beach beer.','₹240 / 320','',0,['pint','#f2c24a']],
-  ['Belgian wit','Wheat, orange peel, coriander','Hazy and soft, it goes with dim sum.','₹260 / 340','',0,['pint','#f2d27a']],
-  ['Kokum gose','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink. Brewed with a craft brewer down the coast.','₹280 / 380','goa',0,['pint','#d86a7a']],
-  ['West coast IPA','Pale malt, Citra and Simcoe hops','Dry-hopped, bitter and piney. It cuts through chilli chicken.','₹280 / 380','',0,['pint','#e0a02a']],
-  ['Coffee stout','Roasted barley, coffee','Roasty and smooth, with a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
+ {id:'tap',t:'On tap',k:'Six taps, all brewed up the coast · 330 ml / 500 ml',drink:true,items:[
+  ['People\u2019s Lager','Pilsner malt, Japanese rice, noble hops','A light rice lager from a small farm-to-barrel brewery in Sangolda. Crisp and clean: the beach beer.','₹240 / 320','',0,['pint','#f2c24a']],
+  ['Susegado Tropical Wit','Wheat, orange peel, coriander','Hazy and soft, from the coast\u2019s first craft brewer. It goes with dim sum.','₹260 / 340','',0,['pint','#f2d27a']],
+  ['Susegado Kokum Gose','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink, soured with kokum from our own coast.','₹280 / 380','goa',0,['pint','#d86a7a']],
+  ['Eight Finger Eddie IPA','Pale malt, oats, tropical hops, double dry-hopped','A hazy oat-cream IPA from the Sangolda brewers. Juicy, then bitter: it stands up to Cabin Fever.','₹280 / 380','',0,['pint','#e0a02a']],
+  ['Susegado Vanilla Porter','Roasted malt, chocolate malt, vanilla','Dark, smooth and roasty: a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
+  ['Guest tap: Maka Di','Honey Ale, Belgian Tripel or Rocket Rice Lager, whichever is pouring','From the Dicholi brewery whose name is Konkani for \u201cgive me\u201d. Changes every week.','₹280 / 380','',0,['pint','#d99a3a']],
   ['Pitcher or tasting paddle','1.5 L pitcher ₹999 · 4 × 150 ml paddle ₹420','Pick from whatever is pouring today.','₹420+','',0,['paddle']]]},
  {id:'spirits',t:'Whisky & vodka',k:'A short, considered list · 30 ml / 60 ml',drink:true,items:[
   ['Paul John Brilliance','Single malt from Cuncolim, about 15 km away: honey, vanilla, toffee, a little spice','Neat or with one large cube. Our local pour.','₹320 / 600','goa',0,null],
