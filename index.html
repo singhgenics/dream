@@ -87,6 +87,11 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
   h1{font-size:32px}
 }
 td.n{white-space:nowrap}
+details.dims{border-bottom:1px solid rgba(58,43,34,.6);padding:4px 0}
+details.dims summary{cursor:pointer;font:600 13px/1.6 var(--body);color:var(--fg);padding:4px 0;list-style-position:outside}
+details.dims summary::marker{color:var(--amber)}
+details.dims table td:first-child{font:500 12.5px/1.45 var(--body);text-transform:none;letter-spacing:0;width:46%;padding-right:10px;color:var(--fg)}
+details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:right}
 </style>
 
 <div class="app">
@@ -182,6 +187,153 @@ td.n{white-space:nowrap}
       <p style="margin:8px 0 0;font-size:12.5px;color:var(--muted)">The loft floor is slimmed to 0.17 m (steel joists set within the floor depth, 18 mm ply, thin finish) and sits at 2.38 m. That gives 2.12 m up and 2.2 m below. Over the kitchen hood, a 0.44 m step in the loft floor (under the service station) gives the hood 2.65 m. The National Building Code asks about 2.2 m for a mezzanine and limits it to about a third of the floor area, so have the architect confirm how the local authority will classify the loft.</p>
     </section>
 
+    <section id="dims">
+      <h2>Dimensions · section by section</h2>
+      <p style="margin:0 0 8px;font-size:12.5px;color:var(--muted)">Every item in the model, measured from the model itself. L × W × H in metres unless noted. Open any section, or use "All sizes" on a zone card.</p>
+      <details class="dims" id="sz-shell"><summary>Shell &amp; levels</summary><table>
+        <tr><td>Shell (inside)</td><td class="d">4.5 W × 10.5 L × 4.5 H m</td></tr>
+        <tr><td>Ground floor</td><td class="d">47.3 m²</td></tr>
+        <tr><td>Front double-height headroom</td><td class="d">4.5 m (3.9 m under the duct)</td></tr>
+        <tr><td>Loft floor level</td><td class="d">2.38 m</td></tr>
+        <tr><td>Loft floor build-up</td><td class="d">0.17 m (joists within depth + 18 mm ply + finish)</td></tr>
+        <tr><td>Headroom under the loft</td><td class="d">2.2 m, flat soffit</td></tr>
+        <tr><td>Headroom in the loft</td><td class="d">2.12 m</td></tr>
+        <tr><td>Hood pocket (step in loft floor)</td><td class="d">3.4 × 0.95 m, 0.44 m high</td></tr>
+        <tr><td>Indoor total</td><td class="d">74.5 m²</td></tr>
+      </table></details>
+      <details class="dims" id="sz-lounge"><summary>Window lounge · 4 covers · 5.1 m²</summary><table>
+        <tr><td>Cane-back sofa</td><td class="d">1.8 L × 0.63 D m · seat 0.52 · back 1.05 H</td></tr>
+        <tr><td>Coffee table (oak)</td><td class="d">1.1 × 0.6 m · 0.47 H</td></tr>
+        <tr><td>Green velvet tub chair</td><td class="d">Ø 0.66 m · seat 0.48 · back 0.81 H</td></tr>
+        <tr><td>Kilim rug</td><td class="d">1.95 × 1.9 m</td></tr>
+        <tr><td>Brass lantern</td><td class="d">0.32 Ø × 0.5 H, bottom at 2.45 m</td></tr>
+        <tr><td>Reclaimed-wood wall</td><td class="d">2.24 × 4.5 m</td></tr>
+        <tr><td>Vintage signs (4)</td><td class="d">0.48–0.85 × 0.39–0.6 m</td></tr>
+        <tr><td>Split AC (front)</td><td class="d">1.5 TR · ~1.0 × 0.32 × 0.23 m, at 3.95 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-bar"><summary>Bar &amp; back bar · 5.9 m² + 1.5 m² stool zone</summary><table>
+        <tr><td>Bar counter</td><td class="d">2.2 L × 0.75 D m · top 1.04 H · curved end R 0.38 m</td></tr>
+        <tr><td>Bartender aisle</td><td class="d">0.7 m clear</td></tr>
+        <tr><td>Under-counter station</td><td class="d">0.2 × 2.2 m: speed rail, ice well, sink, glasswasher</td></tr>
+        <tr><td>Bar chairs (4)</td><td class="d">seat Ø 0.42 at 0.78 H · back to 1.21 H · 0.55 m apart</td></tr>
+        <tr><td>Taps</td><td class="d">6 on 2 brass fonts, 1.1 m apart</td></tr>
+        <tr><td>Back bar cabinets</td><td class="d">3.0 L × 0.4 D × 0.96 H m</td></tr>
+        <tr><td>Spirit "altar" shelves (2)</td><td class="d">1.0 × 0.27 m at 1.3 and 1.74 m, backlit onyx 0.96 × 1.15 m</td></tr>
+        <tr><td>Glassware shelves (3)</td><td class="d">0.87 × 0.27 m at 1.4, 1.78, 2.12 m</td></tr>
+        <tr><td>Infusion jars (2)</td><td class="d">Ø 0.22 × 0.36 H m</td></tr>
+        <tr><td>Soju riser</td><td class="d">0.75 L, 3 steps × 0.1 m</td></tr>
+        <tr><td>ON TAP board</td><td class="d">0.72 × 0.94 m</td></tr>
+        <tr><td>TV</td><td class="d">1.14 × 0.62 m at 2.78–3.46 m</td></tr>
+        <tr><td>Brass gantry</td><td class="d">0.8 × 0.75 m at 2.6–2.86 m</td></tr>
+        <tr><td>POS + card machine + printer</td><td class="d">on the bar end</td></tr>
+        <tr><td>"Dim sum" round neon</td><td class="d">Ø 0.72 m at 3.95 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-kegs"><summary>Keg cooler, server station &amp; electrical · 1.2 m²</summary><table>
+        <tr><td>Keg cooler (glass doors)</td><td class="d">1.58 L × 0.75 D × 0.9 H m · 2–4 °C</td></tr>
+        <tr><td>Kegs</td><td class="d">8 × 20 L (Ø 0.27 × 0.44 m): 6 on tap + 2 spare</td></tr>
+        <tr><td>CO₂ bay</td><td class="d">0.29 m wide · 6 kg cylinder Ø 0.15 × 0.67 m</td></tr>
+        <tr><td>Server-station shelves (2)</td><td class="d">1.45 × 0.3 m at 1.35 and 1.8 m</td></tr>
+        <tr><td>Main electrical board</td><td class="d">0.42 × 0.6 × 0.15 m at 1.15–1.75 m</td></tr>
+        <tr><td>Fire alarm panel</td><td class="d">0.36 × 0.28 m</td></tr>
+        <tr><td>Split AC (back)</td><td class="d">1.5 TR · ~1.0 × 0.32 × 0.23 m at 1.98 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-stair"><summary>Stair · 6.5 m²</summary><table>
+        <tr><td>Clear width</td><td class="d">1.2 m</td></tr>
+        <tr><td>Footprint</td><td class="d">1.2 × 5.4 m (z 0.3 → 5.7)</td></tr>
+        <tr><td>Risers</td><td class="d">16 × 149 mm</td></tr>
+        <tr><td>Treads</td><td class="d">300 mm (+30 mm nosing)</td></tr>
+        <tr><td>Flights</td><td class="d">2 × 8 risers</td></tr>
+        <tr><td>Landing</td><td class="d">1.2 × 1.2 m at 1.19 m</td></tr>
+        <tr><td>Handrail (wall side)</td><td class="d">0.9 m above nosing</td></tr>
+        <tr><td>Glass balustrade</td><td class="d">1.0 m top rail</td></tr>
+        <tr><td>Loft opening</td><td class="d">1.2 × 0.9 m, guarded</td></tr>
+        <tr><td>Under-stair store door</td><td class="d">0.6 × 1.4 m</td></tr>
+        <tr><td>BAO mural</td><td class="d">1.4 × 2.33 m</td></tr>
+        <tr><td>Gallery wall</td><td class="d">18 frames, 0.36–0.5 × 0.3–0.66 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-washroom"><summary>Washroom &amp; basin · 1.9 m² + 0.5 m²</summary><table>
+        <tr><td>Washroom (inside)</td><td class="d">1.1 × 1.75 m · 2.2 m ceiling</td></tr>
+        <tr><td>Door</td><td class="d">0.7 × 2.1 m, opens outward</td></tr>
+        <tr><td>Wall-hung urinal</td><td class="d">0.4 W, rim at 0.62 m</td></tr>
+        <tr><td>Modesty screen</td><td class="d">0.53 × 1.2 m</td></tr>
+        <tr><td>WC (wall-faced)</td><td class="d">0.38 W × 0.51 D m, seat 0.43 m</td></tr>
+        <tr><td>Drum basin (outside)</td><td class="d">Ø 0.54 × 0.84 H m</td></tr>
+        <tr><td>Ring-light mirrors (2)</td><td class="d">Ø 0.34 m at 1.62 m</td></tr>
+        <tr><td>Pop-art wall</td><td class="d">0.98 × 2.1 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-kitchen"><summary>Kitchen · 13.1 m²</summary><table>
+        <tr><td>Kitchen</td><td class="d">4.5 × 2.9 m · ceiling 2.2 m (2.65 m over the hood)</td></tr>
+        <tr><td>Exhaust hood</td><td class="d">3.4 L × 0.95 D × 0.43 H m, bottom 1.9 m</td></tr>
+        <tr><td>Wok range (2 burners)</td><td class="d">1.2 × 0.65 × 0.8 m</td></tr>
+        <tr><td>Dim sum steamer</td><td class="d">0.8 × 0.65 × 0.8 m</td></tr>
+        <tr><td>Twin fryer</td><td class="d">0.6 × 0.65 × 0.9 m</td></tr>
+        <tr><td>2-burner range</td><td class="d">0.55 × 0.65 × 0.85 m</td></tr>
+        <tr><td>Reach-in fridge (2-door)</td><td class="d">1.2 W × 0.75 D × 2.0 H m</td></tr>
+        <tr><td>Non-veg prep + u/c freezer</td><td class="d">0.8 × 0.7 × 0.9 m · 2 wall shelves 0.35 D</td></tr>
+        <tr><td>Dumpling/veg prep + u/c freezer</td><td class="d">0.7 × 0.69 × 0.9 m · 2 wall shelves 0.65 W</td></tr>
+        <tr><td>Pass counter</td><td class="d">0.95 × 0.64 × 0.9 m · pass window 0.95 × 0.6 m</td></tr>
+        <tr><td>Hand-wash sink</td><td class="d">0.65 × 0.7 m</td></tr>
+        <tr><td>Dish station + pot-wash</td><td class="d">0.65 × 0.8 m · shelves 1.45 L</td></tr>
+        <tr><td>Kitchen door</td><td class="d">0.75 m</td></tr>
+        <tr><td>Rear exit door</td><td class="d">0.8 × 2.1 m</td></tr>
+        <tr><td>Fresh-air supply grille</td><td class="d">0.55 × 0.42 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-loft"><summary>Loft · 18 covers · 24.6 m²</summary><table>
+        <tr><td>Oak wall bench (right)</td><td class="d">4.5 L × 0.5 D m · seat 0.47 H · back 1.0 H</td></tr>
+        <tr><td>Oak wall bench (left)</td><td class="d">2.45 L × 0.5 D m</td></tr>
+        <tr><td>Tables, right (3 × 4-top)</td><td class="d">1.2 × 0.7 m · 0.75 H · marble top, brass edge</td></tr>
+        <tr><td>Table, left 4-top</td><td class="d">1.2 × 0.7 m · 0.75 H</td></tr>
+        <tr><td>Table, left 2-top</td><td class="d">0.7 × 0.7 m · 0.75 H</td></tr>
+        <tr><td>Gap between right tables</td><td class="d">0.30 m</td></tr>
+        <tr><td>Gap between left tables</td><td class="d">0.48 m</td></tr>
+        <tr><td>Rattan dining chairs (14)</td><td class="d">seat 0.44 × 0.44 at 0.47 H · back 0.94 H</td></tr>
+        <tr><td>Centre aisle</td><td class="d">1.0 m</td></tr>
+        <tr><td>Persian runner</td><td class="d">0.9 × 4.45 m</td></tr>
+        <tr><td>Rattan pendants (5)</td><td class="d">Ø 0.48 m, 1.6 m above floor</td></tr>
+        <tr><td>Fake windows, side walls (2)</td><td class="d">1.0 × 0.86 m + 70 mm casing, sill at 1.1 m</td></tr>
+        <tr><td>Fake windows, back wall (2)</td><td class="d">0.8 × 0.8 m</td></tr>
+        <tr><td>Service station</td><td class="d">3.4 L × 0.95 D m · counter 0.94 m · 2 open shelves</td></tr>
+        <tr><td>Guard rails</td><td class="d">1.0 m, glass infill</td></tr>
+        <tr><td>Acoustic clouds</td><td class="d">8 × 1.7 × 1.2 m, 40 mm</td></tr>
+        <tr><td>"Cold draught" round neon</td><td class="d">Ø 0.8 m</td></tr>
+        <tr><td>Gallery frames</td><td class="d">0.34–0.6 × 0.3–0.8 m</td></tr>
+        <tr><td>Split AC</td><td class="d">2.0 TR · ~1.1 × 0.35 × 0.26 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-nook"><summary>Photo nook · 2.6 m²</summary><table>
+        <tr><td>Nook deck</td><td class="d">2.05 × 1.25 m · headroom 2.12 m</td></tr>
+        <tr><td>Painted arch</td><td class="d">0.84 W × 1.75 H m</td></tr>
+        <tr><td>Pill mirror</td><td class="d">0.32 × 1.45 m</td></tr>
+        <tr><td>Standing-spot rug</td><td class="d">Ø 1.1 m</td></tr>
+        <tr><td>Travertine plinth</td><td class="d">Ø 0.3 × 0.62 H m</td></tr>
+        <tr><td>"Say bao" neon</td><td class="d">0.7 × 0.2 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-garden"><summary>Beer garden · 6 covers · 23.8 m²</summary><table>
+        <tr><td>Gravel court</td><td class="d">7.2 × 3.3 m</td></tr>
+        <tr><td>Pergola (between posts)</td><td class="d">6.8 × 2.7 m · posts 0.16 m sq · 2.95 H</td></tr>
+        <tr><td>Polycarbonate roof</td><td class="d">7.2 × 2.9 m at 3.06 m</td></tr>
+        <tr><td>Table for 4</td><td class="d">1.3 × 0.76 m · 0.78 H</td></tr>
+        <tr><td>Benches with backs (2)</td><td class="d">1.3 L × 0.36 D m · seat 0.47 · back 0.95 H</td></tr>
+        <tr><td>Round table for 2</td><td class="d">Ø 0.72 m · 0.77 H</td></tr>
+        <tr><td>Mist fans (2)</td><td class="d">~1.65 H m, Ø 0.6 m head</td></tr>
+        <tr><td>PVC monsoon curtains</td><td class="d">3 sides: 6.8 m front, 2 × 2.7 m sides, 2.64 m drop</td></tr>
+        <tr><td>Planter walls</td><td class="d">0.5 H m</td></tr>
+        <tr><td>Chalkboard</td><td class="d">0.64 × 1.0 m</td></tr>
+      </table></details>
+      <details class="dims" id="sz-services"><summary>Services, safety &amp; security</summary><table>
+        <tr><td>AC total</td><td class="d">~5 TR: 2 × 1.5 TR ground + 2.0 TR loft · 3 outdoor units 0.8 × 0.55 × 0.3 m</td></tr>
+        <tr><td>Kitchen exhaust duct</td><td class="d">0.5 × 0.4 m</td></tr>
+        <tr><td>Fresh-air intake fan</td><td class="d">0.7 × 0.48 m</td></tr>
+        <tr><td>LPG cage</td><td class="d">0.9 × 0.7 × 1.6 m · 4 × 19 kg</td></tr>
+        <tr><td>Empty-keg cage</td><td class="d">0.6 × 0.6 × 1.2 m</td></tr>
+        <tr><td>Extinguishers (7)</td><td class="d">Ø 0.15 × 0.5 m</td></tr>
+        <tr><td>EXIT signs (3)</td><td class="d">0.36 × 0.14 m</td></tr>
+        <tr><td>Emergency lights (5)</td><td class="d">0.24 × 0.1 m</td></tr>
+        <tr><td>Smoke / heat detectors</td><td class="d">Ø 0.13 m</td></tr>
+        <tr><td>Wall speakers (5)</td><td class="d">0.22 × 0.34 m</td></tr>
+        <tr><td>CCTV cameras (5)</td><td class="d">0.08 × 0.18 m</td></tr>
+      </table></details>
+    </section>
+
     <section>
       <h2>Fire &amp; life safety · security</h2>
       <ul class="zones">
@@ -204,7 +356,7 @@ td.n{white-space:nowrap}
       <h2>Loft · 4.5 × 5.7 m · 24.6 m² · 18 covers</h2>
       <ul class="zones">
         <li><b>Access</b><span>The code-compliant stair along the left wall: 1.2 m wide, two gentle flights with a landing, landing through a guarded opening at the front of the loft.</span></li>
-        <li><b>Seating</b><span>Full-height dining for 18, in an earthy palette. Built-in oak benches run along both walls with rust linen seat cushions, jute back cushions and sage and ochre scatter cushions. They face solid mango-wood tables at 75 cm, with rattan-back dining chairs on the aisle side. Three tables of 4 sit on the right; the left has a table for 4 and a table for 2, with a comfortable gap between them (the stair head stays clear). A jute runner covers the 1.0 m centre aisle, with a woven rattan pendant over each table and a dried-grass bud vase and tea light on every table. The walls are warm clay plaster.</span></li>
+        <li><b>Seating</b><span>Full-height dining for 18, in an earthy palette. Built-in oak benches run along both walls with rust linen seat cushions, jute back cushions and sage and ochre scatter cushions. They face solid mango-wood tables at 75 cm, with rattan-back dining chairs on the aisle side. Three tables of 4 sit on the right; the left has a table for 4 and a table for 2, with a comfortable gap between them (the stair head stays clear). A red Persian runner covers the 1.0 m centre aisle, with a woven rattan pendant over each table and a dried-grass bud vase and tea light on every table. The walls are warm clay plaster.</span></li>
         <li><b>Photo spot</b><span>A standing photo booth in the nook that juts out over the bar. The backdrop is on the nook's right-hand wall, so the booth faces across the room. It has a blush limewash wall, a painted terracotta arch 1.75 m tall, a warm-white "say bao" neon in the arch, a slim brass-edged pill mirror beside it, and a dried-flower garland in dusty pink, rust, wheat and sage cascading down the arch. Guests stand on a jute rug with a brass marker, and the photographer shoots from the nook's open side. The front stays an open black rail carrying the "bao, baby?" neon, so the booth is visible from the door.</span></li>
         <li><b>Service station</b><span>The DJ desk is gone. In its place on the back wall is a loft service station: an olive cabinet with a travertine top and two bus tubs for used plates. It also holds stacked clean plates and bowls, a cutlery caddy, napkins and a bin, so servers don't carry every plate down the stair one at a time. The pink "stay a little longer" neon stays above it.</span></li>
         <li><b>Acoustics</b><span>Fabric-wrapped ceiling clouds over the front double-height space and across the loft ceiling, felt backing behind the gallery frames, and a red Persian runner (0.9 × 4.45 m) down the loft aisle. Together they take the edge off all the marble, tile, brick and glass.</span></li>
@@ -285,7 +437,7 @@ td.n{white-space:nowrap}
         <li><span class="tag md">Structure</span><b>Nook over the bar</b><span>The photo booth is a standing spot with ~2.12 m clear above the deck, enough for most guests to stand comfortably. The nook cantilevers about 1.25 m past the loft edge over a working bar. The engineer should size it with the loft steel and check that its underside clears the bartender's head at 2.25 m. Fix the mirror and decor securely, since it sits over a working bar.</span></li>
         <li><span class="tag md">Services</span><b>Mist fans</b><span>The garden misting needs a water line, a small high-pressure pump, a filter and an outdoor-rated power point. Keep the mist away from the electrics and the billing desk.</span></li>
         <li><span class="tag md">Norms</span><b>One unisex washroom</b><span>One room with a WC and a urinal behind a modesty screen, plus a shared basin outside. At 32 covers, check that the local body accepts a single unisex washroom, and whether it must be accessible.</span></li>
-        <li><span class="tag hi">Sizing</span><b>Two 1.4-ton ACs may be too small</b><span>That's 2.8 tons for about 47 m² downstairs plus a 26 m² loft, with a 4.5 m double-height front, a hot kitchen next door, 34 guests and Goa humidity. A common rule for restaurants is roughly 1 ton per 9–10 m², which points to 5–7 tons. Get a heat-load calculation before buying, and consider two 2-ton units or a third unit for the front.</span></li>
+        <li><span class="tag hi">Sizing</span><b>AC resized to about 5 tons</b><span>Two 1.5-ton units downstairs and a 2-ton unit in the loft. Have an HVAC contractor confirm the heat load, including the kitchen and the double-height glazing.</span></li>
         <li><span class="tag md">Weather</span><b>Monsoon</b><span>6 of the 32 covers are outside. Roll-down clear PVC curtains on the pergola keep them open through June to September.</span></li>
         <li><span class="tag md">Licence</span><b>Music</b><span>Recorded music in public usually needs PPL and IPRS (or Novex) licences.</span></li>
       </ul>
@@ -1155,7 +1307,7 @@ const LBL=[
  ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, green-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
  ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Code stair · 1.2 m · 16 × 149 mm risers',1.6,1.6,1.5,'g'],['Landing 1.2 m',1.65,1.35,3.0,'g'],['Locked store under the stair',SX0-0.05,1.55,4.6,'g'],['Keg cooler · 8 × 20 L kegs',-1.6,1.0,6.0,'g'],['CO₂ bay · chained · vented',-1.55,0.7,7.15,'g'],['Empty-keg cage (outside)',2.05,1.45,D+1.4,'g'],['Urinal',1.95,1.85,6.02,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
  ['Kitchen · click to explore',-0.6,1.9,8.9,'g cta'],['Split AC 1.5 TR (ground, back)',-1.17,2.3,KZ-0.15,'g'],['Split AC 1.5 TR (ground, front)',X0+0.12,4.3,1.2,'g'],['Wall speaker',X0+0.25,3.1,0.2,'g'],['Wall speaker',X1-0.25,3.95,2.25,'g'],['AC outdoor units',0.45,3.7,D+0.35,'k'],
- ['Loft · 18 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Fake window · LED panel behind a cellular blind',X0+0.05,4.5,7.3,'u'],['Fake windows flanking the neon',-1.55,4.45,D-0.05,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · jute runner',X1-0.05,MZ+1.6,9.3,'u'],['Station base hides the 0.44 m hood step · no ledge',-1.6,MZ+0.6,9.5,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 2.0 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Salon gallery over the benches',X1-0.05,4.15,7.8,'u','L'],
+ ['Loft · 18 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Fake window · LED panel behind a cellular blind',X0+0.05,4.5,7.3,'u'],['Fake windows flanking the neon',-1.55,4.45,D-0.05,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · Persian runner',X1-0.05,MZ+1.6,9.3,'u'],['Station base hides the 0.44 m hood step · no ledge',-1.6,MZ+0.6,9.5,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 2.0 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Salon gallery over the benches',X1-0.05,4.15,7.8,'u','L'],
  ['Wok range · 2 burners',-1.65,1.25,10.15,'k'],['Dim sum steamer',-0.6,1.35,10.15,'k'],['Twin fryer',0.15,1.2,10.15,'k'],['2-burner range',0.78,1.3,10.15,'k'],
  ['Hood · baffles · fire suppression',-0.6,2.42,9.8,'k'],['Pass + heat lamp',-0.33,1.95,7.8,'k'],['Dumpling / veg prep',-1.15,1.05,8.0,'k'],
  ['Non-veg prep · u/c freezer',X0+0.35,1.7,9.35,'k'],['2-door reach-in',X0+0.38,2.15,8.25,'k'],['Hand-wash sink',1.3,1.6,7.8,'k'],
@@ -1179,7 +1331,7 @@ const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.c
 // ---------- zones (click to explore) ----------
 const ZONES={
   loft:{box:[X0,X1,DK,H,LZ,D],ey:'Loft · 24.6 m² · 18 covers',t:'The loft',b:'An earthy dining loft for 18 at full-height tables: built-in oak benches with rust and jute cushions, mango-wood tables, rattan dining chairs, clay-plaster walls and woven rattan pendants. There\u2019s a service station on the back wall for used plates and clean crockery.',
-    l:['Headroom 2.12 m (floor 2.38 m on a slim 0.17 m deck, ceiling 4.5 m). Adults can stand upright','Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 1.4 TR split AC on the back wall, and two wall speakers','Four tables of 4 and one for 2 at 75 cm: oak wall benches on one side, rattan-back chairs on the other','Plus a photo-spot nook that juts out over the bar','A 1.0 m aisle down the middle on a jute runner; the stair head stays clear','Four fake windows (LED panel behind a cellular blind, cased with a sill): one on each side wall and a pair on the back wall flanking the neon','Glass-infill guard rail lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['Gallery wall','loftWall'],['From the bar','loftUp']]},
+    l:['Headroom 2.12 m (floor 2.38 m on a slim 0.17 m deck, ceiling 4.5 m). Adults can stand upright','Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 2.0 TR split AC on the back wall, and two wall speakers','Four tables of 4 and one for 2 at 75 cm: oak wall benches on one side, rattan-back chairs on the other','Plus a photo-spot nook that juts out over the bar','A 1.0 m aisle down the middle on a red Persian runner; the stair head stays clear','Four fake windows (LED panel behind a cellular blind, cased with a sill): one on each side wall and a pair on the back wall flanking the neon','Glass-infill guard rail lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['Gallery wall','loftWall'],['From the bar','loftUp']]},
   nook:{box:[X0,BX,DK,H,BZ,LZ],ey:'Photo spot · 2.6 m²',t:'Standing photo booth',b:'On the nook\'s right-hand wall, facing across the room: a blush limewash wall with a painted terracotta arch, a warm-white "say bao" neon, a pill mirror and a dried-flower garland. Guests stand inside the arch on a jute rug.',
     l:['Headroom 2.12 m, the same as the loft, so there\u2019s room to stand for photos','The photographer stands at the nook\'s open side, about 2 m from the backdrop','A travertine plinth with a bamboo steamer and dried branches','About 2 × 1.25 m, railed in black steel with trailing plants','The front is an open rail carrying the "bao, baby?" neon, so the booth is visible from the door','Downlights in its underside light the back half of the bar','Reached through the loft, which is reached by the stair'],views:[['Photographer\'s view','nookIn'],['From below','nookUp']]},
   kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13.1 m²',t:'Commercial kitchen',
@@ -1246,6 +1398,7 @@ function openZone(k){const z=ZONES[k];state.focus=k;
   document.getElementById('cardEy').textContent=z.ey;document.getElementById('cardT').textContent=z.t;document.getElementById('cardB').textContent=z.b;
   document.getElementById('cardL').replaceChildren(...z.l.map(s=>{const li=document.createElement('li');li.textContent=s;return li;}));
   cardBtns.replaceChildren(...z.views.map(([lab,v])=>{const b=document.createElement('button');b.textContent=lab;b.addEventListener('click',()=>goView(v));return b;}));
+  {const dz=document.getElementById('sz-'+({understair:'stair',safety:'services'}[k]||k));if(dz){const b=document.createElement('button');b.textContent='All sizes';b.addEventListener('click',()=>{dz.open=true;dz.scrollIntoView({behavior:'smooth',block:'start'});});cardBtns.appendChild(b);}}
   card.hidden=false;goView(z.views[0][1]);pressView(viewBtns.some(b=>b.dataset.view===k)?k:'');dirty=true;}
 function closeZone(){state.focus=null;card.hidden=true;dirty=true;}
 document.getElementById('cardX').addEventListener('click',()=>{closeZone();pressView('iso');goView('iso');});
