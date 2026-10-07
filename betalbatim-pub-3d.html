@@ -514,14 +514,14 @@ function shade(hex,f){const n=parseInt(hex.slice(1),16);return 'rgb('+[n>>16,n>>
 
 function init(){
 let renderer;
-try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance'});}catch(e){stage.insertAdjacentHTML('beforeend','<div class="err">This device could not start WebGL, so the 3D model cannot show here.</div>');return;}
+try{renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:'high-performance',logarithmicDepthBuffer:true});}catch(e){stage.insertAdjacentHTML('beforeend','<div class="err">This device could not start WebGL, so the 3D model cannot show here.</div>');return;}
 renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.75));
 renderer.outputEncoding=THREE.sRGBEncoding;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;
 renderer.shadowMap.enabled=true; renderer.shadowMap.type=THREE.PCFSoftShadowMap; renderer.shadowMap.autoUpdate=false;
 stage.prepend(renderer.domElement);
 const scene=new THREE.Scene();
-const camera=new THREE.PerspectiveCamera(50,1,0.05,300);
+const camera=new THREE.PerspectiveCamera(50,1,0.08,200);
 const controls=new THREE.OrbitControls(camera,renderer.domElement);
 controls.enableDamping=true; controls.dampingFactor=0.08; controls.minDistance=0.3; controls.maxDistance=40;
 controls.rotateSpeed=0.6; controls.zoomSpeed=0.85; controls.panSpeed=0.8; controls.screenSpacePanning=true;
@@ -737,7 +737,7 @@ bx(X0,X1,-0.04,0,0,KZ,M.floor,G.shell,false);
 bx(X0,X1,-0.04,0,KZ,D,M.epoxy,G.shell,false);
 bx(X0-T,X0,0,H,0,D+T,M.plaster,G.wallR);
 bx(X1,X1+T,0,H,0,D+T,M.brick,G.wallL);
-bx(X0-T,1.15,0,H,D,D+T,M.plaster,G.wallB); bx(1.95,X1+T,0,H,D,D+T,M.plaster,G.wallB); bx(1.15,1.95,2.1,H,D,D+T,M.plaster,G.wallB);
+bx(X0,1.15,0,H,D,D+T,M.plaster,G.wallB); bx(1.95,X1,0,H,D,D+T,M.plaster,G.wallB); // runs between the side walls, so no faces overlap at the corners bx(1.15,1.95,2.1,H,D,D+T,M.plaster,G.wallB);
 door(1.95,D+T,0.8,Math.PI-1.1,M.ssDark,G.wallB);
 bx(X0-T,X1+T,H,H+0.06,-0.4,D+T,M.conc,G.ceil);
 bx(X0-T,X1+T,H+0.06,H+0.22,-0.4,D+T,M.concrete,G.ceil);
@@ -933,7 +933,7 @@ bx(1.7,X1-0.02,0.3,1.5,6.4,6.43,M.timber,gr);
 bx(1.84,2.16,0.4,0.78,7.3,7.47,M.porcelain,gr); cyl(0.025,0.025,0.012,2.0,0.78,7.38,M.brass,gr,12); {const tp=new THREE.Mesh(new THREE.TorusGeometry(0.06,0.008,6,16),M.brass);tp.rotation.y=Math.PI/2;tp.position.set(X1-0.04,0.7,6.65);gr.add(tp);cyl(0.055,0.055,0.1,X1-0.08,0.65,6.65,M.porcelain,gr,12).rotation.z=Math.PI/2;}
 [6.15,7.0].forEach(z=>{rod(V(1.6,KC,z),V(1.6,2.15,z),0.005,M.black,gr);sph(0.07,1.6,2.1,z,M.globe,gr);});
 door(1.1,6.15,0.68,-Math.PI/2-0.9,M.timber,gr);
-bx(1.15,X1,KC-0.04,KC,5.65,KZ,M.pvc,G.kceil,false);
+bx(1.15,X1,KC-0.045,KC-0.005,5.75,KZ,M.pvc,G.kceil,false);
 // SHARED WASH BASIN right outside the washroom door: a white drum basin under a pop-art face whose glasses are LED ring mirrors
 plane(0.98,2.1,M.popFace,1.043,1.12,5.6,-Math.PI/2,gr);
 {const d=cyl(0.27,0.27,0.84,0.75,0,5.6,M.porcelain,gr,24);[0.2,0.42,0.64].forEach(y=>{const rg=new THREE.Mesh(new THREE.TorusGeometry(0.272,0.012,6,24),M.ssDark);rg.rotation.x=Math.PI/2;rg.position.set(0.75,y,5.6);gr.add(rg);});
@@ -951,12 +951,12 @@ const kt=G.kitchen;
 function part(x0,x1,y0,y1){bx(x0,x1,y0,y1,KZ,KZ+0.1,M.partition,kt);if(y0<2.1)bx(x0,x1,y0,Math.min(y1,2.1),KZ+0.1,KZ+0.115,M.whiteTile,kt,false);}
 part(X0,-0.8,0,KC); part(-0.8,0.15,0,1.0); part(-0.8,0.15,1.6,KC); part(0.15,0.25,0,KC); part(0.25,1.0,2.1,KC); part(1.0,X1,0,KC);
 bx(-0.82,0.17,0.98,1.03,KZ-0.25,KZ+0.75,M.ss,kt);
-bx(X0,X1,KC-0.04,KC,KZ,PKZ,M.pvc,G.kceil,false); bx(PKX,X1,KC-0.04,KC,PKZ,D,M.pvc,G.kceil,false);
+bx(X0,X1,KC-0.045,KC-0.005,KZ+0.1,PKZ,M.pvc,G.kceil,false); bx(PKX,X1,KC-0.045,KC-0.005,PKZ,D,M.pvc,G.kceil,false);
 // hood pocket: ceiling steps up to 2.6 m over the hood
 bx(X0,PKX,DK+PKH-0.04,DK+PKH,PKZ,D,M.pvc,G.kceil,false); bx(X0,PKX,KC,DK+PKH,PKZ-0.02,PKZ,M.pvc,G.kceil,false); bx(PKX,PKX+0.02,KC,DK+PKH,PKZ,D,M.pvc,G.kceil,false);
 [[-1.3,8.1],[0.4,8.1],[-1.3,9.05],[0.4,9.05]].forEach(([x,z])=>bx(x-0.3,x+0.3,KC-0.06,KC-0.04,z-0.3,z+0.3,M.panelLight,G.kceil,false));
-bx(X0,X0+0.02,0.85,2.1,KZ+0.1,D,M.whiteTile,kt,false); bx(X1-0.02,X1,0,2.1,KZ+0.1,D,M.whiteTile,kt,false); bx(X0,X1,0.85,2.1,D-0.02,D,M.whiteTile,kt,false);
-bx(-2.2,1.05,0.001,0.008,9.55,9.65,M.ssDark,kt,false);
+plane(D-KZ-0.1,1.25,M.whiteTile,X0+0.004,1.475,(KZ+0.1+D)/2,Math.PI/2,kt); plane(D-KZ-0.1,2.1,M.whiteTile,X1-0.004,1.05,(KZ+0.1+D)/2,-Math.PI/2,kt); plane(X1-X0,1.25,M.whiteTile,0,1.475,D-0.004,Math.PI,kt); // tile as inward-facing planes
+bx(-2.2,1.05,0.004,0.012,9.55,9.65,M.ssDark,kt,false);
 bx(X0,-1.05,0,0.8,9.85,D,M.ss,kt);
 [-1.9,-1.4].forEach(x=>{cyl(0.2,0.2,0.03,x,0.8,10.15,M.black,kt);cyl(0.24,0.1,0.12,x,0.83,10.15,M.steel,kt,20);});
 rod(V(-1.65,0.8,10.45),V(-1.65,1.15,10.45),0.012,M.ss,kt); rod(V(-1.65,1.15,10.45),V(-1.65,1.15,10.25),0.012,M.ss,kt);
@@ -966,7 +966,7 @@ bx(-1.0,-0.2,0,0.8,9.85,D,M.ss,kt);
 bx(-0.15,0.45,0,0.9,9.85,D,M.ss,kt); bx(-0.11,0.13,0.86,0.905,9.95,10.35,M.oil,kt,false); bx(0.17,0.41,0.86,0.905,9.95,10.35,M.oil,kt,false);
 [0.01,0.29].forEach(x=>{bx(x-0.09,x+0.09,0.92,1.04,10.05,10.3,M.ssDark,kt);rod(V(x,1.0,10.05),V(x,1.1,9.85),0.008,M.black,kt);});
 bx(0.5,1.05,0,0.85,9.85,D,M.ss,kt); [0.65,0.9].forEach(x=>cyl(0.11,0.11,0.02,x,0.85,10.15,M.black,kt)); cyl(0.15,0.15,0.3,0.9,0.87,10.15,M.ss,kt,20);
-bx(-2.3,1.1,1.9,2.33,9.55,D,M.ss,kt); bx(-2.25,1.05,1.89,1.91,9.62,10.45,M.ssDark,kt,false);
+bx(X0+0.02,1.1,1.9,2.33,9.55,D-0.02,M.ss,kt); bx(-2.25,1.05,1.89,1.91,9.62,10.45,M.ssDark,kt,false);
 rod(V(-2.2,1.86,9.62),V(1.0,1.86,9.62),0.014,M.red,kt); [-1.65,-0.6,0.15,0.78].forEach(x=>rod(V(x,1.86,9.62),V(x,1.78,9.75),0.01,M.red,kt));
 [-1.3,0.3].forEach(x=>bx(x-0.15,x+0.15,1.885,1.895,9.7,9.9,M.panelLight,kt,false));
 bx(-0.9,-0.4,2.0,2.32,10.1,D+0.7,M.ss,G.ext);
@@ -1011,7 +1011,7 @@ const lf=G.loft;
 // slim floor: 150 mm steel joists set within the floor depth + 18 mm ply + finish = 0.17 m, flat soffit at 2.21 m (no beams below)
 bx(X0,SX0,DK,MZ,LZ,PKZ,M.deck,lf); bx(SX0,X1,DK,MZ,STOP,PKZ,M.deck,lf); bx(PKX,X1,DK,MZ,PKZ,D,M.deck,lf); bx(X0,PKX,DK+PKH,MZ+PKH,PKZ,D,M.deck,lf);
 bx(X0,PKX,MZ,MZ+PKH,PKZ,PKZ+0.03,M.oliveWood,lf); bx(PKX-0.03,PKX,MZ,MZ+PKH,PKZ,D,M.oliveWood,lf); 
-bx(X0,SX0,DK,MZ,LZ,LZ+0.12,M.steel,lf); bx(SX0,X1,DK,MZ,STOP-0.12,STOP,M.steel,lf);
+
 bx(X0,SX0,DK-0.04,MZ,LZ-0.04,LZ,M.black,lf); bx(BX,SX0,DK-0.07,DK-0.04,LZ-0.03,LZ-0.01,M.led,lf,false);
 bx(BX,SX0,MZ+0.05,MZ+0.95,LZ+0.024,LZ+0.036,M.glass,lf,false);
 bx(BX,SX0,MZ+0.97,MZ+1.01,LZ,LZ+0.06,M.black,lf); [BX+0.02,0.45,SX0-0.015].forEach(x=>bx(x-0.015,x+0.015,MZ,MZ+1.0,LZ+0.015,LZ+0.045,M.black,lf));
