@@ -213,7 +213,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td>Beam A (along the length)</td><td class="d">0.23 W × 0.38 D, centred 1.0 m off the left wall</td></tr>
         <tr><td>Beam T1 (full width at P1)</td><td class="d">0.25 W × 0.45 D</td></tr>
         <tr><td>Beam T2 (P2 to beam A)</td><td class="d">0.25 W × 0.40 D</td></tr>
-        <tr><td>Beam B (between T1 and T2)</td><td class="d">0.15 W × 0.25 D, 2.4 m off the left wall</td></tr>
+        <tr><td>Beam B (between T1 and T2)</td><td class="d">0.15 W × 0.25 D, 2.05 m off the left wall</td></tr>
         <tr><td>Lintel ledge</td><td class="d">2.45–2.65 m high, 0.23 deep (right), 0.15 deep (left, back); trimmed along the stair</td></tr>
         <tr><td>Back-wall window (shell)</td><td class="d">1.2 × 0.6 m at 1.5–2.1 m, behind the wok line: use it for the fresh-air intake</td></tr>
         <tr><td>Ground floor</td><td class="d">47.3 m²</td></tr>
@@ -1338,7 +1338,7 @@ function setNight(on,late){LIGHT.t=on?(late?1:0.85):0;LIGHT.dim=late?0.45:on?0.8
 // ACOUSTICS: fabric-wrapped ceiling clouds (40 mm) over the front double-height space and the loft; felt behind the gallery frames
 M.felt=S({color:new THREE.Color('#7d5a44').convertSRGBToLinear(),roughness:1}); M.felt2=S({color:new THREE.Color('#5f6b4a').convertSRGBToLinear(),roughness:1});
 [[-0.95,-0.05,0.35,1.55],[-0.95,-0.05,1.65,2.85],[0.1,0.95,1.65,2.85]].forEach(([x0,x1,z0,z1],i)=>bx(x0,x1,H-0.05,H-0.01,z0,z1,i%2?M.felt2:M.felt,G.ceil,false));
-[[-2.05,-0.32,5.05,6.55],[0.0,1.05,5.05,6.55],[1.45,2.15,5.05,9.4],[-2.05,-0.32,7.05,9.4],[0.0,1.05,7.05,9.4]].forEach(([x0,x1,z0,z1],k)=>bx(x0,x1,H-0.05,H-0.01,z0,z1,k%2?M.felt:M.felt2,G.ceil,false)); // one cloud per coffer, clear of the beams
+[[-2.05,0.05,5.05,6.55],[0.35,1.05,5.05,6.55],[1.45,2.15,5.05,9.4],[-2.05,-0.32,7.05,9.4],[0.0,1.05,7.05,9.4]].forEach(([x0,x1,z0,z1],k)=>bx(x0,x1,H-0.05,H-0.01,z0,z1,k%2?M.felt:M.felt2,G.ceil,false)); // one cloud per coffer, clear of the beams
 // ---------- FIRE & LIFE SAFETY + SECURITY (NBC 2016 Part 4 + the usual Goa Fire NOC checklist) ----------
 M.fRed=S({color:'#c8231b',roughness:0.4}); M.fRedGlow=S({color:'#ff3a2a',emissive:'#ff2010',emissiveIntensity:1.4});
 M.exitG=S({map:exitTex('EXIT'),emissive:'#ffffff',emissiveMap:exitTex('EXIT'),emissiveIntensity:0.9});
@@ -1406,7 +1406,7 @@ bx(X0+0.49,X0+0.5,MZ+0.04,MZ+0.06,5.02,9.48,M.glow,lf,false); bx(X1-0.5,X1-0.49,
 // survey x is measured from the LEFT wall; here x = 2.25 − survey x. P1/P2 0.30 × 0.23 at z 4.8 / 6.8. Beams: A along the length 1.0 m off the
 // left wall (0.38 deep), T1 full width at P1 (0.45), T2 from P2 to beam A (0.40), short centre beam B (0.25). Ledge 2.45–2.65 m.
 PIL.forEach(z=>bx(X0-0.01,X0+PD,0,H+0.01,z-PW/2,z+PW/2,M.plaster,G.wallR));
-[[BMA-0.115,BMA+0.115,0.38,0.0,D],[X0-0.01,X1+0.01,0.45,4.675,4.925],[X0-0.01,BMA-0.115,0.40,6.675,6.925],[-0.225,-0.075,0.25,4.925,6.675]]
+[[BMA-0.115,BMA+0.115,0.38,0.0,D],[X0-0.01,X1+0.01,0.45,4.675,4.925],[X0-0.01,BMA-0.115,0.40,6.675,6.925],[0.125,0.275,0.25,4.925,6.675]] // beam B: 2.05 m off the left wall (corrected from the ceiling photo)
  .forEach(([x0,x1,d,z0,z1])=>bx(x0,x1,H-d,H+0.01,z0,z1,M.conc,G.ceil));
 // lintel ledge: right wall between the pillars (0.23 deep, flush with them), back wall and left wall past the stair (0.15 deep).
 // Along the stair (z 0–5.7) the left-wall ledge is shown trimmed flush: it sits at head height over the top flight.
@@ -1442,11 +1442,11 @@ LBL.push(['Step lights × 8 (2700 K)',X1-0.05,1.0,1.5,'g'],['Recessed downlights
 LBL.push(['Batch coffee brewer · 2 warming jugs (no barista)',X0+0.5,1.65,5.67,'g'],['Cups + milk warmer',X0+0.5,1.3,6.05,'g']);
 LBL.push(['Pillar P1 · 0.30 × 0.23 m · z 4.8',X0+0.24,1.2,4.8,'g','R'],['Pillar P2 · z 6.8',X0+0.24,1.2,6.8,'g','R'],['Ledge 2.45–2.65 m (shell)',X0+0.24,2.75,1.6,'g','R'],
  ['Beam A · 0.38 deep, 1.0 m off the left wall',BMA,4.0,2.4,'g'],['Beam T1 · 0.45 deep, now in the double-height bay',-0.8,3.95,4.8,'g'],
- ['Beam T2 · the loft now starts just behind it',-1.0,3.98,6.8,'g'],['Beam B',-0.15,4.13,5.8,'g'],['Under beam A: 1.74 m clear',BMA,3.98,8.0,'u'],
+ ['Beam T2 · the loft now starts just behind it',-1.0,3.98,6.8,'g'],['Beam B',0.2,4.13,5.8,'g'],['Under beam A: 1.74 m clear',BMA,3.98,8.0,'u'],
  ['Stair passes under T1 with ~2.1 m clear: pad the beam edge',1.6,4.0,4.8,'s']);
 
-// ---------- SECTIONS: A–A across the loft at z 8.0 (through beam A), B–B along the room at x −0.15 (through beam B, T1, T2) ----------
-const SEC={a:{plane:new THREE.Plane(new THREE.Vector3(0,0,1),-8.0),view:'secA'},b:{plane:new THREE.Plane(new THREE.Vector3(-1,0,0),-0.15),view:'secB'},
+// ---------- SECTIONS: A–A across the loft at z 8.0 (through beam A), B–B along the room at x 0.2 (through beam B, T1, T2) ----------
+const SEC={a:{plane:new THREE.Plane(new THREE.Vector3(0,0,1),-8.0),view:'secA'},b:{plane:new THREE.Plane(new THREE.Vector3(-1,0,0),0.2),view:'secB'},
   c:{plane:new THREE.Plane(new THREE.Vector3(0,1,0),-2.45),view:'secC'}}; // C: everything below 2.45 m (incl. the loft floor) cut away, looking up from the ground floor
 const secG={a:new THREE.Group(),b:new THREE.Group(),c:new THREE.Group()};Object.values(secG).forEach(g=>{g.visible=false;scene.add(g);});
 const dimM=new THREE.LineBasicMaterial({color:'#e2552f',depthTest:false,transparent:true});
@@ -1465,7 +1465,7 @@ function vdim(k,x,z,y0,y1,txt,lx,lz){dimLine(k,V(x,y0,z),V(x,y1,z),txt,lx,(y0+y1
  vdim('a',-1.37,z,MZ,MZ+0.75,'table 0.75',-1.37,z);
  vdim('a',2.0,z,MZ,MZ+0.47,'bench seat 0.47',2.0,z);
  vdim('a',-0.75,z,MZ,MZ+1.0,'guard / rail 1.0 (loft edge)',-0.75,z);}
-{const x=-0.17; // B–B
+{const x=0.18; // B–B
  vdim('b',x,3.0,0,H,'4.50 m double height over the bar',x,3.0);
  vdim('b',x,4.8,0,H-0.45,'4.05 m under beam T1',x,4.8);
  vdim('b',x,5.8,0,H-0.25,'4.25 m under beam B',x,5.8);
@@ -1480,7 +1480,7 @@ function vdim(k,x,z,y0,y1,txt,lx,lz){dimLine(k,V(x,y0,z),V(x,y1,z),txt,lx,(y0+y1
  [['Beam A · 0.23 × 0.38 · underside 4.12 m · runs the full length, 1.0 m off the left wall',BMA,4.0,3.2],
   ['Beam T1 · 0.25 × 0.45 · underside 4.05 m · full width at pillar P1',-0.9,3.93,4.8],
   ['Beam T2 · 0.25 × 0.40 · underside 4.10 m · pillar P2 to beam A',-1.2,3.98,6.8],
-  ['Beam B · 0.15 × 0.25 · underside 4.25 m · between T1 and T2',-0.15,4.13,5.8],
+  ['Beam B · 0.15 × 0.25 · underside 4.25 m · 2.05 m off the left wall',0.2,4.13,5.8],
   ['Pillar P1 · 0.30 × 0.23 · 4.8 m from the front',X0+0.25,3.2,4.8],['Pillar P2 · 6.8 m from the front',X0+0.25,3.2,6.8],
   ['Slab soffit 4.50 m · bays between the beams',0.2,4.45,2.2],['Ledge 2.45–2.65 m',X1-0.1,2.7,8.2],
   ['Loft starts here (6.95 m), just behind T2',-0.6,2.6,6.95],['Spiral duct at 3.9–4.3 m',-1.45,3.9,1.8]].forEach(([t,x,y,z])=>LBL.push([t,x,y,z,'xc']));
@@ -1546,7 +1546,7 @@ const VIEWS={
   street:{p:[0.4,1.7,-8.8],t:[0,2.0,2.0]},
   plan:{p:[0,27,2.11],t:[0,0,2.1]},
   secA:{p:[0,2.2,1.4],t:[0,2.2,8.0]},
-  secB:{p:[14.0,2.2,5.6],t:[-0.15,2.2,5.6]},
+  secB:{p:[14.0,2.2,5.6],t:[0.2,2.2,5.6]},
   secC:{p:[0.0,1.2,0.3],t:[0.35,4.3,6.6]}
 };
 const state={cut:true,labels:true,night:true,loft:true,focus:null};
