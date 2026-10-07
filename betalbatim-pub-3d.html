@@ -144,7 +144,29 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
     </section>
 
     <section>
-      <h2>Loft · 4.5 × 5.7 m · 16 covers</h2>
+      <h2>Areas · m²</h2>
+      <table>
+        <tr class="g"><td>Ground</td><td>Whole ground floor (4.5 × 10.5 m)</td><td class="n">47.3</td></tr>
+        <tr class="g"><td>Ground</td><td>Window lounge</td><td class="n">5.1</td></tr>
+        <tr class="g"><td>Ground</td><td>Billing desk</td><td class="n">1.6</td></tr>
+        <tr class="g"><td>Ground</td><td>Bar: back bar, bartender aisle, counter</td><td class="n">5.9</td></tr>
+        <tr class="g"><td>Ground</td><td>Bar stool zone</td><td class="n">1.5</td></tr>
+        <tr class="g"><td>Ground</td><td>Keg cooler + server station</td><td class="n">1.5</td></tr>
+        <tr class="g"><td>Ground</td><td>Stair footprint (0.8 × 3.3 m)</td><td class="n">2.7</td></tr>
+        <tr class="g"><td>Ground</td><td>Booth under the stair</td><td class="n">2.1</td></tr>
+        <tr class="g"><td>Ground</td><td>Washroom (1.1 × 2.4 m)</td><td class="n">2.6</td></tr>
+        <tr class="g"><td>Ground</td><td>Wash-basin alcove</td><td class="n">0.5</td></tr>
+        <tr class="g"><td>Ground</td><td>Kitchen (4.5 × 2.9 m)</td><td class="n">13.1</td></tr>
+        <tr class="g"><td>Ground</td><td>Aisles, entry and partitions (the rest)</td><td class="n">~11</td></tr>
+        <tr class="u"><td>Loft</td><td>Loft deck (4.5 × 5.7 m)</td><td class="n">25.7</td></tr>
+        <tr class="u"><td>Loft</td><td>Photo-booth nook over the bar (2.05 × 1.25 m)</td><td class="n">2.6</td></tr>
+        <tr class="o"><td>Garden</td><td>Beer garden (7.2 × 3.3 m), 18.4 m² under the pergola</td><td class="n">23.8</td></tr>
+        <tr class="total"><td></td><td>Indoor total (ground + loft + nook)</td><td class="n">75.6</td></tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>Loft · 4.5 × 5.7 m · 25.7 m² · 16 covers</h2>
       <ul class="zones">
         <li><b>Access</b><span>Open oak treads on a black steel stringer along the left wall, with a slim black handrail. It's safer than a spiral for servers carrying food up to 16 people.</span></li>
         <li><b>Seating</b><span>Cream bouclé banquettes along both walls with back cushions, facing floor chairs with backrests in olive, orange and blush. Four low tables seat 4 each, with mushroom lamps, a kilim rug and a 1.1 m aisle down the middle. A row of small frames runs above each banquette.</span></li>
@@ -160,7 +182,7 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
       <ul class="zones">
         <li><b>Billing desk</b><span>Just inside the door on the left: an oak top and cane front with a POS tablet, card machine and receipt printer, a pendant lamp and a "settle up here" neon. Guests pass it on the way out.</span></li>
         <li><b>Bar</b><span>2.2 m with a marble top and a curved end facing the door. The front is backlit amber onyx behind a black mesh frame, so it glows. It has a brass foot rail, 4 velvet high-back bar chairs and 6 craft taps.</span></li>
-        <li><b>Back bar</b><span>Emerald tile up to the ceiling and olive cabinets, with oak shelves lit by warm LED strips. A brass-framed gantry with green-lit glass shelves hangs over the counter. The shelves are stocked with realistic bottles: wine, whisky, dark rum, gin, vodka, agave and aperitivo, in tinted glass with caps and labels. More bottles sit in the speed rail behind the counter and on the back-bar top. Glass-door beer fridges sit below, olive tile above with a TV. The "bao, baby?" neon now hangs on the nook over the bar.</span></li>
+        <li><b>Back bar</b><span>Emerald tile up to the ceiling and olive cabinets. A brass-framed gantry with green-lit glass shelves hangs over the counter. The back bar is sized to the real stock, about 15 bottles, so it looks curated rather than half-empty. A backlit onyx centre panel holds two brass-edged shelves with one bottle of each spirit, labels facing out: Paul John, Amrut, Indri, Rampur, Toki, Haku, Belvedere, cashew and coconut feni, gin, agave and triple sec. A whisky-flight board sits on the counter below. At the door end are two big house-infusion jars with brass taps and three shelves of glassware. At the far end is a brass riser of green soju bottles under a black ON TAP board.</span></li>
         <li><b>Lounge</b><span>A cane-back sofa with floral cushions seats 3, and a green velvet tub chair adds 1, around a large wooden table on a kilim rug. A vintage brass lantern hangs above. Behind it is a reclaimed-wood plank wall with vintage round and tin beer signs and two Edison sconces.</span></li>
         <li><b>Wall art</b><span>Sand limewash walls in a shade darker than before, so the frames sit into the wall instead of floating on white. About 17 frames in black, oak and brass, each with a cream mat: a gallery over the lounge, a cluster around the billing neon, frames up the stair, a row over each loft banquette and one in the washroom.</span></li>
         <li><b>Under the nook</b><span>The back half of the bar sits under the nook, with downlights in its underside. The glass rack and globe pendants now cover only the front half of the counter.</span></li>
@@ -549,14 +571,50 @@ bx(X0,-1.85,0,0.92,bb0,bb1,M.oliveWood,gr); bx(X0,-1.83,0.92,0.96,bb0,bb1,M.marb
 for(let z=bb0+0.12;z<bb1-0.55;z+=0.72) bx(-1.86,-1.84,0.12,0.8,z,z+0.62,M.cool,gr,false);
 bx(X0,X0+0.03,0.96,2.38,bb0,bb1,M.onyx,gr,false);
 bx(X0,X0+0.03,2.38,H,bb0,bb1,M.sage,gr,false);
-const bR=rng(42);
-[1.28,1.68,2.05].forEach((y,si)=>{bx(X0+0.03,X0+0.32,y,y+0.03,bb0+0.05,bb1-0.05,M.timber,gr,false);bx(X0+0.05,X0+0.3,y-0.012,y,bb0+0.08,bb1-0.08,M.led,gr,false);
-  for(let z=bb0+0.12;z<bb1-0.1;z+=0.105){let k=KINDS[Math.floor(bR()*KINDS.length)];if(si===2&&TOP[k[0]]>0.25)k=KINDS[[1,4,5,7][Math.floor(bR()*4)]];bottle(k,X0+0.13+bR()*0.08,y+0.03,z,gr);}});
-// a few premium bottles on the back-bar top, and the speed rail behind the counter
-[2.55,2.75,4.85,5.05,5.2].forEach((z,i)=>bottle(KINDS[[1,4,8,0,5][i]],X0+0.18,0.96,z,gr));
+// BACK BAR, curated to the real stock (about 15 bottles). Three bays instead of three long shelves:
+//  A (door end): two house-infusion jars + glassware  ·  B (centre): lit "altar" shelves with the whisky & spirit list  ·  C: soju riser + ON TAP board
+const SL=[['PAUL JOHN','BRILLIANCE','#1d1a16','#e8d3a0','#c9993f'],['AMRUT','FUSION','#f1e6cf','#1f1f1f','#8a3a1a'],['INDRI','TRINI','#0f2a3a','#f1e6cf','#c9993f'],
+  ['RAMPUR','DOUBLE CASK','#3a1020','#f1e6cf','#c9993f'],['TOKI','JAPANESE','#f4f1ea','#1f1f1f','#2e5a3a'],['HAKU','RICE VODKA','#f8f6f0','#1f1f1f','#b0b0b0'],
+  ['BELVEDERE','VODKA','#f4f1ea','#1f1f1f','#c9993f'],['FENI','CASHEW','#e9d9b8','#5a2410','#8a3a1a'],['URRAK','COCONUT FENI','#f6efe0','#2e5a3a','#c9993f'],
+  ['DRY GIN','BOTANICAL','#f4f1ea','#1f3b4a','#6aa0b0'],['AGAVE','BLANCO','#efe7d6','#2e5a3a','#c9993f'],['TRIPLE SEC','ORANGE','#f6e2c4','#b8321c','#e08a2a']];
+const sBase=labelM.length; SL.forEach(a=>labelM.push(S({map:labelTex(...a),roughness:0.7})));
+const SK=(shape,gl,cap,i)=>[shape,gl,cap,sBase+i];
+// bay B: altar shelves (z 3.35–4.35), brass-edged with LED under, one bottle per brand, facing out, evenly spaced
+{const z0=3.35,z1=4.35;
+ [[1.3,[SK('whisky','gold','black',0),SK('whisky','gold','black',0),SK('whisky','amber','gold',1),SK('gin','amber','black',2),SK('whisky','ruby','gold',3),SK('gin','gold','black',4)]],
+  [1.74,[SK('vodka','clear','silver',5),SK('vodka','clear','black',6),SK('gin','blue','silver',9),SK('liq','gold','black',10),SK('vodka','amber','cork',7),SK('vodka','clear','cork',8),SK('liq','gold','gold',11)]]]
+ .forEach(([y,row])=>{bx(X0+0.03,X0+0.3,y,y+0.03,z0,z1,M.timber,gr,false);bx(X0+0.29,X0+0.31,y-0.01,y+0.035,z0,z1,M.brass,gr,false);bx(X0+0.05,X0+0.28,y-0.012,y,z0+0.03,z1-0.03,M.led,gr,false);
+   const st=(z1-z0)/(row.length+1);row.forEach((k,i)=>bottle(k,X0+0.17,y+0.03,z0+st*(i+1),gr));});
+ [z0,z1].forEach(z=>rod(V(X0+0.3,0.96,z),V(X0+0.3,2.15,z),0.008,M.brass,gr));
+ plane(z1-z0-0.04,1.15,M.onyxGlow,X0+0.036,1.58,(z0+z1)/2,Math.PI/2,gr);
+ // whisky flight board on the counter below
+ bx(X0+0.08,X0+0.3,0.96,0.985,3.55,4.15,M.timber,gr); [3.68,3.85,4.02].forEach(z=>{cyl(0.026,0.03,0.07,X0+0.19,0.985,z,M.shelfGlass,gr,12);cyl(0.024,0.024,0.02,X0+0.19,0.99,z,glassT.gold,gr,12);});}
+// bay A: house-infusion jars (lemongrass-ginger vodka, chilli-garlic vodka) with brass spigots, and glassware above
+{const inf=[[2.55,S({color:'#cfd98a',transparent:true,opacity:0.75,roughness:0.1})],[2.95,S({color:'#c8562a',transparent:true,opacity:0.75,roughness:0.1})]];
+ bx(X0+0.05,X0+0.32,0.96,1.08,2.38,3.12,M.timberDark,gr);
+ inf.forEach(([z,liq])=>{cyl(0.11,0.11,0.36,X0+0.18,1.08,z,M.shelfGlass,gr,24);cyl(0.1,0.1,0.28,X0+0.18,1.09,z,liq,gr,24);cyl(0.06,0.06,0.04,X0+0.18,1.44,z,M.cane,gr,16);
+   rod(V(X0+0.29,1.14,z),V(X0+0.35,1.14,z),0.012,M.brass,gr);cyl(0.012,0.012,0.04,X0+0.35,1.1,z,M.brass,gr,8);});
+ for(let i=0;i<5;i++)cyl(0.004,0.004,0.18,X0+0.17,1.26,2.5+i*0.012,M.cane,gr,6);
+ [[1.4,'hi'],[1.78,'cp'],[2.12,'rk']].forEach(([y,t])=>{bx(X0+0.03,X0+0.3,y,y+0.03,2.38,3.25,M.timber,gr,false);bx(X0+0.05,X0+0.28,y-0.012,y,2.41,3.22,M.led,gr,false);
+   for(let z=2.46;z<3.2;z+=0.095)for(const x of [X0+0.1,X0+0.22]){if(t==='hi')cyl(0.032,0.03,0.15,x,y+0.03,z,M.shelfGlass,gr,10);
+     else if(t==='cp'){cyl(0.005,0.005,0.08,x,y+0.03,z,M.shelfGlass,gr,6);cyl(0.045,0.01,0.05,x,y+0.11,z,M.shelfGlass,gr,12);}
+     else cyl(0.038,0.036,0.085,x,y+0.03,z,M.shelfGlass,gr,10);}});}
+// bay C: three-step brass riser of green soju bottles, and a black ON TAP board listing the six beers
+{const sojuG=GL('#1f7a3a',0.8),sojuL=S({color:'#eaf3e6',roughness:0.7});
+ [[0.96,X0+0.26,0],[1.06,X0+0.17,1],[1.16,X0+0.08,2]].forEach(([y,x,r])=>{if(y>0.97)bx(x-0.045,x+0.045,0.96,y,4.45,5.2,M.brass,gr);
+   for(let z=4.5;z<5.16;z+=0.075){cyl(0.028,0.03,0.17,x,y,z,sojuG,gr,10);cyl(0.012,0.024,0.04,x,y+0.17,z,sojuG,gr,8);cyl(0.012,0.012,0.02,x,y+0.21,z,M.ss,gr,8);
+     const lb=new THREE.Mesh(new THREE.CylinderGeometry(0.0305,0.0305,0.06,10,1,true,0,Math.PI),sojuL);lb.position.set(x,y+0.08,z);gr.add(lb);}});
+ const tapT=tex(360,512,(g,w,h)=>{g.fillStyle='#161412';g.fillRect(0,0,w,h);g.strokeStyle='#c9993f';g.lineWidth=8;g.strokeRect(10,10,w-20,h-20);
+   g.fillStyle='#e9a94b';g.textAlign='center';g.font='700 46px "Bricolage Grotesque", serif';g.fillText('ON TAP',w/2,74);g.fillStyle='#c9993f';g.fillRect(w/2-60,90,120,3);
+   [['Comrade Crisp','lager'],['Wit Happens','wit'],['Gose Bumps','kokum gose'],['Hoppy Hippie','IPA'],['Midnight Snack','porter'],['Gimme Gimme Gimme','guest']].forEach(([n,t],i)=>{const yy=140+i*60;
+     g.fillStyle='#f3e8d9';g.textAlign='left';g.font='600 26px "Bricolage Grotesque", serif';g.fillText(n,30,yy);g.fillStyle='#b5a28c';g.font='500 16px "IBM Plex Mono", monospace';g.fillText(t,30,yy+22);});},1,1);
+ bx(X0+0.03,X0+0.06,1.32,2.32,4.42,5.22,M.timberDark,gr); plane(0.72,0.94,S({map:tapT,roughness:0.85}),X0+0.065,1.82,4.82,Math.PI/2,gr);}
+// a few working bottles and bitters on the back-bar top, in front of the altar
+[[3.42,SK('liq','ruby','gold',11)],[4.28,SK('gin','blue','silver',9)]].forEach(([z,k])=>bottle(k,X0+0.36,0.96,z,gr));
+[3.48,3.52,4.22].forEach((z,i)=>cyl(0.018,0.02,0.1,X0+0.4,0.96,z,glassT.amber,gr,8));
 for(let i=0;i<8;i++) bottle(KINDS[[3,2,4,6,3,1,9,2][i]],-1.05,0.55,2.85+i*0.12,gr);
 bx(X0+0.03,X0+0.09,2.78,3.46,2.35,3.55,M.black,gr); plane(1.14,0.62,M.tv,X0+0.095,3.12,2.95,Math.PI/2,gr);
-[[bb0+0.05,3.3],[LZ-0.06,1.4]].forEach(([z,h])=>cyl(0.022,0.022,h,X0+0.07,0.96,z,M.neonRed,gr,8));
+[[bb0+0.05,3.3],[bb1-0.04,1.4]].forEach(([z,h])=>cyl(0.022,0.022,h,X0+0.07,0.96,z,M.neonRed,gr,8));
 bx(-0.95,-0.47,0.06,0.96,c0,c1,M.onyxGlow,gr); bx(-0.95,-0.45,0,0.06,c0,c1,M.black,gr); bx(-1.05,-0.3,0.98,1.04,c0,c1,M.marble,gr);
 bx(-0.47,-0.445,0.96,0.98,c0,c1,M.black,gr,false); plane(c1-c0,0.9,M.meshWire,-0.44,0.51,(c0+c1)/2,Math.PI/2,gr);
 for(let z=c0;z<=c1+0.01;z+=0.55) bx(-0.45,-0.42,0.06,0.96,z-0.015,z+0.015,M.black,gr);
@@ -921,25 +979,25 @@ const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.c
 
 // ---------- zones (click to explore) ----------
 const ZONES={
-  loft:{box:[X0,X1,DK,H,LZ,D],ey:'Loft · 16 covers',t:'The loft',b:'Most of the seating, up a straight oak stair: four low tables with cushioned banquettes and floor chairs that have backrests, plus a service station on the back wall for used plates and clean crockery.',
+  loft:{box:[X0,X1,DK,H,LZ,D],ey:'Loft · 25.7 m² · 16 covers',t:'The loft',b:'Most of the seating, up a straight oak stair: four low tables with cushioned banquettes and floor chairs that have backrests, plus a service station on the back wall for used plates and clean crockery.',
     l:['Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 1.4 TR split AC on the back wall, and two wall speakers','Cream bouclé banquettes along both walls with back cushions','Plus a photo-spot nook that juts out over the bar','Four tables of 4, with a 1.1 m aisle down the middle','Headroom is about 1.95 m, so all the seating is low','Black steel rod railing lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['From the bar','loftUp']]},
-  nook:{box:[X0,BX,DK,H,BZ,LZ],ey:'Photo spot',t:'Standing photo booth',b:'On the nook\'s right-hand wall, facing across the room: a blush limewash wall with a painted terracotta arch, a warm-white "say bao" neon, a pill mirror and a dried-flower garland. Guests stand inside the arch on a jute rug.',
+  nook:{box:[X0,BX,DK,H,BZ,LZ],ey:'Photo spot · 2.6 m²',t:'Standing photo booth',b:'On the nook\'s right-hand wall, facing across the room: a blush limewash wall with a painted terracotta arch, a warm-white "say bao" neon, a pill mirror and a dried-flower garland. Guests stand inside the arch on a jute rug.',
     l:['The photographer stands at the nook\'s open side, about 2 m from the backdrop','Headroom is ~1.95 m, enough to stand, with nothing hanging overhead','A travertine plinth with a bamboo steamer and dried branches','About 2 × 1.25 m, railed in black steel with trailing plants','The front is an open rail carrying the "bao, baby?" neon, so the booth is visible from the door','Downlights in its underside light the back half of the bar','Reached through the loft, which is reached by the stair'],views:[['Photographer\'s view','nookIn'],['From below','nookUp']]},
-  kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13 m²',t:'Commercial kitchen',
+  kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13.1 m²',t:'Commercial kitchen',
     b:'The kitchen is laid out so food moves one way: delivered, stored, prepped, cooked, plated and handed out. Dirty plates come back on their own route.',
     l:['A rear door handles deliveries and waste, so neither crosses the dining room','Veg and dumpling prep on the front wall, non-veg prep on the right wall','One 3.4 m baffle hood covers the wok range, steamer, fryer and range, with wet-chemical fire suppression','Plating sits under the heat lamp, and servers collect through the hatch','Dirty plates come in by the door and land straight on the dish table: pre-rinse, dishwasher, pot sink','Hand-wash sink at the door, epoxy floor with a drain and grease trap, LPG cylinders outside'],
     views:[['Top view','kitchen'],['Walk in','kwalk'],['Dish side','kdish']]},
-  bar:{box:[X0,-0.25,0,2.8,2.25,bb1],ey:'Bar · 2.2 m · 4 stools',t:'The bar',b:'A glowing bar: backlit amber onyx panels behind a black mesh frame, a marble top with a curved end facing the door, emerald tile behind and a brass gantry with green-lit glass shelves overhead.',
-    l:['4 velvet high-back bar chairs, plus a brass foot rail','6 craft taps on two brass fonts','Speed rail, ice well, bar sink and glasswasher behind the counter','Emerald tile above with a TV; the "bao, baby?" neon hangs on the nook overhead'],views:[['Down the bar','bar'],['Bartender side','barback']]},
-  kegs:{box:[X0,-1.45,0,1.0,5.4,7.4],ey:'Keg cooler · 6 taps',t:'Keg storage',b:'The server station\u2019s base is a 2 m under-counter keg cooler at 2–4 °C, close to the taps so the beer lines stay short. Glass doors show what\u2019s in stock.',
+  bar:{box:[X0,-0.25,0,2.8,2.25,bb1],ey:'Bar · 5.9 m² + 1.5 m² stool zone · 4 stools',t:'The bar',b:'A glowing bar: backlit amber onyx panels behind a black mesh frame, a marble top with a curved end facing the door, emerald tile behind and a brass gantry with green-lit glass shelves overhead.',
+    l:['4 velvet high-back bar chairs, plus a brass foot rail','6 craft taps on two brass fonts','Back bar sized to the real stock, about 15 bottles: a backlit centre shelf for the whiskies, vodkas, feni, gin and agave, one bottle of each with labels facing out','Two big house-infusion jars with brass taps (lemongrass-ginger and chilli-garlic vodka), plus shelves of highballs, coupes and rocks glasses','A brass riser of green soju bottles and a black ON TAP board listing the six beers','Speed rail, ice well, bar sink and glasswasher behind the counter','Emerald tile above with a TV; the "bao, baby?" neon hangs on the nook overhead'],views:[['Down the bar','bar'],['Back bar','backbar'],['Bartender side','barback']]},
+  kegs:{box:[X0,-1.45,0,1.0,5.4,7.4],ey:'Keg cooler · 1.5 m² · 6 taps',t:'Keg storage',b:'The server station\u2019s base is a 2 m under-counter keg cooler at 2–4 °C, close to the taps so the beer lines stay short. Glass doors show what\u2019s in stock.',
     l:['10 × 20 L kegs in two rows: 6 on tap plus 4 full spares','An insulated line bundle with a cold-water loop runs under the floor to the two tap fonts, about 1.5–3 m away','The end bay holds a 6 kg CO₂ cylinder, chained upright, with a 6-way gas splitter and a low vent grille, because leaked CO₂ sinks','A locked, shaded steel cage outside the back wall holds empty kegs and a spare CO₂ cylinder, 3 m from the LPG bank','Kegs come in through the front and down the side aisle, without crossing the kitchen'],
     views:[['Cooler','kegs'],['Empties cage','kegcage']]},
-  billing:{box:[0.9,X1,0,1.6,0.3,1.45],ey:'Billing desk',t:'Billing / cashier desk',b:'Replaces the reception desk. It sits just inside the door on the left, so guests settle up on the way out.',
+  billing:{box:[0.9,X1,0,1.6,0.3,1.45],ey:'Billing desk · 1.6 m²',t:'Billing / cashier desk',b:'Replaces the reception desk. It sits just inside the door on the left, so guests settle up on the way out.',
     l:['Oak top and cane front, with a POS tablet, card machine and receipt printer','A pendant lamp, plus a "settle up here" neon on the wall behind','The cashier stands behind it, with a clear view of the door, the bar and the stair'],views:[['View','billing']]},
-  lounge:{box:[X0,0.3,0,1.2,0.3,2.3],ey:'Lounge · 4 covers',t:'Window lounge',b:'A cane-back sofa with floral cushions and a green velvet tub chair around a large wooden table on a kilim rug, under a vintage brass lantern, against a reclaimed-wood wall hung with vintage beer signs.',l:['The first seats people see from the road'],views:[['View','lounge']]},
-  understair:{box:[1.0,X1,0,2.0,3.3,4.95],ey:'Booth under the stair · 4 covers',t:'Booth under the stair',b:'The jukebox is gone. The stair\'s underside is clad in oak to make a snug ceiling, and its low end is closed with slats. Two benches with backs face each other across a table for four.',l:['Olive seat pads and burnt-orange back cushions','A small globe pendant and a brass wall sconce','About 1.5 m clear over the near bench and 2 m over the table'],views:[['View','stairBooth'],['From above','stairTop']]},
-  washroom:{box:[0.55,X1,0,KC,5.0,KZ],ey:'Washroom · unisex',t:'Washroom: WC + urinal, one door',b:'One room with one door. Inside are a wall-hung urinal behind a timber modesty screen and a WC, all in olive tile. A shared wash basin sits just outside the door, with a halo-lit round mirror.',l:['Basin: a white drum basin with a black tap','Mirror: a pop-art face mural whose glasses are two LED ring mirrors','The door opens onto the dining room, never into the kitchen','Check that a unisex washroom is accepted locally'],views:[['All three from above','wash'],['Urinal','washU'],['WC','washWC'],['Basin','washOut']]},
-  garden:{box:[-3.6,3.6,0,3.0,-3.4,-0.1],ey:'Beer garden · 6 covers',t:'Beer garden',b:'About 7 × 3 m under a timber pergola with a clear polycarbonate roof, trailing vines and festoon bulbs.',l:['A table for 4 on benches with backrests and seat pads','A table for 2 with cushioned cane chairs','Two pedestal mist fans and a misting line along both pergola beams keep it cool','Monsoon: plan for this space to be closed June to September'],views:[['View','garden']]}
+  lounge:{box:[X0,0.3,0,1.2,0.3,2.3],ey:'Lounge · 5.1 m² · 4 covers',t:'Window lounge',b:'A cane-back sofa with floral cushions and a green velvet tub chair around a large wooden table on a kilim rug, under a vintage brass lantern, against a reclaimed-wood wall hung with vintage beer signs.',l:['The first seats people see from the road'],views:[['View','lounge']]},
+  understair:{box:[1.0,X1,0,2.0,3.3,4.95],ey:'Booth under the stair · 2.1 m² · 4 covers',t:'Booth under the stair',b:'The jukebox is gone. The stair\'s underside is clad in oak to make a snug ceiling, and its low end is closed with slats. Two benches with backs face each other across a table for four.',l:['Olive seat pads and burnt-orange back cushions','A small globe pendant and a brass wall sconce','About 1.5 m clear over the near bench and 2 m over the table'],views:[['View','stairBooth'],['From above','stairTop']]},
+  washroom:{box:[0.55,X1,0,KC,5.0,KZ],ey:'Washroom · 2.6 m² + 0.5 m² basin · unisex',t:'Washroom: WC + urinal, one door',b:'One room with one door. Inside are a wall-hung urinal behind a timber modesty screen and a WC, all in olive tile. A shared wash basin sits just outside the door, with a halo-lit round mirror.',l:['Basin: a white drum basin with a black tap','Mirror: a pop-art face mural whose glasses are two LED ring mirrors','The door opens onto the dining room, never into the kitchen','Check that a unisex washroom is accepted locally'],views:[['All three from above','wash'],['Urinal','washU'],['WC','washWC'],['Basin','washOut']]},
+  garden:{box:[-3.6,3.6,0,3.0,-3.4,-0.1],ey:'Beer garden · 23.8 m² · 6 covers',t:'Beer garden',b:'About 7 × 3 m under a timber pergola with a clear polycarbonate roof, trailing vines and festoon bulbs.',l:['A table for 4 on benches with backrests and seat pads','A table for 2 with cushioned cane chairs','Two pedestal mist fans and a misting line along both pergola beams keep it cool','Monsoon: plan for this space to be closed June to September'],views:[['View','garden']]}
 };
 const hitMat=new THREE.MeshBasicMaterial();const hits=[];
 Object.entries(ZONES).forEach(([k,z])=>{const [x0,x1,y0,y1,z0,z1]=z.box;const m=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,y1-y0,z1-z0),hitMat);m.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);m.updateMatrixWorld();m.userData.zone=k;hits.push(m);});
@@ -953,6 +1011,7 @@ const VIEWS={
   bar:{p:[1.0,1.75,0.4],t:[-1.3,1.45,4.4]},
   kegs:{p:[0.25,1.35,5.6],t:[-2.0,0.45,6.6]},
   kegcage:{p:[-0.4,2.3,D+3.6],t:[2.9,0.2,D+0.4]},
+  backbar:{p:[0.55,2.15,3.85],t:[-2.25,1.35,3.85]},
   barback:{p:[-1.55,1.7,5.05],t:[-0.5,1.2,2.0]},
   billing:{p:[-0.7,1.6,2.5],t:[1.9,1.1,0.7]},
   lounge:{p:[0.7,2.3,3.4],t:[-1.4,0.55,1.1]},
