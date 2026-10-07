@@ -28,6 +28,14 @@ body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px
 .lbl.s i{background:#ff4a3a} .lbl.s{border-color:rgba(255,74,58,.7)}
 .labels.moving .lbl{opacity:.25;transition:opacity .15s}
 .labels .lbl{transition:opacity .3s}
+.plans{position:absolute;inset:0;z-index:30;background:#fbf7ef;display:flex;flex-direction:column}
+.plans-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:12px 16px;background:rgba(19,15,12,.92);border-bottom:1px solid var(--line)}
+.plans-hint{font:500 12px/1 var(--body);color:var(--muted);margin-left:auto}
+.plans-bar a{font:600 12px/1 var(--body);color:#1b120a;background:var(--amber);padding:8px 11px;border-radius:9px;text-decoration:none}
+#plans-x{appearance:none;border:1px solid var(--line);background:transparent;color:var(--fg);border-radius:9px;padding:6px 10px;cursor:pointer;font-size:14px}
+.plans-view{flex:1;overflow:auto;display:flex;justify-content:center;align-items:flex-start;padding:12px}
+.plans-view img{max-width:100%;max-height:100%;height:auto;cursor:zoom-in;box-shadow:0 2px 14px rgba(0,0,0,.12)}
+.plans-view.zoom{display:block}.plans-view.zoom img{max-width:none;max-height:none;width:1700px;cursor:zoom-out}
 .lbl.cta{border-color:var(--amber);background:rgba(60,38,14,.9)}
 .toolbar{position:absolute;left:16px;right:16px;top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;pointer-events:none}
 .seg{pointer-events:auto;display:flex;flex-wrap:wrap;background:rgba(19,15,12,.86);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
@@ -107,6 +115,18 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
 <div class="app">
   <div class="stage" id="stage">
     <div class="labels" id="labels"></div>
+    <div class="plans" id="plans" hidden>
+      <div class="plans-bar">
+        <div class="seg" role="tablist" aria-label="Floor">
+          <button data-plan="ground" aria-pressed="true">Ground floor</button>
+          <button data-plan="loft" aria-pressed="false">Loft (+2.38 m)</button>
+        </div>
+        <span class="plans-hint">Click the plan to zoom · scroll to pan</span>
+        <a id="plan-dl" href="plans/ground-floor-plan.png" download>Download PNG</a>
+        <button id="plans-x" aria-label="Close floor plans">✕</button>
+      </div>
+      <div class="plans-view" id="plans-view"><img id="plan-img" src="plans/ground-floor-plan.png" alt="Ground floor plan with all dimensions"></div>
+    </div>
     <div class="toolbar">
       <div class="seg" role="group" aria-label="Camera">
         <button data-view="iso" aria-pressed="true">Overview</button>
@@ -126,6 +146,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <button id="t-cut" aria-pressed="true">Cutaway</button>
         <button id="t-lbl" aria-pressed="true">Labels</button>
         <button id="t-dims" aria-pressed="false">Sizes</button>
+        <button id="t-plans" aria-pressed="false">Floor plans</button>
       </div>
       <div class="seg lightctl" role="group" aria-label="Lighting">
         <div class="lc-row"><span class="lc-k">Time</span><span class="lc-e">Day</span><input id="lc-time" type="range" min="0" max="100" value="85" aria-label="Time of day, day to night"><span class="lc-e">Night</span></div>
@@ -1561,6 +1582,15 @@ function openZone(k){const z=ZONES[k];state.focus=k;
   card.hidden=false;goView(z.views[0][1]);pressView(viewBtns.some(b=>b.dataset.view===k)?k:'');dirty=true;}
 function closeZone(){state.focus=null;card.hidden=true;dirty=true;}
 document.getElementById('cardX').addEventListener('click',()=>{closeZone();pressView('iso');goView('iso');});
+{const pl=document.getElementById('plans'),img=document.getElementById('plan-img'),dl=document.getElementById('plan-dl'),vw=document.getElementById('plans-view'),bt=document.getElementById('t-plans');
+ const SRC={ground:['plans/ground-floor-plan.png','Ground floor plan with all dimensions'],loft:['plans/loft-plan.png','Loft plan with all dimensions']};
+ const show=on=>{pl.hidden=!on;bt.setAttribute('aria-pressed',String(on));};
+ bt.addEventListener('click',()=>show(pl.hidden));document.getElementById('plans-x').addEventListener('click',()=>show(false));
+ window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pl.hidden)show(false);});
+ pl.querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',()=>{const [src,alt]=SRC[b.dataset.plan];img.src=src;img.alt=alt;dl.href=src;vw.classList.remove('zoom');vw.scrollTo(0,0);
+   pl.querySelectorAll('[data-plan]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));}));
+ img.addEventListener('click',e=>{const r=img.getBoundingClientRect(),fx=(e.clientX-r.left)/r.width,fy=(e.clientY-r.top)/r.height;vw.classList.toggle('zoom');
+   if(vw.classList.contains('zoom'))requestAnimationFrame(()=>{vw.scrollLeft=fx*img.offsetWidth-vw.clientWidth/2;vw.scrollTop=fy*img.offsetHeight-vw.clientHeight/2;});});}
 document.getElementById('t-dims').addEventListener('click',e=>{dimsG.visible=!dimsG.visible;e.currentTarget.setAttribute('aria-pressed',String(dimsG.visible));dirty=true;});
 viewBtns.forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.view;if(ZONES[k]){openZone(k);return;}closeZone();pressView(k);goView(k);}));
 function toggle(id,key,fn){const b=document.getElementById(id);b.addEventListener('click',()=>{state[key]=!state[key];b.setAttribute('aria-pressed',String(state[key]));fn&&fn();dirty=true;});}
@@ -1604,7 +1634,7 @@ renderer.domElement.addEventListener('dblclick',e=>{const r=renderer.domElement.
   rc.setFromCamera(v2,camera);const hit=rc.intersectObjects(scene.children,true).find(h=>h.object.visible&&h.object.material!==hitMat&&!(h.object.material&&h.object.material.transparent&&h.object.material.opacity<0.3));
   if(!hit)return;const dir=camera.position.clone().sub(controls.target).normalize();const d=Math.min(3.2,Math.max(1.4,camera.position.distanceTo(hit.point)*0.45));
   anim={fp:camera.position.clone(),ft:controls.target.clone(),to:{p:hit.point.clone().add(dir.multiplyScalar(d)),t:hit.point.clone()},t0:performance.now(),dur:800};dirty=true;});
-const keys=new Set();window.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;const k=e.key.toLowerCase();
+const keys=new Set();window.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;if(!document.getElementById('plans').hidden)return;const k=e.key.toLowerCase();
   if(k==='r'){closeZone&&closeZone();pressView('iso');goView('iso');return;}
   if(['w','a','s','d','q','e','arrowup','arrowdown','arrowleft','arrowright'].includes(k)){keys.add(k);e.preventDefault();}});
 window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));window.addEventListener('blur',()=>keys.clear());
