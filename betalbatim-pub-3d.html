@@ -122,7 +122,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
           <button data-plan="loft" aria-pressed="false">Loft (+2.38 m)</button>
         </div>
         <span class="plans-hint">Click the plan to zoom · scroll to pan</span>
-        <a id="plan-dl" href="plans/ground-floor-plan.png" download>Download PNG</a>
+        <a id="plan-dl" href="https://singhgenics.github.io/dream/plans/ground-floor-plan.png" target="_blank" rel="noopener">Open full-size PNG</a>
         <button id="plans-x" aria-label="Close floor plans">✕</button>
       </div>
       <div class="plans-view" id="plans-view"><img id="plan-img" src="plans/ground-floor-plan.png" alt="Ground floor plan with all dimensions"></div>
@@ -1587,7 +1587,7 @@ document.getElementById('cardX').addEventListener('click',()=>{closeZone();press
  const show=on=>{pl.hidden=!on;bt.setAttribute('aria-pressed',String(on));};
  bt.addEventListener('click',()=>show(pl.hidden));document.getElementById('plans-x').addEventListener('click',()=>show(false));
  window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!pl.hidden)show(false);});
- pl.querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',()=>{const [src,alt]=SRC[b.dataset.plan];img.src=src;img.alt=alt;dl.href=src;vw.classList.remove('zoom');vw.scrollTo(0,0);
+ pl.querySelectorAll('[data-plan]').forEach(b=>b.addEventListener('click',()=>{const [src,alt]=SRC[b.dataset.plan];img.src=src;img.alt=alt;dl.href='https://singhgenics.github.io/dream/'+src;vw.classList.remove('zoom');vw.scrollTo(0,0);
    pl.querySelectorAll('[data-plan]').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));}));
  img.addEventListener('click',e=>{const r=img.getBoundingClientRect(),fx=(e.clientX-r.left)/r.width,fy=(e.clientY-r.top)/r.height;vw.classList.toggle('zoom');
    if(vw.classList.contains('zoom'))requestAnimationFrame(()=>{vw.scrollLeft=fx*img.offsetWidth-vw.clientWidth/2;vw.scrollTop=fy*img.offsetHeight-vw.clientHeight/2;});});}
