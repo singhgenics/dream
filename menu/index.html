@@ -109,8 +109,8 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
   <main id="notes" role="tabpanel" aria-labelledby="tab-notes" hidden>
     <div class="notes">
       <section>
-        <h2>Twenty-one dishes, chosen to win</h2>
-        <p>The food is kept to 21 dishes, from soups to desserts, so the kitchen can nail every one. Each dish was scored on five things: whether it suits a pub and sells with beer, whether it's different from the 26 Asian places within 6 km, whether people will photograph it, whether it can hold a 30% food cost, and whether it shares prep and stations with other dishes.</p>
+        <h2>Twenty-two dishes, chosen to win</h2>
+        <p>The food is kept to 22 dishes, from soups to desserts, so the kitchen can nail every one. Each dish was scored on five things: whether it suits a pub and sells with beer, whether it's different from the 26 Asian places within 6 km, whether people will photograph it, whether it can hold a 30% food cost, and whether it shares prep and stations with other dishes.</p>
         <p class="small">Within 6 km there are about 10 momo outlets and 8 Chinese restaurants, so generic momos and Indo-Chinese are crowded and cheap. Red Ginger (4.6 from about 4,000 reviews) already does dim sum. Nobody nearby does Korean, bao or the Tangra signatures. Those are the gaps this menu fills.</p>
       </section>
 
@@ -122,6 +122,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
           <tr><td>Hot &amp; sour soup</td><td><span class="pill star">Workhorse</span></td><td>The soup people expect, at about 15% food cost.</td></tr>
           <tr><td>Cabin Fever (chilli chicken, dry)</td><td><span class="pill star">Star</span></td><td>The bestseller in any Indo-Chinese kitchen, and great with beer. It also feeds the combos and happy hour.</td></tr>
           <tr><td>Prawn Stars (golden fried prawns)</td><td><span class="pill watch">Signature</span></td><td>The Tangra dish people travel for. Repriced to ₹460 for 5 pieces to stay near 33% food cost.</td></tr>
+          <tr><td>Something Fishy (chonak / bhetki fish fingers)</td><td><span class="pill star">Bar bite</span></td><td>The cabins' fish fingers made with the local name for bhetki, so it reads as both cabin and coast. A cheaper seafood plate than the prawns, and it shares their batter and fryer.</td></tr>
           <tr><td>The Tangra Pig-Out (chilli pork)</td><td><span class="pill star">Signature</span></td><td>Pork sells in Goa, and the generic Chinese places don't do it properly.</td></tr>
           <tr><td>Paneer Pressure · Honey, I Fried the Spuds</td><td><span class="pill star">Margin</span></td><td>Veg favourites at 15–29% food cost. The potato is the cheapest beer snack on the menu.</td></tr>
           <tr><td>Har gow · chouriço siu mai · xiao long bao · crystal veg</td><td><span class="pill star">Photo</span></td><td>One prawn, one local pork, one "wow" soup dumpling and one veg. Folded in the morning, steamed to order.</td></tr>
@@ -154,7 +155,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
           <h3>Kitchen load across the four stations</h3>
           <ul>
             <li><b>Wok (8):</b> chilli chicken, chilli pork, chilli paneer, honey chilli potato (finish), chowmein, fried rice, veg Manchurian gravy, burnt garlic veg fried rice.</li>
-            <li><b>Fryer (8):</b> chilli chicken and paneer batters, golden prawns, wings, kimchi fries, honey chilli potato, Manchurian balls, darsaan.</li>
+            <li><b>Fryer (9):</b> chilli chicken and paneer batters, golden prawns, chonak fingers, wings, kimchi fries, honey chilli potato, Manchurian balls, darsaan.</li>
             <li><b>Steamer (7):</b> four dim sum and three bao.</li>
             <li><b>Range (3):</b> hot &amp; sour, the chimney soup base, the darsaan honey.</li>
             <li><b>Shared prep:</b> one chilli-garlic base, one gochujang sauce, one kimchi batch and one egg-cornflour batter cover most of the menu.</li>
@@ -165,7 +166,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
           <ul>
             <li><b>Under 20%:</b> hot &amp; sour, honey chilli potato, kimchi fries, crystal veg, har gow, darsaan, veg Manchurian, burnt garlic veg fried rice, veg chowmein.</li>
             <li><b>25–30%:</b> chilli chicken, chilli paneer, chilli pork, wings, siu mai, bao.</li>
-            <li><b>Over 30% (watch):</b> golden fried prawns (~33% at ₹460 for 5 pc) and the chimney soup (~30–35%).</li>
+            <li><b>Over 30% (watch):</b> golden fried prawns (~33% at ₹460 for 5 pc), chonak fingers (~31% at ₹420 for a 150 g fillet; check market price weekly) and the chimney soup (~30–35%).</li>
             <li><b>Blend:</b> about 26–29% food cost on a typical order mix, under your 30% target. Drinks are tracked separately.</li>
           </ul>
         </div>
@@ -202,6 +203,7 @@ const MENU=[
  {id:'kolkata',t:'Cabin starters',k:'Tangra classics · from the wok',items:[
   ['Cabin Fever|Chilli chicken, dry','Boneless chicken thigh, egg and cornflour batter, green chilli, onion, capsicum, soy, garlic','Double-fried for crunch, then tossed on full flame so the sauce catches and smokes.',320,NV,'kol',2,null],
   ['Prawn Stars|Golden fried prawns, 5 pc','Tiger prawns, egg-flour batter, salt and pepper, with kasundi mustard','Butterflied, battered and fried golden, with sharp Bengali kasundi on the side, the way the cabins serve it.',460,NV,'kol',0,null],
+  ['Something Fishy|Chonak (bhetki) fish fingers, salt & pepper','Chonak fillet, egg and cornflour batter, crushed pepper, fried garlic, green chilli, spring onion, garlic-chilli mayo','Our own coast\u2019s chonak, the fish the City of Joy calls bhetki. Cut into fingers, double-fried, then tossed with salt, pepper and crisp garlic. Built for a cold pint.',420,NV,'kol',1,null],
   ['The Tangra Pig-Out|Chilli pork, Tangra style','Pork belly, dried red chilli, garlic, dark soy, spring onion','Boiled, sliced, crisped in the wok, then tossed with dried chillies.',360,NV,'kol',2,null],
   ['Paneer Pressure|Chilli paneer, dry','Paneer, cornflour coat, green chilli, onion, capsicum, soy','Paneer fried crisp outside and soft inside, then tossed in the chilli wok sauce.',280,V,'',2,null],
   ['Honey, I Fried the Spuds|Honey chilli potato','Potato fingers, honey, red chilli, sesame, spring onion','Twice-fried fingers tossed in a sticky honey-chilli glaze.',220,V,'',1,null]]},
@@ -225,12 +227,12 @@ const MENU=[
  {id:'sweet',t:'Sweet',k:'To finish',items:[
   ['Darsaan with ice cream','Flat noodles, honey, sesame, vanilla ice cream','The old cabins\u2019 favourite dessert: noodles fried crisp, then tossed in hot honey.',220,V,'kol',0,null]]},
  {id:'tap',t:'On tap',k:'Six taps, all brewed up the coast · 330 ml / 500 ml',drink:true,items:[
-  ['People\u2019s Lager','Pilsner malt, Japanese rice, noble hops','A light rice lager from a small farm-to-barrel brewery in Sangolda. Crisp and clean: the beach beer.','₹240 / 320','',0,['pint','#f2c24a']],
-  ['Susegado Tropical Wit','Wheat, orange peel, coriander','Hazy and soft, from the coast\u2019s first craft brewer. It goes with dim sum.','₹260 / 340','',0,['pint','#f2d27a']],
-  ['Susegado Kokum Gose','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink, soured with kokum from our own coast.','₹280 / 380','goa',0,['pint','#d86a7a']],
-  ['Eight Finger Eddie IPA','Pale malt, oats, tropical hops, double dry-hopped','A hazy oat-cream IPA from the Sangolda brewers. Juicy, then bitter: it stands up to Cabin Fever.','₹280 / 380','',0,['pint','#e0a02a']],
-  ['Susegado Vanilla Porter','Roasted malt, chocolate malt, vanilla','Dark, smooth and roasty: a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
-  ['Guest tap: Maka Di','Honey Ale, Belgian Tripel or Rocket Rice Lager, whichever is pouring','From the Dicholi brewery whose name is Konkani for \u201cgive me\u201d. Changes every week.','₹280 / 380','',0,['pint','#d99a3a']],
+  ['Comrade Crisp|People\u2019s Lager','Pilsner malt, Japanese rice, noble hops','A light rice lager from a small farm-to-barrel brewery in Sangolda. Crisp and clean: the beach beer.','₹240 / 320','',0,['pint','#f2c24a']],
+  ['Wit Happens|Susegado Tropical Wit','Wheat, orange peel, coriander','Hazy and soft, from the coast\u2019s first craft brewer. It goes with dim sum.','₹260 / 340','',0,['pint','#f2d27a']],
+  ['Gose Bumps|Susegado Kokum Gose','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink, soured with kokum from our own coast.','₹280 / 380','goa',0,['pint','#d86a7a']],
+  ['Hoppy Hippie|Eight Finger Eddie IPA','Pale malt, oats, tropical hops, double dry-hopped','A hazy oat-cream IPA from the Sangolda brewers. Juicy, then bitter: it stands up to Cabin Fever.','₹280 / 380','',0,['pint','#e0a02a']],
+  ['Midnight Snack|Susegado Vanilla Porter','Roasted malt, chocolate malt, vanilla','Dark, smooth and roasty: a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
+  ['Gimme Gimme Gimme|Maka Di guest tap','Honey Ale, Belgian Tripel or Rocket Rice Lager, whichever is pouring','From the Dicholi brewery whose name is Konkani for \u201cgive me\u201d. Changes every week.','₹280 / 380','',0,['pint','#d99a3a']],
   ['Pitcher or tasting paddle','1.5 L pitcher ₹999 · 4 × 150 ml paddle ₹420','Pick from whatever is pouring today.','₹420+','',0,['paddle']]]},
  {id:'spirits',t:'Whisky & vodka',k:'A short, considered list · 30 ml / 60 ml',drink:true,items:[
   ['Paul John Brilliance','Single malt from Cuncolim, about 15 km away: honey, vanilla, toffee, a little spice','Neat or with one large cube. Our local pour.','₹320 / 600','goa',0,null],
@@ -271,8 +273,8 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
 const badge=b=>b==='kol'?' <b class="kol">Cabin classic</b>':b==='goa'?' <b class="goa">Konkan touch</b>':'';
 document.getElementById('menuCols').innerHTML=MENU.map(sec=>{
   const rows=sec.items.map(it=>{
-    if(sec.drink){const [n,ing,how,p,b,_,a]=it;
-      return `<div class="item"><div class="nm">${esc(n)}${badge(b)}</div><div class="pr">${esc(p)}</div><p class="ing"><b>In it</b>${esc(ing)}</p><p class="how"><b>How</b>${esc(how)}</p></div>`;}
+    if(sec.drink){const [n0,ing,how,p,b,_,a]=it;const [n,sub]=n0.split('|');
+      return `<div class="item"><div class="nm">${esc(n)}${badge(b)}</div><div class="pr">${esc(p)}</div>${sub?`<p class="sub">${esc(sub)}</p>`:''}<p class="ing"><b>In it</b>${esc(ing)}</p><p class="how"><b>How</b>${esc(how)}</p></div>`;}
     const [n0,ing,how,p,t,b,heat,a]=it;const [n,sub]=n0.split('|');const pr=typeof p==='number'?'₹'+p:'₹'+p;
     return `<div class="item"><div class="nm"><i class="mk ${t}" aria-label="${t===V?'Veg':'Non-veg'}"></i>${esc(n)}${badge(b)}${heat?` <b class="heat" aria-label="spice ${heat} of 3">${'•'.repeat(heat)}</b>`:''}</div><div class="pr">${esc(pr)}</div>${sub?`<p class="sub">${esc(sub)}</p>`:''}<p class="ing"><b>In it</b>${esc(ing)}</p><p class="how"><b>How</b>${esc(how)}</p></div>`;}).join('');
   return `<section class="sec${sec.sets?' sets':''}" id="s-${sec.id}"><h2>${esc(sec.t.toLowerCase())}</h2><p class="kick">${esc(sec.k)}</p>${rows}${sec.foot?`<p class="foot">${esc(sec.foot)}</p>`:''}</section>`;}).join('');
