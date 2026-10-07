@@ -867,7 +867,7 @@ function chair(x,z,s){const f=x+s*0.0; // s: direction the chair faces (+1 towar
   const bk=new THREE.Mesh(new THREE.CylinderGeometry(0.26,0.26,0.36,16,1,true,s>0?-Math.PI*0.75:Math.PI*0.25,Math.PI*0.5),M.rattan);bk.position.set(bxp+s*0.17,MZ+0.72,z);lf.add(bk);
   bx(bxp-0.02,bxp+0.02,MZ+0.9,MZ+0.94,z-0.21,z+0.21,M.mango,lf);}
 function diningTable(s,zc,len,k){const tx=s*1.37; // table x 1.02–1.72 from centre
-  bx(tx-0.35,tx+0.35,MZ+0.71,MZ+0.75,zc-len/2,zc+len/2,M.mango,lf);
+  bx(tx-0.35,tx+0.35,MZ+0.71,MZ+0.75,zc-len/2,zc+len/2,M.marble,lf); bx(tx-0.36,tx+0.36,MZ+0.695,MZ+0.712,zc-len/2-0.01,zc+len/2+0.01,M.brass,lf,false); // marble top + brass edge, matching the bar
   [zc-len/2+0.15,zc+len/2-0.15].forEach(z=>{bx(tx-0.25,tx+0.25,MZ,MZ+0.05,z-0.04,z+0.04,M.timberDark,lf);bx(tx-0.04,tx+0.04,MZ,MZ+0.71,z-0.035,z+0.035,M.timberDark,lf);bx(tx-0.25,tx+0.25,MZ+0.66,MZ+0.71,z-0.04,z+0.04,M.timberDark,lf);});
   bx(tx-0.02,tx+0.02,MZ+0.25,MZ+0.29,zc-len/2+0.15,zc+len/2-0.15,M.timberDark,lf);
   const cz=len/2-0.27;[zc-cz,zc+cz].forEach(z=>chair(s*0.73,z,s));
@@ -970,14 +970,62 @@ function framed(side,z,y,w,h,fm,am,parent){const inX=side<0?X0:X1,sg=side<0?1:-1
   bx(Math.min(inX,inX+sg*0.035),Math.max(inX,inX+sg*0.035),y-h/2,y+h/2,z-w/2,z+w/2,frameMats[fm],parent);
   plane(w-0.05,h-0.05,M.mat,inX+sg*0.037,y,z,ry,parent);
   plane((w-0.05)*0.78,(h-0.05)*0.78,arts[am],inX+sg*0.039,y+(h-0.05)*0.03,z,ry,parent);}
-[ // side(-1 right wall, +1 left wall), z, y, width, height, frame, art
- [1,0.5,1.72,0.42,0.52,1,6],[1,1.12,1.72,0.42,0.52,0,2],
- [1,0.45,3.15,0.45,0.58,2,5],[1,1.1,3.3,0.55,0.7,0,4],[1,1.75,3.1,0.4,0.5,1,0],
- [1,2.05,2.25,0.45,0.58,1,3],[1,4.4,3.35,0.5,0.65,2,1],
- [-1,5.6,3.78,0.36,0.44,1,2],[-1,7.15,3.78,0.36,0.44,0,6],[-1,9.1,3.78,0.36,0.44,2,4],
- [1,6.0,3.78,0.36,0.44,0,0],[1,7.8,3.78,0.36,0.44,1,5],[1,9.35,3.78,0.36,0.44,2,3],
- [1,7.15,1.55,0.36,0.44,2,2]
-].forEach(([sd,z,y,w,h,fm,am])=>framed(sd,z,y,w,h,fm,am,sd<0?G.wallR:G.wallL));
+// SALON GALLERY WALLS (after the basement-bar reference): vintage pub posters hung edge to edge in black, oak and brass frames,
+// tin signs, felt pennants and a round neon. Up the stair wall (ground) and above both loft benches.
+function posterTex(i,title,sub,bg,fg,ac,motif){return tex(256,352,(g,w,h)=>{const r=rng(200+i);g.fillStyle=bg;g.fillRect(0,0,w,h);
+  g.strokeStyle=ac;g.lineWidth=6;g.strokeRect(12,12,w-24,h-24);g.globalAlpha=0.9;g.fillStyle=ac;
+  if(motif==='sun'){g.beginPath();g.arc(w/2,138,70,0,7);g.fill();g.fillStyle=bg;for(let k=0;k<5;k++)g.fillRect(40,120+k*16,w-80,5);}
+  else if(motif==='steam'){g.beginPath();g.ellipse(w/2,160,78,34,0,0,7);g.fill();g.fillRect(w/2-78,126,156,34);g.strokeStyle=fg;g.lineWidth=5;for(let k=-1;k<2;k++){g.beginPath();g.moveTo(w/2+k*34,110);g.bezierCurveTo(w/2+k*34-18,86,w/2+k*34+18,70,w/2+k*34,46);g.stroke();}}
+  else if(motif==='glass'){g.fillRect(w/2-40,70,80,130);g.fillStyle=fg;g.fillRect(w/2-40,70,80,26);g.strokeStyle=ac;g.lineWidth=8;g.beginPath();g.arc(w/2+48,130,24,-1.4,1.4);g.stroke();}
+  else if(motif==='bottle'){g.fillRect(w/2-26,110,52,110);g.fillRect(w/2-11,64,22,50);g.fillStyle=fg;g.fillRect(w/2-26,150,52,34);}
+  else if(motif==='stripes'){for(let k=0;k<7;k++){g.fillStyle=k%2?ac:fg;g.fillRect(24,60+k*20,w-48,10);}}
+  else if(motif==='hop'){for(let k=0;k<9;k++){const a2=k*0.7;g.beginPath();g.ellipse(w/2+Math.cos(a2)*(10+k*4),150-k*11,26-k*1.5,16,a2,0,7);g.fill();}}
+  else if(motif==='chop'){g.lineWidth=9;g.strokeStyle=ac;g.beginPath();g.moveTo(70,60);g.lineTo(170,210);g.moveTo(110,50);g.lineTo(190,200);g.stroke();g.beginPath();g.arc(w/2,170,60,0,Math.PI);g.fill();}
+  else {g.beginPath();g.arc(w/2,140,62,0,7);g.fill();g.fillStyle=fg;g.beginPath();g.arc(w/2,140,40,0,7);g.fill();}
+  g.globalAlpha=1;g.fillStyle=fg;g.textAlign='center';let fs=58;g.font='800 '+fs+'px "Bricolage Grotesque", serif';while(g.measureText(title).width>w-46&&fs>20){fs-=2;g.font='800 '+fs+'px "Bricolage Grotesque", serif';}
+  g.fillText(title,w/2,262);g.font='600 15px "IBM Plex Mono", monospace';g.fillText(sub,w/2,292);g.fillStyle=ac;g.fillRect(w/2-40,306,80,3);
+  g.globalAlpha=0.08;for(let k=0;k<400;k++){g.fillStyle=r()<.5?'#000':'#fff';g.fillRect(r()*w,r()*h,2,2);}g.globalAlpha=1;},1,1);}
+const PST=[['DIM SUM','HAND-PLEATED DAILY','#b8321c','#f6ecd6','#f2c14a','steam'],['COLD DRAUGHT','SIX TAPS · ALWAYS COLD','#1f3b4a','#f3e6cc','#e9a94b','glass'],
+ ['TANGRA','CABIN-STYLE · SINCE 1962','#d59a2c','#2a1a10','#8a2a14','chop'],['SOJU','ONE MORE ROUND','#2e6a3a','#eaf3e6','#c9e6c9','bottle'],
+ ['HOPS & STEAM','BAO · BEER · VINYL','#efe2c6','#a8321e','#2e5a3a','hop'],['CITY OF JOY','TRAMS · TEA · CHILLI','#1f6a6a','#f6ecd6','#e98a3a','stripes'],
+ ['BAO','SOFT · STEAMED · STUFFED','#e8a7a0','#3a1a14','#f6ecd6','sun'],['GOSE BUMPS','KOKUM · SALT · SOUR','#7a1f3a','#f6e2d0','#e98aa0','glass'],
+ ['NOODLE BAR','OPEN LATE','#151312','#f2d24a','#e0602a','chop'],['KAMPAI','CHEERS · GEONBAE · CHEERS','#c84a2a','#f6ecd6','#f2c14a','sun'],
+ ['LAGER','CRISP · CLEAN · COLD','#2a4f8a','#f3ecdf','#e9c46a','stripes'],['WOK HEI','BREATH OF THE WOK','#3a2a20','#f2c14a','#c8321e','dot']];
+const pstM=PST.map((a,i)=>S({map:posterTex(i,...a),roughness:0.8}));
+function hangP(side,z,y,w,h,fm,pi,parent,mat){const inX=side<0?X0:X1,sg=side<0?1:-1,ry=side<0?Math.PI/2:-Math.PI/2;
+  if(fm>=0){bx(Math.min(inX,inX+sg*0.035),Math.max(inX,inX+sg*0.035),y-h/2,y+h/2,z-w/2,z+w/2,frameMats[fm],parent);
+    if(mat){plane(w-0.05,h-0.05,M.mat,inX+sg*0.037,y,z,ry,parent);plane((w-0.05)*0.8,(h-0.05)*0.8,pstM[pi%pstM.length],inX+sg*0.039,y,z,ry,parent);}
+    else plane(w-0.04,h-0.04,pstM[pi%pstM.length],inX+sg*0.037,y,z,ry,parent);}
+  else plane(w,h,pstM[pi%pstM.length],inX+sg*0.012,y,z,ry,parent);}
+const SALON=[ // side, z, y, w, h, frame(-1 = tin sign), poster, matted
+ // ground: up the stair wall around the BAO mural, every piece above the handrail
+ [1,0.6,1.78,0.44,0.56,0,0,1],[1,0.6,2.45,0.44,0.62,2,4,0],[1,0.6,3.18,0.44,0.62,1,5,1],[1,0.6,3.88,0.44,0.56,0,9,0],
+ [1,1.15,2.18,0.5,0.42,1,1,0],[1,1.15,2.8,0.5,0.66,0,2,1],[1,1.15,3.52,0.5,0.62,2,7,0],[1,1.15,4.15,0.5,0.42,-1,10,0],
+ [1,1.72,2.62,0.48,0.52,0,3,0],[1,1.72,3.25,0.48,0.62,1,6,1],[1,1.72,3.95,0.48,0.56,0,8,0],
+ [1,2.25,2.78,0.36,0.46,2,11,0],[1,2.25,4.22,0.36,0.32,-1,0,0],
+ [1,2.75,4.28,0.4,0.3,0,4,0],[1,3.25,4.28,0.42,0.3,-1,1,0],[1,3.78,4.28,0.4,0.3,2,9,0],
+ [1,4.47,2.95,0.36,0.5,1,5,1],[1,4.47,4.2,0.36,0.4,0,6,0],
+ // loft right wall: dense cluster above the oak bench (bench back tops out at 3.4 m)
+ [-1,5.28,3.92,0.48,0.7,0,0,1],[-1,5.82,4.18,0.4,0.3,2,9,0],[-1,5.82,3.72,0.4,0.46,1,3,0],[-1,6.42,3.95,0.6,0.8,0,1,1],
+ [-1,7.0,4.18,0.36,0.3,-1,6,0],[-1,7.0,3.72,0.36,0.48,2,8,0],[-1,8.2,4.16,0.42,0.32,1,4,0],[-1,8.2,3.72,0.42,0.46,0,10,0],
+ [-1,8.82,3.95,0.6,0.8,2,2,1],[-1,9.36,4.06,0.34,0.5,0,7,0],
+ // loft left wall: above the oak bench past the stair head
+ [1,7.42,3.95,0.5,0.72,1,11,1],[1,7.98,4.17,0.4,0.3,0,5,0],[1,7.98,3.72,0.4,0.44,-1,3,0],[1,8.58,3.95,0.6,0.8,0,6,1],[1,9.18,4.13,0.38,0.3,2,0,0],[1,9.18,3.72,0.38,0.44,1,8,0],
+ // washroom (kept)
+ [1,7.15,1.55,0.36,0.44,2,7,1]];
+SALON.forEach(([sd,z,y,w,h,fm,pi,mt])=>hangP(sd,z,y,w,h,fm,pi,sd<0?G.wallR:G.wallL,mt));
+// ROUND NEON on the loft right wall between the clusters, and a second one above the TV over the back bar
+M.neonDraught=new THREE.MeshBasicMaterial({map:neonTexture('cold draught','92px Yellowtail, cursive','#ff6a3a','#ffd2b8',600,220),transparent:true,toneMapped:false,depthWrite:false});
+M.neonDim=new THREE.MeshBasicMaterial({map:neonTexture('dim sum','110px Yellowtail, cursive','#ff6a3a','#ffd2b8',600,220),transparent:true,toneMapped:false,depthWrite:false});
+function roundNeon(z,y,r,mat,parent){const ring=new THREE.Mesh(new THREE.TorusGeometry(r,0.022,10,48),M.neonRed);ring.rotation.y=Math.PI/2;ring.position.set(X0+0.06,y,z);parent.add(ring);
+  const ring2=new THREE.Mesh(new THREE.TorusGeometry(r*0.82,0.012,8,40),M.neonRed);ring2.rotation.y=Math.PI/2;ring2.position.set(X0+0.06,y,z);parent.add(ring2);
+  const disc=new THREE.Mesh(new THREE.CircleGeometry(r*0.98,40),M.black);disc.rotation.y=Math.PI/2;disc.position.set(X0+0.035,y,z);parent.add(disc);
+  plane(r*1.75,r*0.62,mat,X0+0.07,y,z,Math.PI/2,parent);}
+roundNeon(7.6,3.95,0.42,M.neonDraught,G.wallR); roundNeon(2.95,3.95,0.36,M.neonDim,G.wallR);
+// felt PENNANTS strung along the top of the stair wall and both loft walls
+{const pc=[M.red,M.linen,M.ochre||M.orange,M.teal2||M.oliveWood];const tri=new THREE.Shape();tri.moveTo(-0.09,0);tri.lineTo(0.09,0);tri.lineTo(0,-0.22);tri.lineTo(-0.09,0);const tg=new THREE.ShapeGeometry(tri);
+ [[1,0.4,2.6,4.44],[-1,5.0,9.55,4.44],[1,7.1,9.55,4.44]].forEach(([sd,z0,z1,y])=>{const x=sd<0?X0+0.02:X1-0.02;rod(V(x,y+0.01,z0),V(x,y+0.01,z1),0.004,M.black,sd<0?G.wallR:G.wallL);
+   let k=0;for(let z=z0+0.12;z<z1-0.05;z+=0.24,k++){const m=new THREE.Mesh(tg,pc[k%4]);m.position.set(x,y,z);m.rotation.y=sd<0?Math.PI/2:-Math.PI/2;(sd<0?G.wallR:G.wallL).add(m);}});}
 
 // ---------- merge static meshes per group + material (cuts draw calls from ~2,000 to ~150) ----------
 function mergeGroup(group){
@@ -1087,7 +1135,7 @@ const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.c
 // ---------- zones (click to explore) ----------
 const ZONES={
   loft:{box:[X0,X1,DK,H,LZ,D],ey:'Loft · 24.6 m² · 20 covers',t:'The loft',b:'An earthy dining loft for 20 at full-height tables: built-in oak benches with rust and jute cushions, mango-wood tables, rattan dining chairs, clay-plaster walls and woven rattan pendants. There\u2019s a service station on the back wall for used plates and clean crockery.',
-    l:['Headroom 2.12 m (floor 2.38 m on a slim 0.17 m deck, ceiling 4.5 m). Adults can stand upright','Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 1.4 TR split AC on the back wall, and two wall speakers','Five tables of 4 at 75 cm: oak wall benches on one side, rattan-back chairs on the other','Plus a photo-spot nook that juts out over the bar','A 1.0 m aisle down the middle on a jute runner; the stair head stays clear','Glass-infill guard rail lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['From the bar','loftUp']]},
+    l:['Headroom 2.12 m (floor 2.38 m on a slim 0.17 m deck, ceiling 4.5 m). Adults can stand upright','Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 1.4 TR split AC on the back wall, and two wall speakers','Five tables of 4 at 75 cm: oak wall benches on one side, rattan-back chairs on the other','Plus a photo-spot nook that juts out over the bar','A 1.0 m aisle down the middle on a jute runner; the stair head stays clear','Glass-infill guard rail lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['Gallery wall','loftWall'],['From the bar','loftUp']]},
   nook:{box:[X0,BX,DK,H,BZ,LZ],ey:'Photo spot · 2.6 m²',t:'Standing photo booth',b:'On the nook\'s right-hand wall, facing across the room: a blush limewash wall with a painted terracotta arch, a warm-white "say bao" neon, a pill mirror and a dried-flower garland. Guests stand inside the arch on a jute rug.',
     l:['Headroom 2.12 m, the same as the loft, so there\u2019s room to stand for photos','The photographer stands at the nook\'s open side, about 2 m from the backdrop','A travertine plinth with a bamboo steamer and dried branches','About 2 × 1.25 m, railed in black steel with trailing plants','The front is an open rail carrying the "bao, baby?" neon, so the booth is visible from the door','Downlights in its underside light the back half of the bar','Reached through the loft, which is reached by the stair'],views:[['Photographer\'s view','nookIn'],['From below','nookUp']]},
   kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13.1 m²',t:'Commercial kitchen',
@@ -1102,7 +1150,7 @@ const ZONES={
   lounge:{box:[X0,0.3,0,1.2,0.3,2.3],ey:'Lounge · 5.1 m² · 4 covers',t:'Window lounge',b:'A cane-back sofa with floral cushions and a green velvet tub chair around a large wooden table on a kilim rug, under a vintage brass lantern, against a reclaimed-wood wall hung with vintage beer signs.',l:['Headroom 4.5 m, in the double-height front of the room','The first seats people see from the road'],views:[['View','lounge']]},
   stair:{box:[SX0,X1,0,2.4,SZ0,STOP],ey:'Stair · 1.2 m wide · 6.5 m²',t:'Stair to the loft',b:'Rebuilt to fire-code proportions: 1.2 m clear width, 16 risers of 149 mm and 300 mm treads, in two flights of 8 with a 1.2 m landing. It starts just inside the door and lands through an opening in the loft floor.',
     l:['Headroom over every tread is at least 2.2 m, because the top flight rises under the open double-height void','Brass handrail on the wall side at 0.9 m; glass balustrade with a 1.0 m top rail on the open side, so there are no gaps to climb or fall through','Glow-in-the-dark anti-slip nosing on every step, and an emergency light over the landing','A solid base with a locked store beneath for the CCTV recorder and dry stock. Nothing flammable is kept under an escape stair','The bar’s ABC and CO₂ extinguishers hang on its side, facing the bar','The under-stair booth had to go to fit the longer, gentler stair; the loft\u2019s full-height tables win those 4 seats back (34 covers)'],
-    views:[['From the door','stair'],['From the loft','stairTop']]},
+    views:[['From the door','stair'],['Gallery wall','gallery'],['From the loft','stairTop']]},
   safety:{nohit:true,box:[X0,X1,0,H,0,D],ey:'Fire & life safety · security',t:'Safety layout',b:'Laid out to the National Building Code (Part 4) and the usual Goa Fire NOC checklist. The red labels mark every device. Final approval comes from the Goa Directorate of Fire & Emergency Services.',
     l:['Two ways out: the front (glass doors that open outward inside the shutter) and the kitchen’s rear door, which opens outward with a panic bar. The farthest seat is about 18 m from the front door','Extinguishers: ABC + CO₂ at the bar, CO₂ at the electrical board, wet-chemical (Class K) + CO₂ in the kitchen, ABC in the loft and the garden','Smoke detectors in the dining room, stair void, under the loft and in the loft; a heat detector in the kitchen; call points and a hooter at the entrance and the loft','Battery emergency lights and lit EXIT signs on the escape route; glow nosing on the stair','Hood fire suppression with a manual pull and an automatic gas cut-off; LPG outside in a ventilated cage (76 kg, under the 100 kg licence limit)','Main electrical board with RCCB and MCBs, fire-retardant cabling and a licensed contractor’s certificate','Security: 5 CCTV cameras (entrance, till, loft, rear exit, garden) recording to the locked under-stair store; a safe under the POS'],
     views:[['Overview','safety'],['Stair','stair'],['Kitchen','kwalk']]},
@@ -1129,6 +1177,8 @@ const VIEWS={
   washU:{p:[1.25,1.6,6.32],t:[2.25,0.9,5.9]},
   washWC:{p:[1.3,1.62,5.85],t:[2.1,0.55,7.2]},
   stair:{p:[0.05,1.85,0.75],t:[1.8,1.25,3.9]},
+  gallery:{p:[-1.0,2.0,2.15],t:[2.25,3.0,2.4]},
+  loftWall:{p:[1.2,3.5,6.0],t:[-2.25,3.6,7.6]},
   stairTop:{p:[0.2,3.75,6.6],t:[1.7,0.6,1.6]},
   safety:{p:[7.4,13.2,5.0],t:[0,0.6,4.9]},
   washOut:{p:[-0.9,1.7,5.3],t:[1.1,1.35,5.55]},
