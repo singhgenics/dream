@@ -1019,7 +1019,7 @@ function loftBench(s,z0,z1){const w=s<0?X0:X1,i=w-s*0.5; // s=-1 right wall, +1 
   bx(Math.min(w,w-s*0.05),Math.max(w,w-s*0.05),MZ+0.4,MZ+1.0,z0,z1,M.timber,lf); bx(Math.min(w,w-s*0.06),Math.max(w,w-s*0.06),MZ+0.98,MZ+1.02,z0,z1,M.mango,lf);
   for(let z=z0+0.32;z<z1-0.2;z+=0.6){const c=bx(Math.min(w-s*0.06,w-s*0.17),Math.max(w-s*0.06,w-s*0.17),MZ+0.5,MZ+0.88,z-0.24,z+0.24,M.jute,lf);c.rotation.z=s*0.12;}
   for(let z=z0+0.62;z<z1-0.3;z+=1.2){const c=bx(Math.min(w-s*0.16,w-s*0.24),Math.max(w-s*0.16,w-s*0.24),MZ+0.47,MZ+0.75,z-0.16,z+0.16,(Math.round(z*10)%2)?M.sageC:M.ochre,lf);c.rotation.z=s*0.15;}}
-function chair(x,z,s){const f=x+s*0.0; // s: direction the chair faces (+1 toward +x)
+function loftChair(x,z,s){ // s: direction the chair faces (+1 toward +x)
   [[-0.19,-0.19],[0.19,-0.19],[-0.19,0.19],[0.19,0.19]].forEach(([a,b])=>bx(x+a-0.018,x+a+0.018,MZ,MZ+0.44,z+b-0.018,z+b+0.018,M.mango,lf));
   bx(x-0.22,x+0.22,MZ+0.42,MZ+0.47,z-0.22,z+0.22,M.cane,lf); const bxp=x-s*0.21;
   [-0.19,0.19].forEach(b=>bx(bxp-0.018,bxp+0.018,MZ+0.44,MZ+0.92,z+b-0.018,z+b+0.018,M.mango,lf));
@@ -1029,7 +1029,7 @@ function diningTable(s,zc,len,k,two){const tx=s*1.37; // table x 1.02–1.72 fro
   bx(tx-0.35,tx+0.35,MZ+0.71,MZ+0.75,zc-len/2,zc+len/2,M.marble,lf); bx(tx-0.36,tx+0.36,MZ+0.695,MZ+0.712,zc-len/2-0.01,zc+len/2+0.01,M.brass,lf,false); // marble top + brass edge, matching the bar
   [zc-len/2+0.15,zc+len/2-0.15].forEach(z=>{bx(tx-0.25,tx+0.25,MZ,MZ+0.05,z-0.04,z+0.04,M.timberDark,lf);bx(tx-0.04,tx+0.04,MZ,MZ+0.71,z-0.035,z+0.035,M.timberDark,lf);bx(tx-0.25,tx+0.25,MZ+0.66,MZ+0.71,z-0.04,z+0.04,M.timberDark,lf);});
   bx(tx-0.02,tx+0.02,MZ+0.25,MZ+0.29,zc-len/2+0.15,zc+len/2-0.15,M.timberDark,lf);
-  const cz=len/2-0.27;(two?[zc]:[zc-cz,zc+cz]).forEach(z=>chair(s*0.73,z,s));
+  const cz=len/2-0.27;(two?[zc]:[zc-cz,zc+cz]).forEach(z=>loftChair(s*0.73,z,s));
   cyl(0.04,0.03,0.14,tx,MZ+0.75,zc-0.08,M.terracotta,lf,10); for(let i=0;i<5;i++)rod(V(tx,MZ+0.87,zc-0.08),V(tx+(i-2)*0.03,MZ+1.12+(i%2)*0.06,zc-0.08+(i%3-1)*0.02),0.003,M.twig,lf);
   cyl(0.03,0.03,0.05,tx+0.08,MZ+0.75,zc+0.12,M.shelfGlass,lf,10); sph(0.012,tx+0.08,MZ+0.79,zc+0.12,M.globe,lf);
   rod(V(tx,H,zc),V(tx,MZ+1.78,zc),0.004,M.black,lf);
