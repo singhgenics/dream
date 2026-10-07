@@ -83,7 +83,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <p class="tag">Betalbatim · a short walk from the Arabian Sea · working name</p>
     <h1 class="brand">dumplings &amp; draught</h1>
     <p class="tag">Drinks menu · craft taps · whisky &amp; vodka · cocktails · zero proof · coffee</p>
-    <p class="lede">Six taps, all brewed up the coast. A short, considered list of Indian and Japanese whisky and vodka, eight cocktails built around feni, kokum, soju and lemongrass, fresh zero-proof coolers and brewed coffee, poured at the bar all day.</p>
+    <p class="lede">Six taps, all brewed up the coast. Single malts, blended Scotch, an Irish and two Indian craft whiskies, four vodkas, eight cocktails built around feni, kokum, soju and lemongrass, fresh zero-proof coolers and brewed coffee, poured at the bar all day.</p>
     <div class="tabs" role="tablist" aria-label="View">
       <button id="tab-menu" role="tab" aria-selected="true" aria-controls="menu">Drinks menu</button>
       <button id="tab-notes" role="tab" aria-selected="false" aria-controls="notes">Owner's notes</button>
@@ -113,8 +113,8 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
       </section>
       <div class="grid2">
         <div class="box">
-          <h3>Whisky &amp; vodka: small and niche</h3>
-          <p>Keep the list to about ten bottles. Lead with Indian single malts, starting with Paul John, distilled in Cuncolim about 15 km away. Add two Japanese pours for the Asian theme and two house-infused vodkas, which cost little and match the food.</p>
+          <h3>Whisky &amp; vodka: tiered, still short</h3>
+          <p>Thirteen whisky lines in tiers. Four single malts (Paul John, Amrut, Glenlivet 12, Talisker 10). Four blended Scotches: Dewar's White Label and William Lawson's as the volume pours for highballs and happy hour, with Monkey Shoulder and Black Label as the step-up. Jameson is the one Irish whiskey and goes into the Irish coffee. Indri and Rampur stay as the Indian craft story, plus the Toki highball and the Indian malt flight. Four vodkas: two premium, two infused in house.</p>
           <p class="small">Spirit prices are indicative. Check them against current Goa excise MRPs before printing.</p>
         </div>
         <div class="box">
@@ -178,17 +178,25 @@ const MENU=[
   ['Midnight Snack|Susegado Vanilla Porter','Roasted malt, chocolate malt, vanilla','Dark, smooth and roasty: a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
   ['Gimme Gimme Gimme|Maka Di guest tap','Honey Ale, Belgian Tripel or Rocket Rice Lager, whichever is pouring','From the Dicholi brewery whose name is Konkani for \u201cgive me\u201d. Changes every week.','₹280 / 380','',0,['pint','#d99a3a']],
   ['Pitcher or tasting paddle','1.5 L pitcher ₹999 · 4 × 150 ml paddle ₹420','Pick from whatever is pouring today.','₹420+','',0,['paddle']]]},
- {id:'spirits',t:'Whisky & vodka',k:'A short, considered list · 30 ml / 60 ml',drink:true,items:[
-  ['Paul John Brilliance','Single malt from Cuncolim, about 15 km away: honey, vanilla, toffee, a little spice','Neat or with one large cube. Our local pour.','₹320 / 600','goa',0,null],
-  ['Amrut Fusion','Bengaluru single malt, Indian and peated Scottish barley: malt, dark chocolate, soft smoke','Neat, with a few drops of water to open it up.','₹420 / 800','',0,null],
-  ['Indri Trini','Haryana single malt, matured in three casks: dried fruit, honey, oak','Neat or on a large rock.','₹380 / 720','',0,null],
-  ['Rampur Double Cask','Himalayan-foothills single malt: banana bread, sherry, orange peel','Neat, with water on the side.','₹460 / 880','',0,null],
-  ['Suntory Toki highball','Japanese blended whisky: green apple, honey, white pepper','Tall glass, lots of ice, soda and a lemon twist: the Tokyo after-work drink.','₹420','',0,null],
-  ['Indian single malt flight','Paul John, Amrut and Indri, 20 ml each','Served on a board with tasting notes, water and chilli peanuts.','₹650','',0,null],
-  ['Haku','Japanese rice vodka, filtered through bamboo charcoal: soft, clean, slightly sweet','Ice-cold neat, or long with soda and lime.','₹360 / 680','',0,null],
-  ['Belvedere','Polish rye vodka: creamy, vanilla, white pepper','Straight from the freezer, or in our lychee martini.','₹380 / 720','',0,null],
-  ['House lemongrass-ginger vodka','Vodka infused for 48 hours with lemongrass and fresh ginger','A chilled shot, or with tonic.','₹240 / 440','',0,null],
-  ['House chilli-garlic vodka','Vodka infused with bird\u2019s-eye chilli and roasted garlic','An ice-cold shot alongside chilli chicken.','₹240 / 440','kol',0,null]]},
+ {id:'spirits',t:'Whisky',k:'Single malt, blended Scotch, Irish & Indian · 30 ml / 60 ml',drink:true,items:[
+  ['Paul John Brilliance|Indian single malt','Honey, vanilla, toffee, a little spice','Distilled in Cuncolim, 15 km away. Neat or on one large cube.','₹320 / 600','goa',0,null],
+  ['Amrut Fusion|Indian single malt','Malt, dark chocolate, soft peat smoke','Neat, with a few drops of water.','₹420 / 800','',0,null],
+  ['Glenlivet 12|Speyside single malt','Pineapple, pear, vanilla','The easy first malt. Neat or on a rock.','₹420 / 800','',0,null],
+  ['Talisker 10|Isle of Skye single malt','Sea salt, black pepper, bonfire smoke','For peat lovers. Neat, water on the side.','₹520 / 1,000','',0,null],
+  ['Dewar’s White Label|Blended Scotch','Honey, heather, soft oak','Our highball whisky: tall, ice, soda, lemon.','₹200 / 380','',0,null],
+  ['William Lawson’s|Blended Scotch','Apple, toffee, light spice','Easy on ice, with soda or ginger ale.','₹180 / 340','',0,null],
+  ['Monkey Shoulder|Blended malt Scotch','Vanilla, orange, honeyed malt','Made for mixing; great on the rocks.','₹380 / 720','',0,null],
+  ['Johnnie Walker Black Label|Blended Scotch, 12 years','Dried fruit, vanilla, gentle smoke','The classic. Neat, on the rocks or with soda.','₹340 / 650','',0,null],
+  ['Jameson|Irish whiskey','Vanilla, toasted wood, light and smooth','Neat, with ginger ale, or in our Irish coffee.','₹280 / 520','',0,null],
+  ['Indri Trini|Indian single malt','Dried fruit, honey, oak from three casks','Neat or on a large rock.','₹380 / 720','',0,null],
+  ['Rampur Double Cask|Indian single malt','Banana bread, sherry, orange peel','Neat, with water on the side.','₹460 / 880','',0,null],
+  ['Suntory Toki highball|Japanese blended whisky','Green apple, honey, white pepper','Tall, lots of ice, soda and a lemon twist.','₹420','',0,null],
+  ['Indian single malt flight','Paul John, Amrut and Indri, 20 ml each','On a board with tasting notes, water and chilli peanuts.','₹650','',0,null]]},
+ {id:'vodka',t:'Vodka',k:'Two premium, two infused in house · 30 ml / 60 ml',drink:true,items:[
+  ['Haku|Japanese rice vodka','Soft, clean, slightly sweet','Bamboo-charcoal filtered. Ice-cold neat, or with soda and lime.','₹360 / 680','',0,null],
+  ['Belvedere|Polish rye vodka','Creamy, vanilla, white pepper','From the freezer, or in our lychee martini.','₹380 / 720','',0,null],
+  ['House lemongrass-ginger vodka','Infused 48 hours with lemongrass and ginger','A chilled shot, or with tonic.','₹240 / 440','',0,null],
+  ['House chilli-garlic vodka','Infused with bird’s-eye chilli and roasted garlic','An ice-cold shot alongside chilli chicken.','₹240 / 440','kol',0,null]]},
  {id:'cocktails',t:'Cocktails',k:'Shaken, stirred & poured',drink:true,items:[
   ['Kokum feni sour','Cashew feni, kokum, lime, aquafaba','Shaken hard with aquafaba for a silky foam, served up.','₹420','goa',0,['coupe','#c84a6a','egg']],
   ['Coconut feni highball','Coconut feni, lemongrass syrup, soda','Built over ice and topped with soda: our long, easy drink.','₹380','goa',0,['highball','#f2ead0','leaf']],
@@ -207,7 +215,7 @@ const MENU=[
   ['Tonic or ginger ale','Indian tonic water or ginger ale','Our mixers, on their own over ice.','₹120','',0,null]]},
  {id:'coffee',t:'Hot coffee',k:'Freshly brewed at the bar, all day',drink:true,items:[
   ['Brewed coffee','Single-estate Indian arabica, medium roast','Filter-brewed in small batches through the day and poured at the bar. Black, or with hot milk.','₹120 / 140','',0,null],
-  ['Irish-style coffee','Brewed coffee, Paul John whisky, brown sugar, lightly whipped cream','Our one hot cocktail: sweet, spiked and capped with cold cream.','₹340','',0,null]]},
+  ['Irish coffee','Brewed coffee, Jameson Irish whiskey, brown sugar, lightly whipped cream','Our one hot cocktail: sweet, spiked and capped with cold cream.','₹360','',0,null]]},
  {id:'table',t:'For the table',k:'Sets & happy hour',sets:true,drink:true,items:[
   ['Steamer for two','Chef’s 8 dim sum + 2 bao','Our pick from today’s steamers.','₹980','',0,['set']],
   ['Cabin feast for four','Chimney soup, chilli chicken, golden prawns, mixed chowmein, fried rice, darsaan','The Tangra table, served family style.','₹2,950','kol',0,['chimney']],
@@ -215,9 +223,9 @@ const MENU=[
   ['Happy hour, 5–7 pm','330 ml taps ₹199 · crystal veg dumplings ₹179 · Cabin Fever chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
 ];
 // course order: food first, then sets, then drinks, with sweets to close
-const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','cocktails','zero','coffee','sweet'];
+const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','vodka','cocktails','zero','coffee','sweet'];
 MENU.sort((x,y)=>ORDER.indexOf(x.id)-ORDER.indexOf(y.id));
-{const KEEP=['tap', 'spirits', 'cocktails', 'zero', 'coffee'];for(let i=MENU.length-1;i>=0;i--)if(!KEEP.includes(MENU[i].id))MENU.splice(i,1);} // drinks menu only
+{const KEEP=['tap','spirits','vodka','cocktails','zero','coffee'];for(let i=MENU.length-1;i>=0;i--)if(!KEEP.includes(MENU[i].id))MENU.splice(i,1);} // drinks menu only
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const badge=b=>b==='kol'?' <b class="kol">Cabin classic</b>':b==='goa'?' <b class="goa">Konkan touch</b>':'';
 document.getElementById('menuCols').innerHTML=MENU.map(sec=>{
