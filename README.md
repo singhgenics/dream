@@ -12,9 +12,11 @@ Open either HTML file in a browser to orbit around the model.
 
 ## Menu
 
-- `menu/index.html`: the draft menu as a standalone page, live at https://singhgenics.github.io/dream/menu/
-- `menu.html`: the same menu (source used for the Claude artifact)
-- `menu.pdf`: print version, 3 balanced A3 pages
+The food and drinks menus are separate, each with its own owner's notes and PDF.
+
+- Menu chooser: https://singhgenics.github.io/dream/menu/
+- Food menu: `food.html` (source) → `menu/food/index.html`, live at https://singhgenics.github.io/dream/menu/food/ · print: `menu-food.pdf` (2 A3 pages)
+- Drinks menu: `drinks.html` (source) → `menu/drinks/index.html`, live at https://singhgenics.github.io/dream/menu/drinks/ · print: `menu-drinks.pdf` (2 A3 pages)
 
 ## Other files
 
