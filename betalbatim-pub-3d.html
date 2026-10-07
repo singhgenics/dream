@@ -746,7 +746,8 @@ bx(X0,X1,-0.04,0,0,KZ,M.floor,G.shell,false);
 bx(X0,X1,-0.04,0,KZ,D,M.epoxy,G.shell,false);
 bx(X0-T,X0,0,H,0,D+T,M.plaster,G.wallR);
 bx(X1,X1+T,0,H,0,D+T,M.brick,G.wallL);
-bx(X0,1.15,0,H,D,D+T,M.plaster,G.wallB); bx(1.95,X1,0,H,D,D+T,M.plaster,G.wallB); // runs between the side walls, so no faces overlap at the corners bx(1.15,1.95,2.1,H,D,D+T,M.plaster,G.wallB);
+bx(X0,1.15,0,H,D,D+T,M.plaster,G.wallB); bx(1.95,X1,0,H,D,D+T,M.plaster,G.wallB); // runs between the side walls, so no faces overlap at the corners
+bx(1.15,1.95,2.1,H,D,D+T,M.plaster,G.wallB);
 door(1.95,D+T,0.8,Math.PI-1.1,M.ssDark,G.wallB);
 bx(X0-T,X1+T,H,H+0.06,-0.4,D+T,M.conc,G.ceil);
 bx(X0-T,X1+T,H+0.06,H+0.22,-0.4,D+T,M.concrete,G.ceil);
@@ -1102,7 +1103,8 @@ function diningTable(s,zc,len,k,two){const tx=s*1.37; // table x 1.02–1.72 fro
   const dm=new THREE.Mesh(new THREE.SphereGeometry(0.24,20,10,0,Math.PI*2,0,Math.PI/2),M.rattan);dm.scale.y=0.7;dm.position.set(tx,MZ+1.6,zc);lf.add(dm);
   sph(0.05,tx,MZ+1.6,zc,M.globe,lf);}
 loftBench(-1,5.0,9.5); loftBench(1,7.1,9.55);
-diningTable(-1,6.1,1.1,0); diningTable(-1,7.5,1.1,1); diningTable(-1,8.9,1.1,2); // right: pillar P2 (z 6.65–6.95) sits in the gap diningTable(1,7.72,1.2,3); diningTable(1,9.15,0.7,4,true); // left: a 4-top (1.2 m) and a 2-top (0.7 m), 0.48 m apart
+diningTable(-1,6.1,1.1,0); diningTable(-1,7.5,1.1,1); diningTable(-1,8.9,1.1,2); // right: pillar P2 (z 6.65–6.95) sits in the gap
+diningTable(1,7.72,1.2,3); diningTable(1,9.15,0.7,4,true); // left: a 4-top (1.2 m) and a 2-top (0.7 m), 0.48 m apart
 // LOFT SERVICE STATION (where the DJ desk was): used-plate return + clean crockery, on the back wall
 // The cabinet now spans the whole hood step (x X0..1.15, front flush at z 9.55): the 0.44 m step becomes its solid base, so there is no ledge to stand on.
 // Counter top stays at 0.94 m above the loft floor; open shelves sit on the step top (+0.44) and at +0.66
@@ -1396,7 +1398,8 @@ for(let i=1;i<=15;i+=2){const [a,b]=stepZ(i);const t=i*SRH;bx(X1-0.006,X1,t+0.26
 // gallery walls: black ceiling track with adjustable spots (4 over the stair wall, 3 per loft wall)
 function track(x,z0,z1,y,n,parent,aimX){bx(x-0.02,x+0.02,y-0.03,y,z0,z1,M.black,parent,false);
   for(let k=0;k<n;k++){const z=z0+(k+0.5)*(z1-z0)/n;rod(V(x,y-0.03,z),V(x,y-0.1,z),0.008,M.black,parent);const h=new THREE.Mesh(new THREE.CylinderGeometry(0.035,0.045,0.12,12),M.black);h.position.set(x+aimX*0.03,y-0.13,z);h.rotation.z=aimX*0.7;parent.add(h);sph(0.03,x+aimX*0.07,y-0.17,z,M.glow,parent);}}
-track(1.75,0.4,4.6,H,4,G.ceil,1); track(-1.95,5.05,6.55,H,2,G.ceil,-1); track(-1.95,7.05,9.4,H,2,G.ceil,-1); // split either side of beam T2 track(1.95,7.1,9.4,H,3,G.ceil,1);
+track(1.75,0.4,4.6,H,4,G.ceil,1); track(-1.95,5.05,6.55,H,2,G.ceil,-1); track(-1.95,7.05,9.4,H,2,G.ceil,-1); // split either side of beam T2
+track(1.95,7.1,9.4,H,3,G.ceil,1);
 // loft benches: warm LED under-glow along each bench front (2200 K)
 bx(X0+0.49,X0+0.5,MZ+0.04,MZ+0.06,5.02,9.48,M.glow,lf,false); bx(X1-0.5,X1-0.49,MZ+0.04,MZ+0.06,7.12,9.53,M.glow,lf,false);
 
