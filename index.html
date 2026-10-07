@@ -26,12 +26,21 @@ body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px
 .lbl.o i{background:var(--ox)} .lbl.o{border-color:rgba(196,87,60,.55)}
 .lbl.k i{background:var(--steel)} .lbl.k{border-color:rgba(159,180,194,.55);font-size:11px}
 .lbl.s i{background:#ff4a3a} .lbl.s{border-color:rgba(255,74,58,.7)}
+.labels.moving .lbl{opacity:.25;transition:opacity .15s}
+.labels .lbl{transition:opacity .3s}
 .lbl.cta{border-color:var(--amber);background:rgba(60,38,14,.9)}
 .toolbar{position:absolute;left:16px;right:16px;top:16px;display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start;pointer-events:none}
 .seg{pointer-events:auto;display:flex;flex-wrap:wrap;background:rgba(19,15,12,.86);border:1px solid var(--line);border-radius:12px;padding:3px;gap:2px}
 .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 12px/1 var(--body);padding:8px 11px;border-radius:9px;cursor:pointer}
 .seg button:hover{color:var(--fg);background:rgba(255,255,255,.05)}
 .seg button[aria-pressed="true"]{background:var(--amber);color:#1b120a}
+.lightctl{flex-direction:column;padding:8px 10px;gap:6px;min-width:250px}
+.lc-row{display:flex;align-items:center;gap:8px}
+.lc-k{font:600 10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--amber);width:44px}
+.lc-e{font:500 11px/1 var(--body);color:var(--muted);width:30px}
+.lc-v{font:500 11px/1 var(--mono);color:var(--fg);white-space:nowrap;width:86px;text-align:right}
+.lightctl input[type=range]{flex:1;accent-color:var(--amber);min-width:90px;height:18px}
+.lc-pre{gap:2px;flex-wrap:wrap} .lc-pre button{padding:6px 9px}
 button:focus-visible{outline:2px solid var(--green);outline-offset:1px}
 .hint{position:absolute;left:16px;bottom:14px;font:400 11.5px/1.3 var(--mono);color:var(--muted);background:rgba(19,15,12,.72);padding:6px 9px;border-radius:8px;pointer-events:none}
 .htag{position:absolute;left:0;top:0;pointer-events:none;font:600 12px/1 var(--body);color:#1b120a;background:var(--amber);padding:6px 9px;border-radius:8px;white-space:nowrap}
@@ -116,7 +125,11 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <button id="t-loft" aria-pressed="true">Show loft</button>
         <button id="t-cut" aria-pressed="true">Cutaway</button>
         <button id="t-lbl" aria-pressed="true">Labels</button>
-        <button id="t-night" aria-pressed="true">Scene: Evening</button>
+      </div>
+      <div class="seg lightctl" role="group" aria-label="Lighting">
+        <div class="lc-row"><span class="lc-k">Time</span><span class="lc-e">Day</span><input id="lc-time" type="range" min="0" max="100" value="85" aria-label="Time of day, day to night"><span class="lc-e">Night</span></div>
+        <div class="lc-row"><span class="lc-k">Lights</span><span class="lc-e">Off</span><input id="lc-dim" type="range" min="0" max="100" value="80" aria-label="Dim all lights"><span class="lc-v" id="lc-read">80% · 2700 K</span></div>
+        <div class="lc-row lc-pre"><button data-pre="lunch">Lunch</button><button data-pre="dusk">Sunset</button><button data-pre="evening" aria-pressed="true">Evening</button><button data-pre="late">Late</button></div>
       </div>
     </div>
     <div class="htag" id="htag" hidden></div>
@@ -128,7 +141,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
       <ul id="cardL"></ul>
       <div class="btns" id="cardBtns"></div>
     </div>
-    <div class="hint">Click a zone to explore it · drag to orbit · scroll to zoom · right-drag to pan</div>
+    <div class="hint">Click a zone · drag to orbit · scroll to zoom · right-drag to pan · double-click to fly there · WASD/arrows to walk, Q/E down/up · R to reset</div>
   </div>
 
   <aside class="panel">
@@ -507,7 +520,8 @@ stage.prepend(renderer.domElement);
 const scene=new THREE.Scene();
 const camera=new THREE.PerspectiveCamera(50,1,0.05,300);
 const controls=new THREE.OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true; controls.dampingFactor=0.09; controls.minDistance=0.3; controls.maxDistance=50;
+controls.enableDamping=true; controls.dampingFactor=0.08; controls.minDistance=0.3; controls.maxDistance=40;
+controls.rotateSpeed=0.6; controls.zoomSpeed=0.85; controls.panSpeed=0.8; controls.screenSpacePanning=true;
 let dirty=true,anim=null;
 
 // Walking in from the road (looking +z): RIGHT wall is x = X0, LEFT wall is x = X1.
@@ -1284,15 +1298,28 @@ pl(-0.75,2.0,3.4,'#ffb468',1.9,5.5); pl(-1.6,1.8,3.9,'#ffb85c',1.0,3.5);
 pl(-0.9,2.1,1.2,'#ffc884',1.0,5); pl(1.5,2.0,0.8,'#ffc884',0.9,4.5); pl(0.3,3.9,2.6,'#ffd6a8',1.3,9);
 pl(0.2,2.1,6.0,'#ffc884',0.9,4.5); pl(-0.2,2.2,9.0,'#f4f8ff',1.4,5.5); pl(0,2.5,-1.7,'#ffb868',1.4,7);
 const loftL=[pl(-0.4,3.95,6.4,'#ffcf94',1.4,6),pl(0.4,3.95,8.8,'#ffcf94',1.2,5.5),pl(-0.9,3.95,4.2,'#ffd6b8',1.3,3.2)];
-function setNight(on,late){
-  if(on){scene.background=new THREE.Color('#2a2232');scene.fog=new THREE.Fog('#2a2232',28,75);hemi.intensity=0.55;hemi.color.set('#ffe2c4');hemi.groundColor.set('#6b5040');sun.intensity=0.2;sun.color.set('#9aa6d0');
-    warm.forEach(([l,i])=>l.intensity=i);M.glow.emissiveIntensity=1.2;M.globe.emissiveIntensity=1.3;M.led.emissiveIntensity=2.4;M.onyx.emissiveIntensity=0.9;M.neonRed.emissiveIntensity=2.0;M.neonBao.opacity=1;M.neonPay.opacity=1;M.neonSign.opacity=1;renderer.toneMappingExposure=1.15;}
-  else{scene.background=new THREE.Color('#d6e8ec');scene.fog=new THREE.Fog('#d6e8ec',35,90);hemi.intensity=1.0;hemi.color.set('#fff6ea');hemi.groundColor.set('#8a6a50');sun.intensity=1.8;sun.color.set('#fff1dc');
-    warm.forEach(([l,i])=>l.intensity=i*0.4);M.glow.emissiveIntensity=0.5;M.globe.emissiveIntensity=0.5;M.led.emissiveIntensity=1.1;M.onyx.emissiveIntensity=0.5;M.neonRed.emissiveIntensity=1.0;M.neonBao.opacity=0.6;M.neonPay.opacity=0.6;M.neonSign.opacity=0.5;renderer.toneMappingExposure=1.0;}
-  if(M.blindGlow)M.blindGlow.color.setScalar(on?(late?0.35:0.75):1.0); // fake windows: daylight at lunch, dimmed after dark
-  if(late){warm.forEach(([l,i])=>l.intensity=i*0.65);hemi.intensity=0.4;M.globe.emissiveIntensity=0.9;M.glow.emissiveIntensity=0.8;M.neonRed.emissiveIntensity=2.4;renderer.toneMappingExposure=1.0;}
-  renderer.shadowMap.needsUpdate=true; dirty=true;
-}
+// ---------- LIGHTING ENGINE: time of day (sky, sun, ambient) × master dimmer (every fixture, all warm 2700 K / 2200 K) ----------
+loftL.push(pl(-1.37,MZ+1.45,7.15,'#ffa24e',0.9,3.4),pl(1.37,MZ+1.45,8.3,'#ffa24e',0.8,3.2)); pl(-0.6,2.0,6.3,'#ffae5c',0.8,3.2); // pendants + under-loft downlights
+const KITCHEN_L=warm[6][0];
+const EMI=[['glow',1.2],['globe',1.3],['led',2.4],['onyx',0.9],['greenLed',1.4],['lanternGlass',1.5],['whiteGlobe',1.1],['paper',1.0],['onyxGlow',0.95],['mirrorGlow',0.3]].filter(([k])=>M[k]);
+const NEONS=['neonBao','neonPay','neonSign','neonPink','neonSay','neonDraught','neonDim'].filter(k=>M[k]);
+const C=h=>new THREE.Color(h);const SKY=[[0,C('#d6e8ec')],[0.5,C('#f0b48a')],[0.7,C('#6a4a62')],[1,C('#1c1824')]];
+function skyAt(t){for(let i=1;i<SKY.length;i++)if(t<=SKY[i][0]){const [a0,c0]=SKY[i-1],[a1,c1]=SKY[i];return c0.clone().lerp(c1,(t-a0)/(a1-a0));}return SKY[SKY.length-1][1].clone();}
+const LIGHT={t:0.85,dim:0.8};
+function applyLight(){const t=LIGHT.t,d=LIGHT.dim,day=1-t;
+  const sky=skyAt(t);scene.background=sky;scene.fog=new THREE.Fog(sky,30+5*day,75+15*day);
+  sun.intensity=0.12+1.7*Math.pow(day,1.3);sun.color.copy(C('#fff1dc').lerp(C('#ffb070'),Math.min(1,t*1.6)).lerp(C('#8a96c0'),Math.max(0,(t-0.65)/0.35)));
+  hemi.color.copy(C('#fff6ea').lerp(C('#ffb066'),t)); hemi.groundColor.copy(C('#8a6a50').lerp(C('#4a2a18'),t));
+  hemi.intensity=0.95*Math.pow(day,1.1)+(0.06+0.3*d)*t;                      // after dark the only ambient is the warm bounce from the fittings
+  const lo=LIGHT.loftOn!==false;warm.forEach(([l,i])=>{if(l===KITCHEN_L){l.intensity=i;return;}l.intensity=i*d*(0.35+0.9*t)*(loftL.includes(l)&&!lo?0:1);});
+  EMI.forEach(([k,b])=>M[k].emissiveIntensity=b*(0.06+0.94*d)*(0.55+0.45*t));
+  NEONS.forEach(k=>M[k].opacity=d<0.02?0.08:0.45+0.55*Math.min(1,0.4+t));
+  M.neonRed.emissiveIntensity=d<0.02?0.05:1.0+1.4*t;
+  if(M.blindGlow){const warmW=C('#fff2dc').lerp(C('#ffcf90'),t);M.blindGlow.color.copy(warmW).multiplyScalar((0.08+0.92*d)*(1-0.45*t));} // fake windows: 3500 K by day → 2700 K at night
+  renderer.toneMappingExposure=1.0+0.15*t;
+  const k=Math.round(2700-500*t*(1-d)); const rd=document.getElementById('lc-read'); if(rd)rd.textContent=Math.round(d*100)+'% · '+(d<0.02?'off':(t>0.6?'2700/2200 K':'2700 K'));
+  renderer.shadowMap.needsUpdate=true; dirty=true;}
+function setNight(on,late){LIGHT.t=on?(late?1:0.85):0;LIGHT.dim=late?0.45:on?0.8:1;applyLight();}
 
 
 
@@ -1356,7 +1383,7 @@ bx(X0+0.49,X0+0.5,MZ+0.04,MZ+0.06,5.02,9.48,M.glow,lf,false); bx(X1-0.5,X1-0.49,
 const LBL=[
  ['Beer garden · 6',0,3.3,-1.7,'o'],['Mist fan',-2.9,1.95,-1.7,'o'],['Mist fan',2.95,1.95,-2.95,'o'],['Misting line on the pergola',3.28,2.95,-1.6,'o'],['Chalkboard',1.05,1.3,-3.75,'o'],
  ['POS + card machine at the bar end',-0.9,1.45,2.85,'g'],['"settle up here" neon',X0+0.05,2.8,2.95,'g','R'],['Window lounge · 4',-1.25,1.15,1.3,'g'],['Reclaimed-wood wall · vintage signs',X0+0.05,3.9,1.2,'g','R'],['Frames up the stair',X1-0.05,2.65,2.05,'g','L'],['Spiral duct + brass lanterns',0.4,4.05,1.6,'g'],
- ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, green-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
+ ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, amber-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
  ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Code stair · 1.2 m · 16 × 149 mm risers',1.6,1.6,1.5,'g'],['Landing 1.2 m',1.65,1.35,3.0,'g'],['Locked store under the stair',SX0-0.05,1.55,4.6,'g'],['Keg cooler · 8 × 20 L kegs',-1.6,1.0,6.0,'g'],['CO₂ bay · chained · vented',-1.55,0.7,7.15,'g'],['Empty-keg cage (outside)',2.05,1.45,D+1.4,'g'],['Urinal',1.95,1.85,6.02,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
  ['Kitchen · click to explore',-0.6,1.9,8.9,'g cta'],['Split AC 1.5 TR (ground, back)',-1.17,2.3,KZ-0.15,'g'],['Split AC 1.5 TR (ground, front)',X0+0.12,4.3,1.2,'g'],['Wall speaker',X0+0.25,3.1,0.2,'g'],['Wall speaker',X1-0.25,3.95,2.25,'g'],['AC outdoor units',0.45,3.7,D+0.35,'k'],
  ['Loft · 18 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Fake window · LED panel behind a cellular blind',X0+0.05,4.5,7.3,'u'],['Fake windows flanking the neon',-1.55,4.45,D-0.05,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · Persian runner',X1-0.05,MZ+1.6,9.3,'u'],['Station base hides the 0.44 m hood step · no ledge',-1.6,MZ+0.6,9.5,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 2.0 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Salon gallery over the benches',X1-0.05,4.15,7.8,'u','L'],
@@ -1444,7 +1471,7 @@ const VIEWS={
 const state={cut:true,labels:true,night:true,loft:true,focus:null};
 function goView(k,instant){const v=VIEWS[k];const to={p:V(...v.p),t:V(...v.t)};
   if(instant||window.matchMedia('(prefers-reduced-motion: reduce)').matches){camera.position.copy(to.p);controls.target.copy(to.t);controls.update();dirty=true;return;}
-  anim={fp:camera.position.clone(),ft:controls.target.clone(),to,t0:performance.now(),dur:1000};}
+  const dist=camera.position.distanceTo(to.p)+controls.target.distanceTo(to.t);anim={fp:camera.position.clone(),ft:controls.target.clone(),to,t0:performance.now(),dur:Math.min(1500,Math.max(650,500+dist*90))};}
 const viewBtns=[...document.querySelectorAll('[data-view]')];
 function pressView(k){viewBtns.forEach(b=>b.setAttribute('aria-pressed',b.dataset.view===k?'true':'false'));}
 const card=document.getElementById('card'),cardBtns=document.getElementById('cardBtns');
@@ -1458,8 +1485,12 @@ function closeZone(){state.focus=null;card.hidden=true;dirty=true;}
 document.getElementById('cardX').addEventListener('click',()=>{closeZone();pressView('iso');goView('iso');});
 viewBtns.forEach(b=>b.addEventListener('click',()=>{const k=b.dataset.view;if(ZONES[k]){openZone(k);return;}closeZone();pressView(k);goView(k);}));
 function toggle(id,key,fn){const b=document.getElementById(id);b.addEventListener('click',()=>{state[key]=!state[key];b.setAttribute('aria-pressed',String(state[key]));fn&&fn();dirty=true;});}
-toggle('t-loft','loft');toggle('t-cut','cut');toggle('t-lbl','labels');{const SC=['Lunch','Evening','Late'];let si=1;const b=document.getElementById('t-night');
- b.addEventListener('click',()=>{si=(si+1)%3;state.night=si>0;b.textContent='Scene: '+SC[si];b.setAttribute('aria-pressed',String(si>0));setNight(si>0,si===2);dirty=true;});}
+toggle('t-loft','loft');toggle('t-cut','cut');toggle('t-lbl','labels');{const tI=document.getElementById('lc-time'),dI=document.getElementById('lc-dim'),pre=[...document.querySelectorAll('.lc-pre button')];
+ const PRE={lunch:[0,100],dusk:[55,70],evening:[85,80],late:[100,40]};
+ const sync=()=>{tI.value=Math.round(LIGHT.t*100);dI.value=Math.round(LIGHT.dim*100);};
+ tI.addEventListener('input',()=>{LIGHT.t=tI.value/100;pre.forEach(b=>b.setAttribute('aria-pressed','false'));applyLight();});
+ dI.addEventListener('input',()=>{LIGHT.dim=dI.value/100;pre.forEach(b=>b.setAttribute('aria-pressed','false'));applyLight();});
+ pre.forEach(b=>b.addEventListener('click',()=>{const [t,d]=PRE[b.dataset.pre];LIGHT.t=t/100;LIGHT.dim=d/100;sync();pre.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyLight();}));}
 controls.addEventListener('start',()=>{anim=null;});
 controls.addEventListener('change',()=>{dirty=true;});
 
@@ -1478,18 +1509,40 @@ renderer.domElement.addEventListener('pointerleave',()=>{htag.hidden=true;});
 
 function resize(){const w=stage.clientWidth,h=stage.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;camera.updateProjectionMatrix();dirty=true;}
 new ResizeObserver(resize).observe(stage); resize();
-setNight(true); goView('iso',true);
+applyLight(); goView('iso',true);
 
 // render only when something changed (camera, toggles, resize): idle frames cost nothing
+
+// ---------- SMOOTH NAVIGATION: lighter rendering while moving, labels fade in motion, double-click to fly, keyboard walk ----------
+const DPR=Math.min(window.devicePixelRatio||1,1.75);let moving=false,restT=null;
+function setMoving(m){if(m===moving)return;moving=m;labelsEl.classList.toggle('moving',m);renderer.setPixelRatio(m?Math.min(DPR,1.0):DPR);const r=stage.getBoundingClientRect();renderer.setSize(r.width,r.height,false);dirty=true;}
+controls.addEventListener('start',()=>{clearTimeout(restT);setMoving(true);});
+controls.addEventListener('end',()=>{clearTimeout(restT);restT=setTimeout(()=>setMoving(false),350);});
+const rc=new THREE.Raycaster();
+renderer.domElement.addEventListener('dblclick',e=>{const r=renderer.domElement.getBoundingClientRect();const v2=new THREE.Vector2(((e.clientX-r.left)/r.width)*2-1,-((e.clientY-r.top)/r.height)*2+1);
+  rc.setFromCamera(v2,camera);const hit=rc.intersectObjects(scene.children,true).find(h=>h.object.visible&&h.object.material!==hitMat&&!(h.object.material&&h.object.material.transparent&&h.object.material.opacity<0.3));
+  if(!hit)return;const dir=camera.position.clone().sub(controls.target).normalize();const d=Math.min(3.2,Math.max(1.4,camera.position.distanceTo(hit.point)*0.45));
+  anim={fp:camera.position.clone(),ft:controls.target.clone(),to:{p:hit.point.clone().add(dir.multiplyScalar(d)),t:hit.point.clone()},t0:performance.now(),dur:800};dirty=true;});
+const keys=new Set();window.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('input,textarea'))return;const k=e.key.toLowerCase();
+  if(k==='r'){closeZone&&closeZone();pressView('iso');goView('iso');return;}
+  if(['w','a','s','d','q','e','arrowup','arrowdown','arrowleft','arrowright'].includes(k)){keys.add(k);e.preventDefault();}});
+window.addEventListener('keyup',e=>keys.delete(e.key.toLowerCase()));window.addEventListener('blur',()=>keys.clear());
+let lastK=performance.now();
+function keyWalk(now){const dt=Math.min(0.05,(now-lastK)/1000);lastK=now;if(!keys.size)return false;anim=null;
+  const fwd=controls.target.clone().sub(camera.position);fwd.y=0;if(fwd.lengthSq()<1e-6)fwd.set(0,0,1);fwd.normalize();const right=new THREE.Vector3().crossVectors(fwd,V(0,1,0)).normalize();
+  const sp=2.2*dt,mv=V(0,0,0);if(keys.has('w')||keys.has('arrowup'))mv.add(fwd);if(keys.has('s')||keys.has('arrowdown'))mv.sub(fwd);
+  if(keys.has('d')||keys.has('arrowright'))mv.add(right);if(keys.has('a')||keys.has('arrowleft'))mv.sub(right);if(keys.has('e'))mv.y+=1;if(keys.has('q'))mv.y-=1;
+  if(mv.lengthSq()===0)return false;mv.normalize().multiplyScalar(sp);camera.position.add(mv);controls.target.add(mv);return true;}
 const tmp=V(0,0,0);const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
 function frame(now){
   requestAnimationFrame(frame);
-  if(anim){const k=Math.min(1,(now-anim.t0)/anim.dur);const e=ease(k);camera.position.lerpVectors(anim.fp,anim.to.p,e);controls.target.lerpVectors(anim.ft,anim.to.t,e);if(k>=1)anim=null;dirty=true;}
+  if(anim){const k=Math.min(1,(now-anim.t0)/anim.dur);const e=ease(k);camera.position.lerpVectors(anim.fp,anim.to.p,e);controls.target.lerpVectors(anim.ft,anim.to.t,e);if(k>=1){anim=null;setMoving(false);}else setMoving(true);dirty=true;}
+  if(keyWalk(now)){dirty=true;setMoving(true);clearTimeout(restT);restT=setTimeout(()=>setMoving(false),350);}
   if(controls.update())dirty=true;
   if(!dirty)return; dirty=false;
   const c=camera.position;
   const loftOn=state.loft&&!['kitchen','washroom','kegs'].includes(state.focus);
-  G.loft.visible=loftOn; loftL.forEach(l=>l.visible=loftOn);
+  G.loft.visible=loftOn; if(LIGHT.loftOn!==loftOn){LIGHT.loftOn=loftOn;applyLight();dirty=false;}
   G.ceil.visible=!(state.cut&&c.y>H);
   G.kceil.visible=!(state.cut&&c.y>KC+0.05);
   G.wallR.visible=!(state.cut&&c.x<X0);
