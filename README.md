@@ -15,8 +15,9 @@ Open either HTML file in a browser to orbit around the model.
 The food and drinks menus are separate, each with its own owner's notes and PDF.
 
 - Menu chooser: https://singhgenics.github.io/dream/menu/
-- Food menu: `food.html` (source) → `menu/food/index.html`, live at https://singhgenics.github.io/dream/menu/food/ · print: `menu-food.pdf` (2 A3 pages)
-- Drinks menu: `drinks.html` (source) → `menu/drinks/index.html`, live at https://singhgenics.github.io/dream/menu/drinks/ · print: `menu-drinks.pdf` (2 A3 pages)
+- Food menu: `food.html` (source) → `menu/food/index.html`, live at https://singhgenics.github.io/dream/menu/food/ · print: `menu-food.pdf` (front of the board, one A2 sheet)
+- Drinks menu: `drinks.html` (source) → `menu/drinks/index.html`, live at https://singhgenics.github.io/dream/menu/drinks/ · print: `menu-drinks.pdf` (back of the board, one A2 sheet)
+- Two-sided board: `menu-board.pdf`, food on page 1 (front) and drinks on page 2 (back), A2 portrait 420 × 594 mm, three columns per side
 
 ## Other files
 
