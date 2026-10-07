@@ -207,6 +207,7 @@ td.n{white-space:nowrap}
         <li><b>Seating</b><span>Full-height dining for 20, in an earthy palette. Built-in oak benches run along both walls with rust linen seat cushions, jute back cushions and sage and ochre scatter cushions. They face solid mango-wood tables at 75 cm, with rattan-back dining chairs on the aisle side. Three tables of 4 sit on the right and two on the left (the stair head stays clear). A jute runner covers the 1.0 m centre aisle, with a woven rattan pendant over each table and a dried-grass bud vase and tea light on every table. The walls are warm clay plaster.</span></li>
         <li><b>Photo spot</b><span>A standing photo booth in the nook that juts out over the bar. The backdrop is on the nook's right-hand wall, so the booth faces across the room. It has a blush limewash wall, a painted terracotta arch 1.75 m tall, a warm-white "say bao" neon in the arch, a slim brass-edged pill mirror beside it, and a dried-flower garland in dusty pink, rust, wheat and sage cascading down the arch. Guests stand on a jute rug with a brass marker, and the photographer shoots from the nook's open side. The front stays an open black rail carrying the "bao, baby?" neon, so the booth is visible from the door.</span></li>
         <li><b>Service station</b><span>The DJ desk is gone. In its place on the back wall is a loft service station: an olive cabinet with a travertine top and two bus tubs for used plates. It also holds stacked clean plates and bowls, a cutlery caddy, napkins and a bin, so servers don't carry every plate down the stair one at a time. The pink "stay a little longer" neon stays above it.</span></li>
+        <li><b>Fake windows</b><span>The loft has no real windows, so it has four fake ones: one on each side wall (1.0 × 0.86 m) and a pair on the back wall (0.8 × 0.8 m) flanking the pink neon. Each is a slim 4000 K LED panel in a shallow box behind a cream cellular blind, cased in painted trim with a sill, on a dimmer that follows the time of day.</span></li>
         <li><b>Edge</b><span>A black steel rod railing lined with potted trailing plants, a black fascia with an LED line, and the menu board hanging over the bar.</span></li>
         <li><b>Headroom</b><span>The floor sits at 2.38 m on a slim 0.17 m deck, which leaves 2.12 m up there, enough for adults to stand upright and for normal full-height tables and chairs. Along the back wall the floor steps up 0.44 m to make room for the kitchen hood below. The service station spans that whole step with its front flush to the edge, so the step is just its base and there is no ledge to stand on.</span></li>
       </ul>
@@ -1006,14 +1007,31 @@ const SALON=[ // side, z, y, w, h, frame(-1 = tin sign), poster, matted
  [1,2.75,4.28,0.4,0.3,0,4,0],[1,3.25,4.28,0.42,0.3,-1,1,0],[1,3.78,4.28,0.4,0.3,2,9,0],
  [1,4.47,2.95,0.36,0.5,1,5,1],[1,4.47,4.2,0.36,0.4,0,6,0],
  // loft right wall: dense cluster above the oak bench (bench back tops out at 3.4 m)
- [-1,5.28,3.92,0.48,0.7,0,0,1],[-1,5.82,4.18,0.4,0.3,2,9,0],[-1,5.82,3.72,0.4,0.46,1,3,0],[-1,6.42,3.95,0.6,0.8,0,1,1],
- [-1,7.0,4.18,0.36,0.3,-1,6,0],[-1,7.0,3.72,0.36,0.48,2,8,0],[-1,8.2,4.16,0.42,0.32,1,4,0],[-1,8.2,3.72,0.42,0.46,0,10,0],
- [-1,8.82,3.95,0.6,0.8,2,2,1],[-1,9.36,4.06,0.34,0.5,0,7,0],
+ [-1,5.28,3.92,0.48,0.7,0,0,1],[-1,5.82,4.18,0.4,0.3,2,9,0],[-1,5.82,3.72,0.4,0.46,1,3,0],[-1,6.38,3.95,0.5,0.76,0,1,1],
+ [-1,9.12,3.95,0.56,0.8,2,2,1],
  // loft left wall: above the oak bench past the stair head
- [1,7.42,3.95,0.5,0.72,1,11,1],[1,7.98,4.17,0.4,0.3,0,5,0],[1,7.98,3.72,0.4,0.44,-1,3,0],[1,8.58,3.95,0.6,0.8,0,6,1],[1,9.18,4.13,0.38,0.3,2,0,0],[1,9.18,3.72,0.38,0.44,1,8,0],
+ [1,7.42,3.95,0.5,0.72,1,11,1],[1,9.18,4.13,0.38,0.3,2,0,0],[1,9.18,3.72,0.38,0.44,1,8,0],
  // washroom (kept)
  [1,7.15,1.55,0.36,0.44,2,7,1]];
 SALON.forEach(([sd,z,y,w,h,fm,pi,mt])=>hangP(sd,z,y,w,h,fm,pi,sd<0?G.wallR:G.wallL,mt));
+
+// FAKE WINDOWS (loft has no real windows): slim LED panel in a shallow box behind a cellular blind, cased in painted trim with a sill.
+// Right wall over the middle table, left wall over the left tables, and a pair on the back wall flanking the neon.
+const blindTex=tex(128,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#efe1c4');gr.addColorStop(0.5,'#fff6e2');gr.addColorStop(1,'#efe1c4');g.fillStyle=gr;g.fillRect(0,0,w,h);
+  for(let y=0;y<h;y+=7){g.fillStyle='rgba(150,120,80,0.16)';g.fillRect(0,y,w,1.5);g.fillStyle='rgba(255,255,255,0.35)';g.fillRect(0,y+3,w,1);}},1,1);
+M.blindGlow=new THREE.MeshBasicMaterial({map:blindTex,toneMapped:false}); M.trim=S({color:'#f4efe4',roughness:0.6});
+function fakeWindow(wall,c,y,w,h){const g=new THREE.Group(),B=(bw,bh,bd,x,yy,z,m)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bd),m);o.position.set(x,yy,z);g.add(o);return o;};
+  const t=0.07; // casing width
+  B(w,h,0.01,0,0,0.005,M.black);                                  // shadow gap behind the panes
+  [-1,1].forEach(k=>{const p=new THREE.Mesh(new THREE.PlaneGeometry(w/2-0.02,h-0.02),M.blindGlow);p.position.set(k*(w/4),0,0.012);g.add(p);});
+  B(0.035,h,0.03,0,0,0.02,M.trim);                                // centre mullion, like the two-blind reference
+  B(w+2*t,t,0.03,0,h/2+t/2,0.015,M.trim); B(t,h,0.03,-w/2-t/2,0,0.015,M.trim); B(t,h,0.03,w/2+t/2,0,0.015,M.trim); // head + jambs
+  B(w+2*t+0.06,0.03,0.09,0,-h/2-0.015,0.045,M.trim); B(w+2*t,0.06,0.025,0,-h/2-0.06,0.0125,M.trim); // sill + apron
+  B(w,0.04,0.035,0,h/2-0.02,0.03,M.trim);                          // blind headrail
+  const par=wall==='R'?G.wallR:wall==='L'?G.wallL:G.wallB;
+  if(wall==='R'){g.position.set(X0+0.002,y,c);g.rotation.y=Math.PI/2;} else if(wall==='L'){g.position.set(X1-0.002,y,c);g.rotation.y=-Math.PI/2;} else {g.position.set(c,y,D-0.002);g.rotation.y=Math.PI;}
+  par.add(g);}
+fakeWindow('R',7.3,3.92,1.0,0.86); fakeWindow('L',8.3,3.92,1.0,0.86); fakeWindow('B',-1.55,3.92,0.8,0.8); fakeWindow('B',1.55,3.92,0.8,0.8);
 // ROUND NEON on the loft right wall between the clusters, and a second one above the TV over the back bar
 M.neonDraught=new THREE.MeshBasicMaterial({map:neonTexture('cold draught','92px Yellowtail, cursive','#ff6a3a','#ffd2b8',600,220),transparent:true,toneMapped:false,depthWrite:false});
 M.neonDim=new THREE.MeshBasicMaterial({map:neonTexture('dim sum','110px Yellowtail, cursive','#ff6a3a','#ffd2b8',600,220),transparent:true,toneMapped:false,depthWrite:false});
@@ -1021,7 +1039,7 @@ function roundNeon(z,y,r,mat,parent){const ring=new THREE.Mesh(new THREE.TorusGe
   const ring2=new THREE.Mesh(new THREE.TorusGeometry(r*0.82,0.012,8,40),M.neonRed);ring2.rotation.y=Math.PI/2;ring2.position.set(X0+0.06,y,z);parent.add(ring2);
   const disc=new THREE.Mesh(new THREE.CircleGeometry(r*0.98,40),M.black);disc.rotation.y=Math.PI/2;disc.position.set(X0+0.035,y,z);parent.add(disc);
   plane(r*1.75,r*0.62,mat,X0+0.07,y,z,Math.PI/2,parent);}
-roundNeon(7.6,3.95,0.42,M.neonDraught,G.wallR); roundNeon(2.95,3.95,0.36,M.neonDim,G.wallR);
+roundNeon(8.32,3.95,0.4,M.neonDraught,G.wallR); roundNeon(2.95,3.95,0.36,M.neonDim,G.wallR);
 // felt PENNANTS strung along the top of the stair wall and both loft walls
 {const pc=[M.red,M.linen,M.ochre||M.orange,M.teal2||M.oliveWood];const tri=new THREE.Shape();tri.moveTo(-0.09,0);tri.lineTo(0.09,0);tri.lineTo(0,-0.22);tri.lineTo(-0.09,0);const tg=new THREE.ShapeGeometry(tri);
  [[1,0.4,2.6,4.44],[-1,5.0,9.55,4.44],[1,7.1,9.55,4.44]].forEach(([sd,z0,z1,y])=>{const x=sd<0?X0+0.02:X1-0.02;rod(V(x,y+0.01,z0),V(x,y+0.01,z1),0.004,M.black,sd<0?G.wallR:G.wallL);
@@ -1098,12 +1116,12 @@ detector(-1.2,DK,4.3,gr); detector(-0.2,DK,6.3,gr); detector(0,H,6.6,lf); detect
 // manual call points + hooter: entrance (right wall) and the loft stair head
 callPoint(X0+0.05,1.4,0.2,gr); cyl(0.07,0.07,0.08,X0+0.06,2.6,0.2,M.fRed,gr,14).rotation.z=Math.PI/2; callPoint(X1-0.05,MZ+1.4,6.98,lf);
 // emergency lights (battery, 90 min): entrance, stair landing, aisle to the kitchen, loft
-emLight(X0+0.06,2.95,0.25,gr); emLight(X1-0.06,3.7,4.3,gr); emLight(SX0-0.06,1.98,7.2,gr); emLight(X1-0.06,MZ+1.85,6.98,lf); emLight(1.6,3.95,D-0.06,lf);
+emLight(X0+0.06,2.95,0.25,gr); emLight(X1-0.06,3.7,4.3,gr); emLight(SX0-0.06,1.98,7.2,gr); emLight(X1-0.06,MZ+1.85,6.98,lf); emLight(0.78,3.58,D-0.06,lf);
 // lit EXIT signs: over the front entrance, at the loft stair head, over the rear door
 exitSign(0,2.75,0.12,0,gr); rod(V(0,H,0.12),V(0,2.82,0.12),0.005,M.black,gr);
 exitSign(X1-0.02,MZ+1.7,6.4,-Math.PI/2,lf); exitSign(1.55,2.13,D-0.03,Math.PI,G.kitchen);
 // CCTV: entrance, POS/till, loft, rear exit, garden (recorder in the locked under-stair store)
-cctv(X0+0.12,3.3,0.25,0.9,gr); cctv(-0.5,DK-0.05,3.62,Math.PI,gr); cctv(-2.05,4.25,D-0.15,Math.PI+0.5,lf); cctv(1.55,2.55,D+0.25,0,G.ext); cctv(3.3,2.6,-0.42,-2.3,G.outside);
+cctv(X0+0.12,3.3,0.25,0.9,gr); cctv(-0.5,DK-0.05,3.62,Math.PI,gr); cctv(-2.15,4.42,D-0.12,Math.PI+0.5,lf); cctv(1.55,2.55,D+0.25,0,G.ext); cctv(3.3,2.6,-0.42,-2.3,G.outside);
 // POS at the bar's door end: tablet on a stand, card machine, receipt printer
 {const t=bx(-1.0,-0.98,1.08,1.28,2.72,2.98,M.black,gr);t.rotation.z=-0.3;} bx(-0.98,-0.86,1.04,1.07,3.02,3.12,M.black,gr); bx(-1.0,-0.8,1.04,1.16,2.45,2.68,M.porcelain,gr);
 // ---------- labels ----------
@@ -1113,7 +1131,7 @@ const LBL=[
  ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, green-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
  ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Code stair · 1.2 m · 16 × 149 mm risers',1.6,1.6,1.5,'g'],['Landing 1.2 m',1.65,1.35,3.0,'g'],['Locked store under the stair',SX0-0.05,1.55,4.6,'g'],['Keg cooler · 8 × 20 L kegs',-1.6,1.0,6.0,'g'],['CO₂ bay · chained · vented',-1.55,0.7,7.15,'g'],['Empty-keg cage (outside)',2.05,1.45,D+1.4,'g'],['Urinal',1.95,1.85,6.02,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
  ['Kitchen · click to explore',-0.6,1.9,8.9,'g cta'],['Split AC 1.4 TR (ground)',-1.17,2.45,KZ-0.15,'g'],['Wall speaker',X0+0.25,3.1,0.2,'g'],['Wall speaker',X1-0.25,3.95,2.25,'g'],['AC outdoor units',0.45,3.7,D+0.35,'k'],
- ['Loft · 20 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · jute runner',X1-0.05,MZ+1.6,9.3,'u'],['Station base hides the 0.44 m hood step · no ledge',-1.6,MZ+0.6,9.5,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 1.4 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Framed prints over the banquettes',X1-0.05,4.15,7.8,'u','L'],
+ ['Loft · 20 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Fake window · LED panel behind a cellular blind',X0+0.05,4.5,7.3,'u'],['Fake windows flanking the neon',-1.55,4.45,D-0.05,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · jute runner',X1-0.05,MZ+1.6,9.3,'u'],['Station base hides the 0.44 m hood step · no ledge',-1.6,MZ+0.6,9.5,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 1.4 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Salon gallery over the benches',X1-0.05,4.15,7.8,'u','L'],
  ['Wok range · 2 burners',-1.65,1.25,10.15,'k'],['Dim sum steamer',-0.6,1.35,10.15,'k'],['Twin fryer',0.15,1.2,10.15,'k'],['2-burner range',0.78,1.3,10.15,'k'],
  ['Hood · baffles · fire suppression',-0.6,2.42,9.8,'k'],['Pass + heat lamp',-0.33,1.95,7.8,'k'],['Dumpling / veg prep',-1.15,1.05,8.0,'k'],
  ['Non-veg prep · u/c freezer',X0+0.35,1.7,9.35,'k'],['2-door reach-in',X0+0.38,2.15,8.25,'k'],['Hand-wash sink',1.3,1.6,7.8,'k'],
@@ -1127,7 +1145,7 @@ LBL.push(['Extinguishers · ABC 6 kg + CO₂ 4.5 kg',SX0-0.1,0.95,2.85,'s'],['CO
  ['Emergency light',X0+0.06,3.05,0.25,'s'],['Emergency light (landing)',X1-0.06,3.8,4.3,'s'],['Emergency light (aisle)',SX0-0.06,2.05,7.2,'s'],
  ['EXIT sign',0,2.95,0.12,'s'],['EXIT sign (stair head)',X1-0.02,MZ+1.85,6.4,'s'],['EXIT sign (rear door)',1.55,2.15,D-0.03,'s'],
  ['Glow nosing on every step',1.65,0.75,1.05,'s'],['Glass balustrade · 1.0 m rail',SX0+0.03,2.3,2.0,'s'],['Loft guard · 1.0 m, glass infill',0.4,MZ+1.1,LZ,'s'],
- ['CCTV · entrance',X0+0.12,3.45,0.25,'s'],['CCTV · till',-0.5,DK-0.15,3.62,'s'],['CCTV · loft',-2.05,4.4,D-0.15,'s'],['CCTV · rear exit',1.55,2.75,D+0.25,'s'],['CCTV · garden',3.3,2.75,-0.42,'s'],
+ ['CCTV · entrance',X0+0.12,3.45,0.25,'s'],['CCTV · till',-0.5,DK-0.15,3.62,'s'],['CCTV · loft',-2.15,4.45,D-0.12,'s'],['CCTV · rear exit',1.55,2.75,D+0.25,'s'],['CCTV · garden',3.3,2.75,-0.42,'s'],
  ['ABC extinguisher (garden)',-3.28,0.75,-0.45,'s'],['LPG cage · leak detector · auto shut-off',-1.7,1.85,D+0.7,'s'],['Front: glass doors open outward inside the shutter',0,1.2,0.05,'s']);
 const labelsEl=document.getElementById('labels');
 const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;d.hidden=true;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f:f.split(' ')[0],w,shown:false};});
@@ -1135,7 +1153,7 @@ const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.c
 // ---------- zones (click to explore) ----------
 const ZONES={
   loft:{box:[X0,X1,DK,H,LZ,D],ey:'Loft · 24.6 m² · 20 covers',t:'The loft',b:'An earthy dining loft for 20 at full-height tables: built-in oak benches with rust and jute cushions, mango-wood tables, rattan dining chairs, clay-plaster walls and woven rattan pendants. There\u2019s a service station on the back wall for used plates and clean crockery.',
-    l:['Headroom 2.12 m (floor 2.38 m on a slim 0.17 m deck, ceiling 4.5 m). Adults can stand upright','Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 1.4 TR split AC on the back wall, and two wall speakers','Five tables of 4 at 75 cm: oak wall benches on one side, rattan-back chairs on the other','Plus a photo-spot nook that juts out over the bar','A 1.0 m aisle down the middle on a jute runner; the stair head stays clear','Glass-infill guard rail lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['Gallery wall','loftWall'],['From the bar','loftUp']]},
+    l:['Headroom 2.12 m (floor 2.38 m on a slim 0.17 m deck, ceiling 4.5 m). Adults can stand upright','Back-wall service station: bus tubs for used plates, stacked clean crockery, cutlery caddy, napkins, bin','A 1.4 TR split AC on the back wall, and two wall speakers','Five tables of 4 at 75 cm: oak wall benches on one side, rattan-back chairs on the other','Plus a photo-spot nook that juts out over the bar','A 1.0 m aisle down the middle on a jute runner; the stair head stays clear','Four fake windows (LED panel behind a cellular blind, cased with a sill): one on each side wall and a pair on the back wall flanking the neon','Glass-infill guard rail lined with trailing plants, pink neon on the back wall'],views:[['From above','loftTop'],['Inside the loft','loftv'],['Gallery wall','loftWall'],['From the bar','loftUp']]},
   nook:{box:[X0,BX,DK,H,BZ,LZ],ey:'Photo spot · 2.6 m²',t:'Standing photo booth',b:'On the nook\'s right-hand wall, facing across the room: a blush limewash wall with a painted terracotta arch, a warm-white "say bao" neon, a pill mirror and a dried-flower garland. Guests stand inside the arch on a jute rug.',
     l:['Headroom 2.12 m, the same as the loft, so there\u2019s room to stand for photos','The photographer stands at the nook\'s open side, about 2 m from the backdrop','A travertine plinth with a bamboo steamer and dried branches','About 2 × 1.25 m, railed in black steel with trailing plants','The front is an open rail carrying the "bao, baby?" neon, so the booth is visible from the door','Downlights in its underside light the back half of the bar','Reached through the loft, which is reached by the stair'],views:[['Photographer\'s view','nookIn'],['From below','nookUp']]},
   kitchen:{box:[X0,X1,0,KC,KZ,D],ey:'Kitchen · 13.1 m²',t:'Commercial kitchen',
