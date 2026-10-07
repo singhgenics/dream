@@ -257,7 +257,8 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
       </table></details>
       <details class="dims" id="sz-bar"><summary>Bar &amp; back bar · 5.9 m² + 1.5 m² stool zone</summary><table>
         <tr><td>Bar counter</td><td class="d">2.2 L × 0.75 D m · top 1.04 H · curved end R 0.38 m</td></tr>
-        <tr><td>Bartender aisle</td><td class="d">0.7 m clear</td></tr>
+        <tr><td>Bartender aisle</td><td class="d">0.85 m clear (counter moved 0.15 m toward the walkway)</td></tr>
+        <tr><td>Ice machine (under-counter)</td><td class="d">0.5 W × 0.55 D × 0.8 H · ~50 kg/day, 20 kg bin · drain + water</td></tr>
         <tr><td>Under-counter station</td><td class="d">0.2 × 2.2 m: speed rail, ice well, sink, glasswasher</td></tr>
         <tr><td>Bar chairs (4)</td><td class="d">seat Ø 0.42 at 0.78 H · back to 1.21 H · 0.55 m apart</td></tr>
         <tr><td>Taps</td><td class="d">6 on 2 brass fonts, 1.1 m apart</td></tr>
@@ -324,6 +325,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td>Fresh-air supply grille</td><td class="d">0.55 × 0.42 m</td></tr>
       </table></details>
       <details class="dims" id="sz-loft"><summary>Loft · 20 covers · 22.6 m²</summary><table>
+        <tr><td>Ceiling fan (front bay)</td><td class="d">0.9 m hugger, 0.22 m drop · blades 1.90 m above the loft floor · centred over the left high table</td></tr>
         <tr><td>Front bay (5.4–6.7 m, full width)</td><td class="d">3.3 × 1.3 m · 2.12 m clear (1.87 under beam B) · drink ledge 0.28 D at 1.04 m on the rail · 2 round high tables Ø 0.6 × 1.05 H, 4 high chairs (seat 0.73)</td></tr>
         <tr><td>Planter under beam T2</td><td class="d">3.2 L × 0.22 D × 0.45 H m (keeps people out from under the 1.72 m beam)</td></tr>
         <tr><td>Landing bridge (left wall)</td><td class="d">1.2 W × 1.25 L m · 2.12 m clear · glass guard</td></tr>
@@ -416,6 +418,8 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td>Lit EXIT signs · <b>3</b></td><td class="d">maintained</td></tr>
       </table></details>
       <details class="dims" id="sz-services"><summary>Services, safety &amp; security</summary><table>
+        <tr><td>Bin store (outside, by the rear door)</td><td class="d">0.9 × 0.7 × 1.1 m · slatted, lidded · wet / dry / glass · ~1.5 m from the LPG cage</td></tr>
+        <tr><td>Dry-store racking (under-stair store)</td><td class="d">4 tiers · 1.4 L × 0.4 D × 1.8 H · steel</td></tr>
         <tr><td>AC total</td><td class="d">~5 TR: 2 × 1.5 TR ground + 2.0 TR loft · 3 outdoor units 0.8 × 0.55 × 0.3 m</td></tr>
         <tr><td>Kitchen exhaust duct</td><td class="d">0.5 × 0.4 m</td></tr>
         <tr><td>Fresh-air intake fan</td><td class="d">0.7 × 0.48 m</td></tr>
@@ -888,30 +892,34 @@ const SK=(shape,gl,cap,i)=>[shape,gl,cap,sBase+i];
 // a few working bottles and bitters on the back-bar top, in front of the altar
 [[3.42,SK('liq','ruby','gold',11)],[4.28,SK('gin','blue','silver',9)]].forEach(([z,k])=>bottle(k,X0+0.36,0.96,z,gr));
 [3.48,3.52,4.22].forEach((z,i)=>cyl(0.018,0.02,0.1,X0+0.4,0.96,z,glassT.amber,gr,8));
-for(let i=0;i<8;i++) bottle(KINDS[[3,2,4,6,3,1,9,2][i]],-1.05,0.55,2.85+i*0.12,gr);
+// BAR COUNTER group, moved 0.15 m toward the walkway so the bartender aisle is 0.85 m (was 0.7)
+const barG=new THREE.Group();barG.position.x=0.15;gr.add(barG);
+for(let i=0;i<8;i++) bottle(KINDS[[3,2,4,6,3,1,9,2][i]],-1.05,0.55,2.85+i*0.12,barG);
 bx(X0+0.03,X0+0.09,2.78,3.46,2.35,3.55,M.black,gr); plane(1.14,0.62,M.tv,X0+0.095,3.12,2.95,Math.PI/2,gr);
 [[bb0+0.05,3.3],[bb1-0.04,1.4]].forEach(([z,h])=>cyl(0.022,0.022,h,X0+0.07,0.96,z,M.neonRed,gr,8));
-bx(-0.95,-0.47,0.06,0.96,c0,c1,M.onyxGlow,gr); bx(-0.95,-0.45,0,0.06,c0,c1,M.black,gr); bx(-1.05,-0.3,0.98,1.04,c0,c1,M.marble,gr);
-bx(-0.47,-0.445,0.96,0.98,c0,c1,M.black,gr,false); plane(c1-c0,0.9,M.meshWire,-0.44,0.51,(c0+c1)/2,Math.PI/2,gr);
-for(let z=c0;z<=c1+0.01;z+=0.55) bx(-0.45,-0.42,0.06,0.96,z-0.015,z+0.015,M.black,gr);
-{const e=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.25,0.9,24,1,false,Math.PI/2,Math.PI),M.onyxGlow);e.position.set(-0.7,0.51,c0);gr.add(e);const em=new THREE.Mesh(new THREE.CylinderGeometry(0.262,0.262,0.9,24,1,true,Math.PI/2,Math.PI),M.meshWire);em.position.set(-0.7,0.51,c0);gr.add(em);const eb=new THREE.Mesh(new THREE.CylinderGeometry(0.26,0.26,0.06,24,1,false,Math.PI/2,Math.PI),M.black);eb.position.set(-0.7,0.03,c0);gr.add(eb);
- const t=new THREE.Mesh(new THREE.CylinderGeometry(0.375,0.375,0.06,24,1,false,Math.PI/2,Math.PI),M.marble);t.position.set(-0.675,1.01,c0);gr.add(t);
- const l=new THREE.Mesh(new THREE.CylinderGeometry(0.31,0.31,0.025,24,1,false,Math.PI/2,Math.PI),M.led);l.position.set(-0.69,0.955,c0);gr.add(l);}
-bx(-0.32,-0.29,0.97,1.045,c0,c1,M.brass,gr,false);
-bx(-0.36,-0.33,0.94,0.965,c0,c1,M.led,gr,false);
-bx(-0.46,-0.44,0.03,0.07,c0,c1,M.led,gr,false);
-rod(V(-0.27,0.22,c0),V(-0.27,0.22,c1),0.024,M.brass,gr);
-bx(-1.15,-0.95,0,0.85,c0,c1,M.ss,gr); bx(-1.13,-0.97,0.75,0.86,2.9,3.5,M.porcelain,gr); bx(-1.13,-0.97,0.7,0.86,4.0,4.4,M.ssDark,gr);
-[3.2,4.3].forEach((z,k)=>{cyl(0.045,0.05,0.42,-0.85,1.04,z,M.brass,gr);rod(V(-0.85,1.46,z-0.27),V(-0.85,1.46,z+0.27),0.034,M.brass,gr);
-  [-0.22,0,0.22].forEach((o,i)=>{cyl(0.012,0.012,0.08,-0.85,1.38,z+o,M.brass,gr,8);cyl(0.02,0.014,0.15,-0.85,1.48,z+o,cush[(i+k*2)%5],gr,8);});});
-[2.95,3.5,4.05,4.6].forEach(z=>stool(-0.08,z,gr));
-bx(-1.15,-0.35,2.63,2.65,c0+0.1,BZ-0.1,M.shelfGlass,gr,false); [-1.15,-0.35].forEach(x=>{[2.62,2.86].forEach(y=>rod(V(x,y,c0+0.1),V(x,y,BZ-0.1),0.014,M.brass,gr));bx(x-0.012,x+0.012,2.6,2.615,c0+0.1,BZ-0.1,M.greenLed,gr,false);[c0+0.1,BZ-0.1].forEach(z=>rod(V(x,2.62,z),V(x,2.86,z),0.012,M.brass,gr));});
-[c0+0.1,BZ-0.1].forEach(z=>[2.62,2.86].forEach(y=>rod(V(-1.15,y,z),V(-0.35,y,z),0.012,M.brass,gr)));
-[[-1.1,c0+0.2],[-1.1,BZ-0.2],[-0.4,c0+0.2],[-0.4,BZ-0.2]].forEach(([x,z])=>rod(V(x,2.67,z),V(x,H-0.2,z),0.008,M.black,gr));
-[[2.95,3.35]].forEach(([za,zb])=>{for(let x=-1.0;x<=-0.5;x+=0.16)for(let z=za;z<=zb;z+=0.13){const g=cyl(0.038,0.01,0.1,x,2.5,z,M.shelfGlass,gr,8);g.castShadow=false;}});
-[2.85,3.3].forEach(z=>{rod(V(-0.75,2.62,z),V(-0.75,2.26,z),0.005,M.black,gr);sph(0.11,-0.75,2.18,z,M.globe,gr);});
-[3.95,4.4].forEach(z=>{rod(V(-1.0,H,z),V(-1.0,2.62,z),0.005,M.black,gr);sph(0.11,-1.0,2.52,z,M.globe,gr);}); // bar pendants now hang the full height
-{const r=rng(77);for(let i=0;i<30;i++){const side=r()<.5?-1.17:-0.33;trail(side+(r()-.5)*0.05,2.72,c0+0.2+r()*0.75,0.25+r()*0.45,gr);}for(let z=c0+0.3;z<BZ-0.2;z+=0.5){const p=new THREE.Mesh(new THREE.SphereGeometry(0.16,8,6),M.leaf);p.scale.set(1.4,0.5,1);p.position.set(-0.75,2.75,z);gr.add(p);}}
+bx(-0.95,-0.47,0.06,0.96,c0,c1,M.onyxGlow,barG); bx(-0.95,-0.45,0,0.06,c0,c1,M.black,barG); bx(-1.05,-0.3,0.98,1.04,c0,c1,M.marble,barG);
+bx(-0.47,-0.445,0.96,0.98,c0,c1,M.black,barG,false); plane(c1-c0,0.9,M.meshWire,-0.44,0.51,(c0+c1)/2,Math.PI/2,barG);
+for(let z=c0;z<=c1+0.01;z+=0.55) bx(-0.45,-0.42,0.06,0.96,z-0.015,z+0.015,M.black,barG);
+{const e=new THREE.Mesh(new THREE.CylinderGeometry(0.25,0.25,0.9,24,1,false,Math.PI/2,Math.PI),M.onyxGlow);e.position.set(-0.7,0.51,c0);barG.add(e);const em=new THREE.Mesh(new THREE.CylinderGeometry(0.262,0.262,0.9,24,1,true,Math.PI/2,Math.PI),M.meshWire);em.position.set(-0.7,0.51,c0);barG.add(em);const eb=new THREE.Mesh(new THREE.CylinderGeometry(0.26,0.26,0.06,24,1,false,Math.PI/2,Math.PI),M.black);eb.position.set(-0.7,0.03,c0);barG.add(eb);
+ const t=new THREE.Mesh(new THREE.CylinderGeometry(0.375,0.375,0.06,24,1,false,Math.PI/2,Math.PI),M.marble);t.position.set(-0.675,1.01,c0);barG.add(t);
+ const l=new THREE.Mesh(new THREE.CylinderGeometry(0.31,0.31,0.025,24,1,false,Math.PI/2,Math.PI),M.led);l.position.set(-0.69,0.955,c0);barG.add(l);}
+bx(-0.32,-0.29,0.97,1.045,c0,c1,M.brass,barG,false);
+bx(-0.36,-0.33,0.94,0.965,c0,c1,M.led,barG,false);
+bx(-0.46,-0.44,0.03,0.07,c0,c1,M.led,barG,false);
+rod(V(-0.27,0.22,c0),V(-0.27,0.22,c1),0.024,M.brass,barG);
+bx(-1.15,-0.95,0,0.85,c0,c1,M.ss,barG); bx(-1.13,-0.97,0.75,0.86,2.9,3.5,M.porcelain,barG); bx(-1.13,-0.97,0.7,0.86,4.0,4.4,M.ssDark,barG);
+[3.2,4.3].forEach((z,k)=>{cyl(0.045,0.05,0.42,-0.85,1.04,z,M.brass,barG);rod(V(-0.85,1.46,z-0.27),V(-0.85,1.46,z+0.27),0.034,M.brass,barG);
+  [-0.22,0,0.22].forEach((o,i)=>{cyl(0.012,0.012,0.08,-0.85,1.38,z+o,M.brass,barG,8);cyl(0.02,0.014,0.15,-0.85,1.48,z+o,cush[(i+k*2)%5],barG,8);});});
+[2.95,3.5,4.05,4.6].forEach(z=>stool(-0.08,z,barG));
+// UNDER-COUNTER ICE MACHINE (bartender side, far end): 0.5 W × 0.55 D × 0.8 H, ~50 kg/day with a 20 kg bin; drain + water feed below
+bx(-1.17,-1.15,0.06,0.8,4.22,4.72,M.ss,barG); bx(-1.18,-1.17,0.62,0.72,4.3,4.64,M.ssDark,barG,false); for(let y=0.12;y<0.4;y+=0.05)bx(-1.18,-1.17,y,y+0.02,4.28,4.66,M.black,barG,false);
+bx(-1.15,-0.35,2.63,2.65,c0+0.1,BZ-0.1,M.shelfGlass,barG,false); [-1.15,-0.35].forEach(x=>{[2.62,2.86].forEach(y=>rod(V(x,y,c0+0.1),V(x,y,BZ-0.1),0.014,M.brass,barG));bx(x-0.012,x+0.012,2.6,2.615,c0+0.1,BZ-0.1,M.greenLed,barG,false);[c0+0.1,BZ-0.1].forEach(z=>rod(V(x,2.62,z),V(x,2.86,z),0.012,M.brass,barG));});
+[c0+0.1,BZ-0.1].forEach(z=>[2.62,2.86].forEach(y=>rod(V(-1.15,y,z),V(-0.35,y,z),0.012,M.brass,barG)));
+[[-1.1,c0+0.2],[-1.1,BZ-0.2],[-0.4,c0+0.2],[-0.4,BZ-0.2]].forEach(([x,z])=>rod(V(x,2.67,z),V(x,H-0.2,z),0.008,M.black,barG));
+[[2.95,3.35]].forEach(([za,zb])=>{for(let x=-1.0;x<=-0.5;x+=0.16)for(let z=za;z<=zb;z+=0.13){const g=cyl(0.038,0.01,0.1,x,2.5,z,M.shelfGlass,barG,8);g.castShadow=false;}});
+[2.85,3.3].forEach(z=>{rod(V(-0.75,2.62,z),V(-0.75,2.26,z),0.005,M.black,barG);sph(0.11,-0.75,2.18,z,M.globe,barG);});
+[3.95,4.4].forEach(z=>{rod(V(-1.0,H,z),V(-1.0,2.62,z),0.005,M.black,barG);sph(0.11,-1.0,2.52,z,M.globe,barG);}); // bar pendants now hang the full height
+{const r=rng(77);for(let i=0;i<30;i++){const side=r()<.5?-1.17:-0.33;trail(side+(r()-.5)*0.05,2.72,c0+0.2+r()*0.75,0.25+r()*0.45,barG);}for(let z=c0+0.3;z<BZ-0.2;z+=0.5){const p=new THREE.Mesh(new THREE.SphereGeometry(0.16,8,6),M.leaf);p.scale.set(1.4,0.5,1);p.position.set(-0.75,2.75,z);barG.add(p);}}
 // SERVER STATION (right, behind the bar's end, beside the kitchen pass)
 // KEG COOLER under the server station: 0.75 m deep, 2 m long, 2–4 °C. Glass doors show 10 × 20 L kegs (6 on tap + 4 spares); the end bay holds the CO2 cylinder
 {const kx1=-1.35,kz0=5.4,kz1=6.6,bay=6.31;
@@ -1426,6 +1434,25 @@ PIL.forEach(z=>bx(X0-0.01,X0+PD,0,H+0.01,z-PW/2,z+PW/2,M.plaster,G.wallR));
 // Along the stair (z 0–5.7) the left-wall ledge is shown trimmed flush: it sits at head height over the top flight.
 [[0.0,4.65],[4.95,6.65],[6.95,D-0.15]].forEach(([z0,z1])=>bx(X0,X0+PD,2.45,2.65,z0,z1,M.plaster,G.wallR));
 bx(X0+PD,X1,2.45,2.65,D-0.15,D,M.plaster,G.wallB); bx(X1-0.15,X1,2.45,2.65,5.7,D-0.15,M.brick,G.wallL);
+
+// BIN STORE outside the rear door: closed, slatted and ventilated, 0.9 × 0.7 × 1.1 m with a lid; wet (green), dry (blue), glass (grey) bins.
+// About 1.5 m from the LPG cage, clear of the rear door's swing
+{const a=0.2,b=1.1,c=D+1.0,d=D+1.7;bx(a,b,0,0.06,c,d,M.concrete,G.ext,false);
+ [[a,a+0.03],[b-0.03,b]].forEach(([x0,x1])=>bx(x0,x1,0.06,1.1,c,d,M.timberDark,G.ext));
+ for(let y=0.12;y<1.05;y+=0.12){bx(a,b,y,y+0.07,d-0.03,d,M.timber,G.ext);bx(a,b,y,y+0.07,c,c+0.03,M.timber,G.ext);}
+ bx(a-0.03,b+0.03,1.1,1.14,c-0.03,d+0.03,M.timberDark,G.ext);
+ [[0.42,M.leaf],[0.65,S({color:'#2f5f9a',roughness:0.6})],[0.88,M.steel]].forEach(([x,m])=>{cyl(0.1,0.09,0.55,x,0.06,c+0.35,m,G.ext,14);});}
+// DRY STORE racking inside the locked under-stair store: 4-tier steel shelving 1.4 L × 0.4 D, up to 1.8 m (rice, flour, sauces, takeaway packaging)
+{for(const y of [0.1,0.55,1.0,1.45])bx(1.82,2.22,y,y+0.025,4.2,5.6,M.ss,gr);[4.2,5.58].forEach(z=>[1.83,2.2].forEach(x=>bx(x,x+0.02,0,1.8,z,z+0.02,M.ss,gr)));
+ for(let z=4.3;z<5.5;z+=0.28)[0.1,0.55,1.0].forEach((y,k)=>bx(1.86,2.18,y+0.025,y+0.3,z,z+0.2,k===1?M.cane:M.linen,gr));}
+
+// CEILING FAN in the front bay: low-profile "hugger" fan, 0.9 m (36") 3 cane-weave blades, black motor with a brass trim, flush to the slab.
+// Blades at 4.28 m = 1.90 m above the loft floor, so it is centred over the left high table (seated guests only, nobody stands under it).
+{const fx=-1.25,fz=5.98,y0=H,G2=G.loft;
+ cyl(0.08,0.08,0.03,fx,y0-0.03,fz,M.black,G2,20); cyl(0.12,0.14,0.13,fx,y0-0.16,fz,M.black,G2,24); cyl(0.142,0.142,0.012,fx,y0-0.17,fz,M.brass,G2,24);
+ cyl(0.07,0.05,0.05,fx,y0-0.22,fz,M.globe,G2,16);
+ for(let i=0;i<3;i++){const a=i*Math.PI*2/3+0.4;const bl=new THREE.Mesh(new THREE.BoxGeometry(0.33,0.012,0.11),M.cane);bl.position.set(fx+Math.cos(a)*0.28,y0-0.225,fz+Math.sin(a)*0.28);bl.rotation.y=-a;G2.add(bl);
+   const arm=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.012,0.04),M.black);arm.position.set(fx+Math.cos(a)*0.12,y0-0.22,fz+Math.sin(a)*0.12);arm.rotation.y=-a;G2.add(arm);}}
 // ---------- labels ----------
 const LBL=[
  ['Beer garden · 6',0,3.3,-1.7,'o'],['Mist fan',-2.9,1.95,-1.7,'o'],['Mist fan',2.95,1.95,-2.95,'o'],['Misting line on the pergola',3.28,2.95,-1.6,'o'],['Chalkboard',1.05,1.3,-3.75,'o'],
@@ -1474,7 +1501,7 @@ const U=0.006;
 tag('GROUND FLOOR 4.5 × 10.5 m · 47.3 m²',1.6,0.25,U+0.002,1.95,'up');
 tag('1.05 × 0.7 · h 0.76',0.5,-1.4,0.76+U,0.675,'up'); tag('0.6 × 0.7',0.35,-1.4,0.76+U,1.95,'up'); tag('gap 0.45',0.3,-1.4,U,1.43,'up');
 tag('banquette 2.1 × 0.5 · seat 0.47',0.65,-2.0,0.5+U,1.2,'up','z'); tag('walkway 1.5 m',0.5,0.3,U,1.0,'up');
-tag('bar counter 2.2 × 0.75 · top 1.04',0.68,-0.67,1.04+U,3.75,'up','z');
+tag('bar counter 2.2 × 0.75 · top 1.04',0.68,-0.52,1.04+U,3.75,'up','z'); tag('bartender aisle 0.85',0.45,-1.5,U,3.75,'up','z');
 tag('back bar 3.0 × 0.4 · h 0.96',0.8,-1.84,0.5,3.2,'+x');
 tag('keg cooler 1.2 × 0.9 · h 0.9',0.8,-1.33,0.55,5.95,'+x');
 tag('stair 1.2 wide · 16 × 149 mm / 300 mm',1.05,1.65,8*SRH+U,3.0,'up');
@@ -1506,6 +1533,8 @@ tag('LOFT 22.6 m² · floor +2.38 · headroom 2.12',1.6,X1-0.012,3.05,7.35,'-x')
 // garden
 tag('GARDEN 7.2 × 3.3 m · 23.8 m²',1.5,0,0.002,-0.55,'up');
 tag('1.3 × 0.76 · h 0.78',0.55,-1.9,0.78+U,-1.7,'up','z'); tag('Ø 0.72 · h 0.77',0.5,1.9,0.77+U,-1.7,'up');
+LBL.push(['Ice machine · under-counter, ~50 kg/day',-1.0,0.95,4.47,'g'],['Bartender aisle 0.85 m',-1.5,0.3,3.6,'g'],['Bin store · wet / dry / glass',0.65,1.35,D+1.35,'k'],['Dry-store racking in the locked under-stair store',2.0,1.95,4.9,'g']);
+LBL.push(['Ceiling fan · 0.9 m hugger, blades 1.90 m above the loft floor (over the table)',-1.25,4.15,5.98,'u']);
 const labelsEl=document.getElementById('labels');
 const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;d.hidden=true;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f:f.split(' ')[0],w,shown:false};});
 
