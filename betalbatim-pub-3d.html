@@ -41,6 +41,7 @@ body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px
 .lc-v{font:500 11px/1 var(--mono);color:var(--fg);white-space:nowrap;width:86px;text-align:right}
 .lightctl input[type=range]{flex:1;accent-color:var(--amber);min-width:90px;height:18px}
 .lc-pre{gap:2px;flex-wrap:wrap} .lc-pre button{padding:6px 9px}
+.lc-win{align-items:center} .lc-win .lc-k{margin-right:2px} .lc-win button{padding:5px 8px;font-size:11px}
 button:focus-visible{outline:2px solid var(--green);outline-offset:1px}
 .hint{position:absolute;left:16px;bottom:14px;font:400 11.5px/1.3 var(--mono);color:var(--muted);background:rgba(19,15,12,.72);padding:6px 9px;border-radius:8px;pointer-events:none}
 .htag{position:absolute;left:0;top:0;pointer-events:none;font:600 12px/1 var(--body);color:#1b120a;background:var(--amber);padding:6px 9px;border-radius:8px;white-space:nowrap}
@@ -129,6 +130,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
       <div class="seg lightctl" role="group" aria-label="Lighting">
         <div class="lc-row"><span class="lc-k">Time</span><span class="lc-e">Day</span><input id="lc-time" type="range" min="0" max="100" value="85" aria-label="Time of day, day to night"><span class="lc-e">Night</span></div>
         <div class="lc-row"><span class="lc-k">Lights</span><span class="lc-e">Off</span><input id="lc-dim" type="range" min="0" max="100" value="80" aria-label="Dim all lights"><span class="lc-v" id="lc-read">80% · 2700 K</span></div>
+        <div class="lc-row lc-pre lc-win"><span class="lc-k">Windows</span><button data-win="auto" aria-pressed="true">Auto</button><button data-win="daylight">Daylight</button><button data-win="golden">Golden hour</button><button data-win="sunset">Sunset</button><button data-win="moon">Moonlight</button><button data-win="candle">Candle</button><button data-win="off">Off</button></div>
         <div class="lc-row lc-pre"><button data-pre="lunch">Lunch</button><button data-pre="dusk">Sunset</button><button data-pre="evening" aria-pressed="true">Evening</button><button data-pre="late">Late</button></div>
       </div>
     </div>
@@ -359,7 +361,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td colspan="2" style="padding-top:10px;font:600 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--amber)">Loft</td></tr>
         <tr><td>Woven rattan dome pendants, one per table · <b>5</b></td><td class="d">2200 K filament, 6 W</td></tr>
         <tr><td>Mini globe string down the ceiling centre · <b>15 bulbs</b></td><td class="d">2200 K, 1 W</td></tr>
-        <tr><td>Fake windows (LED panel + cellular blind) · <b>4</b></td><td class="d">tunable 2700–3500 K, 36–40 W</td></tr>
+        <tr><td>Fake windows (LED panel + cellular blind) · <b>4</b></td><td class="d">RGB+CCT, 36–40 W, own circuit with 6 mood presets</td></tr>
         <tr><td>Gallery track spots, black · <b>6 (2 tracks)</b></td><td class="d">2700 K, 7 W</td></tr>
         <tr><td>Bench under-glow LED · <b>2 runs</b></td><td class="d">2200 K, 5 W/m</td></tr>
         <tr><td>Battery tea lights on tables · <b>5</b></td><td class="d">~1800 K</td></tr>
@@ -414,7 +416,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <li><b>Photo spot</b><span>A standing photo booth in the nook that juts out over the bar. The backdrop is on the nook's right-hand wall, so the booth faces across the room. It has a blush limewash wall, a painted terracotta arch 1.75 m tall, a warm-white "say bao" neon in the arch, a slim brass-edged pill mirror beside it, and a dried-flower garland in dusty pink, rust, wheat and sage cascading down the arch. Guests stand on a jute rug with a brass marker, and the photographer shoots from the nook's open side. The front stays an open black rail carrying the "bao, baby?" neon, so the booth is visible from the door.</span></li>
         <li><b>Service station</b><span>The DJ desk is gone. In its place on the back wall is a loft service station: an olive cabinet with a travertine top and two bus tubs for used plates. It also holds stacked clean plates and bowls, a cutlery caddy, napkins and a bin, so servers don't carry every plate down the stair one at a time. The pink "stay a little longer" neon stays above it.</span></li>
         <li><b>Acoustics</b><span>Fabric-wrapped ceiling clouds over the front double-height space and across the loft ceiling, felt backing behind the gallery frames, and a red Persian runner (0.9 × 4.45 m) down the loft aisle. Together they take the edge off all the marble, tile, brick and glass.</span></li>
-        <li><b>Fake windows</b><span>The loft has no real windows, so it has four fake ones: one on each side wall (1.0 × 0.86 m) and a pair on the back wall (0.8 × 0.8 m) flanking the pink neon. Each is a slim tunable-white LED panel (2700–3500 K, kept warm) in a shallow box behind a cream cellular blind, cased in painted trim with a sill, on a dimmer that follows the time of day.</span></li>
+        <li><b>Fake windows</b><span>The loft has no real windows, so it has four fake ones: one on each side wall (1.0 × 0.86 m) and a pair on the back wall (0.8 × 0.8 m) flanking the pink neon. Each is a slim RGB+CCT LED panel in a shallow box behind a cream cellular blind, on its own circuit with mood presets: Auto (follows the time of day, 2700–3500 K), Daylight, Golden hour, Sunset, Moonlight, Candle or Off, cased in painted trim with a sill, on a dimmer that follows the time of day.</span></li>
         <li><b>Edge</b><span>A black steel rod railing lined with potted trailing plants, a black fascia with an LED line, and the menu board hanging over the bar.</span></li>
         <li><b>Headroom</b><span>The floor sits at 2.38 m on a slim 0.17 m deck, which leaves 2.12 m up there, enough for adults to stand upright and for normal full-height tables and chairs. Along the back wall the floor steps up 0.44 m to make room for the kitchen hood below. The service station spans that whole step with its front flush to the edge, so the step is just its base and there is no ledge to stand on.</span></li>
       </ul>
@@ -1243,7 +1245,14 @@ SALON.forEach(([sd,z,y,w,h,fm,pi,mt])=>hangP(sd,z,y,w,h,fm,pi,sd<0?G.wallR:G.wal
 // Right wall over the middle table, left wall over the left tables, and a pair on the back wall flanking the neon.
 const blindTex=tex(128,256,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,0);gr.addColorStop(0,'#f2d9ae');gr.addColorStop(0.5,'#fff0d2');gr.addColorStop(1,'#f2d9ae');g.fillStyle=gr;g.fillRect(0,0,w,h);
   for(let y=0;y<h;y+=7){g.fillStyle='rgba(150,120,80,0.16)';g.fillRect(0,y,w,1.5);g.fillStyle='rgba(255,255,255,0.35)';g.fillRect(0,y+3,w,1);}},1,1);
-M.blindGlow=new THREE.MeshBasicMaterial({map:blindTex,toneMapped:false}); M.trim=S({color:'#f4efe4',roughness:0.6});
+M.blindGlow=new THREE.MeshBasicMaterial({map:blindTex,toneMapped:false});
+// WINDOW MOODS: the four fake windows run on their own RGB+CCT circuit, so they can be set to a mood independently of the room dimmer
+function moodTex(top,mid,bot){return tex(128,256,(g,w,h)=>{const v=g.createLinearGradient(0,0,0,h);v.addColorStop(0,top);v.addColorStop(0.55,mid);v.addColorStop(1,bot);g.fillStyle=v;g.fillRect(0,0,w,h);
+  const hz=g.createLinearGradient(0,0,w,0);hz.addColorStop(0,'rgba(0,0,0,0.12)');hz.addColorStop(0.5,'rgba(255,255,255,0.12)');hz.addColorStop(1,'rgba(0,0,0,0.12)');g.fillStyle=hz;g.fillRect(0,0,w,h);
+  for(let y=0;y<h;y+=7){g.fillStyle='rgba(80,50,30,0.14)';g.fillRect(0,y,w,1.5);g.fillStyle='rgba(255,255,255,0.22)';g.fillRect(0,y+3,w,1);}},1,1);}
+const WINMOOD={daylight:[moodTex('#fffaf0','#fffdf8','#f3ead8'),1.0,'3500 K, full'],golden:[moodTex('#ffd496','#ffb766','#f09a48'),0.92,'2400 K amber'],
+  sunset:[moodTex('#d98aa8','#ff9f72','#ffc76c'),0.85,'pink → orange'],moon:[moodTex('#9fb0e2','#c3cdf0','#8796c4'),0.42,'cool blue, low'],
+  candle:[moodTex('#ffae60','#ff9446','#e07a34'),0.38,'2000 K flicker-warm'],off:[blindTex,0.04,'off']}; M.trim=S({color:'#f4efe4',roughness:0.6});
 function fakeWindow(wall,c,y,w,h){const g=new THREE.Group(),B=(bw,bh,bd,x,yy,z,m)=>{const o=new THREE.Mesh(new THREE.BoxGeometry(bw,bh,bd),m);o.position.set(x,yy,z);g.add(o);return o;};
   const t=0.07; // casing width
   B(w,h,0.01,0,0,0.005,M.black);                                  // shadow gap behind the panes
@@ -1316,7 +1325,8 @@ function applyLight(){const t=LIGHT.t,d=LIGHT.dim,day=1-t;
   EMI.forEach(([k,b])=>M[k].emissiveIntensity=b*(0.06+0.94*d)*(0.55+0.45*t));
   NEONS.forEach(k=>M[k].opacity=d<0.02?0.08:0.45+0.55*Math.min(1,0.4+t));
   M.neonRed.emissiveIntensity=d<0.02?0.05:1.0+1.4*t;
-  if(M.blindGlow){const warmW=C('#fff2dc').lerp(C('#ffcf90'),t);M.blindGlow.color.copy(warmW).multiplyScalar((0.08+0.92*d)*(1-0.45*t));} // fake windows: 3500 K by day → 2700 K at night
+  if(M.blindGlow){const wm=LIGHT.win||'auto';if(wm==='auto'){M.blindGlow.map=blindTex;const warmW=C('#fff2dc').lerp(C('#ffcf90'),t);M.blindGlow.color.copy(warmW).multiplyScalar((0.08+0.92*d)*(1-0.45*t));} // auto: 3500 K by day → 2700 K at night, follows the dimmer
+    else{const [tx,k]=WINMOOD[wm];M.blindGlow.map=tx;M.blindGlow.color.setScalar(k);} M.blindGlow.needsUpdate=true;}
   renderer.toneMappingExposure=1.0+0.15*t;
   const k=Math.round(2700-500*t*(1-d)); const rd=document.getElementById('lc-read'); if(rd)rd.textContent=Math.round(d*100)+'% · '+(d<0.02?'off':(t>0.6?'2700/2200 K':'2700 K'));
   renderer.shadowMap.needsUpdate=true; dirty=true;}
@@ -1500,6 +1510,8 @@ toggle('t-loft','loft');toggle('t-cut','cut');toggle('t-lbl','labels');{const tI
  const sync=()=>{tI.value=Math.round(LIGHT.t*100);dI.value=Math.round(LIGHT.dim*100);};
  tI.addEventListener('input',()=>{LIGHT.t=tI.value/100;pre.forEach(b=>b.setAttribute('aria-pressed','false'));applyLight();});
  dI.addEventListener('input',()=>{LIGHT.dim=dI.value/100;pre.forEach(b=>b.setAttribute('aria-pressed','false'));applyLight();});
+ const wins=[...document.querySelectorAll('.lc-win button')];
+ wins.forEach(b=>b.addEventListener('click',()=>{LIGHT.win=b.dataset.win;wins.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyLight();}));
  pre.forEach(b=>b.addEventListener('click',()=>{const [t,d]=PRE[b.dataset.pre];LIGHT.t=t/100;LIGHT.dim=d/100;sync();pre.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyLight();}));}
 controls.addEventListener('start',()=>{anim=null;});
 controls.addEventListener('change',()=>{dirty=true;});
