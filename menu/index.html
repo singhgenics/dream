@@ -50,6 +50,7 @@ section.sec{break-inside:avoid-column;margin:0 0 30px;display:block;scroll-margi
 .sec .kick{font:500 11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--olive);margin:4px 0 6px;padding-bottom:8px;border-bottom:1px solid var(--line)}
 .item{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:12px;padding:10px 0;border-bottom:1px dashed rgba(42,36,32,.15);break-inside:avoid}
 .item:last-of-type{border-bottom:0}
+.item .sub{grid-column:1/-1;margin:-1px 0 3px;font:italic 500 12.5px/1.3 var(--body);color:var(--muted);letter-spacing:.02em}
 .item .nm{font:700 15.5px/1.25 var(--display);display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .item .pr{font:500 14px/1.25 var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 .item .ing,.item .how{grid-column:1 / 3;font-size:12.8px;color:var(--muted);margin:3px 0 0;max-width:60ch}
@@ -119,10 +120,10 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
           <tr><th>Dish</th><th>Role</th><th>Why it earns its place</th></tr>
           <tr><td>Tangra chimney soup</td><td><span class="pill star">Signature</span></td><td>A table spectacle for groups. Nobody in South Goa serves it.</td></tr>
           <tr><td>Hot &amp; sour soup</td><td><span class="pill star">Workhorse</span></td><td>The soup people expect, at about 15% food cost.</td></tr>
-          <tr><td>Chilli chicken, dry</td><td><span class="pill star">Star</span></td><td>The bestseller in any Indo-Chinese kitchen, and great with beer. It also feeds the combos and happy hour.</td></tr>
-          <tr><td>Golden fried prawns</td><td><span class="pill watch">Signature</span></td><td>The Tangra dish people travel for. Repriced to ₹460 for 5 pieces to stay near 33% food cost.</td></tr>
-          <tr><td>Chilli pork</td><td><span class="pill star">Signature</span></td><td>Pork sells in Goa, and the generic Chinese places don't do it properly.</td></tr>
-          <tr><td>Chilli paneer · honey chilli potato</td><td><span class="pill star">Margin</span></td><td>Veg favourites at 15–29% food cost. The potato is the cheapest beer snack on the menu.</td></tr>
+          <tr><td>Cabin Fever (chilli chicken, dry)</td><td><span class="pill star">Star</span></td><td>The bestseller in any Indo-Chinese kitchen, and great with beer. It also feeds the combos and happy hour.</td></tr>
+          <tr><td>Prawn Stars (golden fried prawns)</td><td><span class="pill watch">Signature</span></td><td>The Tangra dish people travel for. Repriced to ₹460 for 5 pieces to stay near 33% food cost.</td></tr>
+          <tr><td>The Tangra Pig-Out (chilli pork)</td><td><span class="pill star">Signature</span></td><td>Pork sells in Goa, and the generic Chinese places don't do it properly.</td></tr>
+          <tr><td>Paneer Pressure · Honey, I Fried the Spuds</td><td><span class="pill star">Margin</span></td><td>Veg favourites at 15–29% food cost. The potato is the cheapest beer snack on the menu.</td></tr>
           <tr><td>Har gow · chouriço siu mai · xiao long bao · crystal veg</td><td><span class="pill star">Photo</span></td><td>One prawn, one local pork, one "wow" soup dumpling and one veg. Folded in the morning, steamed to order.</td></tr>
           <tr><td>Pork belly · chilli chicken · gochujang paneer bao</td><td><span class="pill star">Photo</span></td><td>Rare in the area. Pork, chicken and veg cover every table, and the chicken bao reuses the chilli chicken from the starters.</td></tr>
           <tr><td>Korean wings · kimchi fries</td><td><span class="pill star">Only here</span></td><td>No Korean competitor nearby. Both run off one kimchi batch and one gochujang sauce.</td></tr>
@@ -194,11 +195,11 @@ const MENU=[
   ['Tangra chimney soup, for 2–3','Clear chicken-pork stock, chicken, prawns, fish balls, bok choy, mushroom, glass noodles','Stock simmered for six hours, then served bubbling at the table in a brass chimney hotpot.','480 / 580',NV,'kol',0,null],
   ['Hot & sour soup','Mushroom, bamboo shoot, tofu, egg ribbons, soy, black vinegar, white pepper (chicken +₹40)','Thickened with cornflour, egg swirled in, finished sharp with vinegar and pepper.',180,V,'',2,null]]},
  {id:'kolkata',t:'Cabin starters',k:'Tangra classics · from the wok',items:[
-  ['Chilli chicken, dry','Boneless chicken thigh, egg and cornflour batter, green chilli, onion, capsicum, soy, garlic','Double-fried for crunch, then tossed on full flame so the sauce catches and smokes.',320,NV,'kol',2,null],
-  ['Golden fried prawns, 5 pc','Tiger prawns, egg-flour batter, salt and pepper, with kasundi mustard','Butterflied, battered and fried golden, with sharp Bengali kasundi on the side, the way the cabins serve it.',460,NV,'kol',0,null],
-  ['Chilli pork, Tangra style','Pork belly, dried red chilli, garlic, dark soy, spring onion','Boiled, sliced, crisped in the wok, then tossed with dried chillies.',360,NV,'kol',2,null],
-  ['Chilli paneer, dry','Paneer, cornflour coat, green chilli, onion, capsicum, soy','Paneer fried crisp outside and soft inside, then tossed in the chilli wok sauce.',280,V,'',2,null],
-  ['Honey chilli potato','Potato fingers, honey, red chilli, sesame, spring onion','Twice-fried fingers tossed in a sticky honey-chilli glaze.',220,V,'',1,null]]},
+  ['Cabin Fever|Chilli chicken, dry','Boneless chicken thigh, egg and cornflour batter, green chilli, onion, capsicum, soy, garlic','Double-fried for crunch, then tossed on full flame so the sauce catches and smokes.',320,NV,'kol',2,null],
+  ['Prawn Stars|Golden fried prawns, 5 pc','Tiger prawns, egg-flour batter, salt and pepper, with kasundi mustard','Butterflied, battered and fried golden, with sharp Bengali kasundi on the side, the way the cabins serve it.',460,NV,'kol',0,null],
+  ['The Tangra Pig-Out|Chilli pork, Tangra style','Pork belly, dried red chilli, garlic, dark soy, spring onion','Boiled, sliced, crisped in the wok, then tossed with dried chillies.',360,NV,'kol',2,null],
+  ['Paneer Pressure|Chilli paneer, dry','Paneer, cornflour coat, green chilli, onion, capsicum, soy','Paneer fried crisp outside and soft inside, then tossed in the chilli wok sauce.',280,V,'',2,null],
+  ['Honey, I Fried the Spuds|Honey chilli potato','Potato fingers, honey, red chilli, sesame, spring onion','Twice-fried fingers tossed in a sticky honey-chilli glaze.',220,V,'',1,null]]},
  {id:'dimsum',t:'Dim sum',k:'Hand-pleated · 4 to a basket',items:[
   ['Har gow','Prawn, bamboo shoot, wheat-starch wrapper','Pleated by hand and steamed for 6 minutes until the skin turns translucent.',340,NV,'',0,null],
   ['Chouriço siu mai','Chouriço (the coast\u2019s smoky pork sausage) and chicken, chilli oil','Our one dumpling from the Konkan pantry: steamed open, the chouriço brings smoke and spice.',300,NV,'goa',1,null],
@@ -206,7 +207,7 @@ const MENU=[
   ['Crystal veg dumplings','Water chestnut, carrot, edamame, spring onion','Clear wheat-starch skin, steamed so you can see the colours through it.',220,V,'',0,null]]},
  {id:'bao',t:'Bao',k:'Soft steamed buns · 2 to a plate',items:[
   ['Pork belly bao','Braised pork belly, hoisin, cucumber, peanut crumb, coriander','Belly braised for three hours in soy and star anise, then seared to order.',320,NV,'',0,null],
-  ['Chilli chicken bao','Our cabin chilli chicken, pickled onion, chilli mayo','The cabin classic tucked into a soft bun.',280,NV,'kol',2,null],
+  ['Chilli chicken bao','Our Cabin Fever chilli chicken, pickled onion, chilli mayo','The cabin classic tucked into a soft bun.',280,NV,'kol',2,null],
   ['Gochujang paneer bao','Charred paneer, gochujang glaze, cucumber, sesame','Paneer seared hard, glazed with gochujang, finished with cucumber.',260,V,'',1,null]]},
  {id:'korean',t:'Korean corner',k:'The only Korean in Betalbatim',items:[
   ['Korean fried wings, 6 pc','Chicken wings, potato-starch crust; soy-garlic or yangnyeom (sweet-spicy gochujang)','Fried twice for a glass-crisp shell, then brushed with sauce.',380,NV,'',1,null],
@@ -255,7 +256,7 @@ const MENU=[
   ['Steamer for two','Chef’s 8 dim sum + 2 bao','Our pick from today’s steamers.','₹980','',0,['set']],
   ['Cabin feast for four','Chimney soup, chilli chicken, golden prawns, mixed chowmein, fried rice, darsaan','The Tangra table, served family style.','₹2,950','kol',0,['chimney']],
   ['Cabin combo lunch','Chowmein or fried rice with chilli chicken (₹440) or chilli paneer (₹380)','Noon to 4 pm. One big plate, served together.','₹380+','kol',0,null],
-  ['Happy hour, 5–7 pm','330 ml taps ₹199 · crystal veg dumplings ₹179 · chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
+  ['Happy hour, 5–7 pm','330 ml taps ₹199 · crystal veg dumplings ₹179 · Cabin Fever chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
 ];
 // course order: food first, then sets, then drinks, with sweets to close
 const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','cocktails','zero','sweet'];
@@ -266,8 +267,8 @@ document.getElementById('menuCols').innerHTML=MENU.map(sec=>{
   const rows=sec.items.map(it=>{
     if(sec.drink){const [n,ing,how,p,b,_,a]=it;
       return `<div class="item"><div class="nm">${esc(n)}${badge(b)}</div><div class="pr">${esc(p)}</div><p class="ing"><b>In it</b>${esc(ing)}</p><p class="how"><b>How</b>${esc(how)}</p></div>`;}
-    const [n,ing,how,p,t,b,heat,a]=it;const pr=typeof p==='number'?'₹'+p:'₹'+p;
-    return `<div class="item"><div class="nm"><i class="mk ${t}" aria-label="${t===V?'Veg':'Non-veg'}"></i>${esc(n)}${badge(b)}${heat?` <b class="heat" aria-label="spice ${heat} of 3">${'•'.repeat(heat)}</b>`:''}</div><div class="pr">${esc(pr)}</div><p class="ing"><b>In it</b>${esc(ing)}</p><p class="how"><b>How</b>${esc(how)}</p></div>`;}).join('');
+    const [n0,ing,how,p,t,b,heat,a]=it;const [n,sub]=n0.split('|');const pr=typeof p==='number'?'₹'+p:'₹'+p;
+    return `<div class="item"><div class="nm"><i class="mk ${t}" aria-label="${t===V?'Veg':'Non-veg'}"></i>${esc(n)}${badge(b)}${heat?` <b class="heat" aria-label="spice ${heat} of 3">${'•'.repeat(heat)}</b>`:''}</div><div class="pr">${esc(pr)}</div>${sub?`<p class="sub">${esc(sub)}</p>`:''}<p class="ing"><b>In it</b>${esc(ing)}</p><p class="how"><b>How</b>${esc(how)}</p></div>`;}).join('');
   return `<section class="sec${sec.sets?' sets':''}" id="s-${sec.id}"><h2>${esc(sec.t.toLowerCase())}</h2><p class="kick">${esc(sec.k)}</p>${rows}${sec.foot?`<p class="foot">${esc(sec.foot)}</p>`:''}</section>`;}).join('');
 document.getElementById('jump').innerHTML=MENU.map(s=>`<a href="#s-${s.id}">${esc(s.t)}</a>`).join('');
 const tabs=[['tab-menu','menu'],['tab-notes','notes']];
