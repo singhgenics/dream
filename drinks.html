@@ -76,7 +76,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <p class="tag">Betalbatim · a short walk from the Arabian Sea · working name</p>
     <h1 class="brand">dumplings &amp; draught</h1>
     <p class="tag">Drinks menu · craft taps · whisky &amp; vodka · cocktails · zero proof · coffee</p>
-    <p class="lede">Six taps, all brewed up the coast. Single malts, blended Scotch, an Irish and two Indian craft whiskies, four vodkas, eight cocktails built around feni, kokum, soju and lemongrass, fresh zero-proof coolers and brewed coffee, poured at the bar all day.</p>
+    <p class="lede">Six taps, all brewed up the coast. Single malts, blended Scotch and an Irish whiskey, four vodkas, eight cocktails built around feni, kokum, soju and lemongrass, fresh zero-proof coolers and brewed coffee, poured at the bar all day.</p>
     <div class="tabs" role="tablist" aria-label="View">
       <button id="tab-menu" role="tab" aria-selected="true" aria-controls="menu">Drinks menu</button>
       <button id="tab-notes" role="tab" aria-selected="false" aria-controls="notes">Owner's notes</button>
@@ -107,7 +107,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
       <div class="grid2">
         <div class="box">
           <h3>Whisky &amp; vodka: tiered, still short</h3>
-          <p>Thirteen whisky lines in tiers. Four single malts (Paul John, Amrut, Glenlivet 12, Talisker 10). Four blended Scotches: Dewar's White Label and William Lawson's as the volume pours for highballs and happy hour, with Monkey Shoulder and Black Label as the step-up. Jameson is the one Irish whiskey and goes into the Irish coffee. Indri and Rampur stay as the Indian craft story, plus the Toki highball and the Indian malt flight. Four vodkas: two premium, two infused in house.</p>
+          <p>Eleven whisky lines in tiers. Four single malts (Paul John, Amrut, Glenlivet 12, Talisker 10). Four blended Scotches: Dewar's White Label and William Lawson's as the volume pours for highballs and happy hour, with Monkey Shoulder and Black Label as the step-up. Jameson is the one Irish whiskey and goes into the Irish coffee. Plus the Toki highball and a single malt flight (Paul John, Glenlivet, Talisker). Four vodkas: two premium, two infused in house.</p>
           <p class="small">Spirit prices are indicative. Check them against current Goa excise MRPs before printing.</p>
         </div>
         <div class="box">
@@ -171,7 +171,7 @@ const MENU=[
   ['Midnight Snack|Susegado Vanilla Porter','Roasted malt, chocolate malt, vanilla','Dark, smooth and roasty: a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
   ['Gimme Gimme Gimme|Maka Di guest tap','Honey Ale, Belgian Tripel or Rocket Rice Lager, whichever is pouring','From the Dicholi brewery whose name is Konkani for \u201cgive me\u201d. Changes every week.','₹280 / 380','',0,['pint','#d99a3a']],
   ['Pitcher or tasting paddle','1.5 L pitcher ₹999 · 4 × 150 ml paddle ₹420','Pick from whatever is pouring today.','₹420+','',0,['paddle']]]},
- {id:'spirits',t:'Whisky',k:'Single malt, blended Scotch, Irish & Indian · 30 ml / 60 ml',drink:true,items:[
+ {id:'spirits',t:'Whisky',k:'Single malt, blended Scotch & Irish · 30 ml / 60 ml',drink:true,items:[
   ['Paul John Brilliance|Indian single malt','Honey, vanilla, toffee, a little spice','Distilled in Cuncolim, 15 km away. Neat or on one large cube.','₹320 / 600','goa',0,null],
   ['Amrut Fusion|Indian single malt','Malt, dark chocolate, soft peat smoke','Neat, with a few drops of water.','₹420 / 800','',0,null],
   ['Glenlivet 12|Speyside single malt','Pineapple, pear, vanilla','The easy first malt. Neat or on a rock.','₹420 / 800','',0,null],
@@ -181,10 +181,8 @@ const MENU=[
   ['Monkey Shoulder|Blended malt Scotch','Vanilla, orange, honeyed malt','Made for mixing; great on the rocks.','₹380 / 720','',0,null],
   ['Johnnie Walker Black Label|Blended Scotch, 12 years','Dried fruit, vanilla, gentle smoke','The classic. Neat, on the rocks or with soda.','₹340 / 650','',0,null],
   ['Jameson|Irish whiskey','Vanilla, toasted wood, light and smooth','Neat, with ginger ale, or in our Irish coffee.','₹280 / 520','',0,null],
-  ['Indri Trini|Indian single malt','Dried fruit, honey, oak from three casks','Neat or on a large rock.','₹380 / 720','',0,null],
-  ['Rampur Double Cask|Indian single malt','Banana bread, sherry, orange peel','Neat, with water on the side.','₹460 / 880','',0,null],
   ['Suntory Toki highball|Japanese blended whisky','Green apple, honey, white pepper','Tall, lots of ice, soda and a lemon twist.','₹420','',0,null],
-  ['Indian single malt flight','Paul John, Amrut and Indri, 20 ml each','On a board with tasting notes, water and chilli peanuts.','₹650','',0,null]]},
+  ['Single malt flight','Paul John, Glenlivet 12 and Talisker 10, 20 ml each','India to Speyside to Skye, on a board with tasting notes, water and chilli peanuts.','₹650','',0,null]]},
  {id:'vodka',t:'Vodka',k:'Two premium, two infused in house · 30 ml / 60 ml',drink:true,items:[
   ['Haku|Japanese rice vodka','Soft, clean, slightly sweet','Bamboo-charcoal filtered. Ice-cold neat, or with soda and lime.','₹360 / 680','',0,null],
   ['Belvedere|Polish rye vodka','Creamy, vanilla, white pepper','From the freezer, or in our lychee martini.','₹380 / 720','',0,null],
