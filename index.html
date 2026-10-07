@@ -208,7 +208,7 @@ td.n{white-space:nowrap}
         <li><b>Photo spot</b><span>A standing photo booth in the nook that juts out over the bar. The backdrop is on the nook's right-hand wall, so the booth faces across the room. It has a blush limewash wall, a painted terracotta arch 1.75 m tall, a warm-white "say bao" neon in the arch, a slim brass-edged pill mirror beside it, and a dried-flower garland in dusty pink, rust, wheat and sage cascading down the arch. Guests stand on a jute rug with a brass marker, and the photographer shoots from the nook's open side. The front stays an open black rail carrying the "bao, baby?" neon, so the booth is visible from the door.</span></li>
         <li><b>Service station</b><span>The DJ desk is gone. In its place on the back wall is a loft service station: an olive cabinet with a travertine top and two bus tubs for used plates. It also holds stacked clean plates and bowls, a cutlery caddy, napkins and a bin, so servers don't carry every plate down the stair one at a time. The pink "stay a little longer" neon stays above it.</span></li>
         <li><b>Edge</b><span>A black steel rod railing lined with potted trailing plants, a black fascia with an LED line, and the menu board hanging over the bar.</span></li>
-        <li><b>Headroom</b><span>The floor sits at 2.38 m on a slim 0.17 m deck, which leaves 2.12 m up there, enough for adults to stand upright and for normal full-height tables and chairs. Along the back wall the floor steps up 0.44 m under the service station, to make room for the kitchen hood below.</span></li>
+        <li><b>Headroom</b><span>The floor sits at 2.38 m on a slim 0.17 m deck, which leaves 2.12 m up there, enough for adults to stand upright and for normal full-height tables and chairs. Along the back wall the floor steps up 0.44 m to make room for the kitchen hood below. The service station spans that whole step with its front flush to the edge, so the step is just its base and there is no ledge to stand on.</span></li>
       </ul>
     </section>
 
@@ -799,7 +799,7 @@ rod(V(-1.7,1.3,D+0.35),V(-1.7,1.3,D),0.015,M.brass,G.ext);
 const lf=G.loft;
 // slim floor: 150 mm steel joists set within the floor depth + 18 mm ply + finish = 0.17 m, flat soffit at 2.21 m (no beams below)
 bx(X0,SX0,DK,MZ,LZ,PKZ,M.deck,lf); bx(SX0,X1,DK,MZ,STOP,PKZ,M.deck,lf); bx(PKX,X1,DK,MZ,PKZ,D,M.deck,lf); bx(X0,PKX,DK+PKH,MZ+PKH,PKZ,D,M.deck,lf);
-bx(X0,PKX,MZ,MZ+PKH,PKZ,PKZ+0.03,M.oliveWood,lf); bx(PKX-0.03,PKX,MZ,MZ+PKH,PKZ,D,M.oliveWood,lf); bx(X0,PKX,MZ+PKH-0.02,MZ+PKH+0.01,PKZ-0.02,PKZ+0.05,M.travertine,lf);
+bx(X0,PKX,MZ,MZ+PKH,PKZ,PKZ+0.03,M.oliveWood,lf); bx(PKX-0.03,PKX,MZ,MZ+PKH,PKZ,D,M.oliveWood,lf); 
 bx(X0,SX0,DK,MZ,LZ,LZ+0.12,M.steel,lf); bx(SX0,X1,DK,MZ,STOP-0.12,STOP,M.steel,lf);
 bx(X0,SX0,DK-0.04,MZ,LZ-0.04,LZ,M.black,lf); bx(BX,SX0,DK-0.07,DK-0.04,LZ-0.03,LZ-0.01,M.led,lf,false);
 bx(BX,SX0,MZ+0.05,MZ+0.95,LZ+0.024,LZ+0.036,M.glass,lf,false);
@@ -879,10 +879,13 @@ function diningTable(s,zc,len,k){const tx=s*1.37; // table x 1.02–1.72 from ce
 loftBench(-1,5.0,9.5); loftBench(1,7.1,9.55);
 diningTable(-1,5.65,1.2,0); diningTable(-1,7.15,1.2,1); diningTable(-1,8.65,1.2,2); diningTable(1,7.68,1.1,3); diningTable(1,8.95,1.1,4);
 // LOFT SERVICE STATION (where the DJ desk was): used-plate return + clean crockery, on the back wall
-bx(-1.0,1.0,MZ,MZ+0.9,10.02,D,M.oliveWood,lf); bx(-1.03,1.03,MZ+0.9,MZ+0.94,9.98,D,M.travertine,lf);
-bx(-0.98,0.98,MZ+0.66,MZ+0.68,10.04,D-0.02,M.timber,lf); bx(-0.98,0.98,MZ+PKH,MZ+PKH+0.02,10.04,D-0.02,M.timber,lf);
-// open front: stacks of clean plates and bowls on the lower shelves
-for(let i=0;i<5;i++){const x=-0.8+i*0.4;cyl(0.12,0.11,0.16,x,MZ+PKH+0.02,10.25,M.porcelain,lf,18);cyl(0.09,0.06,0.12,x,MZ+0.68,10.25,i%2?M.porcelain:M.terracotta,lf,16);}
+// The cabinet now spans the whole hood step (x X0..1.15, front flush at z 9.55): the 0.44 m step becomes its solid base, so there is no ledge to stand on.
+// Counter top stays at 0.94 m above the loft floor; open shelves sit on the step top (+0.44) and at +0.66
+[X0,-0.6,PKX-0.03].forEach(x=>bx(x,x+0.03,MZ+PKH,MZ+0.9,PKZ,D,M.oliveWood,lf)); bx(X0,PKX,MZ+PKH,MZ+0.9,D-0.03,D,M.oliveWood,lf);
+bx(X0,PKX+0.03,MZ+0.9,MZ+0.94,PKZ-0.04,D,M.travertine,lf);
+bx(X0+0.03,PKX-0.03,MZ+0.66,MZ+0.68,PKZ+0.02,D-0.03,M.timber,lf); bx(X0+0.03,PKX-0.03,MZ+PKH,MZ+PKH+0.02,PKZ+0.02,D-0.03,M.timber,lf);
+// open front: stacks of clean plates and bowls on the two shelves
+for(let i=0;i<8;i++){const x=-1.95+i*0.42;if(Math.abs(x+0.6)<0.12)continue;cyl(0.12,0.11,0.16,x,MZ+PKH+0.02,9.9,M.porcelain,lf,18);cyl(0.09,0.06,0.12,x,MZ+0.68,9.9,i%2?M.porcelain:M.terracotta,lf,16);}
 // on top: two grey bus tubs for used plates, a cutlery caddy, a napkin stack and a small bin beside
 [-0.55,0.15].forEach(x=>{bx(x-0.24,x+0.24,MZ+0.94,MZ+1.1,10.05,10.42,M.ssDark,lf);bx(x-0.22,x+0.22,MZ+1.09,MZ+1.1,10.07,10.4,M.black,lf,false);});
 cyl(0.11,0.11,0.12,-0.36,MZ+1.1,10.24,M.porcelain,lf,16);
@@ -892,7 +895,7 @@ cyl(0.15,0.13,0.55,1.25,MZ,10.25,M.black,lf,16);
 {const r=rng(55);for(let i=0;i<26;i++){const x=(r()<.5?X0+0.12+r()*0.2:X1-0.12-r()*0.2);let zz=5.1+r()*4.4;if(x>0&&zz<7.0)zz+=2.0;trail(x,H-0.02,zz,0.2+r()*0.3,lf);}}
 for(let z=5.0;z<D;z+=0.38) sph(0.03,0,H-0.07,z,M.globe,lf);
 plane(1.66,0.28,M.neonPink,0,4.33,D-0.03,Math.PI,lf);
-bigPlant(-1.95,MZ+PKH,9.95,0.85,lf); bigPlant(1.95,MZ,9.95,0.75,lf);
+bigPlant(1.95,MZ,9.95,0.75,lf);
 
 // ---------- AIR CONDITIONING: two 1.4 TR wall splits (ground + loft) with outdoor units on the back wall ----------
 M.acWhite=S({color:'#f6f5f1',roughness:0.45});
@@ -1062,7 +1065,7 @@ const LBL=[
  ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, green-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
  ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Code stair · 1.2 m · 16 × 149 mm risers',1.6,1.6,1.5,'g'],['Landing 1.2 m',1.65,1.35,3.0,'g'],['Locked store under the stair',SX0-0.05,1.55,4.6,'g'],['Keg cooler · 8 × 20 L kegs',-1.6,1.0,6.0,'g'],['CO₂ bay · chained · vented',-1.55,0.7,7.15,'g'],['Empty-keg cage (outside)',2.05,1.45,D+1.4,'g'],['Urinal',1.95,1.85,6.02,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
  ['Kitchen · click to explore',-0.6,1.9,8.9,'g cta'],['Split AC 1.4 TR (ground)',-1.17,2.45,KZ-0.15,'g'],['Wall speaker',X0+0.25,3.1,0.2,'g'],['Wall speaker',X1-0.25,3.95,2.25,'g'],['AC outdoor units',0.45,3.7,D+0.35,'k'],
- ['Loft · 20 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · jute runner',X1-0.05,MZ+1.6,9.3,'u'],['Floor steps up 0.44 m over the kitchen hood',-1.6,MZ+0.62,9.75,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 1.4 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Framed prints over the banquettes',X1-0.05,4.15,7.8,'u','L'],
+ ['Loft · 20 covers · full-height tables · headroom 2.12 m',0,3.85,7.3,'u'],['Built-in oak bench · rust cushions',-2.0,MZ+0.65,6.4,'u'],['Rattan dining chairs · mango tables',-0.75,MZ+1.05,8.65,'u'],['Woven rattan pendants',1.37,MZ+1.9,8.95,'u'],['Clay-plaster walls · jute runner',X1-0.05,MZ+1.6,9.3,'u'],['Station base hides the 0.44 m hood step · no ledge',-1.6,MZ+0.6,9.5,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 1.4 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Framed prints over the banquettes',X1-0.05,4.15,7.8,'u','L'],
  ['Wok range · 2 burners',-1.65,1.25,10.15,'k'],['Dim sum steamer',-0.6,1.35,10.15,'k'],['Twin fryer',0.15,1.2,10.15,'k'],['2-burner range',0.78,1.3,10.15,'k'],
  ['Hood · baffles · fire suppression',-0.6,2.42,9.8,'k'],['Pass + heat lamp',-0.33,1.95,7.8,'k'],['Dumpling / veg prep',-1.15,1.05,8.0,'k'],
  ['Non-veg prep · u/c freezer',X0+0.35,1.7,9.35,'k'],['2-door reach-in',X0+0.38,2.15,8.25,'k'],['Hand-wash sink',1.3,1.6,7.8,'k'],
