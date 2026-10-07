@@ -1517,6 +1517,11 @@ tag('beam T2 0.25 × 0.40 · underside 4.10',1.3,-1.0,H-0.2,6.672,'-z');
 tag('beam A 0.23 × 0.38 · underside 4.12',1.3,BMA-0.117,H-0.19,3.0,'-x');
 tag('beam B 0.15 × 0.25 · u/s 4.25',0.9,0.123,H-0.125,5.8,'-x');
 tag('slab soffit 4.50 m',0.7,0.6,H-0.012,2.3,'down');
+// clear heights: ground floor → underside of the loft, and loft floor → beams A and B
+tag('ground floor → underside of loft 2.21 m',0.95,-1.5,1.55,KZ-0.004,'-z');
+tag('floor → loft underside 2.21 m',0.85,1.044,1.6,7.1,'-x');
+tag('loft floor → beam A 1.74 m (4.12 − 2.38)',1.3,BMA-0.117,H-0.19,8.2,'-x');
+tag('loft floor → beam B 1.87 m (4.25 − 2.38)',0.95,0.277,H-0.125,5.8,'+x');
 // loft
 tag('front bay 3.3 × 1.3 · 2.12 clear',1.1,-0.45,MZ+U,6.5,'up');
 tag('Ø 0.6 · h 1.05',0.42,-1.25,MZ+1.05+U,5.98,'up'); tag('Ø 0.6 · h 1.05',0.42,0.35,MZ+1.05+U,5.98,'up');
