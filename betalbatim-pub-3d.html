@@ -148,7 +148,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
 
   <aside class="panel">
     <header>
-      <p class="eyebrow">Concept 22 · 4.5 × 4.5 × 10.5 m shell · 32 covers</p>
+      <p class="eyebrow">Concept 23 · 4.5 × 4.5 × 10.5 m shell · 32 covers</p>
       <h1>Dim sum, draught &amp; records</h1>
       <p class="lede">A light, warm, cozy pub for cabin-style Chinese, dim sum, bao, Korean bar food, craft beer and cocktails. The ground floor has a cream-and-charcoal checkerboard and brass lanterns. A reclaimed-wood wall carries vintage beer signs, and the bar glows through backlit onyx. Sand limewash, red brick and the raw concrete ceiling keep it bright. Most of the seats are upstairs in an earthy 18-cover loft. Left and right are as you walk in from the road.</p>
     </header>
@@ -195,7 +195,8 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr class="g"><td>Ground</td><td>Kitchen, in the hood pocket</td><td class="n">2.65 m</td></tr>
         <tr class="g"><td>Ground</td><td>Washroom</td><td class="n">2.2 m</td></tr>
         <tr class="g"><td>Ground</td><td>Over every stair tread</td><td class="n">≥ 2.2 m</td></tr>
-        <tr class="u"><td>Loft</td><td>Loft floor to ceiling</td><td class="n">2.12 m</td></tr>
+        <tr class="u"><td>Loft</td><td>Loft floor to slab (in the coffers)</td><td class="n">2.12 m</td></tr>
+        <tr class="u"><td>Loft</td><td>Under beams A / T2 / B / T1</td><td class="n">1.74 / 1.72 / 1.87 / 1.67 m</td></tr>
         <tr class="u"><td>Loft</td><td>Photo-booth nook</td><td class="n">2.12 m</td></tr>
         <tr class="o"><td>Garden</td><td>Under the pergola rafters</td><td class="n">2.95 m</td></tr>
       </table>
@@ -207,6 +208,13 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
       <p style="margin:0 0 8px;font-size:12.5px;color:var(--muted)">Every item in the model, measured from the model itself. L × W × H in metres unless noted. Open any section, or use "All sizes" on a zone card.</p>
       <details class="dims" id="sz-shell"><summary>Shell &amp; levels</summary><table>
         <tr><td>Shell (inside)</td><td class="d">4.5 W × 10.5 L × 4.5 H m</td></tr>
+        <tr><td>Pillars P1, P2 (right wall)</td><td class="d">0.30 × 0.23 m, full height, at 4.8 and 6.8 m from the front</td></tr>
+        <tr><td>Beam A (along the length)</td><td class="d">0.23 W × 0.38 D, centred 1.0 m off the left wall</td></tr>
+        <tr><td>Beam T1 (full width at P1)</td><td class="d">0.25 W × 0.45 D</td></tr>
+        <tr><td>Beam T2 (P2 to beam A)</td><td class="d">0.25 W × 0.40 D</td></tr>
+        <tr><td>Beam B (between T1 and T2)</td><td class="d">0.15 W × 0.25 D, 2.4 m off the left wall</td></tr>
+        <tr><td>Lintel ledge</td><td class="d">2.45–2.65 m high, 0.23 deep (right), 0.15 deep (left, back); trimmed along the stair</td></tr>
+        <tr><td>Back-wall window (shell)</td><td class="d">1.2 × 0.6 m at 1.5–2.1 m, behind the wok line: use it for the fresh-air intake</td></tr>
         <tr><td>Ground floor</td><td class="d">47.3 m²</td></tr>
         <tr><td>Front double-height headroom</td><td class="d">4.5 m (3.9 m under the duct)</td></tr>
         <tr><td>Loft floor level</td><td class="d">2.38 m</td></tr>
@@ -530,6 +538,7 @@ let dirty=true,anim=null;
 // Walking in from the road (looking +z): RIGHT wall is x = X0, LEFT wall is x = X1.
 // LZ = front edge of the loft; DK/MZ = loft deck underside/top; KZ = kitchen front wall; KC = ceiling height under the loft.
 const X0=-2.25,X1=2.25,D=10.5,H=4.5,T=0.2,KZ=7.5,KC=2.2,LZ=4.8,DK=2.21,MZ=2.38,BZ=3.55,BX=-0.2; // BZ/BX: front and side edge of the balcony nook over the bar
+const PIL=[4.8,6.8],PW=0.30,PD=0.23,BMA=1.25; // shell survey: right-wall pillars (z), pillar width/projection, beam A centre x
 const PKZ=9.55,PKX=1.15,PKH=0.44;
 const SX0=1.05,SR=16,SRH=MZ/16,SRUN=0.3,SZ0=0.3,SL0=SZ0+7*0.3,SL1=SL0+1.2,STOP=SL1+7*0.3; // code stair: 1.2 m wide (x 1.05–2.25), 16 × 149 mm risers, 300 mm treads, 2 flights of 8, 1.2 m landing; lands through a loft-floor opening at z 4.8–5.7
  // HOOD POCKET: the loft floor steps up 0.44 m over the kitchen hood (x X0..1.15, z 9.55–10.5); the service station's base fills it
@@ -761,7 +770,7 @@ bx(X0-T,X1+T,4.3,H,-0.4,0,M.steel,G.front);
 // ---------- ground floor ----------
 const gr=G.ground;
 // BILLING moved to the bar's door end (POS tablet, card machine, printer) so the code stair can start at the front; "settle up here" neon over the back bar
-plane(1.1,0.25,M.neonPay,X0+0.035,2.56,2.95,Math.PI/2,G.wallR);
+plane(0.9,0.2,M.neonPay,X0+PD+0.006,2.55,2.95,Math.PI/2,G.wallR); // mounted on the ledge fascia
 // WINDOW LOUNGE (right, front): cane-back sofa with floral cushions (3), green velvet tub chair (1), large wooden table on a kilim rug
 bx(-2.2,-0.25,0,0.01,0.3,2.2,M.kilim,gr,false);
 bx(X0+0.02,-1.6,0.08,0.4,0.35,2.15,M.timberDark,gr); [[0.38],[2.12]].forEach(([z])=>bx(X0+0.02,-1.6,0.08,0.68,z-0.04,z+0.04,M.timberDark,gr));
@@ -786,7 +795,7 @@ bigPlant(-0.55,0,0.28,0.8,gr);
 // reclaimed-wood plank accent wall with vintage signs and Edison sconces (right wall, behind the lounge)
 plane(2.24,H-0.04,M.reclaim,X0+0.012,H/2,1.16,Math.PI/2,G.wallR);
 {const sgm=signs.map(t=>S({map:t,transparent:true,alphaTest:0.4,roughness:0.6}));
- [[0,0.62,3.45,0.6,0.6],[1,1.6,3.25,0.85,0.53],[2,1.95,2.45,0.48,0.48],[3,0.6,2.5,0.62,0.39]].forEach(([i,z,y,w,h])=>plane(w,h,sgm[i],X0+0.02,y,z,Math.PI/2,G.wallR));}
+ [[0,0.62,3.45,0.6,0.6],[1,1.6,3.25,0.85,0.53],[2,1.95,2.0,0.48,0.48],[3,0.6,2.92,0.62,0.39]].forEach(([i,z,y,w,h])=>plane(w,h,sgm[i],X0+0.02,y,z,Math.PI/2,G.wallR));}
 [0.62,1.68].forEach(z=>{bx(X0,X0+0.12,1.86,1.9,z-0.015,z+0.015,M.black,G.wallR);rod(V(X0+0.12,1.9,z),V(X0+0.12,1.78,z),0.006,M.black,G.wallR);sph(0.05,X0+0.12,1.72,z,M.globe,G.wallR);});
 // white globe cluster over the entrance (café image)
 [[0.25,3.25,0.85],[0.85,2.9,1.45],[0.4,3.6,1.95],[1.0,3.5,0.6],[0.15,2.85,2.35]].forEach(([x,y,z])=>{rod(V(x,H,z),V(x,y+0.4,z),0.005,M.black,gr);cyl(0.02,0.13,0.1,x,y+0.3,z,M.brass,gr,6);cyl(0.11,0.11,0.3,x,y,z,M.lanternGlass,gr,6);cyl(0.13,0.1,0.04,x,y-0.04,z,M.brass,gr,6);sph(0.025,x,y+0.43,z,M.brass,gr);});
@@ -847,14 +856,14 @@ const SK=(shape,gl,cap,i)=>[shape,gl,cap,sBase+i];
      else cyl(0.038,0.036,0.085,x,y+0.03,z,M.shelfGlass,gr,10);}});}
 // bay C: three-step brass riser of green soju bottles, and a black ON TAP board listing the six beers
 {const sojuG=GL('#1f7a3a',0.8),sojuL=S({color:'#eaf3e6',roughness:0.7});
- [[0.96,X0+0.26,0],[1.06,X0+0.17,1],[1.16,X0+0.08,2]].forEach(([y,x,r])=>{if(y>0.97)bx(x-0.045,x+0.045,0.96,y,4.45,5.2,M.brass,gr);
+ [[0.96,X0+0.37,0],[1.06,X0+0.285,1]].forEach(([y,x,r])=>{if(y>0.97)bx(x-0.045,x+0.045,0.96,y,4.45,5.2,M.brass,gr);
    for(let z=4.5;z<5.16;z+=0.075){cyl(0.028,0.03,0.17,x,y,z,sojuG,gr,10);cyl(0.012,0.024,0.04,x,y+0.17,z,sojuG,gr,8);cyl(0.012,0.012,0.02,x,y+0.21,z,M.ss,gr,8);
      const lb=new THREE.Mesh(new THREE.CylinderGeometry(0.0305,0.0305,0.06,10,1,true,0,Math.PI),sojuL);lb.position.set(x,y+0.08,z);gr.add(lb);}});
  const tapT=tex(360,512,(g,w,h)=>{g.fillStyle='#161412';g.fillRect(0,0,w,h);g.strokeStyle='#c9993f';g.lineWidth=8;g.strokeRect(10,10,w-20,h-20);
    g.fillStyle='#e9a94b';g.textAlign='center';g.font='700 46px "Bricolage Grotesque", serif';g.fillText('ON TAP',w/2,74);g.fillStyle='#c9993f';g.fillRect(w/2-60,90,120,3);
    [['Comrade Crisp','lager'],['Wit Happens','wit'],['Gose Bumps','kokum gose'],['Hoppy Hippie','IPA'],['Midnight Snack','porter'],['Gimme Gimme Gimme','guest']].forEach(([n,t],i)=>{const yy=140+i*60;
      g.fillStyle='#f3e8d9';g.textAlign='left';g.font='600 26px "Bricolage Grotesque", serif';g.fillText(n,30,yy);g.fillStyle='#b5a28c';g.font='500 16px "IBM Plex Mono", monospace';g.fillText(t,30,yy+22);});},1,1);
- bx(X0+0.03,X0+0.06,1.32,2.32,4.42,5.22,M.timberDark,gr); plane(0.72,0.94,S({map:tapT,roughness:0.85}),X0+0.065,1.82,4.82,Math.PI/2,gr);}
+ bx(X0+PD,X0+PD+0.03,1.35,2.29,4.5,5.1,M.timberDark,gr); plane(0.58,0.9,S({map:tapT,roughness:0.85}),X0+PD+0.036,1.82,4.8,Math.PI/2,gr);} // board hung on pillar P1
 // a few working bottles and bitters on the back-bar top, in front of the altar
 [[3.42,SK('liq','ruby','gold',11)],[4.28,SK('gin','blue','silver',9)]].forEach(([z,k])=>bottle(k,X0+0.36,0.96,z,gr));
 [3.48,3.52,4.22].forEach((z,i)=>cyl(0.018,0.02,0.1,X0+0.4,0.96,z,glassT.amber,gr,8));
@@ -884,24 +893,24 @@ bx(-1.15,-0.35,2.63,2.65,c0+0.1,BZ-0.1,M.shelfGlass,gr,false); [-1.15,-0.35].for
 {const r=rng(77);for(let i=0;i<30;i++){const side=r()<.5?-1.17:-0.33;trail(side+(r()-.5)*0.05,2.72,c0+0.2+r()*0.75,0.25+r()*0.45,gr);}for(let z=c0+0.3;z<BZ-0.2;z+=0.5){const p=new THREE.Mesh(new THREE.SphereGeometry(0.16,8,6),M.leaf);p.scale.set(1.4,0.5,1);p.position.set(-0.75,2.75,z);gr.add(p);}}
 // SERVER STATION (right, behind the bar's end, beside the kitchen pass)
 // KEG COOLER under the server station: 0.75 m deep, 2 m long, 2–4 °C. Glass doors show 10 × 20 L kegs (6 on tap + 4 spares); the end bay holds the CO2 cylinder
-{const kx1=-1.5,kz0=5.4,kz1=6.98,bay=6.69;
+{const kx1=-1.35,kz0=5.4,kz1=6.6,bay=6.31;
  bx(X0,kx1,0,0.06,kz0,kz1,M.black,gr); bx(X0,kx1,0.86,0.9,kz0,kz1,M.ss,gr); bx(X0,X0+0.04,0.06,0.86,kz0,kz1,M.ss,gr);
  [kz0,kz1-0.03].forEach(z=>bx(X0,kx1,0.06,0.86,z,z+0.03,M.ss,gr)); bx(X0,kx1,0.06,0.86,bay,bay+0.025,M.ss,gr);
- bx(X0,-1.47,0.9,0.94,kz0,kz1,M.marble,gr);
- for(let i=0;i<4;i++){const z=kz0+0.2+i*0.31;[X0+0.2,X0+0.5].forEach((x,r)=>{cyl(0.135,0.135,0.44,x,0.08,z,M.ss,gr,18);cyl(0.14,0.14,0.03,x,0.08,z,M.ssDark,gr,18);cyl(0.14,0.14,0.03,x,0.49,z,M.ssDark,gr,18);
-   if(r===1&&i<3||r===0&&i<3){cyl(0.035,0.035,0.06,x,0.52,z,M.black,gr,10);}});}
- [[kz0+0.03,6.05],[6.05,bay]].forEach(([a,b])=>{bx(kx1-0.01,kx1+0.01,0.08,0.84,a+0.02,b-0.02,M.shelfGlass,gr,false);bx(kx1,kx1+0.03,0.08,0.84,a,a+0.03,M.ss,gr);bx(kx1,kx1+0.03,0.81,0.84,a,b,M.ss,gr);bx(kx1,kx1+0.03,0.08,0.11,a,b,M.ss,gr);bx(kx1+0.01,kx1+0.04,0.3,0.7,b-0.09,b-0.07,M.ssDark,gr);});
+ bx(X0,-1.32,0.9,0.94,kz0,kz1,M.marble,gr);
+ for(let i=0;i<3;i++){const z=kz0+0.17+i*0.29;[X0+0.17,X0+0.46,X0+0.75].forEach((x,r)=>{cyl(0.135,0.135,0.44,x,0.08,z,M.ss,gr,18);cyl(0.14,0.14,0.03,x,0.08,z,M.ssDark,gr,18);cyl(0.14,0.14,0.03,x,0.49,z,M.ssDark,gr,18);
+   if(r===2||(r===1&&i<3)){cyl(0.035,0.035,0.06,x,0.52,z,M.black,gr,10);}});}
+ [[kz0+0.03,5.85],[5.85,bay]].forEach(([a,b])=>{bx(kx1-0.01,kx1+0.01,0.08,0.84,a+0.02,b-0.02,M.shelfGlass,gr,false);bx(kx1,kx1+0.03,0.08,0.84,a,a+0.03,M.ss,gr);bx(kx1,kx1+0.03,0.81,0.84,a,b,M.ss,gr);bx(kx1,kx1+0.03,0.08,0.11,a,b,M.ss,gr);bx(kx1+0.01,kx1+0.04,0.3,0.7,b-0.09,b-0.07,M.ssDark,gr);});
  bx(kx1,kx1+0.02,0.08,0.84,bay+0.03,kz1-0.03,M.ss,gr); for(let y=0.1;y<0.3;y+=0.045) bx(kx1+0.02,kx1+0.03,y,y+0.02,bay+0.06,kz1-0.06,M.black,gr,false);
  bx(kx1+0.02,kx1+0.04,0.3,0.6,bay+0.06,bay+0.08,M.ssDark,gr);
- cyl(0.075,0.075,0.6,X0+0.25,0.07,6.84,M.steel,gr,16); cyl(0.03,0.075,0.07,X0+0.25,0.67,6.84,M.steel,gr,12); bx(X0+0.21,X0+0.29,0.74,0.8,6.8,6.88,M.brass,gr);
- [0.3,0.55].forEach(y=>{const ch=new THREE.Mesh(new THREE.TorusGeometry(0.085,0.008,6,20),M.ssDark);ch.rotation.x=Math.PI/2;ch.position.set(X0+0.25,y,6.84);gr.add(ch);});
- bx(X0+0.12,X0+0.48,0.78,0.81,6.72,6.95,M.brass,gr);
+ cyl(0.075,0.075,0.6,X0+0.25,0.07,6.46,M.steel,gr,16); cyl(0.03,0.075,0.07,X0+0.25,0.67,6.46,M.steel,gr,12); bx(X0+0.21,X0+0.29,0.74,0.8,6.42,6.5,M.brass,gr);
+ [0.3,0.55].forEach(y=>{const ch=new THREE.Mesh(new THREE.TorusGeometry(0.085,0.008,6,20),M.ssDark);ch.rotation.x=Math.PI/2;ch.position.set(X0+0.25,y,6.46);gr.add(ch);});
+ bx(X0+0.12,X0+0.48,0.78,0.81,6.34,6.57,M.brass,gr);
  rod(V(X0+0.45,0.7,bay+0.05),V(X0+0.45,0.7,kz0+0.1),0.012,M.black,gr);
  bx(X0+0.6,X0+0.68,0.06,0.12,kz0-0.15,kz0,M.black,gr);}
-[1.35,1.8].forEach(y=>bx(X0,X0+0.3,y,y+0.03,5.5,6.95,M.timber,gr));
-for(let z=5.6;z<6.9;z+=0.12) cyl(0.035,0.03,0.11,X0+0.15,1.38,z,M.shelfGlass,gr,8);
-cyl(0.12,0.12,0.4,-1.85,0.94,6.7,M.ss,gr,16);
-[[5.7,M.terracotta],[6.05,M.porcelain],[6.4,M.oliveWood],[6.8,M.orange]].forEach(([z,m],i)=>cyl(0.06+0.02*(i%2),0.05,0.16+0.08*(i%3),X0+0.14,1.83,z,m,gr,12)); [5.75,6.0,6.25].forEach(z=>cyl(0.05,0.05,0.14,-1.85,0.94,z,M.porcelain,gr,10));
+[1.35,1.8].forEach(y=>bx(X0,X0+0.3,y,y+0.03,5.5,6.6,M.timber,gr));
+for(let z=5.6;z<6.55;z+=0.12) cyl(0.035,0.03,0.11,X0+0.15,1.38,z,M.shelfGlass,gr,8);
+cyl(0.12,0.12,0.4,-1.55,0.94,6.42,M.ss,gr,16);
+[[5.7,M.terracotta],[6.05,M.porcelain],[6.4,M.oliveWood]].forEach(([z,m],i)=>cyl(0.06+0.02*(i%2),0.05,0.16+0.08*(i%3),X0+0.14,1.83,z,m,gr,12)); [5.55,5.75,5.95].forEach(z=>cyl(0.05,0.05,0.14,-1.42,0.94,z,M.porcelain,gr,10));
 
 // MURAL on the left wall above the stair
 bx(X1-0.03,X1,1.6,4.1,2.5,4.0,M.black,G.wallL); plane(1.4,2.33,M.geo,X1-0.035,2.85,3.25,-Math.PI/2,G.wallL);
@@ -1028,14 +1037,14 @@ bx(BX-0.06,BX,MZ+0.97,MZ+1.01,BZ,LZ,M.black,lf);
 plane(1.15,0.32,M.neonBao,-1.2,3.08,BZ-0.03,Math.PI,lf);
 plane(1.0,0.39,M.menu,0.45,3.05,LZ-0.06,Math.PI,lf);
 // STANDING PHOTO BOOTH on the nook's right wall (x = X0), facing across the room; the photographer stands at the open side
-{const wx=X0+0.085,cz=4.33,R2=0.42,base=MZ+0.02,top=1.75,cy=base+top-R2;
- bx(X0+0.03,X0+0.08,MZ,H,BZ+0.01,LZ,M.blush,lf);
+{const wx=X0+PD+0.012,cz=4.25,R2=0.42,base=2.66,top=1.5,cy=base+top-R2;
+ bx(X0+PD-0.03,X0+PD+0.005,2.65,H,BZ+0.01,LZ,M.blush,lf); // backdrop furred out flush with the pillar, sitting on the ledge
  const archGeo=(w,h)=>{const sh=new THREE.Shape();sh.moveTo(-w/2,0);sh.lineTo(w/2,0);sh.lineTo(w/2,h-w/2);sh.absarc(0,h-w/2,w/2,0,Math.PI,false);sh.lineTo(-w/2,0);return new THREE.ShapeGeometry(sh,32);};
  const ar=new THREE.Mesh(archGeo(R2*2,top),M.terra);ar.rotation.y=Math.PI/2;ar.position.set(wx,base,cz);lf.add(ar);
  plane(0.7,0.2,M.neonSay,wx+0.006,cy+0.3,cz,Math.PI/2,lf);
  const pill=(w,h)=>{const sh=new THREE.Shape();const r=w/2;sh.moveTo(-r,r);sh.absarc(0,r,r,Math.PI,2*Math.PI,false);sh.lineTo(r,h-r);sh.absarc(0,h-r,r,0,Math.PI,false);sh.lineTo(-r,r);return new THREE.ShapeGeometry(sh,24);};
- const pe=new THREE.Mesh(pill(0.32,1.45),M.brass);pe.rotation.y=Math.PI/2;pe.position.set(wx,base+0.14,3.73);lf.add(pe);
- const pm=new THREE.Mesh(pill(0.28,1.41),M.mirrorGlow);pm.rotation.y=Math.PI/2;pm.position.set(wx+0.004,base+0.16,3.73);lf.add(pm);
+ const pe=new THREE.Mesh(pill(0.32,1.45),M.brass);pe.rotation.y=Math.PI/2;pe.position.set(wx,base+0.04,3.72);lf.add(pe);
+ const pm=new THREE.Mesh(pill(0.28,1.41),M.mirrorGlow);pm.rotation.y=Math.PI/2;pm.position.set(wx+0.004,base+0.06,3.72);lf.add(pm);
  // dried-flower garland: from the arch crown down the side nearest the mirror
  const r=rng(91);const blooms=['df0','df1','df2','df3'];
  for(let i=0;i<120;i++){const t=Math.pow(r(),0.75);let zz,y;
@@ -1089,11 +1098,11 @@ function diningTable(s,zc,len,k,two){const tx=s*1.37; // table x 1.02–1.72 fro
   const cz=len/2-0.27;(two?[zc]:[zc-cz,zc+cz]).forEach(z=>loftChair(s*0.73,z,s));
   cyl(0.04,0.03,0.14,tx,MZ+0.75,zc-0.08,M.terracotta,lf,10); for(let i=0;i<5;i++)rod(V(tx,MZ+0.87,zc-0.08),V(tx+(i-2)*0.03,MZ+1.12+(i%2)*0.06,zc-0.08+(i%3-1)*0.02),0.003,M.twig,lf);
   cyl(0.03,0.03,0.05,tx+0.08,MZ+0.75,zc+0.12,M.shelfGlass,lf,10); sph(0.012,tx+0.08,MZ+0.79,zc+0.12,M.globe,lf);
-  rod(V(tx,H,zc),V(tx,MZ+1.78,zc),0.004,M.black,lf);
+  rod(V(tx,s>0?H-0.38:H,zc),V(tx,MZ+1.78,zc),0.004,M.black,lf); // left pendants hang from beam A's soffit
   const dm=new THREE.Mesh(new THREE.SphereGeometry(0.24,20,10,0,Math.PI*2,0,Math.PI/2),M.rattan);dm.scale.y=0.7;dm.position.set(tx,MZ+1.6,zc);lf.add(dm);
   sph(0.05,tx,MZ+1.6,zc,M.globe,lf);}
 loftBench(-1,5.0,9.5); loftBench(1,7.1,9.55);
-diningTable(-1,5.65,1.2,0); diningTable(-1,7.15,1.2,1); diningTable(-1,8.65,1.2,2); diningTable(1,7.72,1.2,3); diningTable(1,9.15,0.7,4,true); // left: a 4-top (1.2 m) and a 2-top (0.7 m), 0.48 m apart
+diningTable(-1,6.1,1.1,0); diningTable(-1,7.5,1.1,1); diningTable(-1,8.9,1.1,2); // right: pillar P2 (z 6.65–6.95) sits in the gap diningTable(1,7.72,1.2,3); diningTable(1,9.15,0.7,4,true); // left: a 4-top (1.2 m) and a 2-top (0.7 m), 0.48 m apart
 // LOFT SERVICE STATION (where the DJ desk was): used-plate return + clean crockery, on the back wall
 // The cabinet now spans the whole hood step (x X0..1.15, front flush at z 9.55): the 0.44 m step becomes its solid base, so there is no ledge to stand on.
 // Counter top stays at 0.94 m above the loft floor; open shelves sit on the step top (+0.44) and at +0.66
@@ -1109,7 +1118,7 @@ bx(0.55,0.85,MZ+0.94,MZ+1.06,10.08,10.38,M.cane,lf); [0.6,0.68,0.76].forEach(x=>
 bx(0.88,1.0,MZ+0.94,MZ+1.0,10.1,10.36,M.porcelain,lf);
 cyl(0.15,0.13,0.55,1.25,MZ,10.25,M.black,lf,16);
 {const r=rng(55);for(let i=0;i<26;i++){const x=(r()<.5?X0+0.12+r()*0.2:X1-0.12-r()*0.2);let zz=5.1+r()*4.4;if(x>0&&zz<7.0)zz+=2.0;trail(x,H-0.02,zz,0.2+r()*0.3,lf);}}
-for(let z=5.0;z<D;z+=0.38) sph(0.03,0,H-0.07,z,M.globe,lf);
+for(let z=5.0;z<D;z+=0.38){if(z>6.55&&z<7.05)continue;sph(0.03,0,H-0.07,z,M.globe,lf);}
 plane(1.66,0.28,M.neonPink,0,4.33,D-0.03,Math.PI,lf);
 bigPlant(1.95,MZ,9.95,0.75,lf);
 
@@ -1234,7 +1243,7 @@ const SALON=[ // side, z, y, w, h, frame(-1 = tin sign), poster, matted
  [1,4.47,2.95,0.36,0.5,1,5,1],[1,4.47,4.2,0.36,0.4,0,6,0],
  // loft right wall: dense cluster above the oak bench (bench back tops out at 3.4 m)
  [-1,5.28,3.92,0.48,0.7,0,0,1],[-1,5.82,4.18,0.4,0.3,2,9,0],[-1,5.82,3.72,0.4,0.46,1,3,0],[-1,6.38,3.95,0.5,0.76,0,1,1],
- [-1,9.12,3.95,0.56,0.8,2,2,1],
+ [-1,9.22,3.95,0.48,0.76,2,2,1],
  // loft left wall: above the oak bench past the stair head
  [1,7.42,3.95,0.5,0.72,1,11,1],[1,9.18,4.13,0.38,0.3,2,0,0],[1,9.18,3.72,0.38,0.44,1,8,0],
  // washroom (kept)
@@ -1264,7 +1273,7 @@ function fakeWindow(wall,c,y,w,h){const g=new THREE.Group(),B=(bw,bh,bd,x,yy,z,m
   const par=wall==='R'?G.wallR:wall==='L'?G.wallL:G.wallB;
   if(wall==='R'){g.position.set(X0+0.002,y,c);g.rotation.y=Math.PI/2;} else if(wall==='L'){g.position.set(X1-0.002,y,c);g.rotation.y=-Math.PI/2;} else {g.position.set(c,y,D-0.002);g.rotation.y=Math.PI;}
   par.add(g);}
-fakeWindow('R',7.3,3.92,1.0,0.86); fakeWindow('L',8.3,3.92,1.0,0.86); fakeWindow('B',-1.55,3.92,0.8,0.8); fakeWindow('B',1.55,3.92,0.8,0.8);
+fakeWindow('R',7.5,3.92,0.86,0.86); fakeWindow('L',8.3,3.92,1.0,0.86); fakeWindow('B',-1.55,3.72,0.7,0.55); fakeWindow('B',1.55,3.72,0.7,0.55); // back pair sized to sit between the counter and beam A
 // ROUND NEON on the loft right wall between the clusters, and a second one above the TV over the back bar
 M.neonDraught=new THREE.MeshBasicMaterial({map:neonTexture('cold draught','92px Yellowtail, cursive','#ff6a3a','#ffd2b8',600,220),transparent:true,toneMapped:false,depthWrite:false});
 M.neonDim=new THREE.MeshBasicMaterial({map:neonTexture('dim sum','110px Yellowtail, cursive','#ff6a3a','#ffd2b8',600,220),transparent:true,toneMapped:false,depthWrite:false});
@@ -1272,7 +1281,7 @@ function roundNeon(z,y,r,mat,parent){const ring=new THREE.Mesh(new THREE.TorusGe
   const ring2=new THREE.Mesh(new THREE.TorusGeometry(r*0.82,0.012,8,40),M.neonRed);ring2.rotation.y=Math.PI/2;ring2.position.set(X0+0.06,y,z);parent.add(ring2);
   const disc=new THREE.Mesh(new THREE.CircleGeometry(r*0.98,40),M.black);disc.rotation.y=Math.PI/2;disc.position.set(X0+0.035,y,z);parent.add(disc);
   plane(r*1.75,r*0.62,mat,X0+0.07,y,z,Math.PI/2,parent);}
-roundNeon(8.32,3.95,0.4,M.neonDraught,G.wallR); roundNeon(2.95,3.95,0.36,M.neonDim,G.wallR);
+roundNeon(8.5,3.95,0.4,M.neonDraught,G.wallR); roundNeon(2.95,3.95,0.36,M.neonDim,G.wallR);
 // felt PENNANTS strung along the top of the stair wall and both loft walls
 {const pc=[M.red,M.linen,M.ochre||M.orange,M.teal2||M.oliveWood];const tri=new THREE.Shape();tri.moveTo(-0.09,0);tri.lineTo(0.09,0);tri.lineTo(0,-0.22);tri.lineTo(-0.09,0);const tg=new THREE.ShapeGeometry(tri);
  [[1,0.4,2.6,4.44],[-1,5.0,9.55,4.44],[1,7.1,9.55,4.44]].forEach(([sd,z0,z1,y])=>{const x=sd<0?X0+0.02:X1-0.02;rod(V(x,y+0.01,z0),V(x,y+0.01,z1),0.004,M.black,sd<0?G.wallR:G.wallL);
@@ -1337,7 +1346,7 @@ function setNight(on,late){LIGHT.t=on?(late?1:0.85):0;LIGHT.dim=late?0.45:on?0.8
 // ACOUSTICS: fabric-wrapped ceiling clouds (40 mm) over the front double-height space and the loft; felt behind the gallery frames
 M.felt=S({color:new THREE.Color('#7d5a44').convertSRGBToLinear(),roughness:1}); M.felt2=S({color:new THREE.Color('#5f6b4a').convertSRGBToLinear(),roughness:1});
 [[-0.95,-0.05,0.35,1.55],[-0.95,-0.05,1.65,2.85],[0.1,0.95,1.65,2.85]].forEach(([x0,x1,z0,z1],i)=>bx(x0,x1,H-0.05,H-0.01,z0,z1,i%2?M.felt2:M.felt,G.ceil,false));
-for(let z=5.15;z<9.4;z+=1.32)[[-2.0,-0.3],[0.3,2.0]].forEach(([x0,x1],k)=>bx(x0,x1,H-0.05,H-0.01,z,Math.min(z+1.2,9.4),(k+Math.round(z))%2?M.felt:M.felt2,G.ceil,false));
+[[-2.05,-0.32,5.05,6.55],[0.0,1.05,5.05,6.55],[1.45,2.15,5.05,9.4],[-2.05,-0.32,7.05,9.4],[0.0,1.05,7.05,9.4]].forEach(([x0,x1,z0,z1],k)=>bx(x0,x1,H-0.05,H-0.01,z0,z1,k%2?M.felt:M.felt2,G.ceil,false)); // one cloud per coffer, clear of the beams
 // ---------- FIRE & LIFE SAFETY + SECURITY (NBC 2016 Part 4 + the usual Goa Fire NOC checklist) ----------
 M.fRed=S({color:'#c8231b',roughness:0.4}); M.fRedGlow=S({color:'#ff3a2a',emissive:'#ff2010',emissiveIntensity:1.4});
 M.exitG=S({map:exitTex('EXIT'),emissive:'#ffffff',emissiveMap:exitTex('EXIT'),emissiveIntensity:0.9});
@@ -1387,7 +1396,7 @@ for(let i=1;i<=15;i+=2){const [a,b]=stepZ(i);const t=i*SRH;bx(X1-0.006,X1,t+0.26
 // gallery walls: black ceiling track with adjustable spots (4 over the stair wall, 3 per loft wall)
 function track(x,z0,z1,y,n,parent,aimX){bx(x-0.02,x+0.02,y-0.03,y,z0,z1,M.black,parent,false);
   for(let k=0;k<n;k++){const z=z0+(k+0.5)*(z1-z0)/n;rod(V(x,y-0.03,z),V(x,y-0.1,z),0.008,M.black,parent);const h=new THREE.Mesh(new THREE.CylinderGeometry(0.035,0.045,0.12,12),M.black);h.position.set(x+aimX*0.03,y-0.13,z);h.rotation.z=aimX*0.7;parent.add(h);sph(0.03,x+aimX*0.07,y-0.17,z,M.glow,parent);}}
-track(1.75,0.4,4.6,H,4,G.ceil,1); track(-1.95,5.1,9.4,H,3,G.ceil,-1); track(1.95,7.1,9.4,H,3,G.ceil,1);
+track(1.75,0.4,4.6,H,4,G.ceil,1); track(-1.95,5.05,6.55,H,2,G.ceil,-1); track(-1.95,7.05,9.4,H,2,G.ceil,-1); // split either side of beam T2 track(1.95,7.1,9.4,H,3,G.ceil,1);
 // loft benches: warm LED under-glow along each bench front (2200 K)
 bx(X0+0.49,X0+0.5,MZ+0.04,MZ+0.06,5.02,9.48,M.glow,lf,false); bx(X1-0.5,X1-0.49,MZ+0.04,MZ+0.06,7.12,9.53,M.glow,lf,false);
 
@@ -1398,6 +1407,17 @@ bx(X0+0.49,X0+0.5,MZ+0.04,MZ+0.06,5.02,9.48,M.glow,lf,false); bx(X1-0.5,X1-0.49,
    bx(x0+0.33,x0+0.36,y+0.1,y+0.2,z-0.012,z+0.012,M.black,gr);});
  for(let i=0;i<3;i++)cyl(0.04,0.035,0.08,X0+0.42+i*0.0,y+0.0+i*0.08,6.05,M.porcelain,gr,12);
  cyl(0.06,0.06,0.16,X0+0.6,y,6.05,M.ss,gr,14);}
+
+// ---------- SHELL STRUCTURE AS FOUND (site survey): 2 right-wall pillars, downstand beams under the flat RCC slab, lintel ledge ----------
+// survey x is measured from the LEFT wall; here x = 2.25 − survey x. P1/P2 0.30 × 0.23 at z 4.8 / 6.8. Beams: A along the length 1.0 m off the
+// left wall (0.38 deep), T1 full width at P1 (0.45), T2 from P2 to beam A (0.40), short centre beam B (0.25). Ledge 2.45–2.65 m.
+PIL.forEach(z=>bx(X0-0.01,X0+PD,0,H+0.01,z-PW/2,z+PW/2,M.plaster,G.wallR));
+[[BMA-0.115,BMA+0.115,0.38,0.0,D],[X0-0.01,X1+0.01,0.45,4.675,4.925],[X0-0.01,BMA-0.115,0.40,6.675,6.925],[-0.225,-0.075,0.25,4.925,6.675]]
+ .forEach(([x0,x1,d,z0,z1])=>bx(x0,x1,H-d,H+0.01,z0,z1,M.conc,G.ceil));
+// lintel ledge: right wall between the pillars (0.23 deep, flush with them), back wall and left wall past the stair (0.15 deep).
+// Along the stair (z 0–5.7) the left-wall ledge is shown trimmed flush: it sits at head height over the top flight.
+[[0.0,4.65],[4.95,6.65],[6.95,D-0.15]].forEach(([z0,z1])=>bx(X0,X0+PD,2.45,2.65,z0,z1,M.plaster,G.wallR));
+bx(X0+PD,X1,2.45,2.65,D-0.15,D,M.plaster,G.wallB); bx(X1-0.15,X1,2.45,2.65,5.7,D-0.15,M.brick,G.wallL);
 // ---------- labels ----------
 const LBL=[
  ['Beer garden · 6',0,3.3,-1.7,'o'],['Mist fan',-2.9,1.95,-1.7,'o'],['Mist fan',2.95,1.95,-2.95,'o'],['Misting line on the pergola',3.28,2.95,-1.6,'o'],['Chalkboard',1.05,1.3,-3.75,'o'],
@@ -1426,6 +1446,10 @@ LBL.push(['Fresh-air (make-up) supply grille',-0.3,KC-0.1,9.2,'k'],['Fresh-air i
 LBL.push(['Step lights × 8 (2700 K)',X1-0.05,1.0,1.5,'g'],['Recessed downlights × 5 under the loft',-0.6,DK-0.08,6.25,'g'],['Gallery track · 4 spots',1.75,H-0.25,2.5,'g'],
  ['Gallery track · 3 spots',-1.95,H-0.25,7.25,'u'],['Bench under-glow (2200 K)',X0+0.5,MZ+0.15,6.4,'u']);
 LBL.push(['Batch coffee brewer · 2 warming jugs (no barista)',X0+0.5,1.65,5.67,'g'],['Cups + milk warmer',X0+0.5,1.3,6.05,'g']);
+LBL.push(['Pillar P1 · 0.30 × 0.23 m · z 4.8',X0+0.24,1.2,4.8,'g','R'],['Pillar P2 · z 6.8',X0+0.24,1.2,6.8,'g','R'],['Ledge 2.45–2.65 m (shell)',X0+0.24,2.75,1.6,'g','R'],
+ ['Beam A · 0.38 deep, 1.0 m off the left wall',BMA,4.0,2.4,'g'],['Beam T1 over the loft edge · 0.45 deep',-0.8,3.95,4.8,'g'],
+ ['Beam T2 · 1.72 m clear above the loft floor',-1.0,3.98,6.8,'u'],['Beam B · 1.87 m clear',-0.15,4.13,5.8,'u'],['Under beam A: 1.74 m clear',BMA,3.98,8.0,'u'],
+ ['Stair head under beams A + T1: ~1.7 m clear, pad + mark',1.6,4.0,5.25,'s']);
 const labelsEl=document.getElementById('labels');
 const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;d.hidden=true;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f:f.split(' ')[0],w,shown:false};});
 
