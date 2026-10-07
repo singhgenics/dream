@@ -246,6 +246,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td>Kegs</td><td class="d">8 × 20 L (Ø 0.27 × 0.44 m): 6 on tap + 2 spare</td></tr>
         <tr><td>CO₂ bay</td><td class="d">0.29 m wide · 6 kg cylinder Ø 0.15 × 0.67 m</td></tr>
         <tr><td>Server-station shelves (2)</td><td class="d">1.45 × 0.3 m at 1.35 and 1.8 m</td></tr>
+        <tr><td>Batch coffee brewer, 2 warming jugs</td><td class="d">0.38 W × 0.38 D × 0.56 H m · 1.8 L per brew</td></tr>
         <tr><td>Main electrical board</td><td class="d">0.42 × 0.6 × 0.15 m at 1.15–1.75 m</td></tr>
         <tr><td>Fire alarm panel</td><td class="d">0.36 × 0.28 m</td></tr>
         <tr><td>Split AC (back)</td><td class="d">1.5 TR · ~1.0 × 0.32 × 0.23 m at 1.98 m</td></tr>
@@ -1379,6 +1380,14 @@ function track(x,z0,z1,y,n,parent,aimX){bx(x-0.02,x+0.02,y-0.03,y,z0,z1,M.black,
 track(1.75,0.4,4.6,H,4,G.ceil,1); track(-1.95,5.1,9.4,H,3,G.ceil,-1); track(1.95,7.1,9.4,H,3,G.ceil,1);
 // loft benches: warm LED under-glow along each bench front (2200 K)
 bx(X0+0.49,X0+0.5,MZ+0.04,MZ+0.06,5.02,9.48,M.glow,lf,false); bx(X1-0.5,X1-0.49,MZ+0.04,MZ+0.06,7.12,9.53,M.glow,lf,false);
+
+// COFFEE: batch filter brewer on the server-station counter beside the bar (no barista): 2 glass jugs on warming plates, cups, milk warmer
+{const x0=X0+0.33,x1=X0+0.71,z0=5.48,z1=5.86,y=0.94;
+ bx(x0,x1,y,y+0.05,z0,z1,M.ssDark,gr); bx(x0,x0+0.14,y+0.05,y+0.52,z0,z1,M.ss,gr); bx(x0,x1,y+0.44,y+0.56,z0,z1,M.ss,gr); bx(x1-0.01,x1,y+0.47,y+0.53,z0+0.05,z1-0.05,M.black,gr,false);
+ [z0+0.1,z1-0.1].forEach(z=>{cyl(0.075,0.075,0.012,x0+0.28,y+0.05,z,M.black,gr,16);cyl(0.07,0.065,0.16,x0+0.28,y+0.062,z,M.shelfGlass,gr,16);cyl(0.066,0.06,0.1,x0+0.28,y+0.065,z,glassT.dark,gr,16);
+   bx(x0+0.33,x0+0.36,y+0.1,y+0.2,z-0.012,z+0.012,M.black,gr);});
+ for(let i=0;i<3;i++)cyl(0.04,0.035,0.08,X0+0.42+i*0.0,y+0.0+i*0.08,6.05,M.porcelain,gr,12);
+ cyl(0.06,0.06,0.16,X0+0.6,y,6.05,M.ss,gr,14);}
 // ---------- labels ----------
 const LBL=[
  ['Beer garden · 6',0,3.3,-1.7,'o'],['Mist fan',-2.9,1.95,-1.7,'o'],['Mist fan',2.95,1.95,-2.95,'o'],['Misting line on the pergola',3.28,2.95,-1.6,'o'],['Chalkboard',1.05,1.3,-3.75,'o'],
@@ -1406,6 +1415,7 @@ LBL.push(['Fresh-air (make-up) supply grille',-0.3,KC-0.1,9.2,'k'],['Fresh-air i
  ['Acoustic fabric ceiling clouds',-0.5,H-0.15,1.2,'g'],['Acoustic ceiling clouds (loft)',-1.1,H-0.15,8.0,'u'],['Persian runner 0.9 × 4.45 m',0,MZ+0.15,6.0,'u'],['Roll-down clear PVC monsoon curtains',3.4,2.4,-1.7,'o']);
 LBL.push(['Step lights × 8 (2700 K)',X1-0.05,1.0,1.5,'g'],['Recessed downlights × 5 under the loft',-0.6,DK-0.08,6.25,'g'],['Gallery track · 4 spots',1.75,H-0.25,2.5,'g'],
  ['Gallery track · 3 spots',-1.95,H-0.25,7.25,'u'],['Bench under-glow (2200 K)',X0+0.5,MZ+0.15,6.4,'u']);
+LBL.push(['Batch coffee brewer · 2 warming jugs (no barista)',X0+0.5,1.65,5.67,'g'],['Cups + milk warmer',X0+0.5,1.3,6.05,'g']);
 const labelsEl=document.getElementById('labels');
 const labels=LBL.map(([t,x,y,z,f,w])=>{const d=document.createElement('div');d.className='lbl '+f;d.innerHTML='<i></i>'+t;d.hidden=true;labelsEl.appendChild(d);return{el:d,p:V(x,y,z),f:f.split(' ')[0],w,shown:false};});
 

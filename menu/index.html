@@ -183,6 +183,11 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
           <p>The taps and cocktails need the Goa excise licence. If it isn't through on opening day, the zero-proof list covers the bar. Recorded music needs PPL and IPRS (or Novex) licences.</p>
         </div>
         <div class="box">
+          <h3>Coffee without a barista</h3>
+          <p>A commercial filter <b>batch brewer</b> with two glass jugs on warming plates (Bravilor, Bunn or Marco class, about ₹35,000–60,000). It sits on the server-station counter next to the bar. The bartender loads a paper filter and ground coffee, presses one button, and gets 1.8 L (about 12 cups) in 6–7 minutes. Brew small batches and pour away anything older than 45 minutes. A small milk warmer covers "with milk". Cost per cup is about ₹15–20 with good Indian arabica, so the margin is high.</p>
+          <p class="small">Soft drinks and packaged water: restaurants may charge above MRP for on-premise service, but keep the MRP visible on the bottle and price clearly on the menu.</p>
+        </div>
+        <div class="box">
           <h3>Tap suppliers</h3>
           <p>Two main suppliers keep ordering simple. Susegado (Calangute) pours the wit, kokum gose and vanilla porter. Goa Brewing Co. (Sangolda) pours People's Lager and Eight Finger Eddie. The guest tap rotates Maka Di (Dicholi), with Great State Aleworks as an option. The guest menu names the Sangolda beers without the brewery, to keep the word "Goa" off it.</p>
           <p class="small">Before signing, ask each brewer: will they deliver to Betalbatim, what is the minimum order, keg size and price, which coupler type they use, whether they'll lend a kegerator or tower, and how long the unfiltered beer lasts. Each brewer's range is from public listings, so confirm what's currently in production.</p>
@@ -254,12 +259,16 @@ const MENU=[
   ['Kimchi Mary','Vodka, tomato, kimchi brine, gochugaru rim','Rolled between tins to keep it smooth, served spicy.','₹420','',0,['highball','#c8301a','salt']],
   ['Soju Yakult','Soju, Yakult, lime','Shaken and served over ice: the Seoul bar classic.','₹420','',0,['rocks','#f6f0e6','leaf']],
   ['Somaek','Soju and lager','A shot of soju dropped into a cold lager.','₹360','',0,['somaek']]]},
- {id:'zero',t:'Zero proof',k:'For drivers, kids & everyone else',drink:true,items:[
-  ['Fresh lime soda','Lime, soda, sweet or salted','Pressed to order, the cabin-table standard.','₹120','',0,['highball','#eef2d6','lime']],
-  ['Kokum soda','Kokum, black salt, soda','The coast\u2019s summer cooler, salty-sour and pink.','₹140','goa',0,['highball','#d86a8a','leaf']],
-  ['Lemongrass-ginger iced tea','Black tea, lemongrass, ginger','Brewed in house and chilled.','₹160','',0,['highball','#c8862a','leaf']],
-  ['Cold brew tonic','Cold brew coffee, tonic, orange peel','Coffee steeped 18 hours, poured over tonic.','₹200','',0,['highball','#6a3a1a','lime']],
-  ['Banana milk','Banana, milk, honey','The Korean convenience-store favourite, made fresh.','₹220','',0,['milk']]]},
+ {id:'zero',t:'Zero proof & soft drinks',k:'For drivers, kids & everyone else',drink:true,items:[
+  ['Fresh lime soda','Lime, soda, sweet or salted','Pressed to order, the cabin-table standard.','₹120','',0,null],
+  ['Kokum soda','Kokum, black salt, soda','The coast’s summer cooler, salty-sour and pink.','₹140','goa',0,null],
+  ['Lemongrass-ginger iced tea','Black tea, lemongrass, ginger','Brewed in house and chilled.','₹160','',0,null],
+  ['Water','Packaged drinking water 1 L · sparkling water 330 ml','Served chilled.','₹60 / 120','',0,null],
+  ['Soft drinks','Coke, Diet Coke, Thums Up, Sprite','Chilled, with ice and lime on the side.','₹80','',0,null],
+  ['Tonic or ginger ale','Indian tonic water or ginger ale','Our mixers, on their own over ice.','₹120','',0,null]]},
+ {id:'coffee',t:'Hot coffee',k:'Freshly brewed at the bar, all day',drink:true,items:[
+  ['Brewed coffee','Single-estate Indian arabica, medium roast','Filter-brewed in small batches through the day and poured at the bar. Black, or with hot milk.','₹120 / 140','',0,null],
+  ['Irish-style coffee','Brewed coffee, Paul John whisky, brown sugar, lightly whipped cream','Our one hot cocktail: sweet, spiked and capped with cold cream.','₹340','',0,null]]},
  {id:'table',t:'For the table',k:'Sets & happy hour',sets:true,drink:true,items:[
   ['Steamer for two','Chef’s 8 dim sum + 2 bao','Our pick from today’s steamers.','₹980','',0,['set']],
   ['Cabin feast for four','Chimney soup, chilli chicken, golden prawns, mixed chowmein, fried rice, darsaan','The Tangra table, served family style.','₹2,950','kol',0,['chimney']],
@@ -267,7 +276,7 @@ const MENU=[
   ['Happy hour, 5–7 pm','330 ml taps ₹199 · crystal veg dumplings ₹179 · Cabin Fever chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
 ];
 // course order: food first, then sets, then drinks, with sweets to close
-const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','cocktails','zero','sweet'];
+const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','cocktails','zero','coffee','sweet'];
 MENU.sort((x,y)=>ORDER.indexOf(x.id)-ORDER.indexOf(y.id));
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const badge=b=>b==='kol'?' <b class="kol">Cabin classic</b>':b==='goa'?' <b class="goa">Konkan touch</b>':'';
