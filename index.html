@@ -1,11 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-</head>
-<body>
-<title>Betalbatim Pub Model</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"></head><body><title>Betalbatim Pub Model</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Yellowtail&display=swap">
@@ -133,7 +126,7 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
 
   <aside class="panel">
     <header>
-      <p class="eyebrow">Concept 16 · 4.5 × 4.5 × 10.5 m shell · 34 covers</p>
+      <p class="eyebrow">Concept 17 · 4.5 × 4.5 × 10.5 m shell · 34 covers</p>
       <h1>Dim sum, draught &amp; records</h1>
       <p class="lede">A light, warm, cozy pub for cabin-style Chinese, dim sum, bao, Korean bar food, craft beer and cocktails. The ground floor has a cream-and-charcoal checkerboard and brass lanterns. A reclaimed-wood wall carries vintage beer signs, and the bar glows through backlit onyx. Sand limewash, red brick and the raw concrete ceiling keep it bright. Most of the seats are upstairs in a 16-cover loft. Left and right are as you walk in from the road.</p>
     </header>
@@ -171,7 +164,7 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
         <li><b>Lounge</b><span>A cane-back sofa with floral cushions seats 3, and a green velvet tub chair adds 1, around a large wooden table on a kilim rug. A vintage brass lantern hangs above. Behind it is a reclaimed-wood plank wall with vintage round and tin beer signs and two Edison sconces.</span></li>
         <li><b>Wall art</b><span>Sand limewash walls in a shade darker than before, so the frames sit into the wall instead of floating on white. About 17 frames in black, oak and brass, each with a cream mat: a gallery over the lounge, a cluster around the billing neon, frames up the stair, a row over each loft banquette and one in the washroom.</span></li>
         <li><b>Under the nook</b><span>The back half of the bar sits under the nook, with downlights in its underside. The glass rack and globe pendants now cover only the front half of the counter.</span></li>
-        <li><b>Back of bar</b><span>A server station (water, cutlery, glasses) next to the kitchen pass.</span></li>
+        <li><b>Back of bar</b><span>A server station (water, cutlery, glasses) next to the kitchen pass. Its base is a 2 m keg cooler holding 10 × 20 L kegs (6 on tap plus 4 spares), with a vented CO₂ bay. Empty kegs go in a locked cage outside the back wall.</span></li>
         <li><b>Cooling</b><span>Two 1.4-ton split ACs. The ground-floor unit is high on the kitchen's front wall, blowing down the length of the room. The loft unit is on the loft's back wall, below the pink neon. Both outdoor units hang on brackets on the back wall outside, next to the LPG cage and exhaust.</span></li>
         <li><b>Sound</b><span>Five wall-mounted speakers angled down at the seats: three downstairs (front right, over the stair, by the server station) and two in the loft.</span></li>
         <li><b>Stair booth</b><span>A 4-seat booth tucked under the stair, where the jukebox was. The stair's underside is clad in oak to make a snug sloping ceiling, and its low end is closed with timber slats. Two benches with backs face each other across the table, under a small globe pendant and a brass sconce.</span></li>
@@ -586,7 +579,21 @@ bx(-1.15,-0.35,2.63,2.65,c0+0.1,BZ-0.1,M.shelfGlass,gr,false); [-1.15,-0.35].for
 [3.95,4.45].forEach(z=>{bx(-0.85,-0.65,2.37,2.39,z-0.1,z+0.1,M.glow,gr,false);bx(-1.65,-1.45,2.37,2.39,z-0.1,z+0.1,M.glow,gr,false);});
 {const r=rng(77);for(let i=0;i<30;i++){const side=r()<.5?-1.17:-0.33;trail(side+(r()-.5)*0.05,2.72,c0+0.2+r()*0.75,0.25+r()*0.45,gr);}for(let z=c0+0.3;z<BZ-0.2;z+=0.5){const p=new THREE.Mesh(new THREE.SphereGeometry(0.16,8,6),M.leaf);p.scale.set(1.4,0.5,1);p.position.set(-0.75,2.75,z);gr.add(p);}}
 // SERVER STATION (right, behind the bar's end, beside the kitchen pass)
-bx(X0,-1.65,0,0.9,5.45,7.35,M.timberDark,gr); bx(X0,-1.62,0.9,0.94,5.45,7.35,M.marble,gr);
+// KEG COOLER under the server station: 0.75 m deep, 2 m long, 2–4 °C. Glass doors show 10 × 20 L kegs (6 on tap + 4 spares); the end bay holds the CO2 cylinder
+{const kx1=-1.5,kz0=5.4,kz1=7.4,bay=6.98;
+ bx(X0,kx1,0,0.06,kz0,kz1,M.black,gr); bx(X0,kx1,0.86,0.9,kz0,kz1,M.ss,gr); bx(X0,X0+0.04,0.06,0.86,kz0,kz1,M.ss,gr);
+ [kz0,kz1-0.03].forEach(z=>bx(X0,kx1,0.06,0.86,z,z+0.03,M.ss,gr)); bx(X0,kx1,0.06,0.86,bay,bay+0.025,M.ss,gr);
+ bx(X0,-1.47,0.9,0.94,kz0,kz1,M.marble,gr);
+ for(let i=0;i<5;i++){const z=kz0+0.2+i*0.31;[X0+0.2,X0+0.5].forEach((x,r)=>{cyl(0.135,0.135,0.44,x,0.08,z,M.ss,gr,18);cyl(0.14,0.14,0.03,x,0.08,z,M.ssDark,gr,18);cyl(0.14,0.14,0.03,x,0.49,z,M.ssDark,gr,18);
+   if(r===1&&i<3||r===0&&i<3){cyl(0.035,0.035,0.06,x,0.52,z,M.black,gr,10);}});}
+ [[kz0+0.03,6.19],[6.19,bay]].forEach(([a,b])=>{bx(kx1-0.01,kx1+0.01,0.08,0.84,a+0.02,b-0.02,M.shelfGlass,gr,false);bx(kx1,kx1+0.03,0.08,0.84,a,a+0.03,M.ss,gr);bx(kx1,kx1+0.03,0.81,0.84,a,b,M.ss,gr);bx(kx1,kx1+0.03,0.08,0.11,a,b,M.ss,gr);bx(kx1+0.01,kx1+0.04,0.3,0.7,b-0.09,b-0.07,M.ssDark,gr);});
+ bx(kx1,kx1+0.02,0.08,0.84,bay+0.03,kz1-0.03,M.ss,gr); for(let y=0.1;y<0.3;y+=0.045) bx(kx1+0.02,kx1+0.03,y,y+0.02,bay+0.06,kz1-0.06,M.black,gr,false);
+ bx(kx1+0.02,kx1+0.04,0.3,0.6,bay+0.06,bay+0.08,M.ssDark,gr);
+ cyl(0.075,0.075,0.6,X0+0.25,0.07,7.19,M.steel,gr,16); cyl(0.03,0.075,0.07,X0+0.25,0.67,7.19,M.steel,gr,12); bx(X0+0.21,X0+0.29,0.74,0.8,7.15,7.23,M.brass,gr);
+ [0.3,0.55].forEach(y=>{const ch=new THREE.Mesh(new THREE.TorusGeometry(0.085,0.008,6,20),M.ssDark);ch.rotation.x=Math.PI/2;ch.position.set(X0+0.25,y,7.19);gr.add(ch);});
+ bx(X0+0.12,X0+0.48,0.78,0.81,7.03,7.33,M.brass,gr);
+ rod(V(X0+0.45,0.7,bay+0.05),V(X0+0.45,0.7,kz0+0.1),0.012,M.black,gr);
+ bx(X0+0.6,X0+0.68,0.06,0.12,kz0-0.15,kz0,M.black,gr);}
 [1.35,1.8].forEach(y=>bx(X0,X0+0.3,y,y+0.03,5.5,7.3,M.timber,gr));
 for(let z=5.6;z<7.25;z+=0.12) cyl(0.035,0.03,0.11,X0+0.15,1.38,z,M.shelfGlass,gr,8);
 cyl(0.12,0.12,0.4,-1.85,0.94,6.9,M.ss,gr,16);
@@ -687,6 +694,12 @@ for(let z=8.6;z<9.8;z+=0.22) cyl(0.11,0.11,0.12,2.05,1.43,z,M.porcelain,kt,14);
 bx(-2.15,-1.25,1.6,1.62,D+0.35,D+1.05,M.steel,G.ext);
 [[-1.95,D+0.55],[-1.45,D+0.55],[-1.95,D+0.85],[-1.45,D+0.85]].forEach(([x,z])=>{cyl(0.15,0.15,1.1,x,0,z,M.red,G.ext,14);cyl(0.04,0.04,0.1,x,1.1,z,M.steel,G.ext,8);});
 rod(V(-1.7,1.3,D+0.35),V(-1.7,1.3,D),0.015,M.brass,G.ext);
+// EMPTY-KEG CAGE outside the back wall: locked steel mesh, shaded; 3 m clear of the LPG bank, 1.1 m clear in front of the rear door
+{const a=1.8,b=2.4,c=D+1.1,d=D+1.7,h=1.2;[[a,c],[b,c],[a,d],[b,d]].forEach(([x,z])=>rod(V(x,0,z),V(x,h,z),0.02,M.steel,G.ext));
+ bx(a,b,h,h+0.03,c,d,M.steel,G.ext); bx(a-0.05,b+0.05,h+0.25,h+0.28,c-0.05,d+0.05,M.timberDark,G.ext);
+ [[a,a+0.005,c,d],[b-0.005,b,c,d],[a,b,c,c+0.005],[a,b,d-0.005,d]].forEach(([x0,x1,z0,z1])=>bx(x0,x1,0.05,h,z0,z1,M.meshWire,G.ext,false));
+ [[1.97,D+1.25],[2.23,D+1.25],[1.97,D+1.55]].forEach(([x,z])=>{cyl(0.135,0.135,0.44,x,0,z,M.ss,G.ext,16);cyl(0.14,0.14,0.03,x,0.44,z,M.ssDark,G.ext,16);});
+ cyl(0.075,0.075,0.6,2.25,0,D+1.56,M.steel,G.ext,14);}
 
 // ---------- LOFT (z 4.8–10.5, deck top 2.55 m, headroom ~1.95 m) · 16 covers ----------
 const lf=G.loft;
@@ -894,7 +907,7 @@ const LBL=[
  ['Beer garden · 6',0,3.3,-1.7,'o'],['Mist fan',-2.9,1.95,-1.7,'o'],['Mist fan',2.95,1.95,-2.95,'o'],['Misting line on the pergola',3.28,2.95,-1.6,'o'],['Chalkboard',1.05,1.3,-3.75,'o'],
  ['Billing desk',1.25,1.5,0.85,'g'],['"settle up here" neon',X1-0.05,2.65,0.85,'g','L'],['Window lounge · 4',-1.25,1.15,1.3,'g'],['Reclaimed-wood wall · vintage signs',X0+0.05,3.9,1.2,'g','R'],['Frames up the stair',X1-0.05,2.65,2.05,'g','L'],['Spiral duct + brass lanterns',0.4,4.05,1.6,'g'],
  ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, green-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
- ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Booth under the stair · 4',1.65,1.3,4.15,'g'],['Urinal',1.95,1.85,5.5,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
+ ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Booth under the stair · 4',1.65,1.3,4.15,'g'],['Keg cooler · 10 × 20 L kegs',-1.6,1.0,6.2,'g'],['CO₂ bay · chained · vented',-1.55,0.7,7.15,'g'],['Empty-keg cage (outside)',2.05,1.45,D+1.4,'g'],['Urinal',1.95,1.85,5.5,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
  ['Kitchen · click to explore',-0.6,1.9,8.9,'g cta'],['Split AC 1.4 TR (ground)',-1.17,2.45,KZ-0.15,'g'],['Wall speaker',X0+0.25,3.1,0.2,'g'],['Wall speaker',X1-0.25,3.95,2.25,'g'],['AC outdoor units',0.45,3.7,D+0.35,'k'],
  ['Loft · 16 covers · headroom ~1.95 m',0,3.55,7.3,'u'],['Loft service station · used plates + crockery',-0.4,3.45,9.95,'u'],['Split AC 1.4 TR (loft)',0.75,3.98,D-0.15,'u'],['Wall speakers',X1-0.25,3.95,9.75,'u'],['Standing photo booth · painted arch, "say bao" neon',-2.1,4.45,4.33,'u'],['"bao, baby?" neon on the nook',-1.2,3.4,BZ-0.05,'u'],['Menu board',0.72,3.4,LZ-0.08,'u'],['Framed prints over the banquettes',X1-0.05,4.15,7.8,'u','L'],
  ['Wok range · 2 burners',-1.65,1.25,10.15,'k'],['Dim sum steamer',-0.6,1.35,10.15,'k'],['Twin fryer',0.15,1.2,10.15,'k'],['2-burner range',0.78,1.3,10.15,'k'],
@@ -918,6 +931,9 @@ const ZONES={
     views:[['Top view','kitchen'],['Walk in','kwalk'],['Dish side','kdish']]},
   bar:{box:[X0,-0.25,0,2.8,2.25,bb1],ey:'Bar · 2.2 m · 4 stools',t:'The bar',b:'A glowing bar: backlit amber onyx panels behind a black mesh frame, a marble top with a curved end facing the door, emerald tile behind and a brass gantry with green-lit glass shelves overhead.',
     l:['4 velvet high-back bar chairs, plus a brass foot rail','6 craft taps on two brass fonts','Speed rail, ice well, bar sink and glasswasher behind the counter','Emerald tile above with a TV; the "bao, baby?" neon hangs on the nook overhead'],views:[['Down the bar','bar'],['Bartender side','barback']]},
+  kegs:{box:[X0,-1.45,0,1.0,5.4,7.4],ey:'Keg cooler · 6 taps',t:'Keg storage',b:'The server station\u2019s base is a 2 m under-counter keg cooler at 2–4 °C, close to the taps so the beer lines stay short. Glass doors show what\u2019s in stock.',
+    l:['10 × 20 L kegs in two rows: 6 on tap plus 4 full spares','An insulated line bundle with a cold-water loop runs under the floor to the two tap fonts, about 1.5–3 m away','The end bay holds a 6 kg CO₂ cylinder, chained upright, with a 6-way gas splitter and a low vent grille, because leaked CO₂ sinks','A locked, shaded steel cage outside the back wall holds empty kegs and a spare CO₂ cylinder, 3 m from the LPG bank','Kegs come in through the front and down the side aisle, without crossing the kitchen'],
+    views:[['Cooler','kegs'],['Empties cage','kegcage']]},
   billing:{box:[0.9,X1,0,1.6,0.3,1.45],ey:'Billing desk',t:'Billing / cashier desk',b:'Replaces the reception desk. It sits just inside the door on the left, so guests settle up on the way out.',
     l:['Oak top and cane front, with a POS tablet, card machine and receipt printer','A pendant lamp, plus a "settle up here" neon on the wall behind','The cashier stands behind it, with a clear view of the door, the bar and the stair'],views:[['View','billing']]},
   lounge:{box:[X0,0.3,0,1.2,0.3,2.3],ey:'Lounge · 4 covers',t:'Window lounge',b:'A cane-back sofa with floral cushions and a green velvet tub chair around a large wooden table on a kilim rug, under a vintage brass lantern, against a reclaimed-wood wall hung with vintage beer signs.',l:['The first seats people see from the road'],views:[['View','lounge']]},
@@ -935,6 +951,8 @@ const VIEWS={
   kwalk:{p:[1.25,1.62,7.95],t:[-1.3,1.05,10.3]},
   kdish:{p:[-1.3,1.65,8.2],t:[2.2,1.0,9.0]},
   bar:{p:[1.0,1.75,0.4],t:[-1.3,1.45,4.4]},
+  kegs:{p:[0.25,1.35,5.6],t:[-2.0,0.45,6.6]},
+  kegcage:{p:[-0.4,2.3,D+3.6],t:[2.9,0.2,D+0.4]},
   barback:{p:[-1.55,1.7,5.05],t:[-0.5,1.2,2.0]},
   billing:{p:[-0.7,1.6,2.5],t:[1.9,1.1,0.7]},
   lounge:{p:[0.7,2.3,3.4],t:[-1.4,0.55,1.1]},
@@ -998,7 +1016,7 @@ function frame(now){
   if(controls.update())dirty=true;
   if(!dirty)return; dirty=false;
   const c=camera.position;
-  const loftOn=state.loft&&!['kitchen','washroom','understair'].includes(state.focus);
+  const loftOn=state.loft&&!['kitchen','washroom','understair','kegs'].includes(state.focus);
   G.loft.visible=loftOn; loftL.forEach(l=>l.visible=loftOn);
   G.ceil.visible=!(state.cut&&c.y>H);
   G.kceil.visible=!(state.cut&&c.y>KC+0.05);
@@ -1020,6 +1038,4 @@ const fl=document.fonts&&document.fonts.load?Promise.race([Promise.all(['700 46p
 fl.catch(()=>{}).then(init);
 })();
 </script>
-
-</body>
-</html>
+</body></html>
