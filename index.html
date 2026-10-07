@@ -1060,7 +1060,7 @@ bigPlant(1.95,MZ,9.95,0.75,lf);
 // FRESH-AIR (MAKE-UP) SUPPLY for the kitchen: intake fan box high on the back wall outside, ceiling supply grille in front of the hood, interlocked with the exhaust
 bx(1.25,1.95,3.3,3.78,D+0.02,D+0.32,M.ssDark,G.ext); for(let y=3.36;y<3.74;y+=0.06) bx(1.28,1.92,y,y+0.02,D+0.32,D+0.34,M.steel,G.ext,false);
 bx(-0.6,-0.05,KC-0.06,KC-0.04,9.0,9.42,M.ss,G.kceil,false); for(let x=-0.56;x<-0.08;x+=0.05) bx(x,x+0.02,KC-0.065,KC-0.06,9.03,9.39,M.ssDark,G.kceil,false);
-// ---------- AIR CONDITIONING: two 1.4 TR wall splits (ground + loft) with outdoor units on the back wall ----------
+// ---------- AIR CONDITIONING: ~5 TR — 2 × 1.5 TR ground + 2.0 TR loft, three outdoor units on the back wall ----------
 M.acWhite=S({color:'#f6f5f1',roughness:0.45});
 function acIndoor(cx,cy,cz,face,parent,sc){const g=new THREE.Group();
   bx(-0.46,0.46,-0.15,0.15,-0.11,0.11,M.acWhite,g); bx(-0.44,0.44,-0.15,-0.11,0.09,0.115,M.ssDark,g,false); bx(0.3,0.36,0.08,0.1,0.11,0.115,M.board,g,false);
