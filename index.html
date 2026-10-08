@@ -42,11 +42,14 @@ body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:14px
 .seg button{appearance:none;border:0;background:transparent;color:var(--muted);font:500 12px/1 var(--body);padding:8px 11px;border-radius:9px;cursor:pointer}
 .seg button:hover{color:var(--fg);background:rgba(255,255,255,.05)}
 .seg button[aria-pressed="true"]{background:var(--amber);color:#1b120a}
-.lightctl{flex-direction:column;padding:8px 10px;gap:6px;min-width:250px}
+.lightwrap{position:relative;pointer-events:auto}
+.lightwrap>.seg button .car{display:inline-block;margin-left:6px;transition:transform .15s}
+.lightwrap>.seg button[aria-expanded="true"] .car{transform:rotate(180deg)}
+.lightctl{position:absolute;top:calc(100% + 6px);left:auto;right:0;z-index:25;flex-direction:column;flex-wrap:nowrap;padding:10px 12px;gap:8px;width:340px;max-width:calc(100vw - 24px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
 .lc-row{display:flex;align-items:center;gap:8px}
 .lc-k{font:600 10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--amber);width:44px}
 .lc-e{font:500 11px/1 var(--body);color:var(--muted);width:30px}
-.lc-v{font:500 11px/1 var(--mono);color:var(--fg);white-space:nowrap;width:86px;text-align:right}
+.lc-v{font:500 11px/1 var(--mono);color:var(--fg);white-space:nowrap;min-width:92px;text-align:right}
 .lightctl input[type=range]{flex:1;accent-color:var(--amber);min-width:90px;height:18px}
 .lc-pre{gap:2px;flex-wrap:wrap} .lc-pre button{padding:6px 9px}
 .lc-win{align-items:center} .lc-win .lc-k{margin-right:2px} .lc-win button{padding:5px 8px;font-size:11px}
@@ -99,6 +102,7 @@ ol.flow li::before{content:counter(f);font:600 10px/1 var(--mono);width:18px;hei
   .app{grid-template-columns:1fr;grid-template-rows:68vh auto;height:auto}
   .panel{border-left:0;border-top:1px solid var(--line);overflow:visible;padding-inline:16px}
   .toolbar{left:10px;right:10px;top:10px}
+  .lightctl{left:auto;right:0;width:min(340px,calc(100vw - 20px))}
   .seg button{padding:7px 9px;font-size:11.5px}
   .card{right:10px;left:10px;bottom:10px;width:auto;max-height:46%}
   ul.zones li{grid-template-columns:1fr;gap:2px}
@@ -148,11 +152,14 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <button id="t-dims" aria-pressed="false">Sizes</button>
         <button id="t-plans" aria-pressed="false">Floor plans</button>
       </div>
-      <div class="seg lightctl" role="group" aria-label="Lighting">
+      <div class="lightwrap">
+        <div class="seg"><button id="t-light" aria-expanded="false" aria-controls="lightpanel">Lighting · <span id="lc-name">Evening</span><span class="car" aria-hidden="true">▾</span></button></div>
+        <div class="seg lightctl" id="lightpanel" role="group" aria-label="Lighting" hidden>
         <div class="lc-row"><span class="lc-k">Time</span><span class="lc-e">Day</span><input id="lc-time" type="range" min="0" max="100" value="85" aria-label="Time of day, day to night"><span class="lc-e">Night</span></div>
         <div class="lc-row"><span class="lc-k">Lights</span><span class="lc-e">Off</span><input id="lc-dim" type="range" min="0" max="100" value="80" aria-label="Dim all lights"><span class="lc-v" id="lc-read">80% · 2700 K</span></div>
         <div class="lc-row lc-pre lc-win"><span class="lc-k">Windows</span><button data-win="auto" aria-pressed="true">Auto</button><button data-win="daylight">Daylight</button><button data-win="golden">Golden hour</button><button data-win="sunset">Sunset</button><button data-win="moon">Moonlight</button><button data-win="candle">Candle</button><button data-win="off">Off</button></div>
         <div class="lc-row lc-pre"><button data-pre="lunch">Lunch</button><button data-pre="dusk">Sunset</button><button data-pre="evening" aria-pressed="true">Evening</button><button data-pre="late">Late</button></div>
+        </div>
       </div>
     </div>
     <div class="htag" id="htag" hidden></div>
@@ -169,19 +176,19 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
 
   <aside class="panel">
     <header>
-      <p class="eyebrow">Concept 23 · 4.5 × 4.5 × 10.5 m shell · 36 covers</p>
+      <p class="eyebrow">Concept 23 · 4.5 × 4.5 × 10.5 m shell · 38 covers</p>
       <h1>Dim sum, draught &amp; records</h1>
       <p class="lede">A light, warm, cozy pub for cabin-style Chinese, dim sum, bao, Korean bar food, craft beer and cocktails. The ground floor has a cream-and-charcoal checkerboard and brass lanterns. A reclaimed-wood wall carries vintage beer signs, and the bar glows through backlit onyx. Sand limewash, red brick and the raw concrete ceiling keep it bright. Half the seats are upstairs in an earthy 20-cover loft. Left and right are as you walk in from the road.</p>
     </header>
 
     <section>
-      <h2>Covers · 36</h2>
+      <h2>Covers · 38</h2>
       <table>
         <tr class="g"><td>Ground</td><td>Rattan bar stools with backrests</td><td class="n">4</td></tr>
         <tr class="g"><td>Ground</td><td>Window tables: a 4 + a 2 on a banquette (join into a 6)</td><td class="n">6</td></tr>
         <tr class="u"><td>Loft</td><td>Front bay: two round high tables for 2 · behind beam T2: four tables of 4</td><td class="n">20</td></tr>
-        <tr class="o"><td>Garden</td><td>Table for 4 on benches with backrests + a table for 2</td><td class="n">6</td></tr>
-        <tr class="total"><td></td><td>Total</td><td class="n">36</td></tr>
+        <tr class="o"><td>Garden</td><td>Two tables for 4 on benches with backrests (4.9 × 2.0 m pergola)</td><td class="n">8</td></tr>
+        <tr class="total"><td></td><td>Total</td><td class="n">38</td></tr>
       </table>
     </section>
 
@@ -199,7 +206,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr class="g"><td>Ground</td><td>Kitchen (4.5 × 2.9 m)</td><td class="n">13.1</td></tr>
         <tr class="g"><td>Ground</td><td>Aisles, entry, electrical board and partitions (the rest)</td><td class="n">~11.5</td></tr>
         <tr class="u"><td>Loft</td><td>Loft deck from the keg-cooler line (5.4 m) to the back wall, incl. the landing bridge</td><td class="n">22.6</td></tr>
-        <tr class="o"><td>Garden</td><td>Beer garden (7.2 × 3.3 m), 18.4 m² under the pergola</td><td class="n">23.8</td></tr>
+        <tr class="o"><td>Garden</td><td>Beer garden (4.9 × 2.0 m, all under the pergola)</td><td class="n">9.5</td></tr>
         <tr class="total"><td></td><td>Indoor total (ground + loft)</td><td class="n">64.8</td></tr>
       </table>
     </section>
@@ -349,17 +356,16 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td>Gallery frames</td><td class="d">0.34–0.6 × 0.3–0.8 m</td></tr>
         <tr><td>Split AC</td><td class="d">2.0 TR · ~1.1 × 0.35 × 0.26 m</td></tr>
       </table></details>
-      <details class="dims" id="sz-garden"><summary>Beer garden · 6 covers · 23.8 m²</summary><table>
-        <tr><td>Gravel court</td><td class="d">7.2 × 3.3 m</td></tr>
-        <tr><td>Pergola (between posts)</td><td class="d">6.8 × 2.7 m · posts 0.16 m sq · 2.95 H</td></tr>
-        <tr><td>Polycarbonate roof</td><td class="d">7.2 × 2.9 m at 3.06 m</td></tr>
-        <tr><td>Table for 4</td><td class="d">1.3 × 0.76 m · 0.78 H</td></tr>
-        <tr><td>Benches with backs (2)</td><td class="d">1.3 L × 0.36 D m · seat 0.47 · back 0.95 H</td></tr>
-        <tr><td>Round table for 2</td><td class="d">Ø 0.72 m · 0.77 H</td></tr>
-        <tr><td>Mist fans (2)</td><td class="d">~1.65 H m, Ø 0.6 m head</td></tr>
-        <tr><td>PVC monsoon curtains</td><td class="d">3 sides: 6.8 m front, 2 × 2.7 m sides, 2.64 m drop</td></tr>
-        <tr><td>Planter walls</td><td class="d">0.5 H m</td></tr>
-        <tr><td>Chalkboard</td><td class="d">0.64 × 1.0 m</td></tr>
+      <details class="dims" id="sz-garden"><summary>Beer garden · 8 covers · 9.5 m²</summary><table>
+        <tr><td>Footprint</td><td class="d">4.9 W (in line with the side walls) × 2.0 D m</td></tr>
+        <tr><td>Pergola</td><td class="d">2 posts 0.16 m sq at the front corners · ledger on the facade · beams 2.75–2.97 m</td></tr>
+        <tr><td>Polycarbonate roof</td><td class="d">5.0 × 2.0 m at 3.06 m</td></tr>
+        <tr><td>Tables for 4 (2)</td><td class="d">1.2 × 0.76 m · 0.78 H</td></tr>
+        <tr><td>Benches with backs (4)</td><td class="d">1.2 L × 0.36 D m · seat 0.47 · back 0.95 H</td></tr>
+        <tr><td>Centre path</td><td class="d">1.18 m clear between bench backs</td></tr>
+        <tr><td>Mist fans (2)</td><td class="d">compact, on the front posts at 2.25 m</td></tr>
+        <tr><td>PVC monsoon curtains</td><td class="d">3 sides: 4.9 m front, 2 × 1.9 m sides, 2.64 m drop</td></tr>
+        <tr><td>Front planters</td><td class="d">2 × 1.85 L × 0.18 D × 0.45 H m, brick</td></tr>
       </table></details>
       <details class="dims" id="sz-section"><summary>Loft heights and clearances</summary><table>
         <tr><td colspan="2" style="padding-top:8px;font:600 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--amber)">Across the loft (8.0 m from the front)</td></tr>
@@ -411,7 +417,7 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <tr><td>600 × 600 LED ceiling panels · <b>4</b></td><td class="d">4000 K, 36 W (needed for food safety)</td></tr>
         <tr><td>Hood lights · <b>2</b></td><td class="d">4000 K, sealed</td></tr>
         <tr><td colspan="2" style="padding-top:10px;font:600 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--amber)">Beer garden</td></tr>
-        <tr><td>Festoon strings over the tables · <b>3 strings · 57 bulbs</b></td><td class="d">2200 K, 1 W, outdoor IP65</td></tr>
+        <tr><td>Festoon strings over the tables · <b>2 strings · 26 bulbs</b></td><td class="d">2200 K, 1 W, outdoor IP65</td></tr>
         <tr><td>Table lanterns · <b>3</b></td><td class="d">rechargeable, ~2200 K</td></tr>
         <tr><td colspan="2" style="padding-top:10px;font:600 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--amber)">Safety (separate circuit)</td></tr>
         <tr><td>Emergency lights · <b>5</b></td><td class="d">battery, 90 min</td></tr>
@@ -534,9 +540,9 @@ details.dims td.d{font:500 12px/1.45 var(--mono);color:var(--muted);text-align:r
         <li><span class="tag md">Access</span><b>Rear access</b><span>The plan needs a rear door, space for the LPG cage, and a route for the exhaust duct behind the building.</span></li>
         <li><span class="tag md">Structure</span><b>Loft planned around the beams</b><span>The loft runs from the keg-cooler line to the back. Walkways stay under the open bays (2.12 m). Beam T2 (1.72 m) is fenced off by a planter, beam B (1.87 m) sits over the front-bay high table, and beam A (1.74 m) over the left tables. The stair passes under T1 with about 2.1 m clear: pad its edge.</span></li>
         <li><span class="tag md">Services</span><b>Mist fans</b><span>The garden misting needs a water line, a small high-pressure pump, a filter and an outdoor-rated power point. Keep the mist away from the electrics and the billing desk.</span></li>
-        <li><span class="tag md">Norms</span><b>One unisex washroom</b><span>One room with a WC and a urinal behind a modesty screen, plus a shared basin outside. At 36 covers, check that the local body accepts a single unisex washroom, and whether it must be accessible.</span></li>
+        <li><span class="tag md">Norms</span><b>One unisex washroom</b><span>One room with a WC and a urinal behind a modesty screen, plus a shared basin outside. At 38 covers, check that the local body accepts a single unisex washroom, and whether it must be accessible.</span></li>
         <li><span class="tag hi">Sizing</span><b>AC resized to about 5 tons</b><span>Two 1.5-ton units downstairs and a 2-ton unit in the loft. Have an HVAC contractor confirm the heat load, including the kitchen and the double-height glazing.</span></li>
-        <li><span class="tag md">Weather</span><b>Monsoon</b><span>6 of the 36 covers are outside. Roll-down clear PVC curtains on the pergola keep them open through June to September.</span></li>
+        <li><span class="tag md">Weather</span><b>Monsoon</b><span>8 of the 38 covers are outside. Roll-down clear PVC curtains on the pergola keep them open through June to September.</span></li>
         <li><span class="tag md">Licence</span><b>Music</b><span>Recorded music in public usually needs PPL and IPRS (or Novex) licences.</span></li>
       </ul>
     </section>
@@ -1157,49 +1163,50 @@ function speaker(side,y,z,parent){const s2=side<0?1:-1,wx=side<0?X0:X1;const g=n
 speaker(-1,2.78,0.2,G.ground); speaker(1,3.6,2.25,G.ground); speaker(-1,1.95,6.0,G.ground);
 speaker(-1,3.65,9.75,G.loft); speaker(1,3.65,9.75,G.loft);
 
-// ---------- outside: beer garden (~7 × 3 m, 6 covers) ----------
-const out=G.outside;
+// ---------- outside: beer garden, as wide as the shell (4.9 m outside the walls) and 2.0 m deep, 8 covers ----------
+const out=G.outside;const GW=2.45,GD=-2.0; // garden runs x −2.45 → 2.45 (in line with the side walls), z −2.0 → shopfront
 bx(-16,16,-0.1,-0.06,-16,18,M.laterite,out,false);
-bx(-3.6,3.6,-0.06,-0.02,-3.4,-0.1,M.gravel,out,false);
+bx(-GW,GW,-0.06,-0.02,GD,-0.1,M.gravel,out,false);
 bx(-0.55,0.55,-0.02,0.0,-6.3,-0.1,M.concrete,out,false);
 bx(-16,16,-0.06,-0.04,-11,-7.6,M.road,out,false);
-const PX=[-3.4,3.4],PZ=[-0.35,-3.05];
-PX.forEach(x=>PZ.forEach(z=>bx(x-0.08,x+0.08,0,2.95,z-0.08,z+0.08,M.timber,out)));
-// MONSOON CURTAINS: roll-down clear PVC on the pergola's three open sides (rolled up here, one side shown lowered)
+// PERGOLA: two front posts in line with the side walls; a ledger fixed to the facade carries the back ends of the rafters
+const PX=[-2.35,2.35],PZ=[-1.92];
+PX.forEach(x=>bx(x-0.08,x+0.08,0,2.95,-2.0,-1.84,M.timber,out));
+bx(-GW,GW,2.75,2.97,-2.0,-1.84,M.timber,out);                 // front beam on the posts
+bx(-GW,GW,2.75,2.97,-0.26,-0.1,M.timber,out);                 // ledger bolted to the facade
+PX.forEach(x=>bx(x-0.08,x+0.08,2.75,2.97,-1.84,-0.26,M.timber,out)); // side beams
+for(let x=-2.25;x<=2.26;x+=0.45) bx(x-0.04,x+0.04,2.97,3.05,-2.05,-0.1,M.timber,G.pergTop);
+bx(-GW-0.05,GW+0.05,3.06,3.07,-2.1,-0.1,M.poly,G.pergTop,false);
+// MONSOON CURTAINS: roll-down clear PVC on the three open sides (rolled up; the left side shown lowered)
 M.pvcC=S({color:'#eef6f8',transparent:true,opacity:0.22,roughness:0.1,side:THREE.DoubleSide,depthWrite:false});
 {const roll=(a,b,y,along)=>{const L2=along==='x'?Math.abs(b[0]-a[0]):Math.abs(b[2]-a[2]);const c=new THREE.Mesh(new THREE.CylinderGeometry(0.055,0.055,L2,12),M.porcelain);
    if(along==='x')c.rotation.z=Math.PI/2;else c.rotation.x=Math.PI/2;c.position.set((a[0]+b[0])/2,y,(a[2]+b[2])/2);out.add(c);};
- roll([-3.4,0,-3.2],[3.4,0,-3.2],2.68,'x'); roll([-3.5,0,-3.05],[-3.5,0,-0.35],2.68,'z'); roll([3.5,0,-3.05],[3.5,0,-0.35],2.68,'z');
- bx(3.49,3.51,0.05,2.64,-3.05,-0.35,M.pvcC,out,false); bx(3.47,3.53,0.02,0.06,-3.05,-0.35,M.porcelain,out);}
-
-PX.forEach(x=>bx(x-0.1,x+0.1,2.75,2.97,-3.15,-0.25,M.timber,out));
-for(let z=-3.05;z<=-0.3;z+=0.45) bx(-3.6,3.6,2.97,3.05,z-0.04,z+0.04,M.timber,G.pergTop);
-bx(-3.6,3.6,3.06,3.07,-3.15,-0.25,M.poly,G.pergTop,false);
-{const r=rng(99);for(let i=0;i<50;i++){const e=r();let x,z;if(e<0.5){x=(r()<.5?-1:1)*(3.0+r()*0.5);z=-3.0+r()*2.7;}else if(e<0.7){x=-3.5+r()*7;z=-3.05+r()*0.25;}else{x=-3.4+r()*6.8;z=-3+r()*2.7;}trail(x,2.97,z,0.2+r()*(e<0.7?1.1:0.4),out);}}
-[-0.8,-1.7,-2.6].forEach(z=>{const pts=[];for(let i=0;i<=20;i++){const x=-3.4+i*6.8/20;const t=x/3.4;pts.push(V(x,2.92-0.38*(1-t*t),z));}
+ roll([-GW,0,-2.06],[GW,0,-2.06],2.68,'x'); roll([-GW-0.06,0,-1.84],[-GW-0.06,0,-0.12],2.68,'z'); roll([GW+0.06,0,-1.84],[GW+0.06,0,-0.12],2.68,'z');
+ bx(GW+0.05,GW+0.07,0.05,2.64,-1.84,-0.12,M.pvcC,out,false); bx(GW+0.03,GW+0.09,0.02,0.06,-1.84,-0.12,M.porcelain,out);}
+// trailing vines along the front beam and the side beams
+{const r=rng(99);for(let i=0;i<34;i++){const e=r();let x,z;if(e<0.55){x=-GW+r()*2*GW;z=-1.98+r()*0.12;}else{x=(r()<.5?-1:1)*(2.3+r()*0.12);z=-1.8+r()*1.6;}trail(x,2.75,z,0.2+r()*(e<0.55?0.7:0.5),out);}}
+// festoon strings: two runs across the full width
+[-0.7,-1.4].forEach(z=>{const pts=[];for(let i=0;i<=14;i++){const x=-2.3+i*4.6/14;const t=x/2.3;pts.push(V(x,2.9-0.3*(1-t*t),z));}
   out.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:'#3a3a3a'})));
-  pts.forEach((p,i)=>{if(i>0&&i<20)sph(0.04,p.x,p.y-0.06,p.z,M.globe,out);});});
-{const x=-1.9,za=-2.35,zb=-1.05;bx(x-0.38,x+0.38,0.72,0.78,za,zb,M.timber,out);[[-0.3,za+0.1],[0.3,za+0.1],[-0.3,zb-0.1],[0.3,zb-0.1]].forEach(([a2,b2])=>bx(x+a2-0.04,x+a2+0.04,0,0.72,b2-0.04,b2+0.04,M.timberDark,out));
+  pts.forEach((p,i)=>{if(i>0&&i<14)sph(0.04,p.x,p.y-0.06,p.z,M.globe,out);});});
+// TWO TABLES FOR 4, each with two benches with backrests (1.2 × 0.76 m tables), either side of the 1.1 m path to the doors
+[-1.4,1.4].forEach(x=>{const za=-1.68,zb=-0.48;bx(x-0.38,x+0.38,0.72,0.78,za,zb,M.timber,out);[[-0.3,za+0.1],[0.3,za+0.1],[-0.3,zb-0.1],[0.3,zb-0.1]].forEach(([a2,b2])=>bx(x+a2-0.04,x+a2+0.04,0,0.72,b2-0.04,b2+0.04,M.timberDark,out));
   [-1,1].forEach(s2=>{const bxs=x+s2*0.62;bx(bxs-0.18,bxs+0.18,0.42,0.47,za,zb,M.timber,out);bx(bxs-0.16,bxs+0.16,0.47,0.52,za+0.05,zb-0.05,cush[2],out);
     [za+0.1,(za+zb)/2,zb-0.1].forEach(b2=>{bx(bxs-0.12,bxs+0.12,0,0.42,b2-0.04,b2+0.04,M.timberDark,out);bx(bxs+s2*0.15,bxs+s2*0.19,0.42,0.95,b2-0.04,b2+0.04,M.timberDark,out);});
     [0.62,0.8].forEach(y=>bx(bxs+s2*0.16,bxs+s2*0.2,y,y+0.12,za,zb,M.timber,out));});
-  [-2.0,-1.4].forEach(z=>cyl(0.04,0.04,0.09,x,0.78,z,M.glow,out,10));}
-{const z=-1.7;cyl(0.36,0.36,0.03,1.9,0.74,z,M.timber,out,20);cyl(0.025,0.025,0.74,1.9,0,z,M.brass,out,8);cyl(0.04,0.04,0.09,1.9,0.77,z,M.glow,out,10);chair(1.3,z,out,Math.PI/2);chair(2.5,z,out,-Math.PI/2);}
-[-3.3,3.3].forEach(x=>[-2.7,-1.0].forEach(z=>plant(x,0,z,0.9,out)));
-{const ch=new THREE.Group();bx(-0.32,0.32,0.05,1.05,-0.02,0.02,M.chalk,ch);ch.position.set(1.05,0,-3.75);ch.rotation.x=0.12;ch.rotation.y=Math.PI;out.add(ch);}
-bx(-3.7,-0.6,0,0.5,-3.55,-3.4,M.brick,out); bx(0.6,3.7,0,0.5,-3.55,-3.4,M.brick,out);
-// pedestal MIST FANS aimed at the tables
-function mistFan(x,z,tx,tz){const g=new THREE.Group();cyl(0.26,0.3,0.05,0,0,0,M.black,g,20);cyl(0.03,0.03,1.45,0,0.05,0,M.black,g,10);
-  const motor=bx(-0.16,0.0,1.42,1.62,-0.09,0.09,M.black,g);
-  const cage=new THREE.Mesh(new THREE.TorusGeometry(0.3,0.012,6,28),M.ss);cage.rotation.y=Math.PI/2;cage.position.set(0.06,1.52,0);g.add(cage);
-  for(let i=0;i<4;i++){const bl=new THREE.Mesh(new THREE.BoxGeometry(0.01,0.24,0.08),M.ss);bl.position.set(0.04,1.52,0);bl.rotation.x=i*Math.PI/2;bl.translateY(0.13);g.add(bl);}
-  const nz=new THREE.Mesh(new THREE.TorusGeometry(0.22,0.01,6,24),M.brass);nz.rotation.y=Math.PI/2;nz.position.set(0.1,1.52,0);g.add(nz);
-  const mist=new THREE.Mesh(new THREE.CylinderGeometry(0.75,0.18,1.6,20,1,true),M.mist);mist.rotation.z=-Math.PI/2;mist.position.set(0.95,1.42,0);mist.castShadow=false;g.add(mist);
-  const mist2=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.12,1.1,16,1,true),M.mist);mist2.rotation.z=-Math.PI/2;mist2.position.set(0.7,1.48,0);mist2.castShadow=false;g.add(mist2);
-  g.position.set(x,0,z);g.rotation.y=Math.atan2(-(tz-z),tx-x);out.add(g);}
-mistFan(-2.9,-1.7,-1.9,-1.7); mistFan(2.95,-2.95,1.9,-1.7);
-// misting line along both pergola beams, with fine-mist nozzles
-[-3.28,3.28].forEach(x=>{rod(V(x,2.72,-3.05),V(x,2.72,-0.35),0.012,M.ss,out);for(let z=-2.9;z<-0.4;z+=0.5){cyl(0.012,0.02,0.05,x,2.66,z,M.brass,out,8);const m=new THREE.Mesh(new THREE.CylinderGeometry(0.02,0.22,0.55,12,1,true),M.mist);m.position.set(x,2.36,z);m.castShadow=false;out.add(m);}});
+  [-1.35,-0.8].forEach(z=>cyl(0.04,0.04,0.09,x,0.78,z,M.glow,out,10));});
+// low brick planters along the front edge, open in the middle for the path
+bx(-GW,-0.6,0,0.45,-2.2,-2.02,M.brick,out); bx(0.6,GW,0,0.45,-2.2,-2.02,M.brick,out);
+{const r=rng(17);[[-GW,-0.6],[0.6,GW]].forEach(([a,b])=>{for(let x=a+0.2;x<b-0.1;x+=0.3){const l=new THREE.Mesh(new THREE.SphereGeometry(0.17,8,6),M.leaf);l.scale.set(1,0.7+r()*0.4,0.7);l.position.set(x,0.55+r()*0.08,-2.11);out.add(l);}});}
+{const ch=new THREE.Group();bx(-0.32,0.32,0.05,1.05,-0.02,0.02,M.chalk,ch);ch.position.set(0.95,0,-2.55);ch.rotation.x=0.12;ch.rotation.y=Math.PI;out.add(ch);}
+// MIST FANS: compact wall-type fans on the two front posts, angled in at the tables, plus a misting line along the front beam
+function postFan(x){const s2=x<0?1:-1;const g=new THREE.Group();bx(-0.07,0.07,-0.09,0.09,-0.06,0.06,M.black,g);
+  const cage=new THREE.Mesh(new THREE.TorusGeometry(0.2,0.01,6,24),M.ss);cage.position.set(0,0,0.14);g.add(cage);
+  for(let i=0;i<4;i++){const bl=new THREE.Mesh(new THREE.BoxGeometry(0.16,0.012,0.05),M.ss);bl.position.set(0,0,0.12);bl.rotation.z=i*Math.PI/2;bl.translateX(0.08);g.add(bl);}
+  const mist=new THREE.Mesh(new THREE.CylinderGeometry(0.55,0.12,1.2,18,1,true),M.mist);mist.rotation.x=Math.PI/2;mist.position.set(0,-0.1,0.8);mist.castShadow=false;g.add(mist);
+  g.position.set(x+s2*0.12,2.25,-1.92);g.rotation.y=s2*0.9;g.rotation.x=0.35;out.add(g);}
+postFan(-2.35); postFan(2.35);
+rod(V(-2.3,2.72,-1.92),V(2.3,2.72,-1.92),0.012,M.ss,out);for(let x=-2.1;x<2.2;x+=0.6){cyl(0.012,0.02,0.05,x,2.66,-1.92,M.brass,out,8);const m=new THREE.Mesh(new THREE.CylinderGeometry(0.02,0.2,0.5,12,1,true),M.mist);m.position.set(x,2.38,-1.92);m.castShadow=false;out.add(m);}
 function palm(x,z,h,lean){const g=new THREE.Group();const pts=[];for(let i=0;i<=8;i++){const t=i/8;pts.push(V(lean*t*t,h*t,0));}
   const tube=new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts),12,0.13,7,false),M.trunk);tube.castShadow=true;g.add(tube);
   for(let i=0;i<9;i++){const leaf=new THREE.Mesh(new THREE.PlaneGeometry(0.5,2.6),M.leafSolid);leaf.position.copy(pts[8]);leaf.rotation.set(0,i/9*Math.PI*2,0);leaf.rotateX(-1.05);leaf.translateY(1.2);leaf.castShadow=true;g.add(leaf);}
@@ -1372,7 +1379,7 @@ extinguisher(SX0-0.09,0.12,2.7,gr); extinguisher(SX0-0.09,0.12,3.0,gr,true); bx(
 extinguisher(X0+0.1,0.12,7.25,gr,true);
 extinguisher(-0.55,0.02,7.95,G.kitchen); extinguisher(-0.3,0.02,7.95,G.kitchen,true);
 extinguisher(X1-0.1,MZ+0.05,7.0,lf);
-extinguisher(-3.28,0.12,-0.45,G.outside);
+extinguisher(-2.2,0.12,-1.78,G.outside);
 // main electrical board (RCCB + MCBs) + fire alarm panel, on the right wall past the keg cooler
 bx(X0,X0+0.15,1.15,1.75,7.03,7.45,M.ssDark,gr); bx(X0+0.15,X0+0.16,1.2,1.7,7.08,7.4,M.steel,gr,false);
 bx(X0,X0+0.1,1.86,2.14,7.06,7.42,M.porcelain,gr); sph(0.012,X0+0.105,2.05,7.12,M.fRedGlow,gr);
@@ -1392,7 +1399,7 @@ emLight(X0+0.06,2.95,0.25,gr); emLight(X1-0.06,3.7,4.3,gr); emLight(SX0-0.06,1.9
 exitSign(0,2.75,0.12,0,gr); rod(V(0,H,0.12),V(0,2.82,0.12),0.005,M.black,gr);
 exitSign(X1-0.02,MZ+1.7,6.4,-Math.PI/2,lf); exitSign(1.55,2.13,D-0.03,Math.PI,G.kitchen);
 // CCTV: entrance, POS/till, loft, rear exit, garden (recorder in the locked under-stair store)
-cctv(X0+0.12,3.3,0.25,0.9,gr); cctv(X0+0.2,2.42,3.1,Math.PI,gr); // under the ledge, looking at the POS nook cctv(-2.15,4.42,D-0.12,Math.PI+0.5,lf); cctv(1.55,2.55,D+0.25,0,G.ext); cctv(3.3,2.6,-0.42,-2.3,G.outside);
+cctv(X0+0.12,3.3,0.25,0.9,gr); cctv(X0+0.2,2.42,3.1,Math.PI,gr); // under the ledge, looking at the POS nook cctv(-2.15,4.42,D-0.12,Math.PI+0.5,lf); cctv(1.55,2.55,D+0.25,0,G.ext); cctv(2.3,2.6,-0.3,-2.3,G.outside);
 // POS NOOK recessed into the back bar's door end (z 2.36–2.84): timber cheeks and a top shelf; tablet on a stand facing the bartender,
 // card machine and receipt printer inside; cash drawer + small safe in the cabinet below. The bar top stays clear for guests.
 {const n0=2.36,n1=2.84,nx=X0+0.4;
@@ -1455,7 +1462,7 @@ bx(X0+PD,X1,2.45,2.65,D-0.15,D,M.plaster,G.wallB); bx(X1-0.15,X1,2.45,2.65,5.7,D
    const arm=new THREE.Mesh(new THREE.BoxGeometry(0.14,0.012,0.04),M.black);arm.position.set(fx+Math.cos(a)*0.12,y0-0.22,fz+Math.sin(a)*0.12);arm.rotation.y=-a;G2.add(arm);}}
 // ---------- labels ----------
 const LBL=[
- ['Beer garden · 6',0,3.3,-1.7,'o'],['Mist fan',-2.9,1.95,-1.7,'o'],['Mist fan',2.95,1.95,-2.95,'o'],['Misting line on the pergola',3.28,2.95,-1.6,'o'],['Chalkboard',1.05,1.3,-3.75,'o'],
+ ['Beer garden · 4.9 × 2.0 m · 8 covers',0,3.4,-1.0,'o'],['Mist fan on the post',-2.3,2.55,-1.92,'o'],['Mist fan on the post',2.3,2.55,-1.92,'o'],['Misting line on the front beam',0,2.95,-1.92,'o'],['Chalkboard',0.95,1.3,-2.55,'o'],['Pergola: 2 posts in line with the side walls + ledger on the facade',-1.4,3.25,-1.92,'o'],['Brick planters, open for the path',-1.6,0.75,-2.1,'o'],
  ['POS nook in the back bar · tablet, card machine, printer, cash drawer',-1.95,1.5,2.6,'g'],['"settle up here" neon',X0+0.05,2.8,2.95,'g','R'],['Window tables · 4 + 2 (join into 6)',-1.3,1.25,1.2,'g'],['Reclaimed-wood wall · vintage signs',X0+0.05,3.9,1.2,'g','R'],['Frames up the stair',X1-0.05,2.65,2.05,'g','L'],['Spiral duct + brass lanterns',0.4,4.05,1.6,'g'],
  ['Bar · 4 stools · 6 taps',-0.1,1.45,3.8,'g'],['Backlit onyx bar · emerald tile',-0.45,1.25,3.3,'g'],['Brass gantry, amber-lit',-0.75,3.05,3.0,'g'],['TV',X0+0.1,3.6,2.95,'g'],
  ['Stair to the loft',1.8,2.4,2.9,'g'],['Big framed print',X1-0.05,4.25,3.25,'g','L'],['Code stair · 1.2 m · 16 × 149 mm risers',1.6,1.6,1.5,'g'],['Landing 1.2 m',1.65,1.35,3.0,'g'],['Locked store under the stair',SX0-0.05,1.55,4.6,'g'],['Keg cooler · 8 × 20 L kegs',-1.6,1.0,6.0,'g'],['CO₂ bay · chained · vented',-1.55,0.7,7.15,'g'],['Empty-keg cage (outside)',2.05,1.45,D+1.4,'g'],['Urinal',1.95,1.85,6.02,'g'],['Drum basin · ring-light mirrors',0.8,2.45,5.6,'g'],['Server station',-1.9,1.55,6.4,'g'],['Washroom · one door · WC + urinal',1.65,2.25,6.4,'g'],['WC',1.95,1.2,7.1,'g'],
@@ -1474,10 +1481,10 @@ LBL.push(['Extinguishers · ABC 6 kg + CO₂ 4.5 kg',SX0-0.1,0.95,2.85,'s'],['CO
  ['Emergency light',X0+0.06,3.05,0.25,'s'],['Emergency light (landing)',X1-0.06,3.8,4.3,'s'],['Emergency light (aisle)',SX0-0.06,2.05,7.2,'s'],
  ['EXIT sign',0,2.95,0.12,'s'],['EXIT sign (stair head)',X1-0.02,MZ+1.85,6.4,'s'],['EXIT sign (rear door)',1.55,2.15,D-0.03,'s'],
  ['Glow nosing on every step',1.65,0.75,1.05,'s'],['Glass balustrade · 1.0 m rail',SX0+0.03,2.3,2.0,'s'],['Loft guard · 1.0 m, glass infill',-0.8,MZ+1.1,LZ2,'s'],
- ['CCTV · entrance',X0+0.12,3.45,0.25,'s'],['CCTV · till (POS nook)',X0+0.2,2.3,3.1,'s'],['CCTV · loft',-2.15,4.45,D-0.12,'s'],['CCTV · rear exit',1.55,2.75,D+0.25,'s'],['CCTV · garden',3.3,2.75,-0.42,'s'],
- ['ABC extinguisher (garden)',-3.28,0.75,-0.45,'s'],['LPG cage · leak detector · auto shut-off',-1.7,1.85,D+0.7,'s'],['Front: glass doors open outward inside the shutter',0,1.2,0.05,'s']);
+ ['CCTV · entrance',X0+0.12,3.45,0.25,'s'],['CCTV · till (POS nook)',X0+0.2,2.3,3.1,'s'],['CCTV · loft',-2.15,4.45,D-0.12,'s'],['CCTV · rear exit',1.55,2.75,D+0.25,'s'],['CCTV · garden',2.3,2.75,-0.3,'s'],
+ ['ABC extinguisher (garden)',-2.2,0.75,-1.78,'s'],['LPG cage · leak detector · auto shut-off',-1.7,1.85,D+0.7,'s'],['Front: glass doors open outward inside the shutter',0,1.2,0.05,'s']);
 LBL.push(['Fresh-air (make-up) supply grille',-0.3,KC-0.1,9.2,'k'],['Fresh-air intake fan',1.6,3.95,D+0.3,'k'],['U/C freezer · dumplings + bao',-1.15,0.55,8.32,'k'],['Extra shelf over non-veg prep',X0+0.2,2.05,9.2,'k'],
- ['Acoustic fabric ceiling clouds',-0.5,H-0.15,1.2,'g'],['Acoustic ceiling clouds (loft)',-1.1,H-0.15,8.0,'u'],['Persian runner 0.9 × 4.45 m',0,MZ+0.15,6.0,'u'],['Roll-down clear PVC monsoon curtains',3.4,2.4,-1.7,'o']);
+ ['Acoustic fabric ceiling clouds',-0.5,H-0.15,1.2,'g'],['Acoustic ceiling clouds (loft)',-1.1,H-0.15,8.0,'u'],['Persian runner 0.9 × 4.45 m',0,MZ+0.15,6.0,'u'],['Roll-down clear PVC monsoon curtains',2.5,2.4,-1.0,'o']);
 LBL.push(['Step lights × 8 (2700 K)',X1-0.05,1.0,1.5,'g'],['Recessed downlights × 5 under the loft',-0.6,DK-0.08,6.25,'g'],['Gallery track · 4 spots',1.75,H-0.25,2.5,'g'],
  ['Gallery track · 3 spots',-1.95,H-0.25,7.25,'u'],['Bench under-glow (2200 K)',X0+0.5,MZ+0.15,6.4,'u']);
 LBL.push(['Batch coffee brewer · 2 warming jugs (no barista)',X0+0.5,1.65,5.67,'g'],['Cups + milk warmer',X0+0.5,1.3,6.05,'g']);
@@ -1531,8 +1538,8 @@ tag('bench 0.5 deep · seat 0.47',0.85,X0+0.3,MZ+0.47+U,8.3,'up','z'); tag('benc
 tag('station 0.9 × 0.6 · top 0.94',0.5,0,MZ+0.94+U,9.94,'up'); tag('gap 0.55',0.3,-1.37,MZ+0.004,8.53,'up'); tag('gap 0.55',0.3,1.37,MZ+0.004,9.18,'up');
 tag('LOFT 22.6 m² · floor +2.38 · headroom 2.12',1.6,X1-0.012,3.05,7.35,'-x');
 // garden
-tag('GARDEN 7.2 × 3.3 m · 23.8 m²',1.5,0,0.002,-0.55,'up');
-tag('1.3 × 0.76 · h 0.78',0.55,-1.9,0.78+U,-1.7,'up','z'); tag('Ø 0.72 · h 0.77',0.5,1.9,0.77+U,-1.7,'up');
+tag('GARDEN 4.9 × 2.0 m · 9.5 m²',1.1,0,0.002,-1.85,'up');
+tag('1.2 × 0.76 · h 0.78',0.55,-1.4,0.78+U,-1.08,'up','z'); tag('1.2 × 0.76 · h 0.78',0.55,1.4,0.78+U,-1.08,'up','z'); tag('path 1.18',0.4,0,0.004,-1.2,'up','z');
 LBL.push(['Ice machine · under-counter, ~50 kg/day',-1.0,0.95,4.47,'g'],['Bartender aisle 0.85 m',-1.5,0.3,3.6,'g'],['Bin store · wet / dry / glass',0.65,1.35,D+1.35,'k'],['Dry-store racking in the locked under-stair store',2.0,1.95,4.9,'g']);
 LBL.push(['Ceiling fan · 0.9 m hugger, blades 1.90 m above the loft floor (over the table)',-1.25,4.15,5.98,'u']);
 const labelsEl=document.getElementById('labels');
@@ -1559,7 +1566,7 @@ const ZONES={
     l:['Two ways out: the front (glass doors that open outward inside the shutter) and the kitchen’s rear door, which opens outward with a panic bar. The farthest seat is about 18 m from the front door','Extinguishers: ABC + CO₂ at the bar, CO₂ at the electrical board, wet-chemical (Class K) + CO₂ in the kitchen, ABC in the loft and the garden','Smoke detectors in the dining room, stair void, under the loft and in the loft; a heat detector in the kitchen; call points and a hooter at the entrance and the loft','Battery emergency lights and lit EXIT signs on the escape route; glow nosing on the stair','Hood fire suppression with a manual pull and an automatic gas cut-off; LPG outside in a ventilated cage (76 kg, under the 100 kg licence limit)','Main electrical board with RCCB and MCBs, fire-retardant cabling and a licensed contractor’s certificate','Security: 5 CCTV cameras (entrance, till, loft, rear exit, garden) recording to the locked under-stair store; a safe under the POS'],
     views:[['Overview','safety'],['Stair','stair'],['Kitchen','kwalk']]},
   washroom:{box:[0.55,X1,0,KC,5.65,KZ],ey:'Washroom · 1.9 m² + 0.5 m² basin · unisex',t:'Washroom: WC + urinal, one door',b:'One room with one door. Inside are a wall-hung urinal behind a timber modesty screen and a WC, all in olive tile. A shared wash basin sits just outside the door, with a halo-lit round mirror.',l:['Headroom 2.2 m, under the loft','Basin: a white drum basin with a black tap','Mirror: a pop-art face mural whose glasses are two LED ring mirrors','The door opens onto the dining room, never into the kitchen','Check that a unisex washroom is accepted locally'],views:[['All three from above','wash'],['Urinal','washU'],['WC','washWC'],['Basin','washOut']]},
-  garden:{box:[-3.6,3.6,0,3.0,-3.4,-0.1],ey:'Beer garden · 23.8 m² · 6 covers',t:'Beer garden',b:'About 7 × 3 m under a timber pergola with a clear polycarbonate roof, trailing vines and festoon bulbs.',l:['Headroom about 2.95 m under the pergola rafters','A table for 4 on benches with backrests and seat pads','A table for 2 with cushioned cane chairs','Two pedestal mist fans and a misting line along both pergola beams keep it cool','Monsoon: roll-down clear PVC curtains on three sides keep all 6 covers open June to September'],views:[['View','garden']]}
+  garden:{box:[-2.45,2.45,0,3.0,-2.0,-0.1],ey:'Beer garden · 4.9 × 2.0 m · 9.5 m² · 8 covers',t:'Beer garden',b:'As wide as the building and 2 m deep: a timber pergola with two front posts in line with the side walls and a ledger bolted to the facade, so nothing stands in the way of the doors. Clear polycarbonate roof, trailing vines and two strings of festoon bulbs.',l:['Headroom about 2.75 m under the beams, 2.95 m under the roof','Two tables for 4 (1.2 × 0.76 m), each with two benches with backrests and seat pads','A 1.18 m path from the road to the doors runs between them','Two compact mist fans on the front posts and a misting line along the front beam','Low brick planters along the front edge, open in the middle for the path','Monsoon: roll-down clear PVC curtains on the three open sides keep all 8 covers open June to September'],views:[['View','garden'],['From the road','street']]},
 };
 const hitMat=new THREE.MeshBasicMaterial();const hits=[];
 Object.entries(ZONES).forEach(([k,z])=>{if(z.nohit)return;const [x0,x1,y0,y1,z0,z1]=z.box;const m=new THREE.Mesh(new THREE.BoxGeometry(x1-x0,y1-y0,z1-z0),hitMat);m.position.set((x0+x1)/2,(y0+y1)/2,(z0+z1)/2);m.updateMatrixWorld();m.userData.zone=k;hits.push(m);});
@@ -1589,7 +1596,7 @@ const VIEWS={
   loftv:{p:[0.9,3.95,9.6],t:[-0.7,2.75,5.2]},
   loftTop:{p:[0.6,7.4,3.0],t:[-0.2,2.6,7.3]},
   loftUp:{p:[0.2,1.6,0.8],t:[0,3.3,5.2]},
-  garden:{p:[3.0,1.7,-5.0],t:[-0.6,1.1,-1.3]},
+  garden:{p:[3.3,2.3,-5.2],t:[-0.3,0.9,-1.0]},
   street:{p:[0.4,1.7,-8.8],t:[0,2.0,2.0]},
   plan:{p:[0,27,2.11],t:[0,0,2.1]},
 
@@ -1628,7 +1635,14 @@ toggle('t-loft','loft');toggle('t-cut','cut');toggle('t-lbl','labels');{const tI
  dI.addEventListener('input',()=>{LIGHT.dim=dI.value/100;pre.forEach(b=>b.setAttribute('aria-pressed','false'));applyLight();});
  const wins=[...document.querySelectorAll('.lc-win button')];
  wins.forEach(b=>b.addEventListener('click',()=>{LIGHT.win=b.dataset.win;wins.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyLight();}));
- pre.forEach(b=>b.addEventListener('click',()=>{const [t,d]=PRE[b.dataset.pre];LIGHT.t=t/100;LIGHT.dim=d/100;sync();pre.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyLight();}));}
+ pre.forEach(b=>b.addEventListener('click',()=>{const [t,d]=PRE[b.dataset.pre];LIGHT.t=t/100;LIGHT.dim=d/100;sync();pre.forEach(x=>x.setAttribute('aria-pressed',String(x===b)));nm.textContent=b.textContent;applyLight();}));
+ // LIGHTING DROPDOWN: a toolbar button opens the time/dimmer/window panel; outside click or Escape closes it
+ const lb=document.getElementById('t-light'),lp=document.getElementById('lightpanel'),nm=document.getElementById('lc-name');
+ const openL=on=>{lp.hidden=!on;lb.setAttribute('aria-expanded',String(on));};
+ lb.addEventListener('click',e=>{e.stopPropagation();openL(lp.hidden);});
+ document.addEventListener('pointerdown',e=>{if(!lp.hidden&&!e.target.closest('.lightwrap'))openL(false);});
+ window.addEventListener('keydown',e=>{if(e.key==='Escape'&&!lp.hidden){openL(false);lb.focus();}});
+ [tI,dI].forEach(el=>el.addEventListener('input',()=>{nm.textContent='Custom';}));}
 controls.addEventListener('start',()=>{anim=null;});
 controls.addEventListener('change',()=>{dirty=true;});
 
