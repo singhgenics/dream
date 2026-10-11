@@ -82,8 +82,8 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
   <header class="top">
     <p class="tag">Betalbatim · a short walk from the Arabian Sea · working name</p>
     <h1 class="brand">dumplings &amp; draught</h1>
-    <p class="tag">Drinks menu · craft taps · whisky &amp; vodka · cocktails · zero proof · coffee</p>
-    <p class="lede">Six taps, all brewed up the coast. Single malts, blended Scotch and an Irish whiskey, four vodkas, eight cocktails built around feni, kokum, soju and lemongrass, fresh zero-proof coolers and brewed coffee, poured at the bar all day.</p>
+    <p class="tag">Drinks menu · craft taps &amp; bottled beer · whisky &amp; vodka · cocktails · zero proof · coffee</p>
+    <p class="lede">Three craft taps brewed up the coast, plus Kings and Budweiser by the bottle. Single malts, blended Scotch and an Irish whiskey, four vodkas, eight cocktails built around feni, kokum, soju and lemongrass, fresh zero-proof coolers and brewed coffee, poured at the bar all day.</p>
     <div class="tabs" role="tablist" aria-label="View">
       <button id="tab-menu" role="tab" aria-selected="true" aria-controls="menu">Drinks menu</button>
       <button id="tab-notes" role="tab" aria-selected="false" aria-controls="notes">Owner's notes</button>
@@ -101,7 +101,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <footer class="mf">
       <span>Prices in ₹, taxes extra. Spirits are poured in 30 ml / 60 ml. Please drink responsibly. Alcohol is served only to guests aged 21 and over.</span>
       <span>Food is on the separate food menu.</span>
-      <span>The guest tap changes weekly.</span>
+      <span>The guest tap changes every couple of weeks.</span>
     </footer>
   </main>
 
@@ -109,7 +109,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <div class="notes">
       <section>
         <h2>The drinks, and how to run them</h2>
-        <p>Six local craft taps, a short list of about ten whiskies and vodkas, eight cocktails, three zero-proof drinks with water and soft drinks, and brewed coffee. Drinks cost is tracked separately from food: aim for about 25–30% on taps and cocktails, and keep spirits at excise MRP plus your margin.</p>
+        <p>Three local craft taps (a lager, the kokum gose and a rotating guest) plus Kings and Budweiser by the bottle, a short list of about ten whiskies and vodkas, eight cocktails, three zero-proof drinks with water and soft drinks, and brewed coffee. Drinks cost is tracked separately from food: aim for about 25–30% on taps and cocktails, and keep spirits at excise MRP plus your margin.</p>
       </section>
       <div class="grid2">
         <div class="box">
@@ -128,7 +128,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
         </div>
         <div class="box">
           <h3>Tap suppliers</h3>
-          <p>Two main suppliers keep ordering simple. Susegado (Calangute) pours the wit, kokum gose and vanilla porter. Goa Brewing Co. (Sangolda) pours People's Lager and Eight Finger Eddie. The guest tap rotates Maka Di (Dicholi), with Great State Aleworks as an option. The guest menu names the Sangolda beers without the brewery, to keep the word "Goa" off it.</p>
+          <p>Three taps, not six: at about 12–15 guests a day, six 20 L kegs would sit open for about five weeks and go stale; three turn over in about two and a half. Goa Brewing Co. (Sangolda) pours People's Lager, Susegado (Calangute) the kokum gose, and the guest tap rotates their IPA and porter with Maka Di. Ask the brewers to lend the cooler, couplers and font in return for two of the three taps. Add a fourth tap only when all three kegs empty within about 10 days. Bottled Kings and Budweiser cover budget drinkers and never go stale. Check every price against current Goa excise MRPs; craft draught at these prices runs about 30–40% beverage cost, bottles about 45–55%.</p>
           <p class="small">Before signing, ask each brewer: will they deliver to Betalbatim, what is the minimum order, keg size and price, which coupler type they use, whether they'll lend a kegerator or tower, and how long the unfiltered beer lasts. Each brewer's range is from public listings, so confirm what's currently in production.</p>
         </div>
       </div>
@@ -170,14 +170,13 @@ const MENU=[
   ['Veg Manchurian, gravy','Cabbage, carrot, beans and spring onion dumplings in a dark ginger-garlic-soy gravy','Veg balls fried crisp, then simmered briefly in Manchurian sauce. Made for fried rice.',260,V,'',1,null]]},
  {id:'sweet',t:'Sweet',k:'To finish',items:[
   ['Darsaan with ice cream','Flat noodles, honey, sesame, vanilla ice cream','The old cabins\u2019 favourite dessert: noodles fried crisp, then tossed in hot honey.',220,V,'kol',0,null]]},
- {id:'tap',t:'On tap',k:'Six taps, all brewed up the coast · 330 ml / 500 ml',drink:true,items:[
-  ['Comrade Crisp|People\u2019s Lager','Pilsner malt, Japanese rice, noble hops','A light rice lager from a small farm-to-barrel brewery in Sangolda. Crisp and clean: the beach beer.','₹240 / 320','',0,['pint','#f2c24a']],
-  ['Wit Happens|Susegado Tropical Wit','Wheat, orange peel, coriander','Hazy and soft, from the coast\u2019s first craft brewer. It goes with dim sum.','₹260 / 340','',0,['pint','#f2d27a']],
-  ['Gose Bumps|Susegado Kokum Gose','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink, soured with kokum from our own coast.','₹280 / 380','goa',0,['pint','#d86a7a']],
-  ['Hoppy Hippie|Eight Finger Eddie IPA','Pale malt, oats, tropical hops, double dry-hopped','A hazy oat-cream IPA from the Sangolda brewers. Juicy, then bitter: it stands up to Cabin Fever.','₹280 / 380','',0,['pint','#e0a02a']],
-  ['Midnight Snack|Susegado Vanilla Porter','Roasted malt, chocolate malt, vanilla','Dark, smooth and roasty: a dessert in the glass.','₹280 / 380','',0,['pint','#2a1408','#e8d6b8']],
-  ['Gimme Gimme Gimme|Maka Di guest tap','Honey Ale, Belgian Tripel or Rocket Rice Lager, whichever is pouring','From the Dicholi brewery whose name is Konkani for \u201cgive me\u201d. Changes every week.','₹280 / 380','',0,['pint','#d99a3a']],
-  ['Pitcher or tasting paddle','1.5 L pitcher ₹999 · 4 × 150 ml paddle ₹420','Pick from whatever is pouring today.','₹420+','',0,['paddle']]]},
+ {id:'tap',t:'Beer',k:'Three craft taps from up the coast, plus two in the bottle · draught 330 ml / 500 ml',drink:true,items:[
+  ['Comrade Crisp|People’s Lager · on tap','Pilsner malt, Japanese rice, noble hops','A light rice lager from a small farm-to-barrel brewery in Sangolda. Crisp and clean: the beach beer.','₹220 / 300','',0,['pint','#f2c24a']],
+  ['Gose Bumps|Susegado Kokum Gose · on tap','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink, soured with kokum from our own coast. The one to try first.','₹260 / 350','goa',0,['pint','#d86a7a']],
+  ['Gimme Gimme Gimme|Guest tap · rotating','Eight Finger Eddie IPA, Susegado Vanilla Porter or a Maka Di ale, whichever is pouring','A new keg from up the coast every couple of weeks. Ask what’s on.','₹260 / 360','',0,['pint','#d99a3a']],
+  ['Kings|Premium pilsner · bottle','Crisp, light, a little malty','The coast’s own cult lager, ice-cold. 330 ml or the 650 ml to share.','₹120 / 180','',0,null],
+  ['Budweiser|American lager · bottle','Light, clean, gently sweet','The easy classic. 330 ml or 650 ml.','₹180 / 260','',0,null],
+  ['Pitcher or tasting paddle','1.5 L pitcher of Comrade Crisp ₹850 (craft ₹950) · 3 × 150 ml paddle of all three taps ₹320','The paddle is the best way to meet the taps.','₹320+','',0,['paddle']]]},
  {id:'spirits',t:'Whisky',k:'Single malt, blended Scotch & Irish · 30 ml / 60 ml',drink:true,items:[
   ['Paul John Brilliance|Indian single malt','Honey, vanilla, toffee, a little spice','Distilled in Cuncolim, 15 km away. Neat or on one large cube.','₹320 / 600','goa',0,null],
   ['Amrut Fusion|Indian single malt','Malt, dark chocolate, soft peat smoke','Neat, with a few drops of water.','₹420 / 800','',0,null],
@@ -218,7 +217,7 @@ const MENU=[
   ['Steamer for two','Chef’s 8 dim sum + 2 bao','Our pick from today’s steamers.','₹980','',0,['set']],
   ['Cabin feast for four','Chimney soup, chilli chicken, golden prawns, mixed chowmein, fried rice, darsaan','The Tangra table, served family style.','₹2,950','kol',0,['chimney']],
   ['Cabin combo lunch','Chowmein or fried rice with chilli chicken (₹440) or chilli paneer (₹380)','Noon to 4 pm. One big plate, served together.','₹380+','kol',0,null],
-  ['Happy hour, 5–7 pm','330 ml taps ₹199 · crystal veg dumplings ₹179 · Cabin Fever chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
+  ['Happy hour, 5–7 pm','330 ml taps ₹179 · Kings 330 ml ₹99 · crystal veg dumplings ₹179 · Cabin Fever chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
 ];
 // course order: food first, then sets, then drinks, with sweets to close
 const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','vodka','cocktails','zero','coffee','sweet'];
