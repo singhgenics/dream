@@ -94,7 +94,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <footer class="mf">
       <span>Prices in ₹, taxes extra. Spirits are poured in 30 ml / 60 ml. Please drink responsibly. Alcohol is served only to guests aged 21 and over.</span>
       <span>Food is on the separate food menu.</span>
-      <span>The guest tap changes every couple of weeks.</span>
+      <span>Happy hour 4–7 pm daily: 330 ml taps ₹179 · Kings 330 ml ₹99. The guest tap changes every couple of weeks.</span>
     </footer>
   </main>
 
@@ -134,35 +134,6 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
 // [name, what's in it, how it's made, price, mark, badge('kol'|'goa'|''), heat, art]
 const V='v',NV='nv';
 const MENU=[
- {id:'soups',t:'Soups',k:'Old cabin style · by the bowl',items:[
-  ['Tangra chimney soup, for 2–3','Clear chicken-pork stock, chicken, prawns, fish balls, bok choy, mushroom, glass noodles','Stock simmered for six hours, then served bubbling at the table in a brass chimney hotpot.','480 / 580',NV,'kol',0,null],
-  ['Hot & sour soup','Mushroom, bamboo shoot, tofu, egg ribbons, soy, black vinegar, white pepper (chicken +₹40)','Thickened with cornflour, egg swirled in, finished sharp with vinegar and pepper.',180,V,'',2,null]]},
- {id:'kolkata',t:'Cabin starters',k:'Tangra classics · from the wok',items:[
-  ['Cabin Fever|Chilli chicken, dry','Boneless chicken thigh, egg and cornflour batter, green chilli, onion, capsicum, soy, garlic','Double-fried for crunch, then tossed on full flame so the sauce catches and smokes.',320,NV,'kol',2,null],
-  ['Prawn Stars|Golden fried prawns, 5 pc','Tiger prawns, egg-flour batter, salt and pepper, with kasundi mustard','Butterflied, battered and fried golden, with sharp Bengali kasundi on the side, the way the cabins serve it.',460,NV,'kol',0,null],
-  ['Something Fishy|Chonak (bhetki) fish fingers, salt & pepper','Chonak fillet, egg and cornflour batter, crushed pepper, fried garlic, green chilli, spring onion, garlic-chilli mayo','Our own coast\u2019s chonak, the fish the City of Joy calls bhetki. Cut into fingers, double-fried, then tossed with salt, pepper and crisp garlic. Built for a cold pint.',420,NV,'kol',1,null],
-  ['The Tangra Pig-Out|Chilli pork, Tangra style','Pork belly, dried red chilli, garlic, dark soy, spring onion','Boiled, sliced, crisped in the wok, then tossed with dried chillies.',360,NV,'kol',2,null],
-  ['Paneer Pressure|Chilli paneer, dry','Paneer, cornflour coat, green chilli, onion, capsicum, soy','Paneer fried crisp outside and soft inside, then tossed in the chilli wok sauce.',280,V,'',2,null],
-  ['Honey, I Fried the Spuds|Honey chilli potato','Potato fingers, honey, red chilli, sesame, spring onion','Twice-fried fingers tossed in a sticky honey-chilli glaze.',220,V,'',1,null]]},
- {id:'dimsum',t:'Dim sum',k:'Hand-pleated · 4 to a basket',items:[
-  ['Har gow','Prawn, bamboo shoot, wheat-starch wrapper','Pleated by hand and steamed for 6 minutes until the skin turns translucent.',340,NV,'',0,null],
-  ['Chouriço siu mai','Chouriço (the coast\u2019s smoky pork sausage) and chicken, chilli oil','Our one dumpling from the Konkan pantry: steamed open, the chouriço brings smoke and spice.',300,NV,'goa',1,null],
-  ['Pork xiao long bao','Pork, set pork-stock jelly, ginger, with black vinegar','The jelly melts while steaming, so each one holds a spoonful of soup.',340,NV,'',0,null],
-  ['Crystal veg dumplings','Water chestnut, carrot, edamame, spring onion','Clear wheat-starch skin, steamed so you can see the colours through it.',220,V,'',0,null]]},
- {id:'bao',t:'Bao',k:'Soft steamed buns · 2 to a plate',items:[
-  ['Pork belly bao','Braised pork belly, hoisin, cucumber, peanut crumb, coriander','Belly braised for three hours in soy and star anise, then seared to order.',320,NV,'',0,null],
-  ['Chilli chicken bao','Our Cabin Fever chilli chicken, pickled onion, chilli mayo','The cabin classic tucked into a soft bun.',280,NV,'kol',2,null],
-  ['Gochujang paneer bao','Charred paneer, gochujang glaze, cucumber, sesame','Paneer seared hard, glazed with gochujang, finished with cucumber.',260,V,'',1,null]]},
- {id:'korean',t:'Korean corner',k:'The only Korean in Betalbatim',items:[
-  ['Korean fried wings, 6 pc','Chicken wings, potato-starch crust; soy-garlic or yangnyeom (sweet-spicy gochujang)','Fried twice for a glass-crisp shell, then brushed with sauce.',380,NV,'',1,null],
-  ['Kimchi fries','Fries, house veg kimchi, melted cheese, gochujang mayo','Fries loaded and finished under the torch.',240,V,'',1,null]]},
- {id:'mains',t:'Cabin mains',k:'Noodles, rice & gravies · from the wok',items:[
-  ['Cabin mixed chowmein','Thin egg noodles, egg, chicken, prawn, cabbage, spring onion, with chilli vinegar (veg ₹260 · chicken ₹300)','Street-style: noodles tossed dry on high heat with egg scrambled through.',340,NV,'kol',1,null],
-  ['Mixed fried rice','Rice, egg, chicken, prawn, carrot, beans, spring onion (chicken only ₹280)','Day-old rice so every grain separates, cooked with real wok hei.',320,NV,'',0,null],
-  ['Burnt garlic veg fried rice','Rice, burnt garlic, carrot, beans, cabbage, spring onion, light soy','Garlic fried to a deep gold first, then the rice tossed through it on full flame.',240,V,'',0,null],
-  ['Veg Manchurian, gravy','Cabbage, carrot, beans and spring onion dumplings in a dark ginger-garlic-soy gravy','Veg balls fried crisp, then simmered briefly in Manchurian sauce. Made for fried rice.',260,V,'',1,null]]},
- {id:'sweet',t:'Sweet',k:'To finish',items:[
-  ['Darsaan with ice cream','Flat noodles, honey, sesame, vanilla ice cream','The old cabins\u2019 favourite dessert: noodles fried crisp, then tossed in hot honey.',220,V,'kol',0,null]]},
  {id:'tap',t:'Beer',k:'Three craft taps from up the coast, plus two in the bottle · draught 330 ml / 500 ml',drink:true,items:[
   ['Comrade Crisp|People’s Lager · on tap','Pilsner malt, Japanese rice, noble hops','A light rice lager from a small farm-to-barrel brewery in Sangolda. Crisp and clean: the beach beer.','₹220 / 300','',0,['pint','#f2c24a']],
   ['Gose Bumps|Susegado Kokum Gose · on tap','Wheat, kokum, sea salt, lactic culture','Tart, salty and pink, soured with kokum from our own coast. The one to try first.','₹260 / 350','goa',0,['pint','#d86a7a']],
@@ -205,12 +176,7 @@ const MENU=[
   ['Tonic or ginger ale','Indian tonic water or ginger ale','Our mixers, on their own over ice.','₹120','',0,null]]},
  {id:'coffee',t:'Hot coffee',k:'Freshly brewed at the bar, all day',drink:true,items:[
   ['Brewed coffee','Single-estate Indian arabica, medium roast','Filter-brewed in small batches through the day and poured at the bar. Black, or with hot milk.','₹120 / 140','',0,null],
-  ['Irish coffee','Brewed coffee, Jameson Irish whiskey, brown sugar, lightly whipped cream','Our one hot cocktail: sweet, spiked and capped with cold cream.','₹360','',0,null]]},
- {id:'table',t:'For the table',k:'Sets & happy hour',sets:true,drink:true,items:[
-  ['Steamer for two','Chef’s 8 dim sum + 2 bao','Our pick from today’s steamers.','₹980','',0,['set']],
-  ['Cabin feast for four','Chimney soup, chilli chicken, golden prawns, mixed chowmein, fried rice, darsaan','The Tangra table, served family style.','₹2,950','kol',0,['chimney']],
-  ['Cabin combo lunch','Chowmein or fried rice with chilli chicken (₹440) or chilli paneer (₹380)','Noon to 4 pm. One big plate, served together.','₹380+','kol',0,null],
-  ['Happy hour, 5–7 pm','330 ml taps ₹179 · Kings 330 ml ₹99 · crystal veg dumplings ₹179 · Cabin Fever chilli chicken ₹249','Every day at the bar and in the beer garden.','daily','',0,null]]}
+  ['Irish coffee','Brewed coffee, Jameson Irish whiskey, brown sugar, lightly whipped cream','Our one hot cocktail: sweet, spiked and capped with cold cream.','₹360','',0,null]]}
 ];
 // course order: food first, then sets, then drinks, with sweets to close
 const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','vodka','cocktails','zero','coffee','sweet'];
