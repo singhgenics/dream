@@ -28,3 +28,9 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 - `Restaurant_Calculator.xlsx`: current unit economics (source of truth)
 - `Betalbatim_Restaurant_Dashboard.xlsx`: earlier dashboard, still on the old numbers
 - `gmaps/`: competitor research and report
+
+## Local folders (not published, git-ignored)
+- `Legal/`: title deed, consent documents, rent agreement drafts (full-name copies stay local).
+- `Drafts/`: earlier render drafts (`r9_*.html`), fit-out checklist, ground-floor plan PDF.
+- `Reference/`: stray reference images.
+- `Menu-repo/` (singhgenics/Menu), `Simplex/` (singhgenics/Simplex), `Dimo/` (singhgenics/Dimo, private): separate git repos.
