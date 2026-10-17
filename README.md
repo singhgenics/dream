@@ -2,14 +2,12 @@
 
 Planning workspace for a small dim sum and craft-beer pub in Betalbatim, South Goa.
 
-## 3D models
+## Design
 
-Open either HTML file in a browser to orbit around the model.
+The current design (no loft, 4.9 × 8.8 m shell, 26 covers) lives in its own repo: https://github.com/singhgenics/Simplex, live at https://singhgenics.github.io/Simplex/. The earlier loft concepts were dropped.
 
-- `index.html`: the current model as a standalone page, used for GitHub Pages
-- `betalbatim-pub-3d.html`: current concept (v16). A warm loft-style 34-cover dim sum and craft-beer pub in a 4.5 × 4.5 × 10.5 m shell: 12 on the ground floor (bar, lounge, booth under the stair), 16 in the loft, 6 in a misted beer garden, plus a standing photo booth and one unisex washroom. Click any zone to explore it.
-- `lantern-loft-3d.html`: first concept (v1), based on the earlier 6.5 m depth estimate.
-- `site-shell-3d.html`: the bare shell as found in `IMG_2772.MOV`, with no fit-out: right-wall pillars, the lintel ledge at about 2.45 m, the coffered beam grid under the flat 4.5 m ceiling, and the tall roller shutter. Live at https://singhgenics.github.io/dream/shell/ (`shell/index.html` is the Pages wrapper).
+- `site-shell-3d.html`: the bare shell as found in `IMG_2772.MOV`. Live at https://singhgenics.github.io/dream/shell/ (`shell/index.html` is the Pages wrapper).
+- `index.html`: small landing page for https://singhgenics.github.io/dream/
 
 ## Menu
 
@@ -22,7 +20,7 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 
 ## Other files
 
-- `Design ideas/`: interior inspiration images used for v2
+- `Design ideas/`: interior inspiration images
 - `IMG_2772.MOV`: walkthrough video of the site
 - `Dream.md`: original planning discussion
 - `Restaurant_Calculator.xlsx`: current unit economics (source of truth)
@@ -31,6 +29,6 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 
 ## Local folders (not published, git-ignored)
 - `Legal/`: title deed, consent documents, rent agreement drafts (full-name copies stay local).
-- `Drafts/`: earlier render drafts (`r9_*.html`), fit-out checklist, ground-floor plan PDF.
-- `Reference/`: stray reference images.
+- `Drafts/`: no-loft render drafts (`r9_*.html`), fit-out checklist, ground-floor plan PDF.
+- `Reference/`: reference images.
 - `Menu-repo/` (singhgenics/Menu), `Simplex/` (singhgenics/Simplex), `Dimo/` (singhgenics/Dimo, private): separate git repos.
