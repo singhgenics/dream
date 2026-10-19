@@ -1,6 +1,6 @@
 # Dream
 
-Planning workspace for a small dim sum and craft-beer pub in Betalbatim, South Goa.
+Planning workspace for Cabin East (Wok | Steam | Draught), a small wok, dim sum and craft-beer pub in Betalbatim, South Goa.
 
 ## Design
 
