@@ -31,4 +31,5 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 - `Legal/`: title deed, consent documents, rent agreement drafts (full-name copies stay local).
 - `Drafts/`: no-loft render drafts (`r9_*.html`), fit-out checklist, ground-floor plan PDF.
 - `Reference/`: reference images.
-- `Menu-repo/` (singhgenics/Menu), `Simplex/` (singhgenics/Simplex), `Dimo/` (singhgenics/Dimo, private): separate git repos.
+- `Menu-repo/` (singhgenics/Menu) and `Simplex/` (singhgenics/Simplex): separate git repos.
+- `CabinEast/`: Cabin East logo, direction board and brand kit (source and build scripts; the published kit page is `Simplex/brand-kit.html`).
