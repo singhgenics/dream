@@ -4,7 +4,7 @@ Planning workspace for Cabin East (Wok | Steam | Draught), a small wok, dim sum 
 
 ## Design
 
-The current design (no loft, 4.9 × 8.8 m shell, 26 covers) lives in its own repo: https://github.com/singhgenics/Simplex, live at https://singhgenics.github.io/Simplex/. The earlier loft concepts were dropped.
+The current design (no loft, 4.9 × 8.8 m shell, 28 covers) lives in its own repo: https://github.com/singhgenics/Simplex, live at https://singhgenics.github.io/Simplex/. The earlier loft concepts were dropped.
 
 - `site-shell-3d.html`: the bare shell as found in `IMG_2772.MOV`. Live at https://singhgenics.github.io/dream/shell/ (`shell/index.html` is the Pages wrapper).
 - `index.html`: small landing page for https://singhgenics.github.io/dream/
