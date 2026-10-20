@@ -93,7 +93,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
 
   <main id="menu" role="tabpanel" aria-labelledby="tab-menu">
     <div class="legend">
-      <span><b class="kol">Cabin classic</b>From the old Chinese cabins of the City of Joy</span>
+      <span><b class="kol">Cabin classic</b>One of our wok classics</span>
       <span><b class="goa">Konkan touch</b>Made with something from our own coast</span>
     </div>
     <nav class="jump" id="jump" aria-label="Sections"></nav>
@@ -101,7 +101,7 @@ td.n{text-align:right;font-family:var(--mono);white-space:nowrap}
     <footer class="mf">
       <span>Prices in ₹, taxes extra. Spirits are poured in 30 ml / 60 ml. Please drink responsibly. Alcohol is served only to guests aged 21 and over.</span>
       <span>Food is on the separate food menu.</span>
-      <span>Happy hour 4–8 pm daily: 330 ml taps ₹179 · Kings 330 ml ₹99. The guest tap changes every couple of weeks.</span>
+      <span>Happy hour 12–6 pm daily: 330 ml taps ₹179 · Kings 330 ml ₹99. The guest tap changes every couple of weeks.</span>
     </footer>
   </main>
 
@@ -186,7 +186,7 @@ const MENU=[
   ['Irish coffee','Brewed coffee, Jameson Irish whiskey, brown sugar, lightly whipped cream','Our one hot cocktail: sweet, spiked and capped with cold cream.','₹360','',0,null]]}
 ];
 // course order: food first, then sets, then drinks, with sweets to close
-const ORDER=['soups','kolkata','dimsum','bao','korean','mains','table','tap','spirits','vodka','cocktails','zero','coffee','sweet'];
+const ORDER=['soups','wok','dimsum','bao','korean','mains','table','tap','spirits','vodka','cocktails','zero','coffee','sweet'];
 MENU.sort((x,y)=>ORDER.indexOf(x.id)-ORDER.indexOf(y.id));
 {const KEEP=['tap','spirits','vodka','cocktails','zero','coffee'];for(let i=MENU.length-1;i>=0;i--)if(!KEEP.includes(MENU[i].id))MENU.splice(i,1);} // drinks menu only
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
