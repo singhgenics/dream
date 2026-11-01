@@ -14,7 +14,6 @@ All active design work is in the Garden repo (`Garden/web`, singhgenics/Garden):
 
 The `Simplex/` repo (singhgenics/Simplex, https://singhgenics.github.io/Simplex/) now holds only the published brand kit and brand and merch pages. The old Betalbatim model, plans, BOQs, quotes and licences were removed on 2026-11-01 (they remain in that repo's git history).
 
-- `site-shell-3d.html`: the bare shell as found in `IMG_2772.MOV`. Live at https://singhgenics.github.io/dream/shell/ (`shell/index.html` is the Pages wrapper).
 - `index.html`: small landing page for https://singhgenics.github.io/dream/
 
 ## Menu
