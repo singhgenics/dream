@@ -10,9 +10,9 @@ All active design work is in the Garden repo (`Garden/web`, singhgenics/Garden):
 - Decor concept: https://singhgenics.github.io/Garden/decor.html (source `Garden/Decor`)
 - Menu site (copy of the Menu repo): `Garden/web/menu/`, live at https://singhgenics.github.io/Garden/menu/ once pushed. The original `Menu-repo/` (singhgenics/Menu) is kept untouched because its edit hook and build scripts use fixed paths.
 
-## Archived: Simplex (Betalbatim pub)
+## Brand pages: Simplex repo
 
-The earlier Betalbatim pub design (4.9 × 8.8 m shell, 28 covers) is archived, not deleted: local folder `Archive/Simplex/` (singhgenics/Simplex, still live at https://singhgenics.github.io/Simplex/). The earlier loft concepts were dropped before that.
+The `Simplex/` repo (singhgenics/Simplex, https://singhgenics.github.io/Simplex/) now holds only the published brand kit and brand and merch pages. The old Betalbatim model, plans, BOQs, quotes and licences were removed on 2026-11-01 (they remain in that repo's git history).
 
 - `site-shell-3d.html`: the bare shell as found in `IMG_2772.MOV`. Live at https://singhgenics.github.io/dream/shell/ (`shell/index.html` is the Pages wrapper).
 - `index.html`: small landing page for https://singhgenics.github.io/dream/
@@ -36,5 +36,5 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 - `Quotes/`, `TableSetting/`, `pos/`: vendor quote notes, table-setting page, point-of-sale app.
 - `Links/`: the phone-friendly link index (`python3 links_build.py` inside the folder).
 
-- `Menu-repo/` (singhgenics/Menu), `Garden/web` (singhgenics/Garden) and `Archive/Simplex` (singhgenics/Simplex): separate git repos.
-- `CabinEast/`: Cabin East logo, direction board and brand kit (source and build scripts; the published kit page is `Archive/Simplex/brand-kit.html`).
+- `Menu-repo/` (singhgenics/Menu), `Garden/web` (singhgenics/Garden) and `Simplex/` (singhgenics/Simplex, brand pages): separate git repos.
+- `CabinEast/`: Cabin East logo, direction board and brand kit (source and build scripts; the published kit page is `Simplex/brand-kit.html`).
