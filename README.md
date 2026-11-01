@@ -2,9 +2,17 @@
 
 Planning workspace for Cabin East (Wok | Steam | Draught), a small wok, dim sum and craft-beer pub in Betalbatim, South Goa.
 
-## Design
+## Current focus: the Garden
 
-The current design (no loft, 4.9 × 8.8 m shell, 28 covers) lives in its own repo: https://github.com/singhgenics/Simplex, live at https://singhgenics.github.io/Simplex/. The earlier loft concepts were dropped.
+All active design work is in the Garden repo (`Garden/web`, singhgenics/Garden): the 3D model, decor concept, equipment and stock plans, and now the menu site.
+
+- Garden model: https://singhgenics.github.io/Garden/ (source `Garden/web/garden.html`)
+- Decor concept: https://singhgenics.github.io/Garden/decor.html (source `Garden/Decor`)
+- Menu site (copy of the Menu repo): `Garden/web/menu/`, live at https://singhgenics.github.io/Garden/menu/ once pushed. The original `Menu-repo/` (singhgenics/Menu) is kept untouched because its edit hook and build scripts use fixed paths.
+
+## Archived: Simplex (Betalbatim pub)
+
+The earlier Betalbatim pub design (4.9 × 8.8 m shell, 28 covers) is archived, not deleted: local folder `Archive/Simplex/` (singhgenics/Simplex, still live at https://singhgenics.github.io/Simplex/). The earlier loft concepts were dropped before that.
 
 - `site-shell-3d.html`: the bare shell as found in `IMG_2772.MOV`. Live at https://singhgenics.github.io/dream/shell/ (`shell/index.html` is the Pages wrapper).
 - `index.html`: small landing page for https://singhgenics.github.io/dream/
@@ -28,5 +36,5 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 - `Quotes/`, `TableSetting/`, `pos/`: vendor quote notes, table-setting page, point-of-sale app.
 - `Links/`: the phone-friendly link index (`python3 links_build.py` inside the folder).
 
-- `Menu-repo/` (singhgenics/Menu) and `Simplex/` (singhgenics/Simplex): separate git repos.
-- `CabinEast/`: Cabin East logo, direction board and brand kit (source and build scripts; the published kit page is `Simplex/brand-kit.html`).
+- `Menu-repo/` (singhgenics/Menu), `Garden/web` (singhgenics/Garden) and `Archive/Simplex` (singhgenics/Simplex): separate git repos.
+- `CabinEast/`: Cabin East logo, direction board and brand kit (source and build scripts; the published kit page is `Archive/Simplex/brand-kit.html`).
