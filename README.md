@@ -31,7 +31,7 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 - `Research/`: `Dream.md` (original planning discussion), `Design-ideas/` (interior inspiration images and the site walkthrough video), `Reference/` (local reference images)
 - `gmaps/`: competitor and market research and reports (kept at the root because its pages are published)
 - `Legal/`: title deed, consent documents, rent agreement drafts (git-ignored, full-name copies stay local).
-- `TableSetting/`, `pos/`: table-setting page, point-of-sale app.
+- `pos/`: point-of-sale app.
 - `Links/`: the phone-friendly link index (`python3 links_build.py` inside the folder).
 
 - `Menu-repo/` (singhgenics/Menu), `Garden/web` (singhgenics/Garden) and `Simplex/` (singhgenics/Simplex, brand pages): separate git repos.
