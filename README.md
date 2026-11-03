@@ -8,7 +8,7 @@ All active design work is in the Garden repo (`Garden/web`, singhgenics/Garden):
 
 - Garden model: https://singhgenics.github.io/Garden/ (source `Garden/web/garden.html`)
 - Decor concept: https://singhgenics.github.io/Garden/decor.html (source `Garden/Decor`)
-- Menu site (copy of the Menu repo): `Garden/web/menu/`, live at https://singhgenics.github.io/Garden/menu/ once pushed. The original `Menu-repo/` (singhgenics/Menu) is kept untouched because its edit hook and build scripts use fixed paths.
+- Menu (the one home for everything menu): `Garden/web/menu/`, live at https://singhgenics.github.io/Garden/menu/ . Menu data and A2 board PDFs in `source/`, photo menu in `picture/`, build and edit procedure in `UPDATE.md`.
 
 ## Brand pages: Simplex repo
 
@@ -18,12 +18,7 @@ The `Simplex/` repo (singhgenics/Simplex, https://singhgenics.github.io/Simplex/
 
 ## Menu
 
-The food and drinks menus are separate, each with its own owner's notes and PDF.
-
-- Menu chooser: https://singhgenics.github.io/dream/menu/
-- Food menu: `food.html` (source) → `menu/food/index.html`, live at https://singhgenics.github.io/dream/menu/food/ · print: `menu-food.pdf` (front of the board, one A2 sheet)
-- Drinks menu: `drinks.html` (source) → `menu/drinks/index.html`, live at https://singhgenics.github.io/dream/menu/drinks/ · print: `menu-drinks.pdf` (back of the board, one A2 sheet)
-- Two-sided board: `menu-board.pdf`, food on page 1 (front) and drinks on page 2 (back), A2 portrait 420 × 594 mm, three columns per side
+The menu lives only in the Garden repo: `Garden/web/menu/` (https://singhgenics.github.io/Garden/menu/). Prices carry no rupee sign. The printed A2 boards are rebuilt by `CabinEast/src/render_boards.sh` into `Garden/web/menu/source/`.
 
 ## Folders by topic
 
@@ -34,5 +29,5 @@ The food and drinks menus are separate, each with its own owner's notes and PDF.
 - `pos/`: point-of-sale app.
 - `Links/`: the phone-friendly link index (`python3 links_build.py` inside the folder).
 
-- `Menu-repo/` (singhgenics/Menu), `Garden/web` (singhgenics/Garden) and `Simplex/` (singhgenics/Simplex, brand pages): separate git repos.
+- `Garden/web` (singhgenics/Garden) and `Simplex/` (singhgenics/Simplex, brand pages): separate git repos.
 - `CabinEast/`: Cabin East logo, direction board and brand kit (source and build scripts; the published kit page is `Simplex/brand-kit.html`).
