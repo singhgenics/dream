@@ -8,7 +8,7 @@ All active design work is in the Garden repo (`Garden/web`, singhgenics/Garden):
 
 - Garden model: https://singhgenics.github.io/Garden/ (source `Garden/web/garden.html`)
 - Decor concept: https://singhgenics.github.io/Garden/decor.html (source `Garden/Decor`)
-- Menu (the one home for everything menu): `Garden/web/menu/`, live at https://singhgenics.github.io/Garden/menu/ . Menu data and A2 board PDFs in `source/`, photo menu in `picture/`, build and edit procedure in `UPDATE.md`.
+- Menu: only the picture menu is kept, `Garden/web/menu/`, live at https://singhgenics.github.io/Garden/menu/ .
 
 ## Brand pages: Simplex repo
 
@@ -18,7 +18,7 @@ The `Simplex/` repo (singhgenics/Simplex, https://singhgenics.github.io/Simplex/
 
 ## Menu
 
-The menu lives only in the Garden repo: `Garden/web/menu/` (https://singhgenics.github.io/Garden/menu/). Prices carry no rupee sign. The printed A2 boards are rebuilt by `CabinEast/src/render_boards.sh` into `Garden/web/menu/source/`.
+Only the photo-led picture menu is kept: `Garden/web/menu/` (https://singhgenics.github.io/Garden/menu/). Prices carry no rupee sign. The older menu, crockery, plating and board files were removed on 2026-11-03 and are in the Garden repo's git history.
 
 ## Folders by topic
 
