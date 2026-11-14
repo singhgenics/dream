@@ -8,7 +8,7 @@ All active design work is in the Garden repo (`Garden/web`, singhgenics/Garden):
 
 - Garden model: https://singhgenics.github.io/Garden/ (source `Garden/web/garden.html`)
 - Decor concept: https://singhgenics.github.io/Garden/decor.html (source `Garden/Decor`)
-- Menu: the photo menu, live at https://singhgenics.github.io/Garden/menu/ (source `Garden/menu/`, published copy in `Garden/web/menu/`). A text-led printed dine-in menu is built but not published (`Garden/menu/dine-in.html`).
+- Menu: the photo menu, live at https://singhgenics.github.io/Garden/menu/ (source `Garden/menu/`, published copy in `Garden/web/menu/`).
 
 ## Brand pages: Simplex repo
 
@@ -18,7 +18,7 @@ The `Simplex/` repo (singhgenics/Simplex, https://singhgenics.github.io/Simplex/
 
 ## Menu
 
-The photo menu is live at https://singhgenics.github.io/Garden/menu/ (veg / non-veg filter, allergens, dessert on request). Edit dishes and prices in `Garden/menu/build.py`, rebuild, then copy `index.html`, `picture-menu.pdf`, `build.py`, `fonts/`, `img/` and `logo/` into `Garden/web/menu/` and push the Garden repo. The printed dine-in menu (`dine-in.html`, `dine-in-menu.pdf`) and the notes from the Menu Engineering notebook (`expert-notes-menu-engineering.md`) stay local for now. Prices carry no rupee sign. The older menu, crockery, plating and board files were removed on 2026-11-03 and are in the Garden repo's git history.
+The photo menu is live at https://singhgenics.github.io/Garden/menu/ (veg / non-veg filter, allergens, dessert on request). Edit dishes and prices in `Garden/menu/build.py`, rebuild, then copy `index.html`, `picture-menu.pdf`, `build.py`, `fonts/`, `img/` and `logo/` into `Garden/web/menu/` and push the Garden repo. The photo menu is also the dine-in menu. The notes from the Menu Engineering notebook (`expert-notes-menu-engineering.md`) stay local. Prices carry no rupee sign. The older menu, crockery, plating and board files were removed on 2026-11-03 and are in the Garden repo's git history.
 
 ## Folders by topic
 
